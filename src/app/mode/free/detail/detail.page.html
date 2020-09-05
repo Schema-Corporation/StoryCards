@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="mainImg" class="fullheight xc">
+    <ion-img src="{{this.card}}"></ion-img>
+  </div>
+  <div *ngIf="!mainImg">
+    <ion-img src="{{this.description}}"></ion-img>
+  </div>
+</ion-content>

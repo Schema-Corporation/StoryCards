@@ -27,10 +27,19 @@ const routes: Routes = [
       {
         path: 'groups',
         loadChildren: () => import('./mode/free/groups/groups.module').then( m => m.GroupsPageModule)
+      },
+      {
+        path: 'cards/:idGroup',
+        loadChildren: () => import('./mode/free/cards/cards.module').then( m => m.CardsPageModule)
+      },
+      {
+        path: 'detail/:idCard',
+        loadChildren: () => import('./mode/free/detail/detail.module').then( m => m.DetailPageModule)
       }
     ]
     
 }
+  
   
 ];
 @NgModule({
