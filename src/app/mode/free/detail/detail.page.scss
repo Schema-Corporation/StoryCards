@@ -1,14 +1,54 @@
 .fullheight {
+    position:relative;
     height: 100%;
+    background: #fafafa;
+    //align-items: center;
+    //justify-content: center;
   }
   
-  .xc {
-    padding-top: 50px;
+  .thecard {
+    position: absolute;
     align-items: center;
     justify-content: center;
+    width: 100%;
+    height: 90%;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+  }
+
+  .thecard.flipped{
+    transform: rotateY(180deg);
+  }
+
+  .front {
+    padding-top: 50px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #fafafa;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+  }
+
+  .back {
+    padding-top: 50px;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background: #fafafa;
+    backface-visibility: hidden;
+    text-align: center;
+    font-weight: bold;
+    font-size: 40px;
+    transform: rotateY(180deg)
   }
 
 .imgSize{
-    width: 75px;
-    height: 75px;
+    padding-top: 5px;
+    margin-left: 90%;
+    padding-right: 10px;
+    width: 40px;
+    height: 40px;
 }
+

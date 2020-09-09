@@ -38,7 +38,11 @@ const routes: Routes = [
       }
     ]
     
-}
+},
+  {
+    path: 'create-character',
+    loadChildren: () => import('./mode/role-play/create-character/create-character.module').then( m => m.CreateCharacterPageModule)
+  }
   
   
 ];

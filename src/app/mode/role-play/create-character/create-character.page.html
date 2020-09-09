@@ -1,0 +1,88 @@
+<ion-header>
+
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div class="progress-bar">
+      <div class="step">
+        
+          <div class="bullet" [ngClass]="{'step-colored': step == 1}">
+            <span></span>
+          </div>
+          <div class="check fas fa-check">
+          </div>
+          <p >Arquetipos</p>
+      </div>
+      <div class="step">
+        
+        <div class="bullet" [ngClass]="{'step-colored': step == 2}">
+          <span></span>
+        </div>
+        <div class="check fas fa-check">
+        </div>
+        <p>Competencias</p>
+      </div>
+      <div class="step">
+        
+        <div class="bullet" [ngClass]="{'step-colored': step == 3}">
+          <span></span>
+        </div>
+        <div class="check fas fa-check">
+        </div>
+        <p>Problema</p>
+      </div>
+      
+    </div>
+      
+  </div>
+
+ <div *ngIf="step==1">
+  <ion-item>
+    <ion-label class="ion-text-center">Arquetipos</ion-label>
+  </ion-item>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-img  src="/assets/icon/favicon.png"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img src="/assets/icon/favicon.png"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img src="/assets/icon/favicon.png"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-img src="/assets/icon/favicon.png"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img src="/assets/icon/favicon.png"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img src="/assets/icon/favicon.png"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-img src="/assets/icon/favicon.png"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img src="/assets/icon/favicon.png"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img src="/assets/icon/favicon.png"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <ion-button (click)="addStep()" >Div 1</ion-button>
+ </div>
+ <div *ngIf="step==2">
+  <ion-button (click)="addStep()">Div 2</ion-button>
+ </div>
+ <div *ngIf="step==3">
+  <ion-button>Div 3</ion-button>
+ </div>
+</ion-content>
