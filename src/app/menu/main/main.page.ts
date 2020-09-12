@@ -25,4 +25,8 @@ export class MainPage implements OnInit {
     this.navCtrl.navigateForward('free/groups')
   }
 
+  goToRolePlayModePage(){
+    this.navCtrl.navigateForward('create-character')
+  }
+
 }
