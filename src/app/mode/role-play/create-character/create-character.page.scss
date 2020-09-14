@@ -1,9 +1,12 @@
-@import url('https://fonts.googleapis.com/css?family=Poppins:400,500,600,700&display=swap');
+@font-face{
+  font-family: 'Cambriab';
+  src: url('../../../../assets/fonts/cambriab.ttf');
+}
 *{
   margin: 0;
   padding: 0;
   outline: none;
-  font-family: 'Poppins', sans-serif;
+  font-family: Cambriab;
 }
 body{
   display: flex;
@@ -17,12 +20,14 @@ body{
   color: #fff;
   background: #d43f8d;
 }
+
 .container{
   width: 330px;
   background: #fff;
   text-align: center;
   border-radius: 5px;
-  padding: 0px 30px 0px 20px;
+  padding: 0px 20px 0px 20px;
+  margin: auto;
 }
 .container header{
   font-size: 35px;
@@ -146,13 +151,13 @@ form .page .btns button.next{
   position: absolute;
   content: '';
   bottom: 11px;
-  right: -67px;
+  right: -69px;
   height: 3px;
-  width: 66px;
+  width: 67px;
   background: #262626;
 }
 .progress-bar .step .bullet.active:after{
-  background: #d43f8d;
+  background: #ccc6b6;
   transform: scaleX(0);
   transform-origin: left;
   animation: animate 0.3s linear forwards;
@@ -183,7 +188,7 @@ form .page .btns button.next{
   color: #fff;
 }
 .step-colored {
-    background-color: #d33f8d;
+    background-color: #ccc6b6;
 }
 
 .fullSizeCard{
