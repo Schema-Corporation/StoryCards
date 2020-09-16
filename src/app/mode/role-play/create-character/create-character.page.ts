@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { CharactersService } from 'src/app/services/firebase/characters.service';
 import { IParticipant } from 'src/common/types/participant';
 import { IAbility } from 'src/common/types/participant';
 
@@ -49,7 +50,8 @@ export class CreateCharacterPage implements OnInit {
 
   public participant: IParticipant;
 
-  constructor(private alertCtrl: AlertController) { }
+  constructor(private alertCtrl: AlertController,
+    private _characterService: CharactersService) { }
 
   ngOnInit() {
   }
@@ -256,6 +258,7 @@ export class CreateCharacterPage implements OnInit {
       challenge: this.challenge
     };
 
-    console.log('this.participant: ', this.participant);
+    this._characterService.createCharacter(this.participant);
+
   }
 }

@@ -14,6 +14,7 @@ import { AppComponent } from './app.component';
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
+import { CharactersService } from './services/firebase/characters.service';
 
 
 @NgModule({
@@ -28,6 +29,7 @@ import { environment } from '../environments/environment';
   ],
   
   providers: [
+    CharactersService,
     StatusBar,
     SplashScreen,
     { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
