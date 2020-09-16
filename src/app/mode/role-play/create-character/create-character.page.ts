@@ -1,5 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController } from '@ionic/angular';
+import { IParticipant } from 'src/common/types/participant';
+import { IAbility } from 'src/common/types/participant';
 
 
 @Component({
@@ -30,6 +32,7 @@ export class CreateCharacterPage implements OnInit {
   public seventhAbilityPoints:number = 0;
 
   public pointsAvailable:number = 15;
+  public abilitiesChosen: number = 3;
 
   public isNext: number = 4;
   public pointsReady: boolean = false;
@@ -38,6 +41,13 @@ export class CreateCharacterPage implements OnInit {
   public fifthReady: boolean = false;
   public sixthReady: boolean = false;
   public seventhReady: boolean = false;
+
+  public maximumCharactersAllowed: number = 200;
+  public challengeCharacters: number = 0;
+
+  public challenge: string;
+
+  public participant: IParticipant;
 
   constructor(private alertCtrl: AlertController) { }
 
@@ -121,6 +131,7 @@ export class CreateCharacterPage implements OnInit {
       default: break;
     }
     this.pointsAvailable--;
+    this.abilitiesChosen++;
     this.isNext++;
   }
 
@@ -130,7 +141,24 @@ export class CreateCharacterPage implements OnInit {
       'Habilidad', 'Análisis', 'Independencia', 'Curiosidad', 'Perspectiva', 'Persuasión', 'Carisma', 'Genera cambios', 'Motivador', 'Inspirador',
       'Compromiso', 'Lealtad', 'Diplomacía', 'Colaborativo', 'Honestidad', 'Practicidad', 'Optimismo', 'Dinamismo', 'Flexibilidad', 'Empatía',
       'Solidaridad', 'Responsabilidad social', 'Visionario', 'Creatividad', 'Iniciativa', 'Liderazgo', 'Responsable', 'Comunicación'];
+    // remove predefined abilities from the list
     abilities.splice((character - 1) * 3, 3);
+    // remove ability already chosen from the list
+    var fourthAbilityIndex;
+    var fifthAbilityIndex;
+    var sixthAbilityIndex;
+    abilities.forEach((ability, index) => {
+      if (ability == this.fourthAbility) fourthAbilityIndex = index;
+      if (ability == this.fifthAbility) fifthAbilityIndex = index;
+      if (ability == this.sixthAbility) sixthAbilityIndex = index;
+    });
+    var indexes = [fourthAbilityIndex, fifthAbilityIndex, sixthAbilityIndex];
+    for (var i = indexes.length -1; i >= 0; i--) {
+      if (indexes[i] != null) {
+        abilities.splice(indexes[i], 1);
+      }
+    }
+    // add all the other activities to the list
     abilities.forEach((ability, index) => {
       var inputElement;
       if (index == 0) {
@@ -174,9 +202,60 @@ export class CreateCharacterPage implements OnInit {
           }
         }
       ]});
-    
-    // alert.inputs = await this.generateList(this.character)
 
     await alert.present();
+  }
+
+  validateChallenge() {
+    return this.challengeCharacters > 0;
+  }
+
+  writeChallenge(ev: CustomEvent) {
+    this.challenge = ev.detail.value;
+    this.challengeCharacters = ev.detail.value.length;
+  }
+
+  getAbilities() {
+    var firstAbility = {
+      name: this.firstAbility,
+      points: this.firstAbilityPoints
+    };
+    var secondAbility = {
+      name: this.secondAbility,
+      points: this.secondAbilityPoints
+    };
+    var thirdAbility = {
+      name: this.thirdAbility,
+      points: this.thirdAbilityPoints
+    };
+    var fourthAbility = {
+      name: this.fourthAbility,
+      points: this.fourthAbilityPoints
+    };
+    var fifthAbility = {
+      name: this.fifthAbility,
+      points: this.fifthAbilityPoints
+    };
+    var sixthAbility = {
+      name: this.sixthAbility,
+      points: this.sixthAbilityPoints
+    };
+    var seventhAbility = {
+      name: this.seventhAbility,
+      points: this.seventhAbilityPoints
+    };
+    var listAbilities = new Array<IAbility>();
+    listAbilities.push(firstAbility, secondAbility, thirdAbility, fourthAbility, fifthAbility, sixthAbility, seventhAbility);
+    return listAbilities;
+  }
+
+  createCharacter() {
+    this.participant = {
+      character: this.character,
+      abilites: this.getAbilities(),
+      challenge: this.challenge
+    };
+
+    console.log('this.participant: ', this.participant);
   }
 }

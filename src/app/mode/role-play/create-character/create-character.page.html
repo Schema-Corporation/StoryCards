@@ -141,14 +141,13 @@
   <ion-button *ngIf="character != -1" (click)="addStep()" class="next-button" >Siguiente</ion-button>
  </div>
  <div *ngIf="step==2 && character != -1">
+  <div>
+    <ion-item class="abilities-statistics">
+      <ion-label class="ion-text-right">Puntos por asignar: {{this.pointsAvailable}} <br> 
+        Habilidades escogidas: {{this.abilitiesChosen}} / 7</ion-label>
+    </ion-item>
+  </div>
   <ion-grid>
-    <ion-row>
-      <ion-header>
-        <div class="points-available">
-          Puntos por asignar: {{this.pointsAvailable}}
-        </div>
-      </ion-header>
-    </ion-row>
     <ion-row>
       <ion-col>
         <ion-card class="fullSizeCard">
@@ -358,12 +357,20 @@
         </ion-card>
       </ion-col>
       <ion-col>
+        
       </ion-col>
     </ion-row>
   </ion-grid>
   <ion-button *ngIf="validatePoints()" (click)="addStep()" class="next-button">Siguiente</ion-button>
  </div>
  <div *ngIf="step==3">
-  <ion-button>Div 3</ion-button>
+  <div class="challenge-header">
+    Crea un reto
+  </div>
+  <ion-item class="challenge-item">
+    <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeChallenge($event)" placeholder="Escribe tu reto ..."></ion-textarea>
+  </ion-item>
+  <ion-label class="ion-text-right">{{this.challengeCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
+  <ion-button *ngIf="validateChallenge()" class="next-button" (click)="createCharacter()">Finalizar</ion-button>
  </div>
 </ion-content>
