@@ -124,7 +124,7 @@ form .page .btns button.next{
 .progress-bar .step .bullet{
   height: 30px;
   width: 30px;
-  border: 2px solid #000;
+  border: 1px solid #000;
   display: inline-block;
   border-radius: 50%;
   position: relative;
@@ -150,9 +150,9 @@ form .page .btns button.next{
 .progress-bar .step .bullet:after{
   position: absolute;
   content: '';
-  bottom: 11px;
-  right: -69px;
-  height: 3px;
+  bottom: 13px;
+  right: -68px;
+  height: 2px;
   width: 67px;
   background: #262626;
 }
@@ -193,8 +193,8 @@ form .page .btns button.next{
 
 .fullSizeCard{
     width: 90%;
-    padding: 10px 5px 0px 5px;
-    margin: 10px 5px;
+    padding: 5px 5px 5px 5px;
+    margin: 5px 5px 5px 7px ;
 }
 
 .buttonSizeLeft{
@@ -218,13 +218,19 @@ form .page .btns button.next{
 }
 
 .img-arq {
-  padding: 5px;
+  padding: 6px;
 }
 
 ion-col {
   overflow: hidden;
+  margin-left: 7px;
+  margin-right: 7px;
+  
 }
 
+ion-item {
+  margin-right: 15px;
+}
 .character-selected {
 
 .first-border
@@ -324,7 +330,7 @@ ion-col {
 
 .next-button {
   float: right;
-  margin: 10px;
+  margin: 18px;
 }
 
 .abilities-statistics {
@@ -333,26 +339,31 @@ ion-col {
 
 .points-ability {
   font-size: 14px;
+  margin-left: 3px;
+
 }
 
 .ability {
   font-size: 16px;
   font-style: bold;
+  text-align: center;
 }
 
 .icon-minus {
   width: 25px;
   height: 25px;
+  color: black;
 }
 
 .icon-plus {
   width: 25px;
   height: 25px;
+  color: black;
 }
 
 .add-competency {
   width: 60px;
-  height: 90px;
+  height: 84px;
   margin: auto;
 }
 
@@ -361,7 +372,24 @@ ion-col {
   margin: 40px 0px 40px 30px;
 }
 
-/*
+
 .challenge-item {
-  font-size: 
-} */
+
+  margin-right: 15px;
+  margin-left: 15px;
+
+} 
+.ion-text-right {
+  margin-left: 30px;
+  margin-top: 5px;
+}
+.my-custom-class {
+  --background: red;
+}
+.my-custom-class .alert-wrapper {
+  background: red;
+}
+
+.my-custom-class .alert-wrapper {
+  background:  red;
+}

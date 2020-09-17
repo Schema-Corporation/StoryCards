@@ -1,6 +1,10 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title class="ion-text-center">Grupos</ion-title>
+    <ion-buttons  slot="start">
+      <ion-back-button defaultHref="/">  
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title class="tittle">Grupos</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -11,32 +15,32 @@
   <ion-grid>
     <ion-row>
       <ion-col>
-        <ion-img (click)="showCards(this.group1.id, this.group1.cardImgArray)" src="{{this.group1.imgLocation}}"></ion-img>
+        <ion-img class="img-arq" (click)="showCards(this.group1.id, this.group1.cardImgArray)" src="{{this.group1.imgLocation}}"></ion-img>
       </ion-col>
       <ion-col>
-        <ion-img (click)="showCards(this.group2.id, this.group2.cardImgArray)" src="{{this.group2.imgLocation}}"></ion-img>
+        <ion-img class="img-arq" (click)="showCards(this.group2.id, this.group2.cardImgArray)" src="{{this.group2.imgLocation}}"></ion-img>
       </ion-col>
       <ion-col>
-        <ion-img (click)="showCards(this.group3.id, this.group3.cardImgArray)" src="{{this.group3.imgLocation}}"></ion-img>
-      </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col>
-        <ion-img (click)="showCards(this.group4.id, this.group4.cardImgArray)" src="{{this.group4.imgLocation}}"></ion-img>
-      </ion-col>
-      <ion-col>
-        <ion-img (click)="showCards(this.group5.id, this.group5.cardImgArray)" src="{{this.group5.imgLocation}}"></ion-img>
-      </ion-col>
-      <ion-col>
-        <ion-img (click)="showCards(this.group6.id, this.group6.cardImgArray)" src="{{this.group6.imgLocation}}"></ion-img>
+        <ion-img class="img-arq" (click)="showCards(this.group3.id, this.group3.cardImgArray)" src="{{this.group3.imgLocation}}"></ion-img>
       </ion-col>
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-img (click)="showCards(this.group7.id, this.group7.cardImgArray)" src="{{this.group7.imgLocation}}"></ion-img>
+        <ion-img class="img-arq" (click)="showCards(this.group4.id, this.group4.cardImgArray)" src="{{this.group4.imgLocation}}"></ion-img>
       </ion-col>
       <ion-col>
-        <ion-img (click)="showCards(this.group8.id, this.group8.cardImgArray)" src="{{this.group8.imgLocation}}"></ion-img>
+        <ion-img class="img-arq" (click)="showCards(this.group5.id, this.group5.cardImgArray)" src="{{this.group5.imgLocation}}"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img class="img-arq" (click)="showCards(this.group6.id, this.group6.cardImgArray)" src="{{this.group6.imgLocation}}"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-img class="img-arq" (click)="showCards(this.group7.id, this.group7.cardImgArray)" src="{{this.group7.imgLocation}}"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img class="img-arq" (click)="showCards(this.group8.id, this.group8.cardImgArray)" src="{{this.group8.imgLocation}}"></ion-img>
       </ion-col>
       <ion-col>
       </ion-col>
