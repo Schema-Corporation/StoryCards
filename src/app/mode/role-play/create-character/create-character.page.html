@@ -8,7 +8,7 @@
       <div class="progress-bar">
         <div class="step">
           
-            <div class="bullet" [ngClass]="{'step-colored': step == 1}" (click)="step = 1;">
+            <div class="bullet" [ngClass]="{'step-colored': step == 1}" (click)="step == 2 ? step = 1: null;">
               <span></span>
             </div>
             <div class="check fas fa-check">
@@ -17,7 +17,7 @@
         </div>
         <div class="step">
           
-          <div class="bullet" [ngClass]="{'step-colored': step == 2}" (click)="character != -1 ? step = 2 : step = 1;">
+          <div class="bullet" [ngClass]="{'step-colored': step == 2}" (click)="step == 3 ? step = 2 : null">
             <span></span>
           </div>
           <div class="check fas fa-check">
@@ -26,7 +26,7 @@
         </div>
         <div class="step">
           
-          <div class="bullet" [ngClass]="{'step-colored': step == 3}" (click)="step = 3;">
+          <div class="bullet" [ngClass]="{'step-colored': step == 3}" >
             <span></span>
           </div>
           <div class="check fas fa-check">
