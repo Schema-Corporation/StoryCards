@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController } from '@ionic/angular';
+import { AlertController, IonApp } from '@ionic/angular';
 import { CharactersService } from 'src/app/services/firebase/characters.service';
 import { IParticipant } from 'src/common/types/participant';
 import { IAbility } from 'src/common/types/participant';

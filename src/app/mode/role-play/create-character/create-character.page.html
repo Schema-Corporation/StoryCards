@@ -365,7 +365,9 @@
  </div>
  <div *ngIf="step==3">
   <div class="challenge-header">
-    Crea un reto
+    <div class="ion-text-center">    
+       Crea un reto
+    </div>
   </div>
   <ion-item class="challenge-item">
     <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeChallenge($event)" placeholder="Escribe tu reto ..."></ion-textarea>

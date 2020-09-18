@@ -368,8 +368,9 @@ ion-item {
 }
 
 .challenge-header {
-  font-size: 15px;
-  margin: 40px 0px 40px 30px;
+  font-size: 16px;
+  margin: 40px 30px 40px 30px;
+  align-items: center;
 }
 
 
@@ -383,13 +384,4 @@ ion-item {
   margin-left: 30px;
   margin-top: 5px;
 }
-.my-custom-class {
-  --background: red;
-}
-.my-custom-class .alert-wrapper {
-  background: red;
-}
 
-.my-custom-class .alert-wrapper {
-  background:  red;
-}
