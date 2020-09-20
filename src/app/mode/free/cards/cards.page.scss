@@ -1,5 +1,5 @@
 
-.tittle{
+.principal-tittle{
     margin-left: 23%;
 }
 
@@ -18,3 +18,35 @@ ion-item {
     
   }
   
+  @media (min-width: 512px) {
+    .principal-tittle{
+      margin-left: 42%;
+      font-size: 30px;
+    }
+    .secondary-tittle{
+      font-size: 20px;
+    }
+
+    ion-item {
+      margin-right: 10%;
+      margin-left: 10%;;
+    } 
+    ion-row{
+      margin-left: 15%;
+      margin-right: 15%;
+    }
+    ion-col {
+      overflow: hidden;
+      margin-left: 47px;
+      margin-right: 47px;
+      height: 80%;
+   }
+
+   .img-arq {
+      width: 80%;
+      height: 80%;
+      padding: 0px;
+      margin: auto;
+      padding: 3%;
+   }
+  }

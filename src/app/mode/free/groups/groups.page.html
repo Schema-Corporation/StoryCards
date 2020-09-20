@@ -4,16 +4,16 @@
       <ion-back-button defaultHref="/">  
       </ion-back-button>
     </ion-buttons>
-    <ion-title class="tittle">Grupos</ion-title>
+    <ion-title class="principal-tittle">Grupos</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
  <ion-item>
-   <ion-label>Escoge una categoria:</ion-label>
+   <ion-label class="secondary-tittle" >Escoge una categoria:</ion-label>
  </ion-item>
   <ion-grid>
-    <ion-row>
+    <ion-row >
       <ion-col>
         <ion-img class="img-arq" (click)="showCards(this.group1.id, this.group1.cardImgArray)" src="{{this.group1.imgLocation}}"></ion-img>
       </ion-col>

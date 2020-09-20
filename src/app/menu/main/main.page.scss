@@ -18,3 +18,22 @@
   .padding-bottom-row{
       padding-bottom: 50px;
   }
+
+  @media (min-width: 512px) {
+
+    .padding-header{
+      position: absolute;
+      left: 20px;
+      top:30px;
+      font-size: 30px;
+  }
+    .tittle{
+      font-size: 35px;
+    }
+    
+    .menu-button{
+      font-size: 25px;
+      width: 300px;
+
+    }
+}

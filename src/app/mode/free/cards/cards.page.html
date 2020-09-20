@@ -4,13 +4,13 @@
         <ion-back-button defaultHref="/">  
         </ion-back-button>
       </ion-buttons>
-    <ion-title class="tittle">Personajes</ion-title>
+    <ion-title class="principal-tittle">Personajes</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
   <ion-item>
-    <ion-label>Escoge un personaje:</ion-label>
+    <ion-label class="secondary-tittle">Escoge un personaje:</ion-label>
   </ion-item>
 
   <ion-grid>
@@ -49,13 +49,13 @@
     </ion-row>
     <ion-row>
       <ion-col>
-        <ion-img (click)="showDetail(this.card10)" src="{{this.card10.imgCard}}"></ion-img>
+        <ion-img class="img-arq"  (click)="showDetail(this.card10)" src="{{this.card10.imgCard}}"></ion-img>
       </ion-col>
       <ion-col>
-        <ion-img (click)="showDetail(this.card11)" src="{{this.card11.imgCard}}"></ion-img>
+        <ion-img class="img-arq"  (click)="showDetail(this.card11)" src="{{this.card11.imgCard}}"></ion-img>
       </ion-col>
       <ion-col>
-        <ion-img (click)="showDetail(this.card12)" src="{{this.card12.imgCard}}"></ion-img>
+        <ion-img class="img-arq"  (click)="showDetail(this.card12)" src="{{this.card12.imgCard}}"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>
