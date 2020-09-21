@@ -1,0 +1,25 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons  slot="start">
+      <ion-back-button defaultHref="/">  
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title class="principal-tittle">Detalle</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="fullheight">
+    <ion-img class="imgSize" name="information" (click)="showInfo()" src="/assets/detail/information.png"></ion-img>
+    <div class="thecard" name="flip">
+      <div class="front">
+        <ion-img class="ion-imgSize" src="{{this.card}}"></ion-img>
+      </div>
+      <div class="back">
+        <ion-img class="ion-imgSize" src="{{this.description}}"></ion-img>
+      </div>
+    </div>
+    
+  </div>
+  
+</ion-content>

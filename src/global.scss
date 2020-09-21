@@ -24,3 +24,15 @@
 @import "~@ionic/angular/css/text-alignment.css";
 @import "~@ionic/angular/css/text-transformation.css";
 @import "~@ionic/angular/css/flex-utils.css";
+
+///@at-root customize-alert 
+.alert-button.sc-ion-alert-md{
+    color: #80724B;
+    font-weight: 800;
+}
+.alert-radio-inner.sc-ion-alert-md{
+    background-color:  #80724B;
+}
+[aria-checked=true].sc-ion-alert-md .alert-radio-icon.sc-ion-alert-md{
+    border-color: #80724B;
+}

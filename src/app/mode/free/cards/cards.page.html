@@ -1,0 +1,62 @@
+<ion-header>
+  <ion-toolbar>
+      <ion-buttons  slot="start">
+        <ion-back-button defaultHref="/">  
+        </ion-back-button>
+      </ion-buttons>
+    <ion-title class="principal-tittle">Personajes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-item>
+    <ion-label class="secondary-tittle">Escoge un personaje:</ion-label>
+  </ion-item>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-img class="img-arq" (click)="showDetail(this.card1)" src="{{this.card1.imgCard}}"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img class="img-arq" (click)="showDetail(this.card2)" src="{{this.card2.imgCard}}"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img class="img-arq" (click)="showDetail(this.card3)" src="{{this.card3.imgCard}}"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-img class="img-arq" (click)="showDetail(this.card4)" src="{{this.card4.imgCard}}"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img class="img-arq" (click)="showDetail(this.card5)" src="{{this.card5.imgCard}}"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img class="img-arq" (click)="showDetail(this.card6)" src="{{this.card6.imgCard}}"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-img class="img-arq" (click)="showDetail(this.card7)" src="{{this.card7.imgCard}}"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img class="img-arq" (click)="showDetail(this.card8)" src="{{this.card8.imgCard}}"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img class="img-arq" (click)="showDetail(this.card9)" src="{{this.card9.imgCard}}"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-img class="img-arq"  (click)="showDetail(this.card10)" src="{{this.card10.imgCard}}"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img class="img-arq"  (click)="showDetail(this.card11)" src="{{this.card11.imgCard}}"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img class="img-arq"  (click)="showDetail(this.card12)" src="{{this.card12.imgCard}}"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
