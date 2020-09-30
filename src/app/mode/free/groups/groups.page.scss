@@ -16,25 +16,11 @@ ion-col {
     margin-right: 7px;
     
  }
-@media (min-width: 400px) {
+  
+
+ @media (min-width: 512px) {
   .principal-tittle{
     margin-left: 30%;
-    font-size: 23px;
-  }
-} 
-
-
- @media (min-width: 600px) {
-  .principal-tittle{
-    margin-left: 35%;
-    font-size: 24px;
-  }
-} 
-
-
- @media (min-width: 750px) {
-  .principal-tittle{
-    margin-left: 38%;
     font-size: 25px;
   }
   .secondary-tittle{
@@ -46,8 +32,8 @@ ion-col {
     margin-left: 10%;;
   } 
   ion-row{
-    margin-left: 1%;
-    margin-right: 1%;
+    margin-left: 15%;
+    margin-right: 15%;
   }
   ion-col {
     overflow: hidden;
@@ -65,16 +51,17 @@ ion-col {
  }
 }
 
-
+@media (min-width: 750px) {
+  .principal-tittle{
+    margin-left: 38%;
+    font-size: 25px;
+  }
+}
 
 @media (min-width: 1000px) {
   .principal-tittle{
     margin-left: 40%;
     font-size: 28px;
-  }
-  ion-row{
-    margin-left: 10%;
-    margin-right: 10%;
   }
 }
 
@@ -83,10 +70,6 @@ ion-col {
     margin-left: 42%;
     font-size: 28px;
   }
-  ion-row{
-    margin-left: 12%;
-    margin-right: 12%;
-  }
 }
 
 @media (min-width: 1400px) {
@@ -94,19 +77,11 @@ ion-col {
     margin-left: 43%;
     font-size: 30px;
   }
-  ion-row{
-    margin-left: 13%;
-    margin-right: 13%;
-  }
 }
 
 @media (min-width: 1640px) {
   .principal-tittle{
     margin-left: 44%;
     font-size: 30px;
-  }
-  ion-row{
-    margin-left: 15%;
-    margin-right: 15%;
   }
 }
