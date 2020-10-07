@@ -1,0 +1,49 @@
+<ion-content class="login">
+  <div class="limiter">
+		<div class="container-login100">
+			<div class="wrap-login100">
+				<div class="login100-pic">
+					<img src="../../assets/cards/initial/inicial_02_im.png" alt="IMG">
+				</div>
+
+				<form class="login100-form validate-form">
+					<span class="login100-form-title">
+						Iniciar Sesión
+          </span>
+          
+					<div class="wrap-input100 validate-input">
+            <ion-item>
+              <ion-input class="input-login" color="primary" placeholder="Correo electrónico" required="true"></ion-input>
+              <ion-icon name="mail-outline" color="primary" slot="start"></ion-icon>
+            </ion-item>
+					</div>
+
+					<div class="wrap-input100 validate-input">
+						<ion-item>
+              <ion-input [type]="getPasswordType()" class="input-login" color="primary" placeholder="Contraseña" required="true"></ion-input>
+              <ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
+              <ion-icon *ngIf="!showPassword" name="eye-outline" color="primary" (click)="toggleTextPassword()"></ion-icon>
+              <ion-icon *ngIf="showPassword" name="eye-off-outline" color="primary" (click)="toggleTextPassword()"></ion-icon>
+            </ion-item>
+					</div>
+					
+					<div class="container-login100-form-btn">
+						<ion-button class="login100-form-btn">
+							Iniciar Sesión
+						</ion-button>
+					</div>
+
+					<div class="text-center p-t-12 create-account">
+						<span class="txt1">
+							¿No tiene una cuenta? 
+						</span>
+						<a class="txt2" href="#">
+							Cree una
+						</a>
+					</div>
+
+				</form>
+			</div>
+    </div>
+  </div>
+</ion-content>

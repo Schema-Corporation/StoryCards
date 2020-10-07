@@ -29,11 +29,11 @@ const routes: Routes = [
         loadChildren: () => import('./mode/free/groups/groups.module').then( m => m.GroupsPageModule)
       },
       {
-        path: 'cards/:idGroup',
+        path: 'cards',
         loadChildren: () => import('./mode/free/cards/cards.module').then( m => m.CardsPageModule)
       },
       {
-        path: 'detail/:idCard',
+        path: 'detail',
         loadChildren: () => import('./mode/free/detail/detail.module').then( m => m.DetailPageModule)
       }
     ]
@@ -42,7 +42,11 @@ const routes: Routes = [
   {
     path: 'create-character',
     loadChildren: () => import('./mode/role-play/create-character/create-character.module').then( m => m.CreateCharacterPageModule)
+  },  {
+    path: 'login',
+    loadChildren: () => import('./login/login.module').then( m => m.LoginPageModule)
   }
+
   
   
 ];

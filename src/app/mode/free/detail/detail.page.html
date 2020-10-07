@@ -10,7 +10,9 @@
 
 <ion-content>
   <div class="fullheight">
-    <ion-img class="imgSize" name="information" (click)="showInfo()" src="/assets/detail/information.png"></ion-img>
+    <div *ngIf="description">
+      <ion-img class="imgSize" name="information" (click)="showInfo()" src="/assets/detail/information.png"></ion-img>
+    </div>
     <div class="thecard" name="flip">
       <div class="front">
         <ion-img class="ion-imgSize" src="{{this.card}}"></ion-img>
@@ -19,7 +21,5 @@
         <ion-img class="ion-imgSize" src="{{this.description}}"></ion-img>
       </div>
     </div>
-    
   </div>
-  
 </ion-content>

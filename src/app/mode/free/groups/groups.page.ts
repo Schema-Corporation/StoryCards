@@ -12,59 +12,315 @@ export class GroupsPage implements OnInit {
   
   group1: IGroup = {
     id: 1,
-    imgLocation: '/assets/cards/emotions/emociones_12_im.png',
-    cardImgArray: [{id: 1,
-    imgCard: 'a'}]
+    title: "Emociones",
+    imgLocation: '/assets/cards/emotions/emociones_12_im.svg',
+    cardImgArray: [
+      {
+        id: 1,
+        imgCard: '/assets/cards/emotions/emociones_01_im.svg'
+      },
+      {
+        id: 2,
+        imgCard: '/assets/cards/emotions/emociones_02_im.svg'
+      },
+      {
+        id: 3,
+        imgCard: '/assets/cards/emotions/emociones_03_im.svg'
+      },
+      {
+        id: 4,
+        imgCard: '/assets/cards/emotions/emociones_04_im.svg'
+      },
+      {
+        id: 5,
+        imgCard: '/assets/cards/emotions/emociones_05_im.svg'
+      },
+      {
+        id: 6,
+        imgCard: '/assets/cards/emotions/emociones_06_im.svg'
+      },
+      {
+        id: 7,
+        imgCard: '/assets/cards/emotions/emociones_07_im.svg'
+      },
+      {
+        id: 8,
+        imgCard: '/assets/cards/emotions/emociones_08_im.svg'
+      },
+      {
+        id: 9,
+        imgCard: '/assets/cards/emotions/emociones_09_im.svg'
+      },
+      {
+        id: 10,
+        imgCard: '/assets/cards/emotions/emociones_10_im.svg'
+      },
+      {
+        id: 11,
+        imgCard: '/assets/cards/emotions/emociones_11_im.svg'
+      }
+    ]
   }
   group2: IGroup  = {
     id: 2,
-    imgLocation: '/assets/cards/plot/Trama_04_im.png',
-    cardImgArray: [{id: 2,
-      imgCard: 'a'}]
+    title: "Trama",
+    imgLocation: '/assets/cards/plot/trama_04_im.svg',
+    cardImgArray: [
+      {
+        id: 1,
+        imgCard: '/assets/cards/plot/trama_01_im.svg'
+      },
+      {
+        id: 2,
+        imgCard: '/assets/cards/plot/trama_02_im.svg'
+      },
+      {
+        id: 3,
+        imgCard: '/assets/cards/plot/trama_03_im.svg'
+      }
+    ]
   }
   group3: IGroup  = {
     id: 3,
-    imgLocation: '/assets/cards/genres/genero_06_im.png',
-    cardImgArray: [{id: 3,
-      imgCard: 'a'}]
+    title: "Género",
+    imgLocation: '/assets/cards/genres/genero_06_im.svg',
+    cardImgArray: [
+      {
+        id: 1,
+        imgCard: '/assets/cards/genres/genero_01_im.svg'
+      },
+      {
+        id: 2,
+        imgCard: '/assets/cards/genres/genero_02_im.svg'
+      },
+      {
+        id: 3,
+        imgCard: '/assets/cards/genres/genero_03_im.svg'
+      },
+      {
+        id: 4,
+        imgCard: '/assets/cards/genres/genero_04_im.svg'
+      },
+      {
+        id: 5,
+        imgCard: '/assets/cards/genres/genero_05_im.svg'
+      }
+    ]
   }
   group4: IGroup  = {
     id: 4,
-    imgLocation: '/assets/cards/myths/mitos_04_im.png',
-    cardImgArray: [{id: 4,
-      imgCard: 'a'}]
+    title: "Mitos",
+    imgLocation: '/assets/cards/myths/mitos_04_im.svg',
+    cardImgArray: [
+      {
+        id: 1,
+        imgCard: '/assets/cards/myths/mitos_01_im.svg'
+      },
+      {
+        id: 2,
+        imgCard: '/assets/cards/myths/mitos_02_im.svg'
+      },
+      {
+        id: 3,
+        imgCard: '/assets/cards/myths/mitos_03_im.svg'
+      }
+    ]
   }
   group5: IGroup  = {
     id: 5,
-    imgLocation: '/assets/cards/topic/Tema_13_im.png',
-    cardImgArray: [{id: 5,
-      imgCard: 'a'}]
+    title: "Tema",
+    imgLocation: '/assets/cards/topic/tema_13_im.svg',
+    cardImgArray: [
+      {
+        id: 1,
+        imgCard: '/assets/cards/topic/tema_01_im.svg'
+      },
+      {
+        id: 2,
+        imgCard: '/assets/cards/topic/tema_02_im.svg'
+      },
+      {
+        id: 3,
+        imgCard: '/assets/cards/topic/tema_03_im.svg'
+      },
+      {
+        id: 4,
+        imgCard: '/assets/cards/topic/tema_04_im.svg'
+      },
+      {
+        id: 5,
+        imgCard: '/assets/cards/topic/tema_05_im.svg'
+      },
+      {
+        id: 6,
+        imgCard: '/assets/cards/topic/tema_06_im.svg'
+      },
+      {
+        id: 7,
+        imgCard: '/assets/cards/topic/tema_07_im.svg'
+      },
+      {
+        id: 8,
+        imgCard: '/assets/cards/topic/tema_08_im.svg'
+      },
+      {
+        id: 9,
+        imgCard: '/assets/cards/topic/tema_09_im.svg'
+      },
+      {
+        id: 10,
+        imgCard: '/assets/cards/topic/tema_10_im.svg'
+      },
+      {
+        id: 11,
+        imgCard: '/assets/cards/topic/tema_11_im.svg'
+      },
+      {
+        id: 12,
+        imgCard: '/assets/cards/topic/tema_12_im.svg'
+      }
+    ]
   }
   group6: IGroup  = {
     id: 6,
-    imgLocation: '/assets/cards/processes/procesos_08_im.png',
-    cardImgArray: [{id: 6,
-      imgCard: 'a'}]
+    title: "Procesos",
+    imgLocation: '/assets/cards/processes/procesos_08_im.svg',
+    cardImgArray: [
+      {
+        id: 1,
+        imgCard: '/assets/cards/processes/procesos_01_im.svg'
+      },
+      {
+        id: 2,
+        imgCard: '/assets/cards/processes/procesos_02_im.svg'
+      },
+      {
+        id: 3,
+        imgCard: '/assets/cards/processes/procesos_03_im.svg'
+      },
+      {
+        id: 4,
+        imgCard: '/assets/cards/processes/procesos_04_im.svg'
+      },
+      {
+        id: 5,
+        imgCard: '/assets/cards/processes/procesos_05_im.svg'
+      },
+      {
+        id: 6,
+        imgCard: '/assets/cards/processes/procesos_06_im.svg'
+      },
+      {
+        id: 7,
+        imgCard: '/assets/cards/processes/procesos_07_im.svg'
+      }
+    ]
   }
   group7: IGroup  = {
     id: 7,
-    imgLocation: '/assets/cards/archetypes/arquetipos_02_im.png',
-    cardImgArray: [{id: 7,
-      imgCard: 'a'}]
+    title: "Arquetipos",
+    imgLocation: '/assets/cards/archetypes/arquetipos_02_im.svg',
+    cardImgArray: [
+      {
+        id: 1,
+        imgCard: '/assets/cards/archetypes/arquetipos_02_im.svg',
+        imgDescription: '/assets/cards/archetypes/arquetipos_01_im.svg'
+      },
+      {
+        id: 2,
+        imgCard: '/assets/cards/archetypes/arquetipos_04_im.svg',
+        imgDescription: '/assets/cards/archetypes/arquetipos_03_im.svg'
+      },
+      {
+        id: 3,
+        imgCard: '/assets/cards/archetypes/arquetipos_06_im.svg',
+        imgDescription: '/assets/cards/archetypes/arquetipos_05_im.svg'
+      },
+      {
+        id: 4,
+        imgCard: '/assets/cards/archetypes/arquetipos_08_im.svg',
+        imgDescription: '/assets/cards/archetypes/arquetipos_07_im.svg'
+      },
+      {
+        id: 5,
+        imgCard: '/assets/cards/archetypes/arquetipos_10_im.svg',
+        imgDescription: '/assets/cards/archetypes/arquetipos_09_im.svg'
+      },
+      {
+        id: 6,
+        imgCard: '/assets/cards/archetypes/arquetipos_12_im.svg',
+        imgDescription: '/assets/cards/archetypes/arquetipos_11_im.svg'
+      },
+      {
+        id: 7,
+        imgCard: '/assets/cards/archetypes/arquetipos_14_im.svg',
+        imgDescription: '/assets/cards/archetypes/arquetipos_13_im.svg'
+      },
+      {
+        id: 8,
+        imgCard: '/assets/cards/archetypes/arquetipos_16_im.svg',
+        imgDescription: '/assets/cards/archetypes/arquetipos_15_im.svg'
+      },
+      {
+        id: 9,
+        imgCard: '/assets/cards/archetypes/arquetipos_18_im.svg',
+        imgDescription: '/assets/cards/archetypes/arquetipos_17_im.svg'
+      },
+      {
+        id: 10,
+        imgCard: '/assets/cards/archetypes/arquetipos_20_im.svg',
+        imgDescription: '/assets/cards/archetypes/arquetipos_19_im.svg'
+      },
+      {
+        id: 11,
+        imgCard: '/assets/cards/archetypes/arquetipos_22_im.svg',
+        imgDescription: '/assets/cards/archetypes/arquetipos_21_im.svg'
+      },
+      {
+        id: 12,
+        imgCard: '/assets/cards/archetypes/arquetipos_24_im.svg',
+        imgDescription: '/assets/cards/archetypes/arquetipos_23_im.svg'
+      }
+    ]
   }
   group8: IGroup  = {
     id: 8,
-    imgLocation: '/assets/cards/resources/recursos_12_im.png',
-    cardImgArray: [{id: 8,
-      imgCard: 'a'}]
+    title: "Recursos",
+    imgLocation: '/assets/cards/resources/recursos_12_im.svg',
+    cardImgArray: [
+      {
+        id: 1,
+        imgCard: '/assets/cards/resources/recursos_02_im.svg',
+        imgDescription: '/assets/cards/resources/recursos_01_im.svg'
+      },
+      {
+        id: 2,
+        imgCard: '/assets/cards/resources/recursos_04_im.svg',
+        imgDescription: '/assets/cards/resources/recursos_03_im.svg'
+      },
+      {
+        id: 3,
+        imgCard: '/assets/cards/resources/recursos_06_im.svg',
+        imgDescription: '/assets/cards/resources/recursos_05_im.svg'
+      },
+      {
+        id: 4,
+        imgCard: '/assets/cards/resources/recursos_08_im.svg',
+        imgDescription: '/assets/cards/resources/recursos_07_im.svg'
+      },
+      {
+        id: 5,
+        imgCard: '/assets/cards/resources/recursos_10_im.svg',
+        imgDescription: '/assets/cards/resources/recursos_09_im.svg'
+      },
+      {
+        id: 6,
+        imgCard: '/assets/cards/resources/recursos_12_im.svg',
+        imgDescription: '/assets/cards/resources/recursos_11_im.svg'
+      }
+    ]
   }
-  group9: IGroup  = {
-    id: 9,
-    imgLocation: '/assets/icon/favicon.png',
-    cardImgArray: [{id: 9,
-      imgCard: 'a'}]
-  }
-  
+
   constructor(public navCtrl: NavController) { }
 
   ngOnInit() {
@@ -72,17 +328,15 @@ export class GroupsPage implements OnInit {
 
   }
 
-  showCards(id, cards){
-
+  showCards(id, cards, title){
     let navigationExtras: NavigationExtras = {
       queryParams: {
           id: id,
-          cards: JSON.stringify(cards)
+          cards: JSON.stringify(cards),
+          title: title
       }
-  
     }
-    this.navCtrl.navigateForward(['free/cards/:id'], navigationExtras);
-
+    this.navCtrl.navigateForward(['free/cards'], navigationExtras);
   }
   
 
