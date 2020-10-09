@@ -1,25 +1,103 @@
-<ion-header>
-</ion-header>
 
-<ion-content>
-  <div class="container">
-    <div class="progress-bar">
-      <div class="step">
-          <div class="bullet-line">
+<ion-content class="register">
+  <div class="container-register100">
+    <div class="container">
+      <ion-item>
+        <ion-label class="ion-text-center">Registro</ion-label>
+      </ion-item>
+      <!-- <div class="progress-bar">
+        <div class="step">
+            <div class="bullet-line" [ngClass]="{'step-colored': step == 1}"  (click)="step=1">
+              <span></span>
+            </div>
+            <div class="check fas fa-check">
+            </div>
+        </div>
+        <div class="step">
+          <div class="bullet" [ngClass]="{'step-colored': step == 2}" (click)="step=2">
             <span></span>
           </div>
           <div class="check fas fa-check">
           </div>
-      </div>
-      <div class="step">
-        <div class="bullet">
-          <span></span>
         </div>
-        <div class="check fas fa-check">
-        </div>
-      </div>
-      
+      </div>  -->
     </div>
-      
-</div>
+
+    <div *ngIf="step==1">
+			<div class="wrap-login100">
+				<div class="login100-pic">
+					<img src="../../assets/cards/initial/inicial_02_im.png" alt="IMG">
+				</div>
+
+
+				<form class="login100-form validate-form">
+					<span class="login100-form-title">
+						Ingrese código del libro
+					</span>
+          <div class="wrap-input100 validate-input">
+						<ion-item>
+							<ion-input class="input-login" color="primary" placeholder="Código" required="true"></ion-input>
+							<ion-icon name="reader-outline" color="primary" slot="start"></ion-icon>
+            </ion-item></div>
+					<div class="container-login100-form-btn">
+						<ion-button class="login100-form-btn" (click)="addStep()">
+							Validar
+						</ion-button>
+					</div>
+
+
+				</form>
+			</div>
+    </div>
+
+    <div *ngIf="step==2">
+			<div class="wrap-login100">
+				<div class="login100-pic">
+					<img src="../../assets/cards/initial/inicial_02_im.png" alt="IMG">
+				</div>
+
+				<form class="login100-form validate-form">
+
+          
+					<div class="wrap-input100 validate-input">
+						<ion-item>
+							<ion-input class="input-login" color="primary" placeholder="Nombre" required="true"></ion-input>
+							<ion-icon name="person-circle-outline" color="primary" slot="start"></ion-icon>
+            </ion-item>
+            <ion-item>
+							<ion-input class="input-login" color="primary" placeholder="Teléfono" required="true"></ion-input>
+							<ion-icon name="call-outline" color="primary" slot="start"></ion-icon>
+            </ion-item>
+            <ion-item>
+							<ion-input class="input-login" color="primary" placeholder="Correo electrónico" required="true"></ion-input>
+							<ion-icon name="mail-outline" color="primary" slot="start"></ion-icon>
+            </ion-item>
+					</div>
+
+					<div class="wrap-input100 validate-input">
+						<ion-item class="item">
+							<ion-input [type]="getPasswordType()" class="input-login" color="primary" placeholder="Contraseña" required="true"></ion-input>
+							<ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
+							<ion-icon *ngIf="!showPassword" name="eye-outline" color="primary" (click)="toggleTextPassword()"></ion-icon>
+							<ion-icon *ngIf="showPassword" name="eye-off-outline" color="primary" (click)="toggleTextPassword()"></ion-icon>
+            </ion-item>
+            <ion-item>
+							<ion-input [type]="getConfirmPasswordType()" class="input-login" color="primary" placeholder="Confirmar Contraseña" required="true"></ion-input>
+							<ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
+							<ion-icon *ngIf="!showConfirmPassword" name="eye-outline" color="primary" (click)="toggleTextConfirmPassword()"></ion-icon>
+							<ion-icon *ngIf="showConfirmPassword" name="eye-off-outline" color="primary" (click)="toggleTextConfirmPassword()"></ion-icon>
+						</ion-item>
+					</div>
+					
+					<div class="container-login100-form-btn">
+						<ion-button class="login100-form-btn">
+							Registrarse
+						</ion-button>
+					</div>
+
+
+				</form>
+			</div>
+    </div>
+  </div>
 </ion-content>
