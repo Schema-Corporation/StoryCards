@@ -18,14 +18,22 @@ export class LoginPage implements OnInit {
   constructor(
     private _loginService: LoginService,
     public navCtrl: NavController,
-    private dbService: NgxIndexedDBService) { }
+    private dbService: NgxIndexedDBService
+    ) { }
 
   ngOnInit() {
     this.checkAccess();
   }
 
   checkAccess() {
-
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        if (token != null) {
+          this.navCtrl.navigateForward(['menu/main']);
+        }
+      },
+      error => {
+      });
   }
 
   getPasswordType() {
