@@ -28,6 +28,7 @@
     "compass": "^0.1.1",
     "firebase": "^7.20.0",
     "ionic-stepper": "^1.1.0",
+    "ngx-indexed-db": "^6.0.5",
     "rxjs": "~6.5.5",
     "tslib": "^2.0.0",
     "zone.js": "~0.10.3"

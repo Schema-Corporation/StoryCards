@@ -1,5 +1,6 @@
 import { NgModule } from '@angular/core';
 import { PreloadAllModules, RouterModule, Routes } from '@angular/router';
+import { AuthService } from './util/auth';
 
 const routes: Routes = [
   {
@@ -7,7 +8,8 @@ const routes: Routes = [
     children: [
       {
         path: 'main',
-        loadChildren: () => import('./menu/main/main.module').then( m => m.MainPageModule)
+        loadChildren: () => import('./menu/main/main.module').then( m => m.MainPageModule),
+        canActivate: [AuthService]
       },
       {
         path: '',
@@ -15,11 +17,6 @@ const routes: Routes = [
         pathMatch: 'full'
       }
     ]
-  },
-  {
-    path: '',
-    redirectTo: '/menu/main',
-    pathMatch: 'full'
   },
   {
     path: 'free',
@@ -37,8 +34,7 @@ const routes: Routes = [
         loadChildren: () => import('./mode/free/detail/detail.module').then( m => m.DetailPageModule)
       }
     ]
-    
-},
+  },
   {
     path: 'create-character',
     loadChildren: () => import('./mode/role-play/create-character/create-character.module').then( m => m.CreateCharacterPageModule)
@@ -50,6 +46,16 @@ const routes: Routes = [
   {
     path: 'register',
     loadChildren: () => import('./register/register.module').then( m => m.RegisterPageModule)
+  },
+  {
+    path: '',
+    redirectTo: 'login',
+    pathMatch: 'full'
+  },
+  {
+    path: '**',
+    redirectTo: 'login',
+    pathMatch: 'full'
   }
 
   

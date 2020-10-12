@@ -13,14 +13,14 @@
           
 					<div class="wrap-input100 validate-input">
 						<ion-item>
-							<ion-input class="input-login" color="primary" placeholder="Correo electrónico" required="true"></ion-input>
+							<ion-input id="username" name="username" [(ngModel)]="username" class="input-login" color="primary" placeholder="Correo electrónico" required="true"></ion-input>
 							<ion-icon name="mail-outline" color="primary" slot="start"></ion-icon>
 						</ion-item>
 					</div>
 
 					<div class="wrap-input100 validate-input">
 						<ion-item>
-							<ion-input [type]="getPasswordType()" class="input-login" color="primary" placeholder="Contraseña" required="true"></ion-input>
+							<ion-input id="password" name="password" [(ngModel)]="password" [type]="getPasswordType()" class="input-login" color="primary" placeholder="Contraseña" required="true"></ion-input>
 							<ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
 							<ion-icon *ngIf="!showPassword" name="eye-outline" color="primary" (click)="toggleTextPassword()"></ion-icon>
 							<ion-icon *ngIf="showPassword" name="eye-off-outline" color="primary" (click)="toggleTextPassword()"></ion-icon>
@@ -28,7 +28,7 @@
 					</div>
 					
 					<div class="container-login100-form-btn">
-						<ion-button class="login100-form-btn">
+						<ion-button class="login100-form-btn" (click)="login()">
 							Iniciar Sesión
 						</ion-button>
 					</div>

@@ -13,6 +13,18 @@ export const environment = {
     messagingSenderId: '290448383604',
     appId: '1:290448383604:web:36e8c288797679d1a7bb21',
     measurementId: 'G-8QLQDBF1C1'
+  },
+  INDEXEDDB_CONFIG: {
+    name: 'StorycardsDb',
+    version: 1,
+    objectStoresMeta: [{
+      store: 'variables',
+      storeConfig: { keyPath: 'id', autoIncrement: true },
+      storeSchema: [
+        { name: 'name', keypath: 'name', options: { unique: false } },
+        { name: 'value', keypath: 'value', options: { unique: false } }
+      ]
+    }]
   }
 };
 
