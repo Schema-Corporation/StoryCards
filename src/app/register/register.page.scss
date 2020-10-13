@@ -270,3 +270,11 @@ ion-item{
     padding: 90px 34% 33px 20%;
   }
 }
+.error-message {
+  color: var(--ion-color-danger);
+
+}
+.error-icon {
+  color: var(--ion-color-danger);
+  position: relative;
+}
