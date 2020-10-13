@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { CheckboxControlValueAccessor } from '@angular/forms';
 import { NavController } from '@ionic/angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LoginService } from '../services/auth/login.service';
-
+import { FormBuilder, Validators,FormGroup} from '@angular/forms'
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -14,17 +13,30 @@ export class LoginPage implements OnInit {
   public showPassword: boolean = false;
   public username: string;
   public password: string;
+  EMAILPATTERN = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
 
   constructor(
     private _loginService: LoginService,
     public navCtrl: NavController,
-    private dbService: NgxIndexedDBService
-    ) { }
+    private dbService: NgxIndexedDBService,
+    private formBuilder: FormBuilder) { }
 
+
+  loginForm = this.formBuilder.group({
+    email: ['',[Validators.required, Validators.pattern(this.EMAILPATTERN)]],
+  });
   ngOnInit() {
     this.checkAccess();
   }
-
+  get email() {
+    return this.loginForm.get("email");
+  }
+  public errorMessages = {
+    email: [
+      {type: 'required', message: '*Ingrese su correo'},
+      {type: 'pattern', message: '*El correo ingresado no es válido'}
+    ]
+  };
   checkAccess() {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {

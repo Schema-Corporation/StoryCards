@@ -1,7 +1,7 @@
 <ion-content class="login">
   <div class="limiter">
 		<div class="container-login100">
-			<div class="wrap-login100">
+			<div class="wrap-login100" >
 				<div class="login100-pic">
 					<img src="../../assets/cards/initial/inicial_02_im.png" alt="IMG">
 				</div>
@@ -11,11 +11,16 @@
 						Iniciar Sesión
 					</span>
           
-					<div class="wrap-input100 validate-input">
+					<div class="wrap-input100 validate-input" [formGroup]="loginForm">
 						<ion-item>
-							<ion-input id="username" name="username" [(ngModel)]="username" class="input-login" color="primary" placeholder="Correo electrónico" required="true"></ion-input>
+							<ion-input id="username" name="username" formControlName="email" [(ngModel)]="username" class="input-login" color="primary" placeholder="Correo electrónico" required="true" ></ion-input>
 							<ion-icon name="mail-outline" color="primary" slot="start"></ion-icon>
 						</ion-item>
+						<div *ngFor="let error of errorMessages.email">
+							<ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
+								<small class="error-message">{{error.message}}</small>
+							</ng-container>
+						</div>
 					</div>
 
 					<div class="wrap-input100 validate-input">
