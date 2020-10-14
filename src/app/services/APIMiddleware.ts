@@ -14,4 +14,12 @@ export class APIMiddleware {
     };
     return this.http.post(url, null, httpOptions);
   }
+
+  doValidateCode(url: string): Observable<any> {
+    return this.http.post(url, null);
+  }
+
+  doRegister(url: string, user: any): Observable<any> {
+    return this.http.post(url, user);
+  }
 }

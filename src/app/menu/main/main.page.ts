@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { GroupsPage } from '../../mode/free/groups/groups.page';
-import { NavController, PopoverController } from '@ionic/angular';
+import { AlertController, NavController, PopoverController } from '@ionic/angular';
 import { SettingComponent } from '../setting/setting.component';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { ActivatedRoute } from '@angular/router';
+import { Location } from "@angular/common";
 
 @Component({
   selector: 'app-main',
@@ -13,16 +15,48 @@ export class MainPage implements OnInit {
 
   groupPage: GroupsPage;
 
+  public isFirst: boolean = false;
+
 
   constructor(
     public navCtrl: NavController,
     public popoverController: PopoverController,
-    private dbService: NgxIndexedDBService
+    private dbService: NgxIndexedDBService,
+    private route: ActivatedRoute,
+    private location: Location,
+    private alertCtrl: AlertController
   ) {
     
    }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      console.log('params: ', params.first)
+      if (params.first == 'true') {
+        this.isFirst = params.first;
+        if (this.isFirst) {
+          var title = "¡Bienvenido a Storycards!"
+          var message = "Tu registro ha sido realizado con éxito"
+          this.showAlert(title, message);
+        }
+      }
+    });
+  }
+
+  async showAlert(title, message) {
+    var alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: title,
+      message: message,
+      buttons: [{
+        text: 'OK',
+        handler: () => {
+          this.location.replaceState('/menu/main');
+        }
+      }]
+    });
+
+    await alert.present();
   }
 
   goToFreeModePage(){
