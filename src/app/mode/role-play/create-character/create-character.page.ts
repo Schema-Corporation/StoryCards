@@ -251,6 +251,17 @@ export class CreateCharacterPage implements OnInit {
     return listAbilities;
   }
 
+  async showSuccess(message) {
+    var alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: '¡Felicidades!',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
   createCharacter() {
     this.participant = {
       character: this.character,
@@ -258,7 +269,9 @@ export class CreateCharacterPage implements OnInit {
       challenge: this.challenge
     };
 
-    this._characterService.createCharacter(this.participant);
+    var message = "Personaje creado exitosamente"
+
+    this._characterService.createCharacter(this.participant, this.showSuccess(message))
 
   }
 }
