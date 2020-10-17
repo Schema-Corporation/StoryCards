@@ -35,6 +35,7 @@ export class RegisterPage implements OnInit {
   
   EMAILPATTERN = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
   PHONEPATTERN = 	/^([9])(\d{4})(-?|\040?)(\d{4})( ?|\040?)(\d{1,4}?|\040?)$/;
+  NAMEPATTERN = /[A-Za-zÀ-ȕ,\s]/;
 
   validationForm = this.formBuilder.group({
     bookCode: ['', [Validators.required]]
@@ -43,7 +44,7 @@ export class RegisterPage implements OnInit {
 
   registrationForm = this.formBuilder.group({
     
-    username: ['',[Validators.required, Validators.maxLength(50), Validators.pattern('[a-zA-Z ]*')]],
+    username: ['',[Validators.required, Validators.maxLength(50), Validators.pattern(this.NAMEPATTERN)]],
     email: ['',[Validators.required, Validators.pattern(this.EMAILPATTERN)]],
     phone: ['',[Validators.required, Validators.maxLength(9), Validators.pattern(this.PHONEPATTERN)]],
     password: ['',[Validators.required,Validators.minLength(9), Validators.maxLength(15)]],
