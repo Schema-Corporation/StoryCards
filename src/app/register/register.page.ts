@@ -102,7 +102,6 @@ export class RegisterPage implements OnInit {
     bookCode: [
       { type: 'required', message: '*Debe ingresar el código del libro' },
       { type: 'maxlenght', message: '*El codigo no debe superar los 10 caracteres' }
-
     ],
   };
 

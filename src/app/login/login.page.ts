@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LoginService } from '../services/auth/login.service';
 import { FormBuilder, Validators,FormGroup} from '@angular/forms'
@@ -19,6 +19,7 @@ export class LoginPage implements OnInit {
     private _loginService: LoginService,
     public navCtrl: NavController,
     private dbService: NgxIndexedDBService,
+    private alertCtrl: AlertController,
     private formBuilder: FormBuilder) { }
 
 
@@ -61,6 +62,17 @@ export class LoginPage implements OnInit {
     return user;
   }
 
+  async showAlert(message) {
+    var alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: '¡Lo sentimos!',
+      message: message,
+      buttons: ['OK']
+    });
+
+    await alert.present();
+  }
+
   login() {
     var authorization = this.getUserToken()
     this._loginService.loginUser(authorization).subscribe(token => {
@@ -80,7 +92,9 @@ export class LoginPage implements OnInit {
             console.log("ERROR: ", error);
         }
       );
+    }, error => {
+      var message = "Su cuenta o contraseña no es correcta"
+      this.showAlert(message)
     });
   }
-
 }
