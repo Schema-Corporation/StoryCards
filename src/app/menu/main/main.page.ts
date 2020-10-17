@@ -17,6 +17,8 @@ export class MainPage implements OnInit {
 
   public isFirst: boolean = false;
 
+  public fullName: string = "";
+
 
   constructor(
     public navCtrl: NavController,
@@ -31,7 +33,6 @@ export class MainPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      console.log('params: ', params.first)
       if (params.first == 'true') {
         this.isFirst = params.first;
         if (this.isFirst) {
@@ -41,6 +42,15 @@ export class MainPage implements OnInit {
         }
       }
     });
+
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        if (token != null && token.value.fullName != "undefined") {
+          this.fullName = token.value.fullName;
+        }
+      },
+      error => {
+      });
   }
 
   async showAlert(title, message) {

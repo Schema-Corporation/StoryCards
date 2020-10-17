@@ -76,6 +76,7 @@ export class LoginPage implements OnInit {
   login() {
     var authorization = this.getUserToken()
     this._loginService.loginUser(authorization).subscribe(token => {
+      console.log('token: ', token);
       this.dbService.add('variables', { name: 'token', value: token }).subscribe(
         () => {
           this.dbService.getByIndex('variables', 'name', 'token').subscribe(
