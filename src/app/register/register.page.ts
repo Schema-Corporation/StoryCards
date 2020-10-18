@@ -207,10 +207,14 @@ export class RegisterPage implements OnInit {
     }, error => {
       console.log('error: ', error);
       var message = "Error en el sistema";
-      if (error.status == 422) {
+      if (error.status == 500) {
         message = "El código ingresado no existe"
       } else {
-        message = "Error en el sistema"
+        if (error.status == 403) {
+          message = "Ha ingresado muchas veces un código erróneo. Por favor, inténtelo más tarde."
+        } else {
+          message = "Error en el sistema"
+        }
       }
       this.showAlert(message)
     });
