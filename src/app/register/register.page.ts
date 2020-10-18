@@ -195,8 +195,8 @@ export class RegisterPage implements OnInit {
   }
 
   verify() {
-    this._registerService.validateCode(this.book).subscribe(book => {
-      console.log('book: ', book);
+    this._registerService.validateCode(this.book).subscribe(res => {
+     let book = res.response;
       if (book.status == 0 && book.enabled == 1) {
         this.bookID = book.id;
         this.step++;
@@ -205,7 +205,6 @@ export class RegisterPage implements OnInit {
         this.showAlert(message)
       }
     }, error => {
-      console.log('error: ', error);
       var message = "Error en el sistema";
       if (error.status == 500) {
         message = "El código ingresado no existe"
