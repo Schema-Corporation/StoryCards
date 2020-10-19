@@ -1,4 +1,4 @@
-const BASE_API_URL = "http://192.168.1.19:3000"
+const BASE_API_URL = "https://pharmaapp-services-be.com"
 
 export const apiUrls = {
   BASE_API_URL,
