@@ -1,0 +1,280 @@
+.container .form-outer{
+    width: 100%;
+    overflow: hidden;
+  }
+  .container .form-outer form{
+    display: flex;
+    width: 400%;
+  }
+  .form-outer form .page{
+    width: 25%;
+    transition: margin-left 0.3s ease-in-out;
+  }
+  .form-outer form .page .title{
+    text-align: left;
+    font-size: 25px;
+    font-weight: 500;
+  }
+  .form-outer form .page .field{
+    width: 330px;
+    height: 45px;
+    margin: 45px 0;
+    display: flex;
+    position: relative;
+  }
+  form .page .field .label{
+    position: absolute;
+    top: -30px;
+    font-weight: 500;
+  }
+  form .page .field input{
+    height: 100%;
+    width: 100%;
+    border: 1px solid lightgrey;
+    border-radius: 5px;
+    padding-left: 15px;
+    font-size: 18px;
+  }
+  form .page .field select{
+    width: 100%;
+    padding-left: 10px;
+    font-size: 17px;
+    font-weight: 500;
+  }
+  form .page .field button{
+    width: 100%;
+    height: calc(100% + 5px);
+    border: none;
+    background: #d33f8d;
+    margin-top: -20px;
+    border-radius: 5px;
+    color: #fff;
+    cursor: pointer;
+    font-size: 18px;
+    font-weight: 500;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+    transition: 0.5s ease;
+  }
+  form .page .field button:hover{
+    background: #000;
+  }
+  form .page .btns button{
+    margin-top: -20px!important;
+  }
+  form .page .btns button.prev{
+    margin-right: 3px;
+    font-size: 17px;
+  }
+  form .page .btns button.next{
+    margin-left: 3px;
+  }
+  .container .progress-bar{
+    display: flex;
+    margin: 15px 0 10px 0;
+    user-select: none;
+  }
+  .container .progress-bar .step{
+    text-align: center;
+    width: 100%;
+    position: relative;
+  }
+  .container .progress-bar .step p{
+    font-weight: 500;
+    font-size: 12px;
+    color: #000;
+    margin-bottom: 8px;
+  }
+  .progress-bar .step .bullet-line{
+    height: 30px;
+    width: 30px;
+    border: 1px solid #000;
+    display: inline-block;
+    border-radius: 50%;
+    position: relative;
+    transition: 0.2s;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 25px;
+  }
+  .progress-bar .step .bullet{
+    height: 30px;
+    width: 30px;
+    border: 1px solid #000;
+    display: inline-block;
+    border-radius: 50%;
+    position: relative;
+    transition: 0.2s;
+    font-weight: 500;
+    font-size: 17px;
+    line-height: 25px;
+    background-color: white;
+  }
+  .progress-bar .step .bullet-line.active{
+    border-color: #d43f8d;
+    background: #d43f8d;
+  }
+  .progress-bar .step .bullet-line span{
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+  }
+  .progress-bar .step .bullet.active span{
+    display: none;
+  }
+  .progress-bar .step .bullet-line:before,
+  .progress-bar .step .bullet-line:after{
+    position: absolute;
+    content: '';
+    bottom: 13px;
+    right: -600%;
+    height: 2px;
+    width: 600%;
+    background: #262626;
+  }
+  .progress-bar .step .bullet-line.active:after{
+    background: #ccc6b6;
+    transform: scaleX(0);
+    transform-origin: left;
+    animation: animate 0.3s linear forwards;
+  }
+
+.container-register100 {
+  width: 100%;  
+  min-height: 100vh;
+  padding: 15px;
+  background: white;
+  // background: #9053c7;
+  // background: -webkit-linear-gradient(-135deg, #fff8e3, #ffe596);
+  // background: -o-linear-gradient(-135deg, #fff8e3, #ffe596);
+  // background: -moz-linear-gradient(-135deg, #fff8e3, #ffe596);
+  // background: linear-gradient(-135deg, #fff8e3, #ffe596);
+}
+
+.ion-text-center{
+  margin: auto;
+  font-size: 27px;
+}
+.login100-pic {
+  display: none;
+}
+.wrap-login100 {
+  width: 320px;
+  background: #fff;
+  border-radius: 10px;
+  overflow: hidden;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  padding: 70px 15px 33px 15px;
+  margin: auto;
+}
+
+.login100-form-title {
+  font-size: 20px;
+  color: #333333;
+  line-height: 1.2;
+  text-align: center;
+  margin: auto;
+  width: 100%;
+  display: block;
+  padding-bottom: 45px;
+}
+.item{
+  width: 94%;
+  padding: 1%;
+}
+.login100-form-btn {
+  font-size: 15px;
+  line-height: 1.5;
+  color: #fff;
+  text-transform: uppercase;
+  margin-top: 8%;
+  width: 100%;
+  height: 45px;
+  border-radius: 25px;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0 15px;
+  -webkit-transition: all 0.4s;
+  -o-transition: all 0.4s;
+  -moz-transition: all 0.4s;
+  transition: all 0.4s;
+}
+.validate-input {
+  position: relative;
+}
+
+img{
+  width: 154px;
+  height: 253px;
+  margin: auto;
+}
+ion-item{
+  margin-right: 5%;
+}
+
+@media (min-width: 750px){
+  .login100-pic {
+    display: contents;
+  }
+  .wrap-login100 {
+    padding: 90px 14% 33px 14%;
+  }
+  .container{
+    width: 850px;
+    background: #fff;
+    text-align: center;
+    border-radius: 5px;
+    padding: 0px 20px 0px 20px;
+    margin: auto;
+  }
+  .wrap-login100 {
+    width: 100%;
+
+  }
+}
+
+@media (min-width:  1000px){
+  .login100-pic {
+    display: contents;
+  }
+  .wrap-login100 {
+    padding: 90px 20% 33px 7%;
+  }
+}
+
+@media (min-width:  1300px){
+  .login100-pic {
+    display: contents;
+  }
+  .wrap-login100 {
+    padding: 90px 27% 33px 10%;
+  }
+}
+
+@media (min-width:  1700px){
+  .login100-pic {
+    display: contents;
+  }
+  .wrap-login100 {
+    padding: 90px 34% 33px 20%;
+  }
+}
+.error-message {
+  color: var(--ion-color-danger);
+
+}
+.error-icon {
+  color: var(--ion-color-danger);
+  position: relative;
+}
