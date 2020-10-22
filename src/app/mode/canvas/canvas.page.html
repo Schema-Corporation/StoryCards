@@ -1,0 +1,37 @@
+<ion-header translucent>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/">  
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title class="principal-title">Mis formatos</ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="platform.is('ios')" icon-only (click)="addFormat()">
+        <ion-icon name="add-outline"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <ion-toolbar>
+    <ion-searchbar [value]="searchFormat" (ionChange)="filterByFormatName($event)"></ion-searchbar>
+  </ion-toolbar>
+</ion-header>
+<ion-content fullscreen>
+  <ion-list>
+    <ion-item *ngFor="let format of listFormats">
+      <ion-label>{{format.name}}</ion-label>
+      <ion-buttons slot="end">
+        <ion-button icon-only (click)="editFormat(format.id)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button icon-only (click)="deleteFormat(format.id)">
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+  </ion-list>
+  <ion-fab *ngIf="!platform.is('ios')" (click)="addFormat()" vertical="bottom" horizontal="end" slot="fixed">
+    <ion-fab-button>
+      <ion-icon name="add"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

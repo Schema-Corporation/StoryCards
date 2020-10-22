@@ -33,7 +33,6 @@ import { NgxIndexedDBModule } from 'ngx-indexed-db';
     AngularFireModule.initializeApp(environment.FIREBASE_CONFIG),
     AngularFireDatabaseModule
   ],
-  
   providers: [
     CharactersService,
     AuthService,
