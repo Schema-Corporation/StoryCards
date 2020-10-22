@@ -12,5 +12,83 @@
 </ion-header>
 
 <ion-content>
+  <div class="container">
+    <div class="progress-bar">
+      <div class="step">
+        <div class="bullet" [ngClass]="{'step-colored': step == 1}" (click)="step = 1">
+          <span></span>
+        </div>
+        <div class="check fas fa-check">
+        </div>
+        <p>Audiencia</p>
+      </div>
+      <div class="step">
+        <div class="bullet" [ngClass]="{'step-colored': step == 2}" (click)="step = 2">
+          <span></span>
+        </div>
+        <div class="check fas fa-check">
+        </div>
+        <p>Emoción</p>
+      </div>
+      <div class="step">
+        <div class="bullet" [ngClass]="{'step-colored': step == 3}" (click)="step = 3" >
+          <span></span>
+        </div>
+        <div class="check fas fa-check">
+        </div>
+        <p>Meta</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="step==1">
+    <div class="item">
+      <div class="item-header">
+        <div class="ion-text-left">    
+          Características
+        </div>
+      </div>
+      <ion-item class="item-item">
+        <ion-textarea placeholder="¿Quiénes son?"></ion-textarea>
+      </ion-item>
+    </div>
+    <div class="item">
+      <div class="item-header">
+        <div class="ion-text-left">    
+          Problemas
+        </div>
+      </div>
+      <ion-item class="item-item">
+        <ion-textarea placeholder="¿Qué les preocupa? ¿Qué necesitan?"></ion-textarea>
+      </ion-item>
+    </div>
+    <div class="item">
+      <div class="item-header">
+        <div class="ion-text-left">    
+          Motivación
+        </div>
+      </div>
+      <ion-item class="item-item">
+        <ion-textarea placeholder="¿Qué hacen aquí? ¿Qué quieren? ¿Qué buscan?"></ion-textarea>
+      </ion-item>
+    </div>
+    <div class="item">
+      <div class="item-header">
+        <div class="ion-text-left">    
+          Llamamiento a la acción
+        </div>
+      </div>
+      <ion-item class="item-item">
+        <ion-textarea placeholder="¿Qué se espera de ellos?"></ion-textarea>
+      </ion-item>
+    </div>
+    <ion-button class="next-button" (click)="step=2">Siguiente</ion-button>
+  </div>
+  <div *ngIf="step==2">
+    
+  </div>
+  <div *ngIf="step==3">
+    
+  </div>
 
 </ion-content>

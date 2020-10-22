@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class AudiencePage implements OnInit {
 
+  public step: number = 1;
+
   constructor() { }
 
   ngOnInit() {
