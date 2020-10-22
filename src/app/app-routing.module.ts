@@ -40,13 +40,38 @@ const routes: Routes = [
   },
   {
     path: 'canvas',
-    loadChildren: () => import('./mode/canvas/canvas.module').then( m => m.CanvasPageModule),
-    canActivate: [AuthService]
-  },
-  {
-    path: 'canvas/add-canvas',
-    loadChildren: () => import('./mode/canvas/add-canvas/add-canvas.module').then( m => m.AddCanvasPageModule),
-    canActivate: [AuthService]
+    children: [
+      {
+        path: 'canvas',
+        loadChildren: () => import('./mode/canvas/canvas/canvas.module').then( m => m.CanvasPageModule),
+        canActivate: [AuthService]
+      },
+      {
+        path: 'add-canvas',
+        loadChildren: () => import('./mode/canvas/add-canvas/add-canvas.module').then( m => m.AddCanvasPageModule),
+        canActivate: [AuthService]
+      },
+      {
+        path: 'audience',
+        loadChildren: () => import('./mode/canvas/type/audience/audience.module').then( m => m.AudiencePageModule),
+        canActivate: [AuthService]
+      },
+      {
+        path: 'structural-aspects',
+        loadChildren: () => import('./mode/canvas/type/structural-aspects/structural-aspects.module').then( m => m.StructuralAspectsPageModule),
+        canActivate: [AuthService]
+      },
+      {
+        path: 'characters',
+        loadChildren: () => import('./mode/canvas/type/characters/characters.module').then( m => m.CharactersPageModule),
+        canActivate: [AuthService]
+      },
+      {
+        path: 'storytelling',
+        loadChildren: () => import('./mode/canvas/type/storytelling/storytelling.module').then( m => m.StorytellingPageModule),
+        canActivate: [AuthService]
+      }
+    ]
   },
   {
     path: 'create-character',

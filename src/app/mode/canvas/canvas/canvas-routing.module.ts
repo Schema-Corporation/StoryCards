@@ -7,10 +7,6 @@ const routes: Routes = [
   {
     path: '',
     component: CanvasPage
-  },
-  {
-    path: 'add-canvas',
-    loadChildren: () => import('./add-canvas/add-canvas.module').then( m => m.AddCanvasPageModule)
   }
 ];
 
