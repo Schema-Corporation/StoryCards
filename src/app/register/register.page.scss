@@ -158,8 +158,17 @@
 .login100-pic {
   display: none;
 }
+.wrap-input100 {
+  position: relative;
+  width: 100%;
+  z-index: 1;
+}
+.input-login {
+  margin-left: 0px;
+}
+
 .wrap-login100 {
-  width: 320px;
+  width: 340px;
   background: #fff;
   border-radius: 10px;
   overflow: hidden;
@@ -184,10 +193,23 @@
   display: block;
   padding-bottom: 45px;
 }
+.container-login100-form-btn {
+  width: 100%;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  padding-top: 20px;
+}
+
 .item{
-  width: 94%;
+  width: 96%;
   padding: 1%;
 }
+
 .login100-form-btn {
   font-size: 15px;
   line-height: 1.5;
@@ -213,15 +235,63 @@
 .validate-input {
   position: relative;
 }
+.alert-validate::before {
+  content: attr(data-validate);
+  position: absolute;
+  max-width: 70%;
+  background-color: white;
+  border: 1px solid #c80000;
+  border-radius: 13px;
+  padding: 4px 25px 4px 10px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  right: 8px;
+  pointer-events: none;
 
+  color: #c80000;
+  font-size: 13px;
+  line-height: 1.4;
+  text-align: left;
+
+  visibility: hidden;
+  opacity: 0;
+
+  -webkit-transition: opacity 0.4s;
+  -o-transition: opacity 0.4s;
+  -moz-transition: opacity 0.4s;
+  transition: opacity 0.4s;
+}
+
+.alert-validate::after {
+  content: "\f06a";
+
+  display: block;
+  position: absolute;
+  color: #c80000;
+  font-size: 15px;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+  -moz-transform: translateY(-50%);
+  -ms-transform: translateY(-50%);
+  -o-transform: translateY(-50%);
+  transform: translateY(-50%);
+  right: 13px;
+}
+
+.alert-validate:hover:before {
+  visibility: visible;
+  opacity: 1;
+}
 img{
   width: 154px;
   height: 253px;
   margin: auto;
 }
-ion-item{
-  margin-right: 5%;
-}
+
 
 @media (min-width: 750px){
   .login100-pic {
@@ -272,9 +342,6 @@ ion-item{
 }
 .error-message {
   color: var(--ion-color-danger);
+  margin-left: 6%;
 
-}
-.error-icon {
-  color: var(--ion-color-danger);
-  position: relative;
 }
