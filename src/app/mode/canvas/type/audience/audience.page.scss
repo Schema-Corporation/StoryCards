@@ -235,7 +235,7 @@ margin-right: 7px;
 ion-item {
 margin-right: 15px;
 }
-.character-selected {
+.emotion-selected {
 
 .first-border
 {
@@ -336,6 +336,12 @@ animation-delay: 1s;
     float: right;
     margin-right: 20px;
 }
+
+.back-button {
+    float: left;
+    margin-left: 20px;
+}
+
 
 .abilities-statistics {
 font-size: 13px;
@@ -446,7 +452,7 @@ ion-col {
     margin: auto;
     padding: 4%;
 }
-.character-selected {
+.emotion-selected {
 
     .first-border
     {
@@ -575,6 +581,14 @@ ion-col {
     margin-top: 5%;
     font-size: 20px;
 }
+
+.back-button {
+    float: left;
+    margin-left: 20%;
+    margin-top: 5%;
+    font-size: 20px;
+}
+
 .item-item {
     margin-right: 10%;
     margin-left: 10%;

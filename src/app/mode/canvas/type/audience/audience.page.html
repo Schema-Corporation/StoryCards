@@ -84,8 +84,22 @@
     </div>
     <ion-button class="next-button" (click)="step=2">Siguiente</ion-button>
   </div>
-  <div *ngIf="step==2">
-    
+  <div *ngIf="step==2 && showDivCards">
+    <ion-grid *ngIf="showDivCards">
+      <ion-row *ngFor="let indexRow of rows">
+        <ion-col [ngClass]="{'emotion-selected': emotion == (indexRow)*3 + (indexColumn)}" *ngFor="let indexColumn of columns">
+          <div *ngIf="(this.cards[(indexRow)*3 + (indexColumn)])">
+            <span class="first-border"></span>
+            <span class="second-border"></span>
+            <span class="third-border"></span>
+            <span class="fourth-border"></span>
+            <ion-img class="img-arq" (click)="emotion = (indexRow)*3 + (indexColumn)" src="{{this.cards[(indexRow)*3 + (indexColumn)].imgCard}}"></ion-img>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-button class="back-button" (click)="step=1">Atrás</ion-button>
+    <ion-button class="next-button" (click)="step=3">Siguiente</ion-button>
   </div>
   <div *ngIf="step==3">
     
