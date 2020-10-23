@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AlertController, NavController, ToastController } from '@ionic/angular';
 
 @Component({
   selector: 'app-audience',
@@ -31,11 +32,18 @@ export class AudiencePage implements OnInit {
   public goal: string = "";
   public goalCharacters: number = 0;
 
-  constructor() { }
+  constructor(private alertCtrl: AlertController,
+    public toastController: ToastController,
+    public navCtrl: NavController) { }
 
   ngOnInit() {
+    this.startCanvas();
     this.getEmotionsCards();
     this.showCards(this.cards);
+  }
+
+  startCanvas() {
+    this.step = 1;
   }
 
   writeCharacteristics(ev: CustomEvent) {
@@ -61,6 +69,66 @@ export class AudiencePage implements OnInit {
   writeGoal(ev: CustomEvent) {
     this.goal = ev.detail.value;
     this.goalCharacters = ev.detail.value.length;
+  }
+
+  finishCanvas() {
+    this.showCanvasOption()
+  }
+  
+  async showCanvasOption() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: '¿Qué acción deseas realizar?',
+      message: 'Ahora que el formato está completo puedes descargarlo, guardarlo o imprimirlo.',
+      buttons: [
+        {
+          text:'Descargar',
+          handler: () => {
+            this.downloadCanvas();
+          }
+        },
+        {
+          text:'Guardar',
+          handler:() => {
+            this.saveCanvas();
+          }
+        },
+        {
+          text:'Imprimir',
+          handler:() => {
+            this.printCanvas();
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  downloadCanvas() {
+    this.presentToast('Formato descargado');
+  }
+
+  async saveCanvas() {
+    this.presentToast('¡Su formato se ha guardado con éxito!');
+    await this.sleep(2500);
+    this.navCtrl.navigateForward('canvas/canvas');
+  }
+
+  printCanvas() {
+    this.presentToast('print');
   }
 
   getEmotionsCards() {
