@@ -14,11 +14,53 @@ export class AudiencePage implements OnInit {
   public emotion: number = -1;
   public showDivCards: boolean = false;
 
+  public maximumCharactersAllowed: number = 200;
+
+  public characteristics: string = "";
+  public characteristicsCharacters: number = 0;
+
+  public problems: string = "";
+  public problemsCharacters: number = 0;
+
+  public motivation: string = "";
+  public motivationCharacters: number = 0;
+
+  public action: string = "";
+  public actionCharacters: number = 0;
+
+  public goal: string = "";
+  public goalCharacters: number = 0;
+
   constructor() { }
 
   ngOnInit() {
     this.getEmotionsCards();
     this.showCards(this.cards);
+  }
+
+  writeCharacteristics(ev: CustomEvent) {
+    this.characteristics = ev.detail.value;
+    this.characteristicsCharacters = ev.detail.value.length;
+  }
+
+  writeProblems(ev: CustomEvent) {
+    this.problems = ev.detail.value;
+    this.problemsCharacters = ev.detail.value.length;
+  }
+
+  writeMotivation(ev: CustomEvent) {
+    this.motivation = ev.detail.value;
+    this.motivationCharacters = ev.detail.value.length;
+  }
+
+  writeAction(ev: CustomEvent) {
+    this.action = ev.detail.value;
+    this.actionCharacters = ev.detail.value.length;
+  }
+
+  writeGoal(ev: CustomEvent) {
+    this.goal = ev.detail.value;
+    this.goalCharacters = ev.detail.value.length;
   }
 
   getEmotionsCards() {

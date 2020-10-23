@@ -49,8 +49,9 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea placeholder="¿Quiénes son?"></ion-textarea>
+        <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeCharacteristics($event)" placeholder="¿Quiénes son?"></ion-textarea>
       </ion-item>
+      <ion-label class="count-letters">{{this.characteristicsCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
     </div>
     <div class="item">
       <div class="item-header">
@@ -59,8 +60,9 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea placeholder="¿Qué les preocupa? ¿Qué necesitan?"></ion-textarea>
+        <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeProblems($event)" placeholder="¿Qué les preocupa? ¿Qué necesitan?"></ion-textarea>
       </ion-item>
+      <ion-label class="count-letters">{{this.problemsCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
     </div>
     <div class="item">
       <div class="item-header">
@@ -69,8 +71,9 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea placeholder="¿Qué hacen aquí? ¿Qué quieren? ¿Qué buscan?"></ion-textarea>
+        <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeMotivation($event)" placeholder="¿Qué hacen aquí? ¿Qué quieren? ¿Qué buscan?"></ion-textarea>
       </ion-item>
+      <ion-label class="count-letters">{{this.motivationCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
     </div>
     <div class="item">
       <div class="item-header">
@@ -79,8 +82,9 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea placeholder="¿Qué se espera de ellos?"></ion-textarea>
+        <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeAction($event)" placeholder="¿Qué se espera de ellos?"></ion-textarea>
       </ion-item>
+      <ion-label class="count-letters">{{this.actionCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
     </div>
     <ion-button class="next-button" (click)="step=2">Siguiente</ion-button>
   </div>
@@ -102,7 +106,17 @@
     <ion-button class="next-button" (click)="step=3">Siguiente</ion-button>
   </div>
   <div *ngIf="step==3">
-    
+    <div class="item">
+      <div class="item-header">
+        <div class="ion-text-left">    
+          Meta
+        </div>
+      </div>
+      <ion-item class="item-item">
+        <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeGoal($event)" placeholder="¿Qué deseas lograr?"></ion-textarea>
+      </ion-item>
+      <ion-label class="count-letters">{{this.goalCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
+    </div>
   </div>
 
 </ion-content>
