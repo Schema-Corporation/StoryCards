@@ -11,14 +11,69 @@
       </ion-button>
     </ion-buttons>
   </ion-toolbar>
-  <ion-toolbar>
-    <ion-searchbar [value]="searchFormat" (ionChange)="filterByFormatName($event)"></ion-searchbar>
+  <ion-toolbar >
+    <ion-searchbar class="toolbar" [value]="searchFormat" (ionChange)="filterByFormatName($event)"></ion-searchbar>
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
   <ion-list>
-    <ion-item *ngFor="let format of listFormats">
-      <ion-label>{{format.name}}</ion-label>
+    <ion-item class="item-inner" *ngFor="let format of listFormats">
+      <ion-label class="item">{{format.name}}</ion-label>
+      <ion-buttons slot="end">
+        <ion-button icon-only (click)="editFormat(format.id)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button icon-only (click)="deleteFormat(format.id)">
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item class="item-inner" *ngFor="let format of listFormats">
+      <ion-label class="item">{{format.name}}</ion-label>
+      <ion-buttons slot="end">
+        <ion-button icon-only (click)="editFormat(format.id)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button icon-only (click)="deleteFormat(format.id)">
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item class="item-inner" *ngFor="let format of listFormats">
+      <ion-label class="item">{{format.name}}</ion-label>
+      <ion-buttons slot="end">
+        <ion-button icon-only (click)="editFormat(format.id)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button icon-only (click)="deleteFormat(format.id)">
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item class="item-inner" *ngFor="let format of listFormats">
+      <ion-label class="item">{{format.name}}</ion-label>
+      <ion-buttons slot="end">
+        <ion-button icon-only (click)="editFormat(format.id)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button icon-only (click)="deleteFormat(format.id)">
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item class="item-inner" *ngFor="let format of listFormats">
+      <ion-label class="item">{{format.name}}</ion-label>
+      <ion-buttons slot="end">
+        <ion-button icon-only (click)="editFormat(format.id)">
+          <ion-icon name="create-outline"></ion-icon>
+        </ion-button>
+        <ion-button icon-only (click)="deleteFormat(format.id)">
+          <ion-icon name="close-circle-outline"></ion-icon>
+        </ion-button>
+      </ion-buttons>
+    </ion-item>
+    <ion-item class="item-inner" *ngFor="let format of listFormats">
+      <ion-label class="item">{{format.name}}</ion-label>
       <ion-buttons slot="end">
         <ion-button icon-only (click)="editFormat(format.id)">
           <ion-icon name="create-outline"></ion-icon>
@@ -29,7 +84,7 @@
       </ion-buttons>
     </ion-item>
   </ion-list>
-  <ion-fab *ngIf="!platform.is('ios')" (click)="addFormat()" vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab class="but" *ngIf="!platform.is('ios')" (click)="addFormat()" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
     </ion-fab-button>
