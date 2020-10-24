@@ -65,7 +65,7 @@
 				<form class="login100-form validate-form" [formGroup]="registrationForm">
 					<div class="wrap-input100 validate-input">
 						<ion-item>
-							<ion-input [(ngModel)]="name" id="name" name="name" class="input-login" color="primary" placeholder="Nombre" required="true"  formControlName="username"></ion-input>
+							<ion-input [(ngModel)]="name" id="name" name="name" class="input-login" color="primary" placeholder="Nombre" required="true" formControlName="username" maxlength="25"></ion-input>
 							<ion-icon name="person-circle-outline" color="primary" slot="start"></ion-icon>
 						</ion-item>
 						<div *ngFor="let error of errorMessages.username">
@@ -74,7 +74,8 @@
 							</ng-container>
 						</div>
             			<ion-item>
-							<ion-input [(ngModel)]="phoneNumber" id="phoneNumber" name="phoneNumber" class="input-login" color="primary" placeholder="Teléfono" required="true" formControlName="phone"></ion-input>
+							<ion-input [(ngModel)]="phoneNumber" id="phoneNumber" name="phoneNumber" class="input-login" color="primary" 
+							placeholder="Teléfono" required="true" formControlName="phone" maxlength="10"></ion-input>
 							<ion-icon name="call-outline" color="primary" slot="start"></ion-icon>
 						</ion-item>
 						<div *ngFor="let error of errorMessages.phone">
@@ -83,7 +84,7 @@
 							</ng-container>
 						</div>
            				<ion-item>
-							<ion-input [(ngModel)]="emailAddress" id="emailAddress" name="emailAddress" class="input-login" color="primary" placeholder="Correo electrónico" required="true" formControlName="email"></ion-input>
+							<ion-input [(ngModel)]="emailAddress" id="emailAddress" name="emailAddress" class="input-login" color="primary" placeholder="Correo electrónico" required="true" formControlName="email" maxlength="30"></ion-input>
 							<ion-icon name="mail-outline" color="primary" slot="start"></ion-icon>
 						</ion-item>
 						<div *ngFor="let error of errorMessages.email">
@@ -95,7 +96,7 @@
 
 					<div class="wrap-input100 validate-input">
 						<ion-item class="item">
-							<ion-input [(ngModel)]="userPassword" id="userPassword" name="userPassword" [type]="getPasswordType()" class="input-login" color="primary" placeholder="Contraseña" required="true" formControlName="password"></ion-input>
+							<ion-input [(ngModel)]="userPassword" id="userPassword" name="userPassword" [type]="getPasswordType()" class="input-login" color="primary" placeholder="Contraseña" required="true" formControlName="password" maxlength="20"></ion-input>
 							<ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
 							<ion-icon *ngIf="!showPassword" name="eye-outline" color="primary" (click)="toggleTextPassword()"></ion-icon>
 							<ion-icon *ngIf="showPassword" name="eye-off-outline" color="primary" (click)="toggleTextPassword()"></ion-icon>
@@ -106,7 +107,7 @@
 							</ng-container>
 						</div>
 						<ion-item>
-							<ion-input [type]="getConfirmPasswordType()" class="input-login" color="primary" placeholder="Confirmar Contraseña" required="true" formControlName="confirmPassword"></ion-input>
+							<ion-input [type]="getConfirmPasswordType()" class="input-login" color="primary" placeholder="Confirmar Contraseña" required="true" formControlName="confirmPassword" maxlength="20"></ion-input>
 							<ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
 							<ion-icon *ngIf="!showConfirmPassword" name="eye-outline" color="primary" (click)="toggleTextConfirmPassword()"></ion-icon>
 							<ion-icon *ngIf="showConfirmPassword" name="eye-off-outline" color="primary" (click)="toggleTextConfirmPassword()"></ion-icon>

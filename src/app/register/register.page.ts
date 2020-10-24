@@ -44,10 +44,10 @@ export class RegisterPage implements OnInit {
 
   registrationForm = this.formBuilder.group({
     
-    username: ['',[Validators.required, Validators.maxLength(50), Validators.pattern(this.NAMEPATTERN)]],
+    username: ['',[Validators.required,  Validators.pattern(this.NAMEPATTERN)]],
     email: ['',[Validators.required, Validators.pattern(this.EMAILPATTERN)]],
-    phone: ['',[Validators.required, Validators.maxLength(9), Validators.pattern(this.PHONEPATTERN)]],
-    password: ['',[Validators.required,Validators.minLength(9), Validators.maxLength(15)]],
+    phone: ['',[Validators.required, Validators.pattern(this.PHONEPATTERN)]],
+    password: ['',[Validators.required]],
     confirmPassword: ['',[Validators.required]],
     //falta agregar validaciones para la contrasenia
 
@@ -77,32 +77,26 @@ export class RegisterPage implements OnInit {
   }
   public errorMessages = {
     username: [
-      { type: 'required', message: '*Debe ingresar un nombre' },
-      { type: 'maxlength', message: '*El nombre no debe superar los 15 caracteres' },
-      { type: 'pattern', message: '*No se permite caracteres especiales' }
+      { type: 'required', message: '* Debe ingresar un nombre' },
+      { type: 'pattern', message: '* El nombre no debe contener caracteres especiales' }
     ],
     email: [
-      { type: 'required', message: '*Debe ingresar un correo' },
-      { type: 'pattern', message: '*Ingrese un correo válido' }
+      { type: 'required', message: '* Debe ingresar un correo' },
+      { type: 'pattern', message: '* Ingrese un correo válido' }
     ],
     phone: [
-      { type: 'required', message: '*Debe ingresar un número telefónico' },
-      { type: 'pattern', message: '*Ingrese un número telefónico válido' },
-      { type: 'maxlength', message: '*El número telefónico debe contener como 9 caracteres' }
+      { type: 'required', message: '* Debe ingresar un número telefónico' },
+      { type: 'pattern', message: '* Debe ingresar un número de teléfono válido' }
     ],
     password: [
-      { type: 'required', message: '*Debe ingresar una constraseña' },
-      { type: 'minlenght', message: '*La contraseña debe contener como mínimo 9 caracteres' },
-      { type: 'maxlenght', message: '*La contraseña no debe superar los 15 caracteres' }
+      { type: 'required', message: '* Debe ingresar una constraseña' }
     ],
     confirmPassword: [
-      { type: 'required', message: '*Debe confirmar su contraseña' },
-      { type: 'pattern', message: '*Las contraseñas no coinciden' }
-
+      { type: 'required', message: '* Debe confirmar su contraseña' },
+      { type: 'pattern', message: '* Las contraseñas no coinciden' }
     ],
     bookCode: [
-      { type: 'required', message: '*Debe ingresar el código del libro' },
-      { type: 'maxlenght', message: '*El codigo no debe superar los 10 caracteres' }
+      { type: 'required', message: '* Debe ingresar el código del libro' }
     ],
   };
 
@@ -110,7 +104,6 @@ export class RegisterPage implements OnInit {
     return (group: FormGroup): {[key: string]: any} => {
       let password = group.controls[passwordKey];
       let confirmPassword = group.controls[confirmPasswordKey];
-
       if (password.value !== confirmPassword.value) {
         return {
           mismatchedPasswords: true
