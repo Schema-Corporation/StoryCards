@@ -154,11 +154,16 @@ export class CreateCharacterPage implements OnInit {
       if (ability == this.fifthAbility) fifthAbilityIndex = index;
       if (ability == this.sixthAbility) sixthAbilityIndex = index;
     });
-    var indexes = [fourthAbilityIndex, fifthAbilityIndex, sixthAbilityIndex];
-    for (var i = indexes.length -1; i >= 0; i--) {
-      if (indexes[i] != null) {
-        abilities.splice(indexes[i], 1);
-      }
+    var indexes = [];
+    if (fourthAbilityIndex != undefined) indexes.push(fourthAbilityIndex);
+    if (fifthAbilityIndex != undefined) indexes.push(fifthAbilityIndex);
+    if (sixthAbilityIndex != undefined) indexes.push(sixthAbilityIndex);
+    // sort indexes
+    indexes.sort(function(a,b){ return a-b; });
+
+    // remove selected abilities
+    while (indexes.length) {
+      abilities.splice(indexes.pop(), 1);
     }
     // add all the other activities to the list
     abilities.forEach((ability, index) => {
