@@ -45,7 +45,9 @@ export class AudiencePage implements OnInit {
   startCanvas() {
     this.step = 1;
   }
-
+  addStep(){
+    this.step++
+  }
   writeCharacteristics(ev: CustomEvent) {
     this.characteristics = ev.detail.value;
     this.characteristicsCharacters = ev.detail.value.length;

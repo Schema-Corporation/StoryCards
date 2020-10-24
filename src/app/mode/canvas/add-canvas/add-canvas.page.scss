@@ -1,5 +1,15 @@
+@font-face{
+    font-family: 'Cambriab';
+    src: url('../../../../assets/fonts/cambriab.ttf');
+  }
+  *{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    font-family: Cambriab;
+  }
 .principal-title {
-    margin-left: 13%;
+    margin-left: 19%;
 }
 .principal-title.ios {
     margin-left: 0%;
@@ -16,14 +26,15 @@
     font-size: 14px;
     width: 130px;
     height: 40px;
+    margin-top: 10px;
     margin-left: 33%;
 }
 .picker-wrapper.sc-ion-picker-md{
     height: 220px;
 }
-@media(max-width: 320px){
+@media(max-width: 350px){
     .format-type{
-        margin-left: 5%;
+        margin-left: 2%;
     }
 }
 @media (min-width: 400px) {
@@ -48,6 +59,7 @@
         font-size: 14px;
         width: 130px;
         height: 40px;
+        margin-top: 0px;
         margin-left: 3%;
     }
 
@@ -72,6 +84,7 @@
     .format-type{
         margin-left: 33%;
     }
+    
 
 }
 

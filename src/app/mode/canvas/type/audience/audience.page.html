@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="/">  
       </ion-back-button>
     </ion-buttons>
-    <ion-title>Formato de Auditorio</ion-title>
+    <ion-title class="principal-title">Formato de Auditorio</ion-title>
     <ion-icon slot="end" class="icon-header" name="save-outline"></ion-icon>
     <ion-icon slot="end" class="icon-header" name="download-outline"></ion-icon>
     <ion-icon slot="end" class="icon-header" name="print-outline"></ion-icon>
@@ -15,7 +15,7 @@
   <div class="container">
     <div class="progress-bar">
       <div class="step">
-        <div class="bullet" [ngClass]="{'step-colored': step == 1}" (click)="step = 1">
+        <div class="bullet" [ngClass]="{'step-colored': step == 1}">
           <span></span>
         </div>
         <div class="check fas fa-check">
@@ -23,7 +23,7 @@
         <p>Audiencia</p>
       </div>
       <div class="step">
-        <div class="bullet" [ngClass]="{'step-colored': step == 2}" (click)="step = 2">
+        <div class="bullet" [ngClass]="{'step-colored': step == 2}">
           <span></span>
         </div>
         <div class="check fas fa-check">
@@ -31,7 +31,7 @@
         <p>Emoción</p>
       </div>
       <div class="step">
-        <div class="bullet" [ngClass]="{'step-colored': step == 3}" (click)="step = 3" >
+        <div class="bullet" [ngClass]="{'step-colored': step == 3}">
           <span></span>
         </div>
         <div class="check fas fa-check">
