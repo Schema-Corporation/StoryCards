@@ -1,4 +1,14 @@
 
+@font-face{
+  font-family: 'Cambriab';
+  src: url('../../../../assets/fonts/cambriab.ttf');
+}
+*{
+  margin: 0;
+  padding: 0;
+  outline: none;
+  font-family: Cambriab;
+}
 .principal-title{
     margin-left: 23%;
 }
