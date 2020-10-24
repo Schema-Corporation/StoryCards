@@ -23,21 +23,60 @@ const routes: Routes = [
     children:[
       {
         path: 'groups',
-        loadChildren: () => import('./mode/free/groups/groups.module').then( m => m.GroupsPageModule)
+        loadChildren: () => import('./mode/free/groups/groups.module').then( m => m.GroupsPageModule),
+        canActivate: [AuthService]
       },
       {
         path: 'cards',
-        loadChildren: () => import('./mode/free/cards/cards.module').then( m => m.CardsPageModule)
+        loadChildren: () => import('./mode/free/cards/cards.module').then( m => m.CardsPageModule),
+        canActivate: [AuthService]
       },
       {
         path: 'detail',
-        loadChildren: () => import('./mode/free/detail/detail.module').then( m => m.DetailPageModule)
+        loadChildren: () => import('./mode/free/detail/detail.module').then( m => m.DetailPageModule),
+        canActivate: [AuthService]
+      }
+    ]
+  },
+  {
+    path: 'canvas',
+    children: [
+      {
+        path: 'canvas',
+        loadChildren: () => import('./mode/canvas/canvas/canvas.module').then( m => m.CanvasPageModule),
+        canActivate: [AuthService]
+      },
+      {
+        path: 'add-canvas',
+        loadChildren: () => import('./mode/canvas/add-canvas/add-canvas.module').then( m => m.AddCanvasPageModule),
+        canActivate: [AuthService]
+      },
+      {
+        path: 'audience',
+        loadChildren: () => import('./mode/canvas/type/audience/audience.module').then( m => m.AudiencePageModule),
+        canActivate: [AuthService]
+      },
+      {
+        path: 'structural-aspects',
+        loadChildren: () => import('./mode/canvas/type/structural-aspects/structural-aspects.module').then( m => m.StructuralAspectsPageModule),
+        canActivate: [AuthService]
+      },
+      {
+        path: 'characters',
+        loadChildren: () => import('./mode/canvas/type/characters/characters.module').then( m => m.CharactersPageModule),
+        canActivate: [AuthService]
+      },
+      {
+        path: 'storytelling',
+        loadChildren: () => import('./mode/canvas/type/storytelling/storytelling.module').then( m => m.StorytellingPageModule),
+        canActivate: [AuthService]
       }
     ]
   },
   {
     path: 'create-character',
-    loadChildren: () => import('./mode/role-play/create-character/create-character.module').then( m => m.CreateCharacterPageModule)
+    loadChildren: () => import('./mode/role-play/create-character/create-character.module').then( m => m.CreateCharacterPageModule),
+    canActivate: [AuthService]
   },
   {
     path: 'login',
@@ -57,6 +96,7 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   }
+
 
   
   

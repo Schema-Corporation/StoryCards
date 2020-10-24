@@ -1,0 +1,123 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/">  
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title class="principal-title">Formato de Auditorio</ion-title>
+    <ion-icon slot="end" class="icon-header" name="save-outline"></ion-icon>
+    <ion-icon slot="end" class="icon-header" name="download-outline"></ion-icon>
+    <ion-icon slot="end" class="icon-header" name="print-outline"></ion-icon>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div class="container">
+    <div class="progress-bar">
+      <div class="step">
+        <div class="bullet" [ngClass]="{'step-colored': step == 1}">
+          <span></span>
+        </div>
+        <div class="check fas fa-check">
+        </div>
+        <p>Audiencia</p>
+      </div>
+      <div class="step">
+        <div class="bullet" [ngClass]="{'step-colored': step == 2}">
+          <span></span>
+        </div>
+        <div class="check fas fa-check">
+        </div>
+        <p>Emoción</p>
+      </div>
+      <div class="step">
+        <div class="bullet" [ngClass]="{'step-colored': step == 3}">
+          <span></span>
+        </div>
+        <div class="check fas fa-check">
+        </div>
+        <p>Meta</p>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="step==1">
+    <div class="item">
+      <div class="item-header">
+        <div class="ion-text-left">    
+          Características
+        </div>
+      </div>
+      <ion-item class="item-item">
+        <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeCharacteristics($event)" placeholder="¿Quiénes son?"></ion-textarea>
+      </ion-item>
+      <ion-label class="count-letters">{{this.characteristicsCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
+    </div>
+    <div class="item">
+      <div class="item-header">
+        <div class="ion-text-left">    
+          Problemas
+        </div>
+      </div>
+      <ion-item class="item-item">
+        <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeProblems($event)" placeholder="¿Qué les preocupa? ¿Qué necesitan?"></ion-textarea>
+      </ion-item>
+      <ion-label class="count-letters">{{this.problemsCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
+    </div>
+    <div class="item">
+      <div class="item-header">
+        <div class="ion-text-left">    
+          Motivación
+        </div>
+      </div>
+      <ion-item class="item-item">
+        <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeMotivation($event)" placeholder="¿Qué hacen aquí? ¿Qué quieren? ¿Qué buscan?"></ion-textarea>
+      </ion-item>
+      <ion-label class="count-letters">{{this.motivationCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
+    </div>
+    <div class="item">
+      <div class="item-header">
+        <div class="ion-text-left">    
+          Llamamiento a la acción
+        </div>
+      </div>
+      <ion-item class="item-item">
+        <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeAction($event)" placeholder="¿Qué se espera de ellos?"></ion-textarea>
+      </ion-item>
+      <ion-label class="count-letters">{{this.actionCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
+    </div>
+    <ion-button class="next-button" (click)="step=2">Siguiente</ion-button>
+  </div>
+  <div *ngIf="step==2 && showDivCards">
+    <ion-grid *ngIf="showDivCards">
+      <ion-row *ngFor="let indexRow of rows">
+        <ion-col [ngClass]="{'emotion-selected': emotion == (indexRow)*3 + (indexColumn)}" *ngFor="let indexColumn of columns">
+          <div *ngIf="(this.cards[(indexRow)*3 + (indexColumn)])">
+            <span class="first-border"></span>
+            <span class="second-border"></span>
+            <span class="third-border"></span>
+            <span class="fourth-border"></span>
+            <ion-img class="img-arq" (click)="emotion = (indexRow)*3 + (indexColumn)" src="{{this.cards[(indexRow)*3 + (indexColumn)].imgCard}}"></ion-img>
+          </div>
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    <ion-button class="back-button" (click)="step=1">Atrás</ion-button>
+    <ion-button class="next-button" (click)="step=3">Siguiente</ion-button>
+  </div>
+  <div *ngIf="step==3">
+    <div class="item">
+      <div class="item-header">
+        <div class="ion-text-left">    
+          Meta
+        </div>
+      </div>
+      <ion-item class="item-item">
+        <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeGoal($event)" placeholder="¿Qué deseas lograr?"></ion-textarea>
+      </ion-item>
+      <ion-label class="count-letters">{{this.goalCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
+    </div>
+    <ion-button class="next-button" (click)="finishCanvas()">Finalizar</ion-button>
+  </div>
+
+</ion-content>

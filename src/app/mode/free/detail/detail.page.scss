@@ -1,13 +1,23 @@
+@font-face{
+  font-family: 'Cambriab';
+  src: url('../../../../assets/fonts/cambriab.ttf');
+}
+*{
+  margin: 0;
+  padding: 0;
+  outline: none;
+  font-family: Cambriab;
+}
 .fullheight {
     position:relative;
     height: 100%;
 //background: #fafafa;
   }
   
-  .principal-tittle{
+  .principal-title{
     margin-left: 23%;
   }
-  .principal-tittle.ios{
+  .principal-title.ios{
     margin-left: 0%;
   }
   .thecard {
@@ -48,37 +58,49 @@
 
 .imgSize{
     padding-top: 5px;
-    margin-left: 90%;
-    padding-right: 10px;
-    width: 38px;
-    height: 38px;
+    margin-left: 85%;
+    //padding-right: 10px;
+    position: absolute;
+    width: 30px;
+    height: 30px;
+    z-index: 2;
 }
 
 .ion-imgSize{
-  width: 100%;
-  height: 100%;
+  width: 250px;
+  height: 400px;
+  margin: auto;
+  margin-top: 20px;
+  z-index: 1;
+}
+.input-login {
+  margin-left: 2px;
 }
 @media (min-width: 400px){
-  .principal-tittle{
+  .principal-title{
     margin-left: 28%;
     font-size: 21px;
   }
   .ion-imgSize{
-    width: 80%;
-    height: 80%;
+    width: 250px;
+    height: 400px;
     margin: auto;
+    margin-top: 20px;
+    z-index: 1;
   }
 }
 
 @media (min-width: 600px){
-  .principal-tittle{
+  .principal-title{
     margin-left: 33%;
     font-size: 23;
   }
   .ion-imgSize{
-    width: 80%;
-    height: 80%;
+    width: 250px;
+    height: 400px;
     margin: auto;
+    margin-top: 20px;
+    z-index: 1;
   }
 }
 
@@ -90,7 +112,7 @@
     height: 480px;
     width: 300px;
   }
-  .principal-tittle{
+  .principal-title{
     margin-left: 38%;
     font-size: 25px;
   }
@@ -137,7 +159,7 @@
     width: 300px;
   }
     
-  .principal-tittle{
+  .principal-title{
     margin-left: 38%;
     font-size: 25px;
   }
@@ -175,7 +197,7 @@
     height: 480px;
     width: 300px;
   }
-  .principal-tittle{
+  .principal-title{
     margin-left: 40%;
     font-size: 28px;
   }
@@ -209,21 +231,21 @@
 }
 
 @media (min-width: 1260px) {
-  .principal-tittle{
+  .principal-title{
     margin-left: 42%;
     font-size: 28px;
   }
 }
 
 @media (min-width: 1400px) {
-  .principal-tittle{
+  .principal-title{
     margin-left: 43%;
     font-size: 30px;
   }
 }
 
 @media (min-width: 1640px) {
-  .principal-tittle{
+  .principal-title{
     margin-left: 45%;
     font-size: 30px;
   }

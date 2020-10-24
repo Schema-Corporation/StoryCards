@@ -1,0 +1,119 @@
+@font-face{
+    font-family: 'Cambriab';
+    src: url('../../../../assets/fonts/cambriab.ttf');
+  }
+  *{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    font-family: Cambriab;
+  }
+.principal-title {
+    margin-left: 19%;
+}
+.principal-title.ios {
+    margin-left: 0%;
+}
+.container{
+    margin-top: 15px;
+    align-items: center;
+}
+
+.format-type{
+    margin-left: 10%;
+}
+.format-button{
+    font-size: 14px;
+    width: 130px;
+    height: 40px;
+    margin-top: 10px;
+    margin-left: 33%;
+}
+.picker-wrapper.sc-ion-picker-md{
+    height: 220px;
+}
+@media(max-width: 350px){
+    .format-type{
+        margin-left: 2%;
+    }
+}
+@media (min-width: 400px) {
+    .principal-title{
+        margin-left: 23%;
+        font-size: 23px;
+    }
+    .format-type{
+        margin-left: 18%;
+    }
+}   
+  
+@media (min-width: 600px) {
+    .principal-title{
+        margin-left: 35%;
+        font-size: 24px;
+    }
+    .format-type{
+        margin-left: 20%;
+    }
+    .format-button{
+        font-size: 14px;
+        width: 130px;
+        height: 40px;
+        margin-top: 0px;
+        margin-left: 3%;
+    }
+
+} 
+
+@media (min-width: 750px) {
+    .principal-title{
+      margin-left: 38%;
+      font-size: 25px;
+    }
+    .format-type{
+        margin-left: 30%;
+    }
+
+}
+
+@media (min-width: 1000px) {
+    .principal-title{
+      margin-left: 40%;
+      font-size: 28px;
+    }
+    .format-type{
+        margin-left: 33%;
+    }
+    
+
+}
+
+@media (min-width: 1260px) {
+    .principal-title{
+      margin-left: 42%;
+      font-size: 28px;
+    }
+    .format-type{
+        margin-left: 35%;
+    }
+}
+
+@media (min-width: 1400px) {
+    .principal-title{
+      margin-left: 43%;
+      font-size: 30px;
+    }
+    .format-type{
+        margin-left: 37%;
+    }
+}
+
+@media (min-width: 1640px) {
+    .principal-title{
+      margin-left: 41%;
+      font-size: 30px;
+    }
+    .format-type{
+        margin-left: 38%;
+    }
+}
