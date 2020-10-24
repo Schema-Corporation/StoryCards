@@ -35,8 +35,8 @@ export class CanvasPage implements OnInit {
   getFormats() {
     this.formats = [
       {id: 'u201521895', name: 'Formato auditorio WX-51'},
-      {id: 'u201611028', name: 'Prueba me quedé'},
-      {id: 'u111111111', name: 'Que viva cristo'}
+      {id: 'u201611028', name: 'Formato UNMSM BASE 14'},
+      {id: 'u111111111', name: 'Asesoría Colgate Miércoles'}
     ];
     this.listFormats = this.formats;
   }

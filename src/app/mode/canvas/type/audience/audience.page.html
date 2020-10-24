@@ -14,7 +14,7 @@
 <ion-content>
   <div class="container">
     <div class="progress-bar">
-      <div class="step">
+      <div class="step" (click)="step=1;">
         <div class="bullet" [ngClass]="{'step-colored': step == 1}">
           <span></span>
         </div>
@@ -22,7 +22,7 @@
         </div>
         <p>Audiencia</p>
       </div>
-      <div class="step">
+      <div class="step" (click)="step=2;">
         <div class="bullet" [ngClass]="{'step-colored': step == 2}">
           <span></span>
         </div>
@@ -30,7 +30,7 @@
         </div>
         <p>Emoción</p>
       </div>
-      <div class="step">
+      <div class="step" (click)="step=3;">
         <div class="bullet" [ngClass]="{'step-colored': step == 3}">
           <span></span>
         </div>
@@ -117,6 +117,7 @@
       </ion-item>
       <ion-label class="count-letters">{{this.goalCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
     </div>
+    <ion-button class="back-button" (click)="step=2">Atrás</ion-button>
     <ion-button class="next-button" (click)="finishCanvas()">Finalizar</ion-button>
   </div>
 
