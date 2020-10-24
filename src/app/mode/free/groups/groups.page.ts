@@ -58,6 +58,10 @@ export class GroupsPage implements OnInit {
       {
         id: 11,
         imgCard: '/assets/cards/emotions/emociones_11_im.svg'
+      },
+      {
+        id: 12,
+        imgCard: '/assets/cards/random/aleatoria_01_im.svg'
       }
     ]
   }
@@ -77,6 +81,10 @@ export class GroupsPage implements OnInit {
       {
         id: 3,
         imgCard: '/assets/cards/plot/trama_03_im.svg'
+      },
+      {
+        id: 4,
+        imgCard: '/assets/cards/random/aleatoria_01_im.svg'
       }
     ]
   }
@@ -104,6 +112,10 @@ export class GroupsPage implements OnInit {
       {
         id: 5,
         imgCard: '/assets/cards/genres/genero_05_im.svg'
+      },
+      {
+        id: 6,
+        imgCard: '/assets/cards/random/aleatoria_01_im.svg'
       }
     ]
   }
@@ -123,6 +135,10 @@ export class GroupsPage implements OnInit {
       {
         id: 3,
         imgCard: '/assets/cards/myths/mitos_03_im.svg'
+      },
+      {
+        id: 4,
+        imgCard: '/assets/cards/random/aleatoria_01_im.svg'
       }
     ]
   }
@@ -178,6 +194,10 @@ export class GroupsPage implements OnInit {
       {
         id: 12,
         imgCard: '/assets/cards/topic/tema_12_im.svg'
+      },
+      {
+        id: 13,
+        imgCard: '/assets/cards/random/aleatoria_01_im.svg'
       }
     ]
   }
@@ -213,6 +233,10 @@ export class GroupsPage implements OnInit {
       {
         id: 7,
         imgCard: '/assets/cards/processes/procesos_07_im.svg'
+      },
+      {
+        id: 8,
+        imgCard: '/assets/cards/random/aleatoria_01_im.svg'
       }
     ]
   }
@@ -280,6 +304,10 @@ export class GroupsPage implements OnInit {
         id: 12,
         imgCard: '/assets/cards/archetypes/arquetipos_24_im.svg',
         imgDescription: '/assets/cards/archetypes/arquetipos_23_im.svg'
+      },
+      {
+        id: 13,
+        imgCard: '/assets/cards/random/aleatoria_01_im.svg'
       }
     ]
   }
@@ -317,6 +345,10 @@ export class GroupsPage implements OnInit {
         id: 6,
         imgCard: '/assets/cards/resources/recursos_12_im.svg',
         imgDescription: '/assets/cards/resources/recursos_11_im.svg'
+      },
+      {
+        id: 7,
+        imgCard: '/assets/cards/random/aleatoria_01_im.svg'
       }
     ]
   }

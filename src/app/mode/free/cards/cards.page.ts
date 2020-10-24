@@ -45,21 +45,28 @@ export class CardsPage implements OnInit {
       this.columns.push(i);
     }
     if (cards.length % 3 != 0) this.rows.push(numberOfRows);
-
     this.showDivCards = true;
-    
   }
 
-  showDetail(card){
+  goToDetailPage(card) {
     let navigationExtras: NavigationExtras = {
       queryParams: {
           card: card.imgCard,
           description: card.imgDescription
       }
-  
     }
     this.navCtrl.navigateForward(['free/detail'], navigationExtras);
+  }
 
+  showDetail(card){
+    if (card.id == this.cards[this.cards.length - 1].id) {
+      let maxNumber = this.cards.length - 1;
+      let minNumber = 0;
+      card = this.cards[Math.floor(Math.random() * (maxNumber - minNumber) + minNumber)];
+      this.goToDetailPage(card);
+    } else {
+      this.goToDetailPage(card);
+    }
   }
 
 }
