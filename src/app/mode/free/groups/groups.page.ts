@@ -17,51 +17,63 @@ export class GroupsPage implements OnInit {
     cardImgArray: [
       {
         id: 1,
-        imgCard: '/assets/cards/emotions/emociones_01_im.svg'
+        imgCard: '/assets/cards/emotions/emociones_01_im.svg',
+        imgRotate: true
       },
       {
         id: 2,
-        imgCard: '/assets/cards/emotions/emociones_02_im.svg'
+        imgCard: '/assets/cards/emotions/emociones_02_im.svg',
+        imgRotate: true
       },
       {
         id: 3,
-        imgCard: '/assets/cards/emotions/emociones_03_im.svg'
+        imgCard: '/assets/cards/emotions/emociones_03_im.svg',
+        imgRotate: true
       },
       {
         id: 4,
-        imgCard: '/assets/cards/emotions/emociones_04_im.svg'
+        imgCard: '/assets/cards/emotions/emociones_04_im.svg',
+        imgRotate: true
       },
       {
         id: 5,
-        imgCard: '/assets/cards/emotions/emociones_05_im.svg'
+        imgCard: '/assets/cards/emotions/emociones_05_im.svg',
+        imgRotate: true
       },
       {
         id: 6,
-        imgCard: '/assets/cards/emotions/emociones_06_im.svg'
+        imgCard: '/assets/cards/emotions/emociones_06_im.svg',
+        imgRotate: true
       },
       {
         id: 7,
-        imgCard: '/assets/cards/emotions/emociones_07_im.svg'
+        imgCard: '/assets/cards/emotions/emociones_07_im.svg',
+        imgRotate: true
       },
       {
         id: 8,
-        imgCard: '/assets/cards/emotions/emociones_08_im.svg'
+        imgCard: '/assets/cards/emotions/emociones_08_im.svg',
+        imgRotate: true
       },
       {
         id: 9,
-        imgCard: '/assets/cards/emotions/emociones_09_im.svg'
+        imgCard: '/assets/cards/emotions/emociones_09_im.svg',
+        imgRotate: true
       },
       {
         id: 10,
-        imgCard: '/assets/cards/emotions/emociones_10_im.svg'
+        imgCard: '/assets/cards/emotions/emociones_10_im.svg',
+        imgRotate: true
       },
       {
         id: 11,
-        imgCard: '/assets/cards/emotions/emociones_11_im.svg'
+        imgCard: '/assets/cards/emotions/emociones_11_im.svg',
+        imgRotate: true
       },
       {
         id: 12,
-        imgCard: '/assets/cards/random/aleatoria_01_im.svg'
+        imgCard: '/assets/cards/random/aleatoria_01_im.svg',
+        imgRotate: true
       }
     ]
   }

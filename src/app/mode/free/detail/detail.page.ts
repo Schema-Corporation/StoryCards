@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit, OnDestroy } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from "@angular/common";
 
@@ -7,7 +7,7 @@ import { Location } from "@angular/common";
   templateUrl: './detail.page.html',
   styleUrls: ['./detail.page.scss'],
 })
-export class DetailPage implements OnInit {
+export class DetailPage implements OnInit, AfterViewInit {
 
   public mainImg = true;
   public idCard
@@ -15,6 +15,9 @@ export class DetailPage implements OnInit {
   public description;
   public cardToggle
   public flip
+  public rotate;
+  private shouldBeRotate: number;
+  public rotat;
   constructor(
     private route: ActivatedRoute,
     private location: Location
@@ -25,11 +28,25 @@ export class DetailPage implements OnInit {
     this.flip.classList.toggle("flipped")
   }
 
+  showRotate() {
+    this.rotat = document.querySelector("[name='rotat']");
+    this.rotat.classList.toggle("rotated");
+  }
+
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.card = params["card"];
       this.description = params["description"];
+      this.rotate = params["rotate"];
+      this.shouldBeRotate = params["rotated"];
     });
-    this.location.replaceState('/free/detail')
+    this.location.replaceState('/free/detail');
   }
+
+  ngAfterViewInit() {
+    if (this.shouldBeRotate == 1) {
+      this.showRotate();
+    }
+  }
+
 }
