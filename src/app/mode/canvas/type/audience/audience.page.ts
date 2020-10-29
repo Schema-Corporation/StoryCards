@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController, ToastController } from '@ionic/angular';
 
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import domtoimage from 'dom-to-image';
+
 @Component({
   selector: 'app-audience',
   templateUrl: './audience.page.html',
@@ -120,6 +124,7 @@ export class AudiencePage implements OnInit {
   }
 
   downloadCanvas() {
+    this.exportAsPDF();
     this.presentToast('Formato descargado');
   }
 
@@ -133,50 +138,70 @@ export class AudiencePage implements OnInit {
     this.presentToast('print');
   }
 
+  exportAsPDF() {
+
+    let div = document.getElementById('htmlData');
+
+    console.log('data', div);
+
+    //const div = document.getElementById('pdf');
+
+    //const options = { background: 'white', height: 600, width: 1700 };
+
+    domtoimage.toPng(div).then((dataUrl) => {
+        //Initialize JSPDF
+        const doc = new jsPDF('l', 'cm', 'a4');
+        //Add image Url to PDF
+        doc.addImage(dataUrl, 'PNG', 0, 0, 29.7, 21.0);
+        doc.save('pdfDocument.pdf');
+    });
+
+  }
+
   getEmotionsCards() {
     this.cards = [{
       id: 1,
-      imgCard: '/assets/cards/emotions/emociones_01_im.svg'
+      imgCard: '/assets/cards/emotions/emociones_01_im.png'
     },
     {
       id: 2,
-      imgCard: '/assets/cards/emotions/emociones_02_im.svg'
+      imgCard: '/assets/cards/emotions/emociones_02_im.png'
     },
     {
       id: 3,
-      imgCard: '/assets/cards/emotions/emociones_03_im.svg'
+      imgCard: '/assets/cards/emotions/emociones_03_im.png'
     },
     {
       id: 4,
-      imgCard: '/assets/cards/emotions/emociones_04_im.svg'
+      imgCard: '/assets/cards/emotions/emociones_04_im.png'
     },
     {
       id: 5,
-      imgCard: '/assets/cards/emotions/emociones_05_im.svg'
+      imgCard: '/assets/cards/emotions/emociones_05_im.png'
     },
     {
       id: 6,
-      imgCard: '/assets/cards/emotions/emociones_06_im.svg'
+      imgCard: '/assets/cards/emotions/emociones_06_im.png'
     },
     {
       id: 7,
-      imgCard: '/assets/cards/emotions/emociones_07_im.svg'
+      imgCard: '/assets/cards/emotions/emociones_07_im.png'
     },
     {
       id: 8,
-      imgCard: '/assets/cards/emotions/emociones_08_im.svg'
+      imgCard: '/assets/cards/emotions/emociones_08_im.png'
     },
     {
       id: 9,
-      imgCard: '/assets/cards/emotions/emociones_09_im.svg'
+      imgCard: '/assets/cards/emotions/emociones_09_im.png'
     },
     {
       id: 10,
-      imgCard: '/assets/cards/emotions/emociones_10_im.svg'
+      imgCard: '/assets/cards/emotions/emociones_10_im.png'
     },
     {
       id: 11,
-      imgCard: '/assets/cards/emotions/emociones_11_im.svg'
+      imgCard: '/assets/cards/emotions/emociones_11_im.png'
     }]
   }
 
