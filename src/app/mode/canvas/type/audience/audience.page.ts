@@ -1,11 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController, Platform, ToastController } from '@ionic/angular';
+import { AlertController, NavController, ToastController, Platform } from '@ionic/angular';
 
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
-import domtoimage from 'dom-to-image';
+import { File as FileI } from '@ionic-native/file/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+import htmlToPdfmake from 'html-to-pdfmake';
+import { OcFileStorageService } from 'src/app/util/OcFileStorageService';
+
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { CanvasService } from 'src/app/services/canvas/canvas.service';
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+
 
 @Component({
   selector: 'app-audience',
@@ -43,12 +51,17 @@ export class AudiencePage implements OnInit {
 
   public buttons: any;
 
+  private pdfObject = null;
+
   constructor(private alertCtrl: AlertController,
     public toastController: ToastController,
     public navCtrl: NavController,
     public platform: Platform,
     public dbService: NgxIndexedDBService,
-    public _canvasService: CanvasService) { }
+    public _canvasService: CanvasService,
+    private ocFileStorageSvc: OcFileStorageService,
+    private file: FileI,
+    private fileOpener: FileOpener) { }
 
   ngOnInit() {
     this.startCanvas();
@@ -60,7 +73,7 @@ export class AudiencePage implements OnInit {
     this.step = 1;
   }
 
-  addStep(){
+  addStep() {
     this.step++
   }
 
@@ -92,7 +105,7 @@ export class AudiencePage implements OnInit {
   finishCanvas() {
     this.showCanvasOption()
   }
-  
+
   async showCanvasOption() {
 
     // iOS and Android alert and options || Web browser options
@@ -164,8 +177,10 @@ export class AudiencePage implements OnInit {
   }
 
   downloadCanvas() {
-    this.exportAsPDF();
-    this.presentToast('Formato descargado');
+
+    if (this.emotion !=-1) {
+      this.createPDF(this.cards[this.emotion].id);
+    }
   }
 
   getCard(idCard) {
@@ -263,24 +278,162 @@ export class AudiencePage implements OnInit {
     this.presentToast('print');
   }
 
-  exportAsPDF() {
+  createPDF(numberImage: number): any {
 
-    let div = document.getElementById('htmlData');
+    var baseURL = "";
 
-    console.log('data', div);
+    if (numberImage > 9) {
+      baseURL = 'https://raw.githubusercontent.com/Schema-Corporation/StoryCards/dev/src/assets/cards/emotions/emociones_';
+    } else {
+      baseURL = 'https://raw.githubusercontent.com/Schema-Corporation/StoryCards/dev/src/assets/cards/emotions/emociones_0';
+    }
 
-    //const div = document.getElementById('pdf');
+    // Get data from subscriber and pass to image src
+    this.ocFileStorageSvc
+      .getStoredFile('emociones_0' + numberImage, 
+        baseURL + numberImage + '_im.png')
+      .subscribe((base64Data: string) => {
 
-    //const options = { background: 'white', height: 600, width: 1700 };
+        var docDefinition = {
+          content: [
+            this.getHTML(base64Data)
+          ]
+        };
+    
+        this.pdfObject = pdfMake.createPdf(docDefinition);
+        this.pdfObject.download();
+        this.presentToast('Formato descargado');
 
-    domtoimage.toPng(div).then((dataUrl) => {
-        //Initialize JSPDF
-        const doc = new jsPDF('l', 'cm', 'a4');
-        //Add image Url to PDF
-        doc.addImage(dataUrl, 'PNG', 0, 0, 29.7, 21.0);
-        doc.save('pdfDocument.pdf');
-    });
+      });
+  }
 
+  getHTML(base64Image: string) {
+
+    var html = htmlToPdfmake(`
+    <table border="1" cellspacing="0" cellpadding="0" width="660">
+      <tbody>
+          <tr>
+              <td width="330" valign="top">
+                  <p style="text-align:center">
+                      <strong>Audiencia: Características</strong>
+                  </p>
+              </td>
+              <td width="330" valign="top">
+                  <p style="text-align:center">
+                      <strong>
+                          Emoción: ¿qué emoción deseas despertar en el auditorio?
+                      </strong>
+                      <strong></strong>
+                  </p>
+              </td>
+          </tr>
+          <tr>
+              <td width="330" valign="top">
+                  <p style="text-align:center">
+                      Características de los grupos
+                  </p>
+                  <p style="text-align:center">
+                      ¿Quiénes son?
+                  </p>
+                  <br>
+                  <p style="text-align:center">
+                      ${this.characteristics}
+                  </p>
+                <br>
+              </td>
+              <td width="330" rowspan="2" valign="top" style="text-align:center">
+                <br>
+                <img src="${base64Image}" alt="Emotion" width="150" height="230">
+                <br>
+              </td>
+          </tr>
+          <tr>
+              <td width="330" valign="top">
+                  <p style="text-align:center">
+                      Problemas
+                  </p>
+                  <p style="text-align:center">
+                      ¿Qué les preocupa? ¿Qué neceistan?
+                  </p>
+                  <br>
+                  <p style="text-align:center">
+                      ${this.problems}
+                  </p>
+                  <br>
+              </td>
+          </tr>
+          <tr>
+              <td width="330" rowspan="2" valign="top">
+                  <p style="text-align:center">
+                      Motivación
+                  </p>
+                  <p style="text-align:center">
+                      ¿Qué hacen aquí? ¿Qué quieren?
+                  </p>
+                  <p style="text-align:center">
+                      ¿Qué buscan?
+                  </p>
+                  <br>
+                  <p style="text-align:center">
+                      ${this.motivation}
+                  </p>
+                  <br>
+              </td>
+              <td width="330" valign="top">
+                  <p style="text-align:center">
+                      <strong>Meta: ¿qué deseas lograr?</strong>
+                  </p>
+              </td>
+          </tr>
+          <tr>
+              <td width="330" rowspan="2" valign="top">
+                  <p style="text-align:center">
+                      <strong></strong>
+                  </p>
+                  <p style="text-align:center">
+                      <strong></strong>
+                  </p>
+                  <p style="text-align:center">
+                      <strong></strong>
+                  </p>
+                  <p style="text-align:center">
+                      <strong></strong>
+                  </p>
+                  <p style="text-align:center">
+                      <strong></strong>
+                  </p>
+                  <p style="text-align:center">
+                      <strong></strong>
+                  </p>
+                  <p>
+                      <strong></strong>
+                  </p>
+                  <br>
+                  <p style="text-align:center">
+                      ${this.goal}
+                  </p>
+                  <br>
+              </td>
+          </tr>
+          <tr>
+              <td width="330" valign="top">
+                  <p style="text-align:center">
+                      LLamamiento a la acción
+                  </p>
+                  <p style="text-align:center">
+                      ¿Qué se espera de ellos?
+                  </p>
+                  <br>
+                  <p style="text-align:center">
+                      ${this.action}
+                  </p>
+                  <br>
+              </td>
+          </tr>
+      </tbody>
+    </table>
+    `);
+    return html;
   }
 
   getEmotionsCards() {
@@ -344,7 +497,7 @@ export class AudiencePage implements OnInit {
     if (cards.length % 3 != 0) this.rows.push(numberOfRows);
 
     this.showDivCards = true;
-    
+
   }
 
 }
