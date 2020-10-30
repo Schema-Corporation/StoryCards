@@ -12,7 +12,7 @@
 </ion-header>
 
 <ion-content>
-  <div class="container">
+  <div id= "container" class="container">
     <div class="progress-bar">
       <div class="step" (click)="step=1;">
         <div class="bullet" [ngClass]="{'step-colored': step == 1}">
@@ -41,7 +41,7 @@
     </div>
   </div>
 
-  <div *ngIf="step==1">
+  <div id="step1" *ngIf="step==1">
     <div class="item">
       <div class="item-header">
         <div class="ion-text-left">    
@@ -88,7 +88,7 @@
     </div>
     <ion-button class="next-button" (click)="step=2">Siguiente</ion-button>
   </div>
-  <div *ngIf="step==2 && showDivCards">
+  <div id="step2" *ngIf="step==2 && showDivCards">
     <ion-grid *ngIf="showDivCards">
       <ion-row *ngFor="let indexRow of rows">
         <ion-col [ngClass]="{'emotion-selected': emotion == (indexRow)*3 + (indexColumn)}" *ngFor="let indexColumn of columns">
@@ -105,7 +105,7 @@
     <ion-button class="back-button" (click)="step=1">Atrás</ion-button>
     <ion-button class="next-button" (click)="step=3">Siguiente</ion-button>
   </div>
-  <div *ngIf="step==3">
+  <div id="step3" *ngIf="step==3">
     <div class="item">
       <div class="item-header">
         <div class="ion-text-left">    
@@ -120,5 +120,4 @@
     <ion-button class="back-button" (click)="step=2">Atrás</ion-button>
     <ion-button class="next-button" (click)="finishCanvas()">Finalizar</ion-button>
   </div>
-
 </ion-content>

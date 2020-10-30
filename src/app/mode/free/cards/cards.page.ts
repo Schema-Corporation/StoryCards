@@ -16,6 +16,7 @@ export class CardsPage implements OnInit {
   public id: any;
   public cards: any;
   public title: any;
+  public rotated: number;
   public showDivCards: boolean = false;
   constructor(
     private route: ActivatedRoute,
@@ -52,7 +53,9 @@ export class CardsPage implements OnInit {
     let navigationExtras: NavigationExtras = {
       queryParams: {
           card: card.imgCard,
-          description: card.imgDescription
+          description: card.imgDescription,
+          rotate: card.imgRotate,
+          rotated: this.rotated
       }
     }
     this.navCtrl.navigateForward(['free/detail'], navigationExtras);
@@ -62,9 +65,16 @@ export class CardsPage implements OnInit {
     if (card.id == this.cards[this.cards.length - 1].id) {
       let maxNumber = this.cards.length - 1;
       let minNumber = 0;
+      if (card.imgRotate) {
+        if (Math.random() < 0.5)
+          this.rotated = 0;
+        else 
+          this.rotated = 1;
+      }
       card = this.cards[Math.floor(Math.random() * (maxNumber - minNumber) + minNumber)];
       this.goToDetailPage(card);
     } else {
+      this.rotated = 0;
       this.goToDetailPage(card);
     }
   }
