@@ -6,6 +6,7 @@ import { APIMiddleware } from '../APIMiddleware';
 
 const GET_CANVAS = apiUrls.GET_CANVAS;
 const POST_CANVAS = apiUrls.POST_CANVAS;
+const DELETE_CANVAS = apiUrls.DELETE_CANVAS;
 
 @Injectable({
   providedIn: 'root'
@@ -21,5 +22,9 @@ export class CanvasService {
 
   createCanvas(body, token): Observable<any> {
     return this.apiMiddleware.createCanvas(POST_CANVAS, body, token);
+  }
+
+  removeCanvas(id, token): Observable<any> {
+    return this.apiMiddleware.removeCanvas(`${DELETE_CANVAS}${id}`, token);
   }
 }

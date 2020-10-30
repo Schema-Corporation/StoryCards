@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController } from '@ionic/angular';
+import { NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { CanvasService } from 'src/app/services/canvas/canvas.service';
@@ -18,11 +19,19 @@ export class CanvasPage implements OnInit {
   constructor(private alertCtrl: AlertController,
     public platform: Platform,
     public navCtrl: NavController,
+    public toastController: ToastController,
+    private router: Router,
     public dbService: NgxIndexedDBService,
     public _canvasService: CanvasService) { }
 
   ngOnInit() {
     this.getFormats();
+    this.router.events.subscribe(
+      (event: RouterEvent) => {
+        if (event instanceof NavigationEnd) {
+          this.getFormats()
+        }
+      });
   }
 
   addFormat() {
@@ -63,8 +72,27 @@ export class CanvasPage implements OnInit {
     this.showAlertDelete(formatId);
   }
 
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
   removeFormat(formatId) {
-    console.log('eliminar formato: ', formatId);
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._canvasService.removeCanvas(formatId, token.value.token).subscribe(
+          result => {
+            this.getFormats();
+            this.presentToast("El formato ha sido eliminado con éxito");
+          }
+        );
+      },
+      error => {
+          console.log('error: ', error);
+      });
   }
 
   async showAlertDelete(formatId) {

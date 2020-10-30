@@ -177,7 +177,6 @@ export class AudiencePage implements OnInit {
   }
 
   downloadCanvas() {
-
     if (this.emotion !=-1) {
       this.createPDF(this.cards[this.emotion].id);
     }
@@ -292,7 +291,7 @@ export class AudiencePage implements OnInit {
     this.ocFileStorageSvc
       .getStoredFile('emociones_0' + numberImage, 
         baseURL + numberImage + '_im.png')
-      .subscribe((base64Data: string) => {
+      .subscribe(async (base64Data: string) => {
 
         var docDefinition = {
           content: [
@@ -302,6 +301,7 @@ export class AudiencePage implements OnInit {
     
         this.pdfObject = pdfMake.createPdf(docDefinition);
         this.pdfObject.download();
+        await this.sleep(2500);
         this.presentToast('Formato descargado');
 
       });
@@ -418,7 +418,7 @@ export class AudiencePage implements OnInit {
           <tr>
               <td width="330" valign="top">
                   <p style="text-align:center">
-                      LLamamiento a la acción
+                      Llamamiento a la acción
                   </p>
                   <p style="text-align:center">
                       ¿Qué se espera de ellos?

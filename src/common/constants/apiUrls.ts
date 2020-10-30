@@ -6,5 +6,6 @@ export const apiUrls = {
   VALIDATE_CODE: `${BASE_API_URL}/validate-code/`,
   REGISTER: `${BASE_API_URL}/register`,
   GET_CANVAS: `${BASE_API_URL}/canvas`,
-  POST_CANVAS: `${BASE_API_URL}/canvas`
+  POST_CANVAS: `${BASE_API_URL}/canvas`,
+  DELETE_CANVAS: `${BASE_API_URL}/canvas/`
 };
