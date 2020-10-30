@@ -20,6 +20,9 @@ import { AuthService } from "./util/auth";
 import { APIMiddleware } from "./services/APIMiddleware";
 import { NgxIndexedDBModule } from 'ngx-indexed-db';
 
+import { File } from '@ionic-native/file/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx'
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -39,7 +42,9 @@ import { NgxIndexedDBModule } from 'ngx-indexed-db';
     APIMiddleware,
     StatusBar,
     SplashScreen,
-    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy }
+    { provide: RouteReuseStrategy, useClass: IonicRouteStrategy },
+    File,
+    FileOpener
   ],
   bootstrap: [AppComponent]
 })
