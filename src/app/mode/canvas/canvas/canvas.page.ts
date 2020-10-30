@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { CanvasService } from 'src/app/services/canvas/canvas.service';
 
 @Component({
   selector: 'app-canvas',
@@ -15,7 +17,9 @@ export class CanvasPage implements OnInit {
 
   constructor(private alertCtrl: AlertController,
     public platform: Platform,
-    public navCtrl: NavController) { }
+    public navCtrl: NavController,
+    public dbService: NgxIndexedDBService,
+    public _canvasService: CanvasService) { }
 
   ngOnInit() {
     this.getFormats();
@@ -26,16 +30,22 @@ export class CanvasPage implements OnInit {
   }
 
   getFormats() {
-    this.formats = [
-      {id: 'u201521895', name: 'Formato auditorio WX-51'},
-      {id: 'u201611028', name: 'Formato UNMSM BASE 14'},
-      {id: 'u111111111', name: 'Asesoría Colgate Miércoles'}
-    ];
-    this.listFormats = this.formats;
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._canvasService.getCanvasFromUser(token.value.token).subscribe(
+          canvas => {
+            this.listFormats = canvas;
+          }
+        );
+      },
+      error => {
+          console.log('error: ', error);
+      });
   }
 
   filterByFormatName(ev) {
     this.searchFormat = ev.detail.value;
+    this.formats = this.listFormats;
     if (this.searchFormat && this.searchFormat.trim() != '') {
       this.listFormats = this.formats.filter((format) => {
           return (format.name.toLowerCase().indexOf(this.searchFormat.toLowerCase()) > -1);
