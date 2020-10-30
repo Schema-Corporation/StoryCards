@@ -18,14 +18,7 @@ export class CanvasPage implements OnInit {
     public navCtrl: NavController) { }
 
   ngOnInit() {
-    this.showComponents();
     this.getFormats();
-  }
-
-  showComponents() {
-    if (this.platform.is('ios')) {
-      console.log('');
-    }
   }
 
   addFormat() {

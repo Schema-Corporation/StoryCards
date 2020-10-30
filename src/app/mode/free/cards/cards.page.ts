@@ -65,11 +65,13 @@ export class CardsPage implements OnInit {
     if (card.id == this.cards[this.cards.length - 1].id) {
       let maxNumber = this.cards.length - 1;
       let minNumber = 0;
+      if (card.imgRotate) {
+        if (Math.random() < 0.5)
+          this.rotated = 0;
+        else 
+          this.rotated = 1;
+      }
       card = this.cards[Math.floor(Math.random() * (maxNumber - minNumber) + minNumber)];
-      if (Math.random() < 0.5)
-        this.rotated = 0;
-      else 
-        this.rotated = 1;
       this.goToDetailPage(card);
     } else {
       this.rotated = 0;
