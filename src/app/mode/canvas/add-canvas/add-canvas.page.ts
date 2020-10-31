@@ -10,19 +10,20 @@ import { PickerOptions } from "@ionic/core";
   styleUrls: ['./add-canvas.page.scss'],
 })
 export class AddCanvasPage implements OnInit {
-  selectedVal:Number = 0;
+
+  selectedVal:number = 0;
+
   data:any[]=[];
   constructor(private pickerController: PickerController,
-    public navCtrl: NavController, private Platform:Platform) {
+    public navCtrl: NavController, private platform:Platform) {
 
-      this.Platform.ready().then(()=>{
+      this.platform.ready().then(()=>{
         this.getFormatOptions();
       })
      }
 
   ngOnInit() {
   }
-
 
   getFormatOptions() {
     let options = [];
@@ -46,7 +47,9 @@ export class AddCanvasPage implements OnInit {
     }
   }
 
-
+  showCanvasPage() {
+    this.goToCreateFormatPage(this.selectedVal);
+  }
 
   async showFormatPicker() {
     let options: PickerOptions = {
@@ -69,11 +72,6 @@ export class AddCanvasPage implements OnInit {
     };
     let picker = await this.pickerController.create(options);
     picker.present()
-  }
-
- showPage(){
-   //test with value 1
-    this.goToCreateFormatPage(1)
   }
 
 }

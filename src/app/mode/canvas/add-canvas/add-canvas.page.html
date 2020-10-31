@@ -8,7 +8,7 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content *ngIf="Platform.is('ios')" >
+<ion-content *ngIf="platform.is('ios')" >
   <div class="container" >
     <ion-label class="format-type">
       Escoge el tipo de formato que deseas crear
@@ -18,7 +18,7 @@
 
 </ion-content>
 
-<ion-content  *ngIf="Platform.is('android')" >
+<ion-content  *ngIf="platform.is('android') || platform.is('desktop') || platform.is('tablet')" >
   <ion-item>
     <ion-label>Tipo de Formato</ion-label>
     <ion-select interface="popover" [(ngModel)]="selectedVal" >
@@ -26,6 +26,6 @@
     </ion-select>
   </ion-item>
 
-  <ion-button  class="format-button" size="large" (click)="showPage()" >Generar formato</ion-button>
+  <ion-button  class="format-button" size="large" (click)="showCanvasPage()" >Generar formato</ion-button>
 
 </ion-content>
