@@ -3,7 +3,7 @@ import { AlertController, NavController, ToastController, Platform } from '@ioni
 
 //import jsPDF from 'jspdf';
 //import domtoimage from 'dom-to-image';
-import { File as FileI } from '@ionic-native/file/ngx';
+import { File } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 import pdfMake from 'pdfmake/build/pdfmake';
@@ -46,12 +46,13 @@ export class AudiencePage implements OnInit {
   public goalCharacters: number = 0;
 
   private pdfObject = null;
+  private isPrint: boolean = false;
 
   constructor(private alertCtrl: AlertController,
     public toastController: ToastController,
     public navCtrl: NavController,
     private plt: Platform,
-    private file: FileI,
+    private file: File,
     private fileOpener: FileOpener,
     private ocFileStorageSvc: OcFileStorageService) { }
 
@@ -140,9 +141,12 @@ export class AudiencePage implements OnInit {
 
   downloadCanvas() {
 
+    this.isPrint = false;
+
     if (this.emotion !=-1) {
       this.createPDF(this.cards[this.emotion].id);
     }
+
   }
 
   async saveCanvas() {
@@ -152,6 +156,13 @@ export class AudiencePage implements OnInit {
   }
 
   printCanvas() {
+
+    this.isPrint = true;
+
+    if (this.emotion !=-1) {
+      this.createPDF(this.cards[this.emotion].id);
+    }
+
     this.presentToast('print');
   }
 
@@ -165,6 +176,8 @@ export class AudiencePage implements OnInit {
       baseURL = 'https://raw.githubusercontent.com/Schema-Corporation/StoryCards/dev/src/assets/cards/emotions/emociones_0';
     }
 
+    console.log('URL: ', baseURL + numberImage + '_im.png');
+
     // Get data from subscriber and pass to image src
     this.ocFileStorageSvc
       .getStoredFile('emociones_0' + numberImage, 
@@ -172,6 +185,10 @@ export class AudiencePage implements OnInit {
       .subscribe((base64Data: string) => {
 
         var docDefinition = {
+          pageSize: {
+            width: 650,
+            height: 'auto'
+          },
           content: [
             this.getHTML(base64Data)
           ]
@@ -179,7 +196,12 @@ export class AudiencePage implements OnInit {
     
         this.pdfObject = pdfMake.createPdf(docDefinition);
 
-        this.pdfObject.download();
+        if (!this.isPrint){
+          // This method suportted web and device platform
+          this.pdfObject.download('Formato_Auditorio.pdf');
+        } else {
+          this.pdfObject.open();
+        }
 
         this.presentToast('Formato descargado');
 
@@ -215,14 +237,14 @@ export class AudiencePage implements OnInit {
                       ¿Quiénes son?
                   </p>
                   <br>
-                  <p style="text-align:center">
+                  <p style="text-align:center;">
                       ${this.characteristics}
                   </p>
                 <br>
               </td>
               <td width="330" rowspan="2" valign="top" style="text-align:center">
                 <br>
-                <img src="${base64Image}" alt="Emotion" width="150" height="230">
+                <img src="${base64Image}" alt="Emotion" width="250" height="400">
                 <br>
               </td>
           </tr>
@@ -266,29 +288,8 @@ export class AudiencePage implements OnInit {
           </tr>
           <tr>
               <td width="330" rowspan="2" valign="top">
-                  <p style="text-align:center">
-                      <strong></strong>
-                  </p>
-                  <p style="text-align:center">
-                      <strong></strong>
-                  </p>
-                  <p style="text-align:center">
-                      <strong></strong>
-                  </p>
-                  <p style="text-align:center">
-                      <strong></strong>
-                  </p>
-                  <p style="text-align:center">
-                      <strong></strong>
-                  </p>
-                  <p style="text-align:center">
-                      <strong></strong>
-                  </p>
-                  <p>
-                      <strong></strong>
-                  </p>
                   <br>
-                  <p style="text-align:center">
+                  <p style="text-align:center;">
                       ${this.goal}
                   </p>
                   <br>
@@ -318,47 +319,47 @@ export class AudiencePage implements OnInit {
   getEmotionsCards() {
     this.cards = [{
       id: 1,
-      imgCard: '/assets/cards/emotions/emociones_01_im.png'
+      imgCard: '/assets/cards/emotions/emociones_01_im.svg'
     },
     {
       id: 2,
-      imgCard: '/assets/cards/emotions/emociones_02_im.png'
+      imgCard: '/assets/cards/emotions/emociones_02_im.svg'
     },
     {
       id: 3,
-      imgCard: '/assets/cards/emotions/emociones_03_im.png'
+      imgCard: '/assets/cards/emotions/emociones_03_im.svg'
     },
     {
       id: 4,
-      imgCard: '/assets/cards/emotions/emociones_04_im.png'
+      imgCard: '/assets/cards/emotions/emociones_04_im.svg'
     },
     {
       id: 5,
-      imgCard: '/assets/cards/emotions/emociones_05_im.png'
+      imgCard: '/assets/cards/emotions/emociones_05_im.svg'
     },
     {
       id: 6,
-      imgCard: '/assets/cards/emotions/emociones_06_im.png'
+      imgCard: '/assets/cards/emotions/emociones_06_im.svg'
     },
     {
       id: 7,
-      imgCard: '/assets/cards/emotions/emociones_07_im.png'
+      imgCard: '/assets/cards/emotions/emociones_07_im.svg'
     },
     {
       id: 8,
-      imgCard: '/assets/cards/emotions/emociones_08_im.png'
+      imgCard: '/assets/cards/emotions/emociones_08_im.svg'
     },
     {
       id: 9,
-      imgCard: '/assets/cards/emotions/emociones_09_im.png'
+      imgCard: '/assets/cards/emotions/emociones_09_im.svg'
     },
     {
       id: 10,
-      imgCard: '/assets/cards/emotions/emociones_10_im.png'
+      imgCard: '/assets/cards/emotions/emociones_10_im.svg'
     },
     {
       id: 11,
-      imgCard: '/assets/cards/emotions/emociones_11_im.png'
+      imgCard: '/assets/cards/emotions/emociones_11_im.svg'
     }]
   }
 
