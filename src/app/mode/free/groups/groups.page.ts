@@ -255,7 +255,7 @@ export class GroupsPage implements OnInit {
   group7: IGroup  = {
     id: 7,
     title: "Arquetipos",
-    imgLocation: '/assets/cards/archetypes/arquetipos_02_im.svg',
+    imgLocation: '/assets/cards/archetypes/arquetipos_25_im.svg',
     cardImgArray: [
       {
         id: 1,
@@ -326,7 +326,7 @@ export class GroupsPage implements OnInit {
   group8: IGroup  = {
     id: 8,
     title: "Recursos",
-    imgLocation: '/assets/cards/resources/recursos_12_im.svg',
+    imgLocation: '/assets/cards/resources/recursos_13_im.svg',
     cardImgArray: [
       {
         id: 1,
