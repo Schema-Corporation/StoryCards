@@ -14,7 +14,7 @@ export class CanvasPage implements OnInit {
 
   public searchFormat: string;
   public formats: any;
-  public listFormats: any;
+  public listFormats: any = [];
 
   constructor(private alertCtrl: AlertController,
     public platform: Platform,

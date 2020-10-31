@@ -16,7 +16,7 @@
   </ion-toolbar>
 </ion-header>
 <ion-content fullscreen>
-  <ion-list>
+  <ion-list *ngIf="listFormats.length > 0">
     <ion-item class="item-inner" *ngFor="let format of listFormats">
       <ion-label class="item">{{format.name}}</ion-label>
       <ion-buttons slot="end">
@@ -29,6 +29,9 @@
       </ion-buttons>
     </ion-item>
   </ion-list>
+  <ion-label *ngIf="listFormats.length == 0" class="text-center">
+    Aún no cuenta con ningún formato creado
+  </ion-label>
   <ion-fab class="style-icon" *ngIf="!platform.is('ios')" (click)="addFormat()" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
