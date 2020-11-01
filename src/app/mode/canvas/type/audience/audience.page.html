@@ -5,9 +5,9 @@
       </ion-back-button>
     </ion-buttons>
     <ion-title class="principal-title">Formato de Auditorio</ion-title>
-    <ion-icon slot="end" class="icon-header" name="save-outline"></ion-icon>
-    <ion-icon slot="end" class="icon-header" name="download-outline"></ion-icon>
-    <ion-icon slot="end" class="icon-header" name="print-outline"></ion-icon>
+    <ion-icon slot="end" class="icon-header" (click)="chooseCanvasName()" name="save-outline"></ion-icon>
+    <ion-icon slot="end" class="icon-header" (click)="downloadCanvas()" name="download-outline"></ion-icon>
+    <ion-icon slot="end" class="icon-header" (click)="printCanvas()" name="print-outline"></ion-icon>
   </ion-toolbar>
 </ion-header>
 

@@ -58,6 +58,8 @@ export class AudiencePage implements OnInit {
   public isEdit: boolean = false;
 
   public data: any = null;
+  public name: string = "";
+  public canvasId: string = "";
 
   constructor(private alertCtrl: AlertController,
     public toastController: ToastController,
@@ -81,7 +83,6 @@ export class AudiencePage implements OnInit {
         this.isEdit = false;
       } else {
         this.data = JSON.parse(params["data"]);
-        console.log('data: ', this.data);
         this.fillCanvasData(this.data);
         this.isEdit = true;
       }
@@ -107,6 +108,10 @@ export class AudiencePage implements OnInit {
     // step 3
     this.goal = canvasData.body.step3.goal;
     this.goalCharacters = this.goal.length;
+
+    // canvas data
+    this.name = data.name;
+    this.canvasId = data.id;
   }
 
   startCanvas() {
@@ -217,13 +222,10 @@ export class AudiencePage implements OnInit {
   }
 
   downloadCanvas() {
-
     this.isPrint = false;
-
     if (this.emotion !=-1) {
       this.createPDF(this.cards[this.emotion].id);
     }
-
   }
 
   getCard(idCard) {
@@ -267,16 +269,29 @@ export class AudiencePage implements OnInit {
   async saveCanvas(canvasName) {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
-        this._canvasService.createCanvas(this.getCanvasBody(canvasName), token.value.token).subscribe(
-          async result => {
-            this.presentToast('¡Su formato se ha guardado con éxito!');
-            await this.sleep(2500);
-            this.navCtrl.navigateForward('canvas/canvas');
-          },
-          error => {
-            console.log('error: ', error);
-          }
-        );
+        if (this.isEdit) {
+          this._canvasService.editCanvas(this.canvasId, this.getCanvasBody(canvasName), token.value.token).subscribe(
+            async result => {
+              this.presentToast('¡Su formato ha sido editado con éxito!');
+              await this.sleep(2500);
+              this.navCtrl.navigateForward('canvas/canvas');
+            },
+            error => {
+              console.log('error: ', error);
+            }
+          );
+        } else {
+          this._canvasService.createCanvas(this.getCanvasBody(canvasName), token.value.token).subscribe(
+            async result => {
+              this.presentToast('¡Su formato se ha guardado con éxito!');
+              await this.sleep(2500);
+              this.navCtrl.navigateForward('canvas/canvas');
+            },
+            error => {
+              console.log('error: ', error);
+            }
+          );
+        }
       },
       error => {
           console.log('error: ', error);
@@ -292,6 +307,7 @@ export class AudiencePage implements OnInit {
           name: 'canvasName',
           type: 'text',
           placeholder: 'Nombre de formato',
+          value: this.name,
           attributes: {
             maxlength: 100
           }
@@ -301,7 +317,6 @@ export class AudiencePage implements OnInit {
         {
           text:'Cancelar',
           handler: () => {
-
           }
         },
         {
@@ -318,26 +333,20 @@ export class AudiencePage implements OnInit {
   }
 
   printCanvas() {
-
     this.isPrint = true;
-
     if (this.emotion !=-1) {
       this.createPDF(this.cards[this.emotion].id);
     }
-
     this.presentToast('Formato abierto para imprimir');
   }
 
   createPDF(numberImage: number): any {
-
     var baseURL = "";
-
     if (numberImage > 9) {
       baseURL = 'https://raw.githubusercontent.com/Schema-Corporation/StoryCards/dev/src/assets/cards/emotions/emociones_';
     } else {
       baseURL = 'https://raw.githubusercontent.com/Schema-Corporation/StoryCards/dev/src/assets/cards/emotions/emociones_0';
     }
-
     console.log('URL: ', baseURL + numberImage + '_im.png');
 
     // Get data from subscriber and pass to image src
