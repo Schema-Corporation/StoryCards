@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, PickerController, Platform } from '@ionic/angular';
+import { NavController, PickerController, Platform, ToastController } from '@ionic/angular';
 import { PickerOptions } from "@ionic/core";
 
 
@@ -14,8 +14,11 @@ export class AddCanvasPage implements OnInit {
   selectedVal:number = 0;
 
   data:any[]=[];
-  constructor(private pickerController: PickerController,
-    public navCtrl: NavController, private platform:Platform) {
+  constructor(
+    private pickerController: PickerController,
+    public navCtrl: NavController, 
+    private platform:Platform,
+    public toastController: ToastController) {
 
       this.platform.ready().then(()=>{
         this.getFormatOptions();
@@ -48,7 +51,19 @@ export class AddCanvasPage implements OnInit {
   }
 
   showCanvasPage() {
-    this.goToCreateFormatPage(this.selectedVal);
+    if (this.selectedVal == 0) {
+      this.presentToast("Por favor, selecciona un tipo de formato");
+    } else {
+      this.goToCreateFormatPage(this.selectedVal);
+    }
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
   }
 
   async showFormatPicker() {

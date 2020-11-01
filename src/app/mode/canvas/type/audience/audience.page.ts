@@ -11,6 +11,7 @@ import { OcFileStorageService } from 'src/app/util/OcFileStorageService';
 
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { CanvasService } from 'src/app/services/canvas/canvas.service';
+import { ActivatedRoute } from '@angular/router';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -54,6 +55,10 @@ export class AudiencePage implements OnInit {
   private pdfObject = null;
   private isPrint: boolean = false;
 
+  public isEdit: boolean = false;
+
+  public data: any = null;
+
   constructor(private alertCtrl: AlertController,
     public toastController: ToastController,
     public navCtrl: NavController,
@@ -62,6 +67,7 @@ export class AudiencePage implements OnInit {
     public dbService: NgxIndexedDBService,
     public _canvasService: CanvasService,
     private ocFileStorageSvc: OcFileStorageService,
+    private route: ActivatedRoute,
     private file: File,
     private fileOpener: FileOpener) { }
 
@@ -69,6 +75,38 @@ export class AudiencePage implements OnInit {
     this.startCanvas();
     this.getEmotionsCards();
     this.showCards(this.cards);
+
+    this.route.queryParams.subscribe(params => {
+      if (params["data"] === undefined) {
+        this.isEdit = false;
+      } else {
+        this.data = JSON.parse(params["data"]);
+        console.log('data: ', this.data);
+        this.fillCanvasData(this.data);
+        this.isEdit = true;
+      }
+    });
+  }
+
+  fillCanvasData(data) {
+    let canvasData = JSON.parse(data.data);
+
+    // step 1
+    this.characteristics = canvasData.body.step1.characteristic;
+    this.characteristicsCharacters = this.characteristics.length;
+    this.problems = canvasData.body.step1.problems;
+    this.problemsCharacters = this.problems.length;
+    this.motivation = canvasData.body.step1.motivation;
+    this.motivationCharacters = this.motivation.length;
+    this.action = canvasData.body.step1.calltoaction;
+    this.actionCharacters = this.action.length;
+
+    // step 2
+    this.emotion = canvasData.body.step2.emotion;
+
+    // step 3
+    this.goal = canvasData.body.step3.goal;
+    this.goalCharacters = this.goal.length;
   }
 
   startCanvas() {
