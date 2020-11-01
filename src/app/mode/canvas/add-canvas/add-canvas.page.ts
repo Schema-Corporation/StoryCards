@@ -13,7 +13,6 @@ export class AddCanvasPage implements OnInit {
 
   selectedVal:number = 0;
 
-  data:any[]=[];
   constructor(
     private pickerController: PickerController,
     public navCtrl: NavController, 

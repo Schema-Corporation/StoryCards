@@ -21,11 +21,10 @@
 <ion-content  *ngIf="platform.is('android') || platform.is('desktop') || platform.is('tablet')" >
   <ion-item>
     <ion-label>Tipo de Formato</ion-label>
-    <ion-select interface="popover" [(ngModel)]="selectedVal" >
-      <ion-select-option *ngFor="let item of getFormatOptions()" [value]="item.value">{{item.text}}</ion-select-option>
+    <ion-select  class="popover" interface="popover" [(ngModel)]="selectedVal" >
+      <ion-select-option  *ngFor="let item of getFormatOptions()" [value]="item.value">{{item.text}}</ion-select-option>
     </ion-select>
   </ion-item>
 
   <ion-button  class="format-button" size="large" (click)="showCanvasPage()" >Generar formato</ion-button>
-
 </ion-content>

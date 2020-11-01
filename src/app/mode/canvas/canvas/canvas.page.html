@@ -29,9 +29,11 @@
       </ion-buttons>
     </ion-item>
   </ion-list>
-  <ion-label *ngIf="listFormats.length == 0" class="text-center">
-    Aún no cuenta con ningún formato creado
-  </ion-label>
+  <div class="no-items">
+    <ion-label *ngIf="listFormats.length == 0" class="text-center">
+      Aún no cuenta con ningún formato creado
+    </ion-label>
+  </div>
   <ion-fab class="style-icon" *ngIf="!platform.is('ios')" (click)="addFormat()" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
       <ion-icon name="add"></ion-icon>
