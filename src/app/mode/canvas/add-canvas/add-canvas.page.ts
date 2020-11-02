@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { NavController, PickerController } from '@ionic/angular';
+import { NavController, PickerController, Platform, ToastController } from '@ionic/angular';
 import { PickerOptions } from "@ionic/core";
+
+
 
 @Component({
   selector: 'app-add-canvas',
@@ -9,8 +11,18 @@ import { PickerOptions } from "@ionic/core";
 })
 export class AddCanvasPage implements OnInit {
 
-  constructor(private pickerController: PickerController,
-    public navCtrl: NavController) { }
+  selectedVal:number = 0;
+
+  constructor(
+    private pickerController: PickerController,
+    public navCtrl: NavController, 
+    private platform:Platform,
+    public toastController: ToastController) {
+
+      this.platform.ready().then(()=>{
+        this.getFormatOptions();
+      })
+     }
 
   ngOnInit() {
   }
@@ -24,6 +36,7 @@ export class AddCanvasPage implements OnInit {
       {text: 'Canvas de Storytelling', value: 4},
     ] 
     return options;
+    
   }
 
   goToCreateFormatPage(value) {
@@ -34,6 +47,22 @@ export class AddCanvasPage implements OnInit {
       case 4: this.navCtrl.navigateForward('canvas/storytelling'); break;
       default: break;
     }
+  }
+
+  showCanvasPage() {
+    if (this.selectedVal == 0) {
+      this.presentToast("Por favor, selecciona un tipo de formato");
+    } else {
+      this.goToCreateFormatPage(this.selectedVal);
+    }
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
   }
 
   async showFormatPicker() {

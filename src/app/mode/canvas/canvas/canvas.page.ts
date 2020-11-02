@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { NavigationEnd, Router, RouterEvent } from '@angular/router';
+import { NavigationEnd, NavigationExtras, Router, RouterEvent } from '@angular/router';
 import { AlertController, NavController, ToastController } from '@ionic/angular';
 import { Platform } from '@ionic/angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
@@ -14,7 +14,7 @@ export class CanvasPage implements OnInit {
 
   public searchFormat: string;
   public formats: any;
-  public listFormats: any;
+  public listFormats: any = [];
 
   constructor(private alertCtrl: AlertController,
     public platform: Platform,
@@ -64,8 +64,33 @@ export class CanvasPage implements OnInit {
     }
   }
 
-  editFormat(formatId) {
+  goToEditFormatPage(value, data) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        data: JSON.stringify(data)
+      }
+    }
+    switch(value) {
+      case 1: this.navCtrl.navigateForward('canvas/audience', navigationExtras); break;
+      case 2: this.navCtrl.navigateForward('canvas/structural-aspects', navigationExtras); break;
+      case 3: this.navCtrl.navigateForward('canvas/characters', navigationExtras); break;
+      case 4: this.navCtrl.navigateForward('canvas/storytelling', navigationExtras); break;
+      default: break;
+    }
+  }
 
+  editFormat(formatId) {
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._canvasService.getCanvasById(formatId, token.value.token).subscribe(
+          canvas => {
+            this.goToEditFormatPage(canvas.type, canvas);
+          }
+        );
+      },
+      error => {
+          console.log('error: ', error);
+      });
   }
 
   deleteFormat(formatId) {

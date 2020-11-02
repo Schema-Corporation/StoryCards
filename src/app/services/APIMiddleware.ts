@@ -34,6 +34,24 @@ export class APIMiddleware {
     return this.http.get(url, httpOptions);
   }
 
+  getCanvasById(url, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.get(url, httpOptions);
+  }
+
+  editCanvas(url, body, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.put(url, body, httpOptions);
+  }
+
   createCanvas(url, body, token): Observable<any> {
     const httpOptions: any = {
       headers: new HttpHeaders({

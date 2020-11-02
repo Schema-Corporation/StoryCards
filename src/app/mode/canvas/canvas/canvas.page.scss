@@ -10,6 +10,7 @@
   }
 .principal-title {
     margin-left: 23%;
+    font-size: 18px;
 }
 .principal-title.ios {
     margin-left: 0%;
@@ -19,6 +20,11 @@
 }
 .list-md{
     margin-bottom: 16%;
+}
+
+.no-items{
+    text-align: center;
+    margin-top: 3%;
 }
 
 @media (min-width: 400px)  {

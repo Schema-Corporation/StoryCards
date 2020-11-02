@@ -5,6 +5,7 @@ import { AlertController, NavController } from '@ionic/angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LoginService } from '../services/auth/login.service';
 import { RegisterService } from '../services/register/register.service';
+import { Countries } from './countries';
 
 @Component({
   selector: 'app-register',
@@ -22,9 +23,14 @@ export class RegisterPage implements OnInit {
   public bookID: string = "";
 
   public name: string = "";
+  public lastname: string = "";
+  public country: string = "";
+  public countryCode: string = "";
   public phoneNumber: string = "";
   public emailAddress: string = "";
   public userPassword: string = "";
+
+  public countries: any = [];
 
   constructor(private formBuilder: FormBuilder,
     private _registerService: RegisterService,
@@ -39,26 +45,33 @@ export class RegisterPage implements OnInit {
 
   validationForm = this.formBuilder.group({
     bookCode: ['', [Validators.required]]
-    //falta agregar validaciones para el codigo del libro
   })
 
   registrationForm = this.formBuilder.group({
     
     username: ['',[Validators.required,  Validators.pattern(this.NAMEPATTERN)]],
+    ulastname: ['', [Validators.required,  Validators.pattern(this.NAMEPATTERN)]],
+    location: ['',[Validators.required]],
     email: ['',[Validators.required, Validators.pattern(this.EMAILPATTERN)]],
     phone: ['',[Validators.required, Validators.pattern(this.PHONEPATTERN)]],
     password: ['',[Validators.required]],
-    confirmPassword: ['',[Validators.required]],
-    //falta agregar validaciones para la contrasenia
+    confirmPassword: ['',[Validators.required]]
 
   }, {validator: this.matchingPasswords('password', 'confirmPassword')});
 
 
   ngOnInit() {
+    this.countries = Countries.countryItems;
   }
 
   get username() {
     return this.registrationForm.get("username");
+  }
+  get ulastname() {
+    return this.registrationForm.get("ulastname");
+  }
+  get location() {
+    return this.registrationForm.get("location");
   }
   get phone() {
     return this.registrationForm.get("phone");
@@ -79,6 +92,13 @@ export class RegisterPage implements OnInit {
     username: [
       { type: 'required', message: '* Debe ingresar un nombre' },
       { type: 'pattern', message: '* El nombre no debe contener caracteres especiales' }
+    ],
+    ulastname: [
+      { type: 'required', message: '* Debe ingresar un apellido' },
+      { type: 'pattern', message: '* Los apellidos no deben contener caracteres especiales' }
+    ],
+    location: [
+      { type: 'required', message: '* Debe ingresar su país de procedencia' },
     ],
     email: [
       { type: 'required', message: '* Debe ingresar un correo' },
@@ -122,6 +142,11 @@ export class RegisterPage implements OnInit {
   }
   toggleTextConfirmPassword(){
     this.showConfirmPassword = this.showConfirmPassword == true ? false : true;
+  }
+
+  selectCountry(ev) {
+    this.country = ev.detail.value.nombre;
+    this.countryCode = "+" + ev.detail.value.phone_code;
   }
 
   async showAlert(message) {
@@ -174,7 +199,10 @@ export class RegisterPage implements OnInit {
       password: this.userPassword,
       email: this.emailAddress,
       phone: this.phoneNumber,
-      fullName: this.name,
+      firstName: this.name,
+      lastName: this.lastname,
+      countryName: this.country,
+      countryCode: this.countryCode,
       bookCodeId: this.bookID
     };
 

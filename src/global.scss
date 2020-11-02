@@ -36,11 +36,13 @@
 [aria-checked=true].sc-ion-alert-md .alert-radio-icon.sc-ion-alert-md{
     border-color: #80724B;
 }
-// .picker-wrapper.sc-ion-picker-md{
-//     height: 210px;
-// }
-// .picker-prefix, .picker-suffix, .picker-opts{
-//     top: 22px;
-// }
 
-// buscar compatibilidad para ios
+.popover-content.sc-ion-popover-md{
+    width: 297px;
+}
+
+@media (min-width: 600px){
+    .popover-content.sc-ion-popover-md{
+        width: 340px;
+    }
+}

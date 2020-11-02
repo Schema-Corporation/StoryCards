@@ -10,6 +10,7 @@
   }
 .principal-title {
     margin-left: 19%;
+    font-size: 18px;
 }
 .principal-title.ios {
     margin-left: 0%;
@@ -66,10 +67,18 @@
         font-size: 14px;
         width: 160px;
         height: 55px;
-        margin-top: 10px;
+        margin-top: 20px;
         margin-left: 35%;
     }
+    ion-item {
+        margin-right: 13%;
+        margin-left: 13%;;
+      } 
 
+      .popover{
+          width: 48%;
+      }
+    
 } 
 
 @media (min-width: 750px) {
@@ -82,6 +91,9 @@
     }
     .format-button{
         margin-left: 43%;
+    }
+    .popover{
+        width: 40%;
     }
 
 }
@@ -97,7 +109,9 @@
     .format-button{
         margin-left: 45%;
     }
-
+    .popover{
+        width: 36%;
+    }
 
 }
 
@@ -112,6 +126,9 @@
     .format-button{
         margin-left: 46%;
     }
+    .popover{
+        width: 34%;
+    }
 }
 
 @media (min-width: 1400px) {
@@ -125,6 +142,9 @@
     .format-button{
         margin-left: 46%;
     }
+    .popover{
+        width: 30%;
+    }
 }
 
 @media (min-width: 1640px) {
@@ -137,5 +157,8 @@
     }
     .format-button{
         margin-left: 47%;
+    }
+    .popover{
+        width: 25%;
     }
 }

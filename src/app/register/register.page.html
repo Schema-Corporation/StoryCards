@@ -73,7 +73,30 @@
 								<small class="error-message">{{error.message}}</small>
 							</ng-container>
 						</div>
+						<ion-item>
+							<ion-input [(ngModel)]="lastname" id="lastname" name="lastname" class="input-login" color="primary" placeholder="Apellidos" required="true" formControlName="ulastname" maxlength="25"></ion-input>
+							<ion-icon name="person-circle-outline" color="primary" slot="start"></ion-icon>
+						</ion-item>
+						<div *ngFor="let error of errorMessages.ulastname">
+							<ng-container *ngIf="ulastname.hasError(error.type) && (ulastname.dirty || ulastname.touched)">
+								<small class="error-message">{{error.message}}</small>
+							</ng-container>
+						</div>
+						<ion-item>
+							<ion-label style="display: none;">País</ion-label>
+							<ion-select id="country" name="country" class="input-login" color="primary" placeholder="País" required="true" formControlName="location" (ionChange)="selectCountry($event)">
+								<ion-select-option *ngFor="let country of countries" [value]="country">{{country.nombre}}</ion-select-option>
+							</ion-select>
+							<ion-icon name="location-outline" color="primary" slot="start"></ion-icon>
+						</ion-item>
+						<div *ngFor="let error of errorMessages.location">
+							<ng-container *ngIf="location.hasError(error.type) && (location.dirty || location.touched)">
+								<small class="error-message">{{error.message}}</small>
+							</ng-container>
+						</div>
             			<ion-item>
+							<ion-input id="countryCode" name="countryCode" color="primary" 
+							placeholder="" required="true" maxlength="10" [value]=countryCode disabled></ion-input>
 							<ion-input [(ngModel)]="phoneNumber" id="phoneNumber" name="phoneNumber" class="input-login" color="primary" 
 							placeholder="Teléfono" required="true" formControlName="phone" maxlength="10"></ion-input>
 							<ion-icon name="call-outline" color="primary" slot="start"></ion-icon>
@@ -118,6 +141,12 @@
 								<small class="error-message">{{error.message}}</small>
 							</ng-container>
 						</div>
+					</div>
+
+					<div class="terms-conditions">
+						<ion-label>
+							Al registrarse en la aplicación, usted acepta los <a>Términos y Condiciones</a>
+						</ion-label>
 					</div>
 					
 					<div class="container-login100-form-btn">

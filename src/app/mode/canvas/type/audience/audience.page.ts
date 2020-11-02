@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { AlertController, NavController, ToastController, Platform } from '@ionic/angular';
 
-import { File as FileI } from '@ionic-native/file/ngx';
+import { File } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx';
 
 import pdfMake from 'pdfmake/build/pdfmake';
@@ -11,6 +11,7 @@ import { OcFileStorageService } from 'src/app/util/OcFileStorageService';
 
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { CanvasService } from 'src/app/services/canvas/canvas.service';
+import { ActivatedRoute } from '@angular/router';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -52,21 +53,65 @@ export class AudiencePage implements OnInit {
   public buttons: any;
 
   private pdfObject = null;
+  private isPrint: boolean = false;
+
+  public isEdit: boolean = false;
+
+  public data: any = null;
+  public name: string = "";
+  public canvasId: string = "";
 
   constructor(private alertCtrl: AlertController,
     public toastController: ToastController,
     public navCtrl: NavController,
+
     public platform: Platform,
     public dbService: NgxIndexedDBService,
     public _canvasService: CanvasService,
     private ocFileStorageSvc: OcFileStorageService,
-    private file: FileI,
+    private route: ActivatedRoute,
+    private file: File,
     private fileOpener: FileOpener) { }
 
   ngOnInit() {
     this.startCanvas();
     this.getEmotionsCards();
     this.showCards(this.cards);
+
+    this.route.queryParams.subscribe(params => {
+      if (params["data"] === undefined) {
+        this.isEdit = false;
+      } else {
+        this.data = JSON.parse(params["data"]);
+        this.fillCanvasData(this.data);
+        this.isEdit = true;
+      }
+    });
+  }
+
+  fillCanvasData(data) {
+    let canvasData = JSON.parse(data.data);
+
+    // step 1
+    this.characteristics = canvasData.body.step1.characteristic;
+    this.characteristicsCharacters = this.characteristics.length;
+    this.problems = canvasData.body.step1.problems;
+    this.problemsCharacters = this.problems.length;
+    this.motivation = canvasData.body.step1.motivation;
+    this.motivationCharacters = this.motivation.length;
+    this.action = canvasData.body.step1.calltoaction;
+    this.actionCharacters = this.action.length;
+
+    // step 2
+    this.emotion = canvasData.body.step2.emotion;
+
+    // step 3
+    this.goal = canvasData.body.step3.goal;
+    this.goalCharacters = this.goal.length;
+
+    // canvas data
+    this.name = data.name;
+    this.canvasId = data.id;
   }
 
   startCanvas() {
@@ -177,6 +222,7 @@ export class AudiencePage implements OnInit {
   }
 
   downloadCanvas() {
+    this.isPrint = false;
     if (this.emotion !=-1) {
       this.createPDF(this.cards[this.emotion].id);
     }
@@ -223,16 +269,29 @@ export class AudiencePage implements OnInit {
   async saveCanvas(canvasName) {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
-        this._canvasService.createCanvas(this.getCanvasBody(canvasName), token.value.token).subscribe(
-          async result => {
-            this.presentToast('¡Su formato se ha guardado con éxito!');
-            await this.sleep(2500);
-            this.navCtrl.navigateForward('canvas/canvas');
-          },
-          error => {
-            console.log('error: ', error);
-          }
-        );
+        if (this.isEdit) {
+          this._canvasService.editCanvas(this.canvasId, this.getCanvasBody(canvasName), token.value.token).subscribe(
+            async result => {
+              this.presentToast('¡Su formato ha sido editado con éxito!');
+              await this.sleep(2500);
+              this.navCtrl.navigateForward('canvas/canvas');
+            },
+            error => {
+              console.log('error: ', error);
+            }
+          );
+        } else {
+          this._canvasService.createCanvas(this.getCanvasBody(canvasName), token.value.token).subscribe(
+            async result => {
+              this.presentToast('¡Su formato se ha guardado con éxito!');
+              await this.sleep(2500);
+              this.navCtrl.navigateForward('canvas/canvas');
+            },
+            error => {
+              console.log('error: ', error);
+            }
+          );
+        }
       },
       error => {
           console.log('error: ', error);
@@ -248,6 +307,7 @@ export class AudiencePage implements OnInit {
           name: 'canvasName',
           type: 'text',
           placeholder: 'Nombre de formato',
+          value: this.name,
           attributes: {
             maxlength: 100
           }
@@ -257,7 +317,6 @@ export class AudiencePage implements OnInit {
         {
           text:'Cancelar',
           handler: () => {
-
           }
         },
         {
@@ -274,18 +333,21 @@ export class AudiencePage implements OnInit {
   }
 
   printCanvas() {
-    this.presentToast('print');
+    this.isPrint = true;
+    if (this.emotion !=-1) {
+      this.createPDF(this.cards[this.emotion].id);
+    }
+    this.presentToast('Formato abierto para imprimir');
   }
 
   createPDF(numberImage: number): any {
-
     var baseURL = "";
-
     if (numberImage > 9) {
       baseURL = 'https://raw.githubusercontent.com/Schema-Corporation/StoryCards/dev/src/assets/cards/emotions/emociones_';
     } else {
       baseURL = 'https://raw.githubusercontent.com/Schema-Corporation/StoryCards/dev/src/assets/cards/emotions/emociones_0';
     }
+    console.log('URL: ', baseURL + numberImage + '_im.png');
 
     // Get data from subscriber and pass to image src
     this.ocFileStorageSvc
@@ -294,14 +356,24 @@ export class AudiencePage implements OnInit {
       .subscribe(async (base64Data: string) => {
 
         var docDefinition = {
+          pageSize: {
+            width: 650,
+            height: 'auto'
+          },
           content: [
             this.getHTML(base64Data)
           ]
         };
     
         this.pdfObject = pdfMake.createPdf(docDefinition);
-        this.pdfObject.download();
-        await this.sleep(2500);
+
+        if (!this.isPrint){
+          // This method suportted web and device platform
+          this.pdfObject.download('Formato_Auditorio.pdf');
+        } else {
+          this.pdfObject.open();
+        }
+
         this.presentToast('Formato descargado');
 
       });
@@ -336,14 +408,14 @@ export class AudiencePage implements OnInit {
                       ¿Quiénes son?
                   </p>
                   <br>
-                  <p style="text-align:center">
+                  <p style="text-align:center;">
                       ${this.characteristics}
                   </p>
                 <br>
               </td>
               <td width="330" rowspan="2" valign="top" style="text-align:center">
                 <br>
-                <img src="${base64Image}" alt="Emotion" width="150" height="230">
+                <img src="${base64Image}" alt="Emotion" width="250" height="400">
                 <br>
               </td>
           </tr>
@@ -387,29 +459,8 @@ export class AudiencePage implements OnInit {
           </tr>
           <tr>
               <td width="330" rowspan="2" valign="top">
-                  <p style="text-align:center">
-                      <strong></strong>
-                  </p>
-                  <p style="text-align:center">
-                      <strong></strong>
-                  </p>
-                  <p style="text-align:center">
-                      <strong></strong>
-                  </p>
-                  <p style="text-align:center">
-                      <strong></strong>
-                  </p>
-                  <p style="text-align:center">
-                      <strong></strong>
-                  </p>
-                  <p style="text-align:center">
-                      <strong></strong>
-                  </p>
-                  <p>
-                      <strong></strong>
-                  </p>
                   <br>
-                  <p style="text-align:center">
+                  <p style="text-align:center;">
                       ${this.goal}
                   </p>
                   <br>
@@ -439,47 +490,47 @@ export class AudiencePage implements OnInit {
   getEmotionsCards() {
     this.cards = [{
       id: 1,
-      imgCard: '/assets/cards/emotions/emociones_01_im.png'
+      imgCard: '/assets/cards/emotions/emociones_01_im.svg'
     },
     {
       id: 2,
-      imgCard: '/assets/cards/emotions/emociones_02_im.png'
+      imgCard: '/assets/cards/emotions/emociones_02_im.svg'
     },
     {
       id: 3,
-      imgCard: '/assets/cards/emotions/emociones_03_im.png'
+      imgCard: '/assets/cards/emotions/emociones_03_im.svg'
     },
     {
       id: 4,
-      imgCard: '/assets/cards/emotions/emociones_04_im.png'
+      imgCard: '/assets/cards/emotions/emociones_04_im.svg'
     },
     {
       id: 5,
-      imgCard: '/assets/cards/emotions/emociones_05_im.png'
+      imgCard: '/assets/cards/emotions/emociones_05_im.svg'
     },
     {
       id: 6,
-      imgCard: '/assets/cards/emotions/emociones_06_im.png'
+      imgCard: '/assets/cards/emotions/emociones_06_im.svg'
     },
     {
       id: 7,
-      imgCard: '/assets/cards/emotions/emociones_07_im.png'
+      imgCard: '/assets/cards/emotions/emociones_07_im.svg'
     },
     {
       id: 8,
-      imgCard: '/assets/cards/emotions/emociones_08_im.png'
+      imgCard: '/assets/cards/emotions/emociones_08_im.svg'
     },
     {
       id: 9,
-      imgCard: '/assets/cards/emotions/emociones_09_im.png'
+      imgCard: '/assets/cards/emotions/emociones_09_im.svg'
     },
     {
       id: 10,
-      imgCard: '/assets/cards/emotions/emociones_10_im.png'
+      imgCard: '/assets/cards/emotions/emociones_10_im.svg'
     },
     {
       id: 11,
-      imgCard: '/assets/cards/emotions/emociones_11_im.png'
+      imgCard: '/assets/cards/emotions/emociones_11_im.svg'
     }]
   };
 
