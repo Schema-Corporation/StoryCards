@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, NgModule } from '@angular/core';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { NavigationExtras } from '@angular/router';
 import { AlertController, NavController } from '@ionic/angular';
@@ -6,6 +6,8 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LoginService } from '../services/auth/login.service';
 import { RegisterService } from '../services/register/register.service';
 import { Countries } from './countries';
+import { Country } from 'src/common/types/country';
+import { IonicSelectableComponent } from 'ionic-selectable';
 
 @Component({
   selector: 'app-register',
@@ -31,6 +33,8 @@ export class RegisterPage implements OnInit {
   public userPassword: string = "";
 
   public countries: any = [];
+
+  public countrySelected: Country;
 
   constructor(private formBuilder: FormBuilder,
     private _registerService: RegisterService,
@@ -144,9 +148,18 @@ export class RegisterPage implements OnInit {
     this.showConfirmPassword = this.showConfirmPassword == true ? false : true;
   }
 
-  selectCountry(ev) {
-    this.country = ev.detail.value.nombre;
-    this.countryCode = "+" + ev.detail.value.phone_code;
+  selectCountry(event: {
+    component: IonicSelectableComponent,
+    value: any
+  }) {
+
+    let country = event.value;
+
+    //console.log('port:', event.value);
+
+    this.country = country.nombre;
+    
+    this.countryCode = "+" + country.phone_code;
   }
 
   async showAlert(message) {
