@@ -1,0 +1,11 @@
+
+{
+    "/images/*": {
+        "target": "https://storycards-dev.web.app/assets/cards/emotions",
+        "secure": false,
+        "pathRewrite": {
+            "^/images": ""
+          },
+          "changeOrigin": true
+    }
+}

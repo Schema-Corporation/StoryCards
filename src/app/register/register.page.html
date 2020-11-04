@@ -57,7 +57,7 @@
     </div>
 
     <div *ngIf="step==2">
-			<div class="wrap-login100">
+			<div class="wrap-login100" style="padding-top: 10px;">
 				<div class="login100-pic">
 					<img src="../../assets/cards/initial/inicial_02_im.png" alt="IMG">
 				</div>
@@ -82,7 +82,7 @@
 								<small class="error-message">{{error.message}}</small>
 							</ng-container>
 						</div>
-						<ion-item>
+						<!--<ion-item>
 							<ion-label style="display: none;">País</ion-label>
 							<ion-select id="country" name="country" class="input-login" color="primary" placeholder="País" required="true" formControlName="location" (ionChange)="selectCountry($event)">
 								<ion-select-option *ngFor="let country of countries" [value]="country">{{country.nombre}}</ion-select-option>
@@ -93,7 +93,35 @@
 							<ng-container *ngIf="location.hasError(error.type) && (location.dirty || location.touched)">
 								<small class="error-message">{{error.message}}</small>
 							</ng-container>
+						</div>-->
+						
+						<ion-item>
+							<ionic-selectable
+							  item-content
+							  formControlName="location"
+							  required="true"
+							  headerColor="primary"
+							  itemIconSlot="none"
+							  placeholder="País"
+							  [ngStyle]="{ color: red }"
+							  searchPlaceholder="Ingrese nombre del país"
+							  color="primary"
+							  [(ngModel)]="countrySelected"
+							  itemTextField="nombre"
+							  itemValueField="phone_code"
+							  [items]="countries"
+							  [canSearch]="true"
+							  (onChange)="selectCountry($event)">
+							</ionic-selectable>
+							<ion-icon name="location-outline" color="primary" slot="start"></ion-icon>
+						  </ion-item>
+
+						  <div *ngFor="let error of errorMessages.location">
+							<ng-container *ngIf="location.hasError(error.type) && (location.dirty || location.touched)">
+								<small class="error-message">{{error.message}}</small>
+							</ng-container>
 						</div>
+
             			<ion-item>
 							<ion-input id="countryCode" name="countryCode" color="primary" 
 							placeholder="" required="true" maxlength="10" [value]=countryCode disabled></ion-input>

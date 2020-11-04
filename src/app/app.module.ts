@@ -23,6 +23,8 @@ import { NgxIndexedDBModule } from 'ngx-indexed-db';
 import { File } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx'
 
+import { IonicSelectableModule } from 'ionic-selectable';
+
 
 @NgModule({
   declarations: [AppComponent],
@@ -34,7 +36,8 @@ import { FileOpener } from '@ionic-native/file-opener/ngx'
     AppRoutingModule,
     NgxIndexedDBModule.forRoot(environment.INDEXEDDB_CONFIG),
     AngularFireModule.initializeApp(environment.FIREBASE_CONFIG),
-    AngularFireDatabaseModule
+    AngularFireDatabaseModule,
+    IonicSelectableModule
   ],
   providers: [
     CharactersService,
