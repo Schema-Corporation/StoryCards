@@ -96,11 +96,16 @@
 						</div>-->
 						
 						<ion-item>
-							<ion-label>País</ion-label>
 							<ionic-selectable
 							  item-content
 							  formControlName="location"
 							  required="true"
+							  headerColor="primary"
+							  itemIconSlot="none"
+							  placeholder="País"
+							  [ngStyle]="{ color: red }"
+							  searchPlaceholder="Ingrese nombre del país"
+							  color="primary"
 							  [(ngModel)]="countrySelected"
 							  itemTextField="nombre"
 							  itemValueField="phone_code"

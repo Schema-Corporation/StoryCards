@@ -343,9 +343,9 @@ export class AudiencePage implements OnInit {
   createPDF(numberImage: number): any {
     var baseURL = "";
     if (numberImage > 9) {
-      baseURL = 'https://raw.githubusercontent.com/Schema-Corporation/StoryCards/dev/src/assets/cards/emotions/emociones_';
+      baseURL = '/images/emociones_';
     } else {
-      baseURL = 'https://raw.githubusercontent.com/Schema-Corporation/StoryCards/dev/src/assets/cards/emotions/emociones_0';
+      baseURL = '/images/emociones_0';
     }
     console.log('URL: ', baseURL + numberImage + '_im.png');
 

@@ -27,6 +27,14 @@
 
 ///@at-root customize-alert 
 
+.ionic-selectable-value {
+    color: #80724b;
+}
+
+.ionic-selectable-has-placeholder .ionic-selectable-value-item {
+    color: #bfb7a4 !important;
+}
+
 .native-input[disabled].sc-ion-input-md {
     opacity: 1;
 }
