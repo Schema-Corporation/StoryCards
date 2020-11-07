@@ -29,7 +29,6 @@
         <div class="check fas fa-check">
         </div>
         <p>Emoción</p>
-        <p *ngIf="step==2 && showDivCards">¿Qué emoción deseas despertar en el auditorio?</p>
       </div>
       <div class="step" (click)="step=3;">
         <div class="bullet" [ngClass]="{'step-colored': step == 3}">
@@ -90,6 +89,7 @@
     <ion-button class="next-button" (click)="step=2">Siguiente</ion-button>
   </div>
   <div id="step2" *ngIf="step==2 && showDivCards">
+    <p *ngIf="step==2 && showDivCards" class="center-text">¿Qué emoción deseas despertar en el auditorio?</p>
     <ion-grid *ngIf="showDivCards">
       <ion-row *ngFor="let indexRow of rows">
         <ion-col [ngClass]="{'emotion-selected': emotion == (indexRow)*3 + (indexColumn)}" *ngFor="let indexColumn of columns">

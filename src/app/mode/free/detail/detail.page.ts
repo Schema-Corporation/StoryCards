@@ -20,6 +20,10 @@ export class DetailPage implements OnInit, AfterViewInit {
   private shouldBeRotate: number;
   public rotat;
   public process;
+
+  public showRight: boolean = false;
+  public showLeft: boolean = false;
+
   constructor(
     private route: ActivatedRoute,
     private location: Location
@@ -39,6 +43,7 @@ export class DetailPage implements OnInit, AfterViewInit {
     if (this.idCard >= 0 && this.idCard < (this.cards.length - 2)) {
       this.idCard +=1;
       this.card = this.cards[this.idCard].imgCard;
+      this.showSequence();
     }
   }
 
@@ -46,7 +51,7 @@ export class DetailPage implements OnInit, AfterViewInit {
     if (this.idCard > 0) {
       this.idCard -=1;
       this.card = this.cards[this.idCard].imgCard;
-      console.log('Left: ', this.card);
+      this.showSequence();
     }
   }
 
@@ -70,7 +75,13 @@ export class DetailPage implements OnInit, AfterViewInit {
 
     if (this.process == 1) {
       this.card = this.cards[this.idCard].imgCard;
+      this.showSequence();
     }
     
+  }
+
+  showSequence() {
+    this.showRight = (this.idCard >= 0 && this.idCard < (this.cards.length - 2));
+    this.showLeft = (this.idCard > 0);
   }
 }

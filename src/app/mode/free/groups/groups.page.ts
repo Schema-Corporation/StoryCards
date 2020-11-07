@@ -248,7 +248,7 @@ export class GroupsPage implements OnInit {
       },
       {
         id: 8,
-        imgCard: '/assets/cards/random/aleatoria_01_im.svg'
+        imgCard: '/assets/cards/sequence/sequence_01_im.svg'
       }
     ]
   }
