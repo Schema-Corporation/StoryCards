@@ -35,11 +35,20 @@ export class MainPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       if (params.first == 'true') {
         this.isFirst = params.first;
-        if (this.isFirst) {
-          var title = "¡Bienvenido a Storycards!"
-          var message = "Tu registro ha sido realizado con éxito"
-          this.showAlert(title, message);
-        }
+        var key: number = Number(params.key);
+        this.dbService.getByIndex('variables', 'name', 'welcome').subscribe(
+          welcome => {
+            if (this.isFirst && welcome.value) {
+              this.dbService.update('variables', { name: 'welcome', value: false, id: key }).subscribe(
+                welcome => {
+                  var title = "¡Bienvenido a Storycards!"
+                  var message = "Tu registro ha sido realizado con éxito"
+                  this.showAlert(title, message);
+                }
+              );
+            }
+          }
+        );
       }
     });
 

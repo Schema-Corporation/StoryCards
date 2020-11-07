@@ -29,6 +29,7 @@
         <div class="check fas fa-check">
         </div>
         <p>Emoción</p>
+        <p *ngIf="step==2 && showDivCards">¿Qué emoción deseas despertar en el auditorio?</p>
       </div>
       <div class="step" (click)="step=3;">
         <div class="bullet" [ngClass]="{'step-colored': step == 3}">

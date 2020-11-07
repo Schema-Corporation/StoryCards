@@ -284,6 +284,24 @@
     margin-left: 92%; 
   }
 
+  .imgSizeRight{
+    position: absolute;
+    z-index: 2;
+    margin-top: 145%;
+    margin-left: 80%; 
+    width: 40px;
+    height: 30px;
+  }
+
+  .imgSizeLeft{
+    position: absolute;
+    z-index: 2;
+    margin-top: 145%;
+    margin-left: 10%; 
+    width: 40px;
+    height: 30px;
+  }
+
   .ion-imgSize{
     width: 250px;
     height: 400px;

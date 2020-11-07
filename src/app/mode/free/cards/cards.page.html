@@ -17,7 +17,7 @@
     <ion-row *ngFor="let indexRow of rows">
       <ion-col *ngFor="let indexColumn of columns">
         <div *ngIf="(this.cards[(indexRow)*3 + (indexColumn)])">
-          <ion-img class="img-arq" (click)="showDetail(this.cards[(indexRow)*3 + (indexColumn)])" src="{{this.cards[(indexRow)*3 + (indexColumn)].imgCard}}"></ion-img>
+          <ion-img class="img-arq" (click)="showDetail(this.cards[(indexRow)*3 + (indexColumn)], this.cards)" src="{{this.cards[(indexRow)*3 + (indexColumn)].imgCard}}"></ion-img>
         </div>
       </ion-col>
     </ion-row>

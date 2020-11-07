@@ -21,6 +21,12 @@
         <ion-img class="ion-imgSize" src="{{this.description}}"></ion-img>
       </div>
     </div>
+    <div *ngIf="process == 1" class="imgSizeRight">
+      <ion-img name="right" (click)="showCardRight()" src="/assets/detail/arrow_right.png"></ion-img>
+    </div>
+    <div *ngIf="process == 1" class="imgSizeLeft">
+      <ion-img name="left" (click)="showCardLeft()" src="/assets/detail/arrow_left.png"></ion-img>
+    </div>
     <div *ngIf="rotate">
       <ion-img class="imgSize" name="rotate" (click)="showRotate()" src="/assets/rotate/rotate.png"></ion-img>
     </div>

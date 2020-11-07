@@ -17,6 +17,7 @@ export class CardsPage implements OnInit {
   public cards: any;
   public title: any;
   public rotated: number;
+  public process: number;
   public showDivCards: boolean = false;
   constructor(
     private route: ActivatedRoute,
@@ -49,22 +50,25 @@ export class CardsPage implements OnInit {
     this.showDivCards = true;
   }
 
-  goToDetailPage(card) {
+  goToDetailPage(card, cards) {
     let navigationExtras: NavigationExtras = {
       queryParams: {
           card: card.imgCard,
           description: card.imgDescription,
           rotate: card.imgRotate,
-          rotated: this.rotated
+          rotated: this.rotated,
+          process: this.process,
+          cards: JSON.stringify(cards)
       }
     }
     this.navCtrl.navigateForward(['free/detail'], navigationExtras);
   }
 
-  showDetail(card){
+  showDetail(card, cards){
     if (card.id == this.cards[this.cards.length - 1].id) {
       let maxNumber = this.cards.length - 1;
       let minNumber = 0;
+
       if (card.imgRotate) {
         if (Math.random() < 0.5)
           this.rotated = 0;
@@ -72,10 +76,15 @@ export class CardsPage implements OnInit {
           this.rotated = 1;
       }
       card = this.cards[Math.floor(Math.random() * (maxNumber - minNumber) + minNumber)];
-      this.goToDetailPage(card);
+
+      this.process = 1;
+
+      this.goToDetailPage(card, cards);
+
     } else {
       this.rotated = 0;
-      this.goToDetailPage(card);
+      this.process = 0;
+      this.goToDetailPage(card, null);
     }
   }
 

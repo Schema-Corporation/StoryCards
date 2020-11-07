@@ -225,6 +225,8 @@ export class AudiencePage implements OnInit {
     this.isPrint = false;
     if (this.emotion !=-1) {
       this.createPDF(this.cards[this.emotion].id);
+    } else {
+      this.generateHTML('');
     }
   }
 
@@ -333,20 +335,28 @@ export class AudiencePage implements OnInit {
   }
 
   printCanvas() {
+
     this.isPrint = true;
+
     if (this.emotion !=-1) {
       this.createPDF(this.cards[this.emotion].id);
+    } else {
+      this.generateHTML('');
     }
+
     this.presentToast('Formato abierto para imprimir');
   }
 
   createPDF(numberImage: number): any {
+
     var baseURL = "";
+
     if (numberImage > 9) {
       baseURL = '/images/emociones_';
     } else {
       baseURL = '/images/emociones_0';
     }
+
     console.log('URL: ', baseURL + numberImage + '_im.png');
 
     // Get data from subscriber and pass to image src
@@ -354,32 +364,53 @@ export class AudiencePage implements OnInit {
       .getStoredFile('emociones_0' + numberImage, 
         baseURL + numberImage + '_im.png')
       .subscribe(async (base64Data: string) => {
-
-        var docDefinition = {
-          pageSize: {
-            width: 650,
-            height: 'auto'
-          },
-          content: [
-            this.getHTML(base64Data)
-          ]
-        };
-    
-        this.pdfObject = pdfMake.createPdf(docDefinition);
-
-        if (!this.isPrint){
-          // This method suportted web and device platform
-          this.pdfObject.download('Formato_Auditorio.pdf');
-        } else {
-          this.pdfObject.open();
-        }
-
-        this.presentToast('Formato descargado');
-
+        this.generateHTML(base64Data);
       });
   }
 
+  generateHTML(base64Data: string) {
+
+    var docDefinition = {
+      pageSize: {
+        width: 650,
+        height: 'auto'
+      },
+      content: [
+        this.getHTML(base64Data)
+      ]
+    };
+
+    this.pdfObject = pdfMake.createPdf(docDefinition);
+
+    if (!this.isPrint){
+      // This method suportted web and device platform
+      this.pdfObject.download('Formato_Auditorio.pdf');
+    } else {
+      this.pdfObject.open();
+    }
+
+    this.presentToast('Formato descargado');
+
+  }
+
   getHTML(base64Image: string) {
+
+    var image = '';
+
+    if (base64Image != '') {
+      image = 
+      `<td width="330" rowspan="2" valign="top" style="text-align:center">
+        <br>
+        <img src="${base64Image}" alt="Emotion" width="250" height="400">
+        <br>
+      </td>`
+    } else {
+      image = 
+      `<td width="330" rowspan="2" valign="top" style="text-align:center">
+        <br>
+        <br>
+      </td>`
+    }
 
     var html = htmlToPdfmake(`
     <table border="1" cellspacing="0" cellpadding="0" width="660">
@@ -412,20 +443,16 @@ export class AudiencePage implements OnInit {
                       ${this.characteristics}
                   </p>
                 <br>
-              </td>
-              <td width="330" rowspan="2" valign="top" style="text-align:center">
-                <br>
-                <img src="${base64Image}" alt="Emotion" width="250" height="400">
-                <br>
-              </td>
-          </tr>
+              </td>` 
+              + image +
+          `</tr>
           <tr>
               <td width="330" valign="top">
                   <p style="text-align:center">
                       Problemas
                   </p>
                   <p style="text-align:center">
-                      ¿Qué les preocupa? ¿Qué neceistan?
+                      ¿Qué les preocupa? ¿Qué necesitan?
                   </p>
                   <br>
                   <p style="text-align:center">
