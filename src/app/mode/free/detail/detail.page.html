@@ -16,6 +16,12 @@
     <div *ngIf="!rotate" class="thecard" name="flip">
       <div class="front">
         <ion-img class="ion-imgSize" src="{{this.card}}"></ion-img>
+        <div *ngIf="process == 1 && showLeft" class="imgSizeLeft">
+          <ion-icon size="large" name="arrow-back-circle-outline" (click)="showCardLeft()"></ion-icon>
+        </div>
+        <div *ngIf="process == 1 && showRight" class="imgSizeRight">
+          <ion-icon size="large" name="arrow-forward-circle-outline" (click)="showCardRight()"></ion-icon>
+        </div>
       </div>
       <div class="back">
         <ion-img class="ion-imgSize" src="{{this.description}}"></ion-img>

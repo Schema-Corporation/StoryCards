@@ -185,12 +185,17 @@ export class RegisterPage implements OnInit {
         () => {
           this.dbService.getByIndex('variables', 'name', 'token').subscribe(
             token => {
-              let navigationExtras: NavigationExtras = {
-                queryParams: {
-                    first: true
+              this.dbService.add('variables', { name: 'welcome', value: true }).subscribe(
+                key => {
+                  let navigationExtras: NavigationExtras = {
+                    queryParams: {
+                        first: true,
+                        key: key
+                    }
+                  }
+                  this.navCtrl.navigateForward(['menu/main'], navigationExtras);
                 }
-              }
-              this.navCtrl.navigateForward(['menu/main'], navigationExtras);
+              );
             },
             error => {
                 console.log(error);

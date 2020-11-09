@@ -96,6 +96,7 @@
 						</div>-->
 						
 						<ion-item>
+							<ion-label style="display: none">Seleccionar país</ion-label>
 							<ionic-selectable
 							  item-content
 							  formControlName="location"
@@ -105,6 +106,8 @@
 							  placeholder="País"
 							  [ngStyle]="{ color: red }"
 							  searchPlaceholder="Ingrese nombre del país"
+							  closeButtonText="Cancelar"
+							  [searchFailText]="'No se han encontrado países.'"
 							  color="primary"
 							  [(ngModel)]="countrySelected"
 							  itemTextField="nombre"
@@ -158,7 +161,7 @@
 							</ng-container>
 						</div>
 						<ion-item>
-							<ion-input [type]="getConfirmPasswordType()" class="input-login" color="primary" placeholder="Confirmar Contraseña" required="true" formControlName="confirmPassword" maxlength="20"></ion-input>
+							<ion-input [type]="getConfirmPasswordType()" class="input-login" color="primary" placeholder="Confirmar contraseña" required="true" formControlName="confirmPassword" maxlength="20"></ion-input>
 							<ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
 							<ion-icon *ngIf="!showConfirmPassword" name="eye-outline" color="primary" (click)="toggleTextConfirmPassword()"></ion-icon>
 							<ion-icon *ngIf="showConfirmPassword" name="eye-off-outline" color="primary" (click)="toggleTextConfirmPassword()"></ion-icon>
@@ -173,7 +176,7 @@
 
 					<div class="terms-conditions">
 						<ion-label>
-							Al registrarse en la aplicación, usted acepta los <a>Términos y Condiciones</a>
+							Al registrarse en la aplicación, usted acepta nuestra <a>Política de Privacidad</a>
 						</ion-label>
 					</div>
 					

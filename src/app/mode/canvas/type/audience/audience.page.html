@@ -89,6 +89,7 @@
     <ion-button class="next-button" (click)="step=2">Siguiente</ion-button>
   </div>
   <div id="step2" *ngIf="step==2 && showDivCards">
+    <p *ngIf="step==2 && showDivCards" class="center-text">¿Qué emoción deseas despertar en el auditorio?</p>
     <ion-grid *ngIf="showDivCards">
       <ion-row *ngFor="let indexRow of rows">
         <ion-col [ngClass]="{'emotion-selected': emotion == (indexRow)*3 + (indexColumn)}" *ngFor="let indexColumn of columns">

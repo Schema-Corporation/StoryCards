@@ -1,13 +1,17 @@
 <ion-content>
   <div  class="fullheight xc">
-    <ion-label class="padding-header">Bienvenido, {{fullName}}</ion-label>
+    <ion-label class="padding-header">Bienvenido(a), {{fullName}}</ion-label>
     <ion-icon class="icon-right" name="power" (click)="presentPopover($event)"></ion-icon>
 
-    <ion-item >
-      <ion-grid>
+    <div class="logo-pic" >
+      <img src="../../assets/icon/logo.jpeg" alt="IMG">
+    </div>
+    
+    <ion-item style="margin-top: 10%;">
+      <ion-grid class="wrap-login100">
         <ion-row class="padding-bottom-row">
-          <ion-col size="12" class="ion-text-center">
-            <ion-label class="title">Story Cards</ion-label>
+          <ion-col size="12" style="padding-left: 7%;">
+            <ion-label class="title">Story cards</ion-label>
           </ion-col>
         </ion-row>
         <ion-row class="ion-align-items-center">
