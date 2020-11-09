@@ -101,6 +101,15 @@ export class AudiencePage implements OnInit, AfterViewInit {
 
       
   }
+
+  goToSecondStep() {
+    console.log('emotion: ', this.emotion);
+    this.step = 2;
+    if (this.upsideDown) {
+      this.showRotate();
+      this.upsideDown = true;
+    }
+  }
   
   showRotate() {
     this.rotat = document.querySelector("[name='rotat']");
