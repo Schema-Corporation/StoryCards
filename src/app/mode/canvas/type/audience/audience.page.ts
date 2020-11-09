@@ -369,23 +369,28 @@ export class AudiencePage implements OnInit, AfterViewInit {
   createPDF(numberImage: number): any {
 
     var baseURL = "";
+    var typeImage = "";
 
     if (numberImage > 9 && !this.upsideDown) {
       baseURL = '/assets/cards/emotions/emociones_';
+      typeImage = "_im.png";
     } else if (!this.upsideDown) {
       baseURL = '/assets/cards/emotions/emociones_0';
+      typeImage = "_im.png";
     } else if (numberImage > 9 && this.upsideDown) {
       baseURL = '/assets/cards/emotions/emociones_';
+      typeImage = "_ud.png";
     } else {
       baseURL = '/assets/cards/emotions/emociones_0';
+      typeImage = "_ud.png";
     }
 
-    console.log('URL: ', baseURL + numberImage + '_im.png');
+    console.log('URL: ', baseURL + numberImage + typeImage);
 
     // Get data from subscriber and pass to image src
     this.ocFileStorageSvc
-      .getStoredFile('emociones_0' + numberImage, 
-        baseURL + numberImage + '_im.png')
+      .getStoredFile('emociones_0' + numberImage + typeImage, 
+        baseURL + numberImage + typeImage)
       .subscribe(async (base64Data: string) => {
         this.generateHTML(base64Data);
       });
