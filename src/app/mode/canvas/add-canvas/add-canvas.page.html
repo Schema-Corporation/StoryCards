@@ -19,12 +19,19 @@
 </ion-content>
 
 <ion-content  *ngIf="platform.is('android') || platform.is('desktop') || platform.is('tablet')" >
-  <ion-item>
-    <ion-label>Tipo de Formato</ion-label>
-    <ion-select id="canvas-options" class="popover" interface="popover" [(ngModel)]="selectedVal" >
-      <ion-select-option *ngFor="let item of getFormatOptions()" [value]="item.value">{{item.text}}</ion-select-option>
-    </ion-select>
-  </ion-item>
+  <ion-list>
+    <ion-radio-group allow-empty-selection="true" name="radio-group" (ionChange)="radioGroupChange($event)" #radioGroup>
+      <ion-list-header>
+        <ion-label style="text-align: center; font-size: 20px;">Tipo de Formato</ion-label>
+      </ion-list-header>
 
-  <ion-button  class="format-button" size="large" (click)="showCanvasPage()" >Generar formato</ion-button>
+      <ion-item *ngFor="let item of getFormatOptions()">
+        <ion-label>{{item.text}}</ion-label>
+        <ion-radio slot="end" name="{{item.name}}" value="{{item.value}}"></ion-radio>
+      </ion-item>
+
+    </ion-radio-group>
+  </ion-list>
+
+  <ion-button  class="format-button" size="large" (click)="showCanvasPage()" disabled="{{this.selectedVal == 0}}">Generar formato</ion-button>
 </ion-content>

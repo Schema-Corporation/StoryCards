@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
 import { AlertController, NavController, ToastController, Platform } from '@ionic/angular';
 
 import { File } from '@ionic-native/file/ngx';
@@ -21,7 +21,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   templateUrl: './audience.page.html',
   styleUrls: ['./audience.page.scss'],
 })
-export class AudiencePage implements OnInit {
+export class AudiencePage implements OnInit, AfterViewInit {
 
   public rows: any;
   public columns: any;
@@ -61,6 +61,11 @@ export class AudiencePage implements OnInit {
   public name: string = "";
   public canvasId: string = "";
 
+  public rotate;
+  private shouldBeRotate: number;
+  public rotat;
+  private upsideDown: boolean = false;
+
   constructor(private alertCtrl: AlertController,
     public toastController: ToastController,
     public navCtrl: NavController,
@@ -87,6 +92,20 @@ export class AudiencePage implements OnInit {
         this.isEdit = true;
       }
     });
+
+    this.rotate = true;
+    this.shouldBeRotate = 1;
+  }
+
+  ngAfterViewInit() {
+
+      
+  }
+  
+  showRotate() {
+    this.rotat = document.querySelector("[name='rotat']");
+    this.rotat.classList.toggle("rotated");
+    this.upsideDown = !this.upsideDown;
   }
 
   fillCanvasData(data) {
@@ -350,19 +369,28 @@ export class AudiencePage implements OnInit {
   createPDF(numberImage: number): any {
 
     var baseURL = "";
+    var typeImage = "";
 
-    if (numberImage > 9) {
+    if (numberImage > 9 && !this.upsideDown) {
       baseURL = '/assets/cards/emotions/emociones_';
+      typeImage = "_im.png";
+    } else if (!this.upsideDown) {
+      baseURL = '/assets/cards/emotions/emociones_0';
+      typeImage = "_im.png";
+    } else if (numberImage > 9 && this.upsideDown) {
+      baseURL = '/assets/cards/emotions/emociones_';
+      typeImage = "_ud.png";
     } else {
       baseURL = '/assets/cards/emotions/emociones_0';
+      typeImage = "_ud.png";
     }
 
-    console.log('URL: ', baseURL + numberImage + '_im.png');
+    console.log('URL: ', baseURL + numberImage + typeImage);
 
     // Get data from subscriber and pass to image src
     this.ocFileStorageSvc
-      .getStoredFile('emociones_0' + numberImage, 
-        baseURL + numberImage + '_im.png')
+      .getStoredFile('emociones_0' + numberImage + typeImage, 
+        baseURL + numberImage + typeImage)
       .subscribe(async (base64Data: string) => {
         this.generateHTML(base64Data);
       });
