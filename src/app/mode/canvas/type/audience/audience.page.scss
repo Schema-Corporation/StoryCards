@@ -3,6 +3,39 @@
     src: url('../../../../../assets/fonts/cambriab.ttf');
   }
 
+  .thecard {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 90%;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+  }
+
+.thecard.rotated{
+    transform: rotate(180deg);
+}
+
+.unrotated {
+    
+    width: 100%;
+    height: 100%;
+    //background: #fafafa;
+    align-items: center;
+    justify-content: center;
+    backface-visibility: hidden;
+}
+
+.imgSize{
+    padding-top: 20px;
+    margin-left: 82%;
+    //padding-right: 10px;
+   
+    width: 40px;
+    height: 40px;
+    //z-index: 2;
+}
+
 .center-text {
     text-align: center;
     padding: 10px 0px;

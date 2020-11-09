@@ -25,7 +25,8 @@
     align-items: center;
     justify-content: center;
     width: 100%;
-    height: 90%;
+    height: 100%;
+    margin-top: 67%;
     transform-style: preserve-3d;
     transition: all 0.5s ease;
   }
@@ -73,6 +74,7 @@
 .imgSize{
     padding-top: 20px;
     margin-left: 82%;
+    margin-top: 67%;
     //padding-right: 10px;
     position: absolute;
     width: 40px;
@@ -91,7 +93,7 @@
   margin-left: 2px;
 }
 
-@media (min-width: 300px){
+@media (min-width: 320px){
 
   .thecard.rotated{
     transform: rotate(180deg);
@@ -104,6 +106,7 @@
 
   .imgSize{
     padding-top: 20px;
+    margin-top: 16%;
     margin-left: 82%;
     //padding-right: 10px;
     position: absolute;
@@ -123,8 +126,96 @@
   .thecard {
     position: absolute;
     align-items: center;
+    margin-top: 16%;
+    margin-left: 10%;
+    width: 80%;
+    height: 80%;
+    justify-content: center;
+    width: 250px;
+    height: 425px;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+  }
+}
+
+@media (min-width: 360px){
+
+  .thecard.rotated{
+    transform: rotate(180deg);
+  }
+
+  .principal-title{
+    margin-left: 28%;
+    font-size: 21px;
+  }
+
+  .imgSize{
+    padding-top: 20px;
+    margin-top: 22%;
+    margin-left: 82%;
+    //padding-right: 10px;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    //z-index: 2;
+  }
+
+  .ion-imgSize{
+    width: 250px;
+    height: 400px;
+    margin: auto;
     margin-top: 10px;
+    z-index: 1;
+  }
+
+  .thecard {
+    position: absolute;
+    align-items: center;
+    margin-top: 22%;
     margin-left: 15%;
+    justify-content: center;
+    width: 250px;
+    height: 425px;
+    transform-style: preserve-3d;
+    transition: all 0.5s ease;
+  }
+}
+
+@media (min-width: 375px){
+
+  .thecard.rotated{
+    transform: rotate(180deg);
+  }
+
+  .principal-title{
+    margin-left: 28%;
+    font-size: 21px;
+  }
+
+  .imgSize{
+    padding-top: 20px;
+    margin-top: 44%;
+    margin-left: 82%;
+    //padding-right: 10px;
+    position: absolute;
+    width: 40px;
+    height: 40px;
+    //z-index: 2;
+  }
+
+  .ion-imgSize{
+    width: 250px;
+    height: 400px;
+    margin: auto;
+    margin-top: 10px;
+    z-index: 1;
+  }
+
+  .thecard {
+    position: absolute;
+    align-items: center;
+    margin-top: 44%;
+    margin-left: 16%;
     justify-content: center;
     width: 250px;
     height: 425px;
@@ -146,6 +237,7 @@
 
   .imgSize{
     padding-top: 20px;
+    margin-top: 32%;
     margin-left: 78%;
     //padding-right: 10px;
     position: absolute;
@@ -165,8 +257,8 @@
   .thecard {
     position: absolute;
     align-items: center;
-    margin-top: 10px;
-    margin-left: 17%;
+    margin-top: 32%;
+    margin-left: 19%;
     justify-content: center;
     width: 250px;
     height: 425px;
@@ -188,6 +280,7 @@
 
   .imgSize{
     padding-top: 20px;
+    margin-top: 67%;
     margin-left: 70%;
     //padding-right: 10px;
     position: absolute;
@@ -206,7 +299,7 @@
   .thecard {
     position: absolute;
     align-items: center;
-    margin-top: 10px;
+    margin-top: 67%;
     margin-left: 27%;
     justify-content: center;
     width: 250px;
@@ -237,7 +330,7 @@
   .imgSize{
     position: absolute;
     z-index: 2;
-    margin-top: 5px;
+    margin-top: 67%;
     margin-left: 92%; 
   }
 
@@ -250,7 +343,7 @@
   .thecard {
     position: absolute;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 67%;
     margin-left: 1%;
     justify-content: center;
     width: 300px;
@@ -280,7 +373,7 @@
   .imgSize{
     position: absolute;
     z-index: 2;
-    margin-top: 5px;
+    margin-top: 55%;
     margin-left: 92%; 
   }
 
@@ -313,7 +406,7 @@
   .thecard {
     position: absolute;
     align-items: center;
-    margin-top: 20px;
+    margin-top: 60%;
     justify-content: center;
     width: 300px;
     height: 400px;

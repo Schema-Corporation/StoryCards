@@ -11,7 +11,7 @@ import { PickerOptions } from "@ionic/core";
 })
 export class AddCanvasPage implements OnInit {
 
-  selectedVal:number = 0;
+  selectedVal: number = 0; 
 
   constructor(
     private pickerController: PickerController,
@@ -40,6 +40,7 @@ export class AddCanvasPage implements OnInit {
   }
 
   goToCreateFormatPage(value) {
+    console.log('selectedVal: ', this.selectedVal);
     switch(value) {
       case 1: this.navCtrl.navigateForward('canvas/audience'); break;
       case 2: this.navCtrl.navigateForward('canvas/structural-aspects'); break;
@@ -53,8 +54,13 @@ export class AddCanvasPage implements OnInit {
     if (this.selectedVal == 0) {
       this.presentToast("Por favor, selecciona un tipo de formato");
     } else {
-      this.goToCreateFormatPage(this.selectedVal);
+      this.goToCreateFormatPage(Number(this.selectedVal));
     }
+  }
+
+  radioGroupChange(event) {
+    console.log("radioGroupChange", event.detail);
+    this.selectedVal = event.detail.value;
   }
 
   async presentToast(message) {
