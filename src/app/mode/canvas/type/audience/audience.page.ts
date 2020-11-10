@@ -21,7 +21,7 @@ pdfMake.vfs = pdfFonts.pdfMake.vfs;
   templateUrl: './audience.page.html',
   styleUrls: ['./audience.page.scss'],
 })
-export class AudiencePage implements OnInit, AfterViewInit {
+export class AudiencePage implements OnInit {
 
   public rows: any;
   public columns: any;
@@ -62,9 +62,8 @@ export class AudiencePage implements OnInit, AfterViewInit {
   public canvasId: string = "";
 
   public rotate;
-  private shouldBeRotate: number;
   public rotat;
-  private upsideDown: boolean = false;
+  private isRotated: boolean = false;
 
   constructor(private alertCtrl: AlertController,
     public toastController: ToastController,
@@ -92,20 +91,23 @@ export class AudiencePage implements OnInit, AfterViewInit {
         this.isEdit = true;
       }
     });
-
     this.rotate = true;
-    this.shouldBeRotate = 1;
   }
 
-  ngAfterViewInit() {
 
-      
+  changeEmotion(emotion) {
+    this.emotion = emotion;
+    this.isRotated = false;
   }
   
   showRotate() {
-    this.rotat = document.querySelector("[name='rotat']");
-    this.rotat.classList.toggle("rotated");
-    this.upsideDown = !this.upsideDown;
+    //this.rotat = document.querySelector("[name='rotat']");
+    //this.rotat.classList.toggle("rotated");
+    this.isRotated = !this.isRotated;
+  }
+
+  goToStepTwo() {
+    this.step = 2;
   }
 
   fillCanvasData(data) {
@@ -123,6 +125,7 @@ export class AudiencePage implements OnInit, AfterViewInit {
 
     // step 2
     this.emotion = canvasData.body.step2.emotion;
+    this.isRotated = canvasData.body.step2.isRotated;
 
     // step 3
     this.goal = canvasData.body.step3.goal;
@@ -270,7 +273,7 @@ export class AudiencePage implements OnInit, AfterViewInit {
           problems: this.problems,
           calltoaction: this.action,
         },
-        step2: { emotion: this.emotion, card: this.getCard(this.emotion) },
+        step2: { emotion: this.emotion, card: this.getCard(this.emotion), isRotated: this.isRotated },
         step3: { goal: this.goal }
       }
     }
@@ -371,13 +374,13 @@ export class AudiencePage implements OnInit, AfterViewInit {
     var baseURL = "";
     var typeImage = "";
 
-    if (numberImage > 9 && !this.upsideDown) {
+    if (numberImage > 9 && !this.isRotated) {
       baseURL = '/assets/cards/emotions/emociones_';
       typeImage = "_im.png";
-    } else if (!this.upsideDown) {
+    } else if (!this.isRotated) {
       baseURL = '/assets/cards/emotions/emociones_0';
       typeImage = "_im.png";
-    } else if (numberImage > 9 && this.upsideDown) {
+    } else if (numberImage > 9 && this.isRotated) {
       baseURL = '/assets/cards/emotions/emociones_';
       typeImage = "_ud.png";
     } else {

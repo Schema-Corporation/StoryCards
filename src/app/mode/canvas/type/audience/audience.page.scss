@@ -24,16 +24,17 @@
     align-items: center;
     justify-content: center;
     backface-visibility: hidden;
+    transform: rotate(180deg);
 }
 
 .imgSize{
-    padding-top: 20px;
-    margin-left: 82%;
-    //padding-right: 10px;
-   
-    width: 40px;
-    height: 40px;
-    //z-index: 2;
+    width: 30px;
+    height: 30px;
+    margin-left: 75%;
+}
+
+.rotate {
+    transform: rotate(180deg);
 }
 
 .center-text {
