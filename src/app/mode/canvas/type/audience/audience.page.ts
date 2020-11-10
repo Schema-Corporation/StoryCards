@@ -104,12 +104,10 @@ export class AudiencePage implements OnInit {
     //this.rotat = document.querySelector("[name='rotat']");
     //this.rotat.classList.toggle("rotated");
     this.isRotated = !this.isRotated;
-    console.log('this.isRotated: ', this.isRotated);
   }
 
   goToStepTwo() {
     this.step = 2;
-    console.log('this.isRotated: ', this.isRotated);
   }
 
   fillCanvasData(data) {
