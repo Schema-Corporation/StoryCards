@@ -103,9 +103,19 @@ export class AudiencePage implements OnInit, AfterViewInit {
       
   }
 
+
   changeEmotion(emotion) {
     this.emotion = emotion;
     this.isRotated = false;
+  }
+
+  goToSecondStep() {
+    console.log('emotion: ', this.emotion);
+    this.step = 2;
+    if (this.upsideDown) {
+      this.showRotate();
+      this.upsideDown = true;
+    }
   }
   
   showRotate() {

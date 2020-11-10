@@ -5,14 +5,22 @@
   border-radius: 10px;
   overflow: hidden;
   display: block;
-  padding: 90px 130px 33px 35%;
+  padding: 35px 130px 33px 35%;
 }
 
 .logo-pic {
   position: absolute;
-  right: 34%;
-  top:100px;
-  width: 35%;
+  left: 33%;
+  top: 100px;
+  width: 33%;
+}
+
+@media (max-width: 750px) {
+  .logo-pic {
+    left: 25%;
+    top: 100px;
+    width: 50%;
+  }
 }
 
 .fullheight {
