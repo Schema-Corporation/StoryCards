@@ -76,12 +76,16 @@ export class CardsPage implements OnInit {
           this.rotated = 1;
       }
       card = this.cards[Math.floor(Math.random() * (maxNumber - minNumber) + minNumber)];
-
-      this.process = 1;
-
+      if (this.id == 6) // case of process
+      { 
+        this.process = 1; 
+      } else {
+        this.process = 0;
+      }
       this.goToDetailPage(card, cards);
 
     } else {
+
       this.rotated = 0;
       this.process = 0;
       this.goToDetailPage(card, null);
