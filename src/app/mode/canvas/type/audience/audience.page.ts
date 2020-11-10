@@ -65,6 +65,7 @@ export class AudiencePage implements OnInit, AfterViewInit {
   private shouldBeRotate: number;
   public rotat;
   private upsideDown: boolean = false;
+  public isRotated: boolean = false;
 
   constructor(private alertCtrl: AlertController,
     public toastController: ToastController,
@@ -101,11 +102,21 @@ export class AudiencePage implements OnInit, AfterViewInit {
 
       
   }
+
+  changeEmotion(emotion) {
+    this.emotion = emotion;
+    this.isRotated = false;
+  }
   
   showRotate() {
     this.rotat = document.querySelector("[name='rotat']");
     this.rotat.classList.toggle("rotated");
     this.upsideDown = !this.upsideDown;
+  }
+
+  rotatedImage() {
+    this.step = 2;
+    this.isRotated = !this.isRotated;
   }
 
   fillCanvasData(data) {

@@ -22,7 +22,7 @@
         </div>
         <p>Audiencia</p>
       </div>
-      <div class="step" (click)="step=2;">
+      <div class="step" (click)="rotatedImage()">
         <div class="bullet" [ngClass]="{'step-colored': step == 2}">
           <span></span>
         </div>
@@ -99,9 +99,12 @@
             <span class="third-border"></span>
             <span class="fourth-border"></span>
             <ion-img *ngIf="emotion == (indexRow)*3 + (indexColumn)" class="imgSize" name="rotate" (click)="showRotate()" src="/assets/rotate/rotate.png"></ion-img>
-            <ion-img *ngIf="emotion != (indexRow)*3 + (indexColumn)" class="img-arq" (click)="emotion = (indexRow)*3 + (indexColumn)" src="{{this.cards[(indexRow)*3 + (indexColumn)].imgCard}}"></ion-img>
+            <ion-img *ngIf="emotion != (indexRow)*3 + (indexColumn)" class="img-arq" (click)="changeEmotion((indexRow)*3 + (indexColumn))" src="{{this.cards[(indexRow)*3 + (indexColumn)].imgCard}}"></ion-img>
             <div *ngIf="emotion == (indexRow)*3 + (indexColumn)" class="thecard" name="rotat">
-              <div class="unrotated">
+              <div *ngIf="!isRotated">
+                <ion-img class="img-arq" (click)="emotion = (indexRow)*3 + (indexColumn)" src="{{this.cards[(indexRow)*3 + (indexColumn)].imgCard}}"></ion-img>
+              </div>
+              <div *ngIf="isRotated" class="unrotated">
                 <ion-img class="img-arq" (click)="emotion = (indexRow)*3 + (indexColumn)" src="{{this.cards[(indexRow)*3 + (indexColumn)].imgCard}}"></ion-img>
               </div>
             </div>
@@ -124,7 +127,7 @@
       </ion-item>
       <ion-label class="count-letters">{{this.goalCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
     </div>
-    <ion-button class="back-button" (click)="step=2">Atrás</ion-button>
+    <ion-button class="back-button" (click)="rotatedImage()">Atrás</ion-button>
     <ion-button class="next-button" (click)="finishCanvas()">Finalizar</ion-button>
   </div>
 </ion-content>
