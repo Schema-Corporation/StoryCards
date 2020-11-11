@@ -36,8 +36,8 @@
 					</span>
         		<div class="wrap-input100 validate-input">
 						<ion-item>
-							<ion-input id="book" name="book" [(ngModel)]="book" class="input-login" color="primary" placeholder="Código" required="true" formControlName="bookCode" ></ion-input>
-							<ion-icon name="reader-outline" color="primary" slot="start"></ion-icon>
+							<ion-input id="book" name="book" [(ngModel)]="book" class="input-login" color="black" placeholder="Código" required="true" formControlName="bookCode" ></ion-input>
+							<ion-icon name="reader-outline" color="medium" slot="start"></ion-icon>
 						</ion-item>
 						<div *ngFor="let error of errorMessages.bookCode">
 							<ng-container *ngIf="bookCode.hasError(error.type) && (bookCode.dirty || bookCode.touched)">
@@ -65,8 +65,8 @@
 				<form class="login100-form validate-form" [formGroup]="registrationForm">
 					<div class="wrap-input100 validate-input">
 						<ion-item>
-							<ion-input [(ngModel)]="name" id="name" name="name" class="input-login" color="primary" placeholder="Nombre" required="true" formControlName="username" maxlength="25"></ion-input>
-							<ion-icon name="person-circle-outline" color="primary" slot="start"></ion-icon>
+							<ion-input [(ngModel)]="name" id="name" name="name" class="input-login" color="black" placeholder="Nombre" required="true" formControlName="username" maxlength="25"></ion-input>
+							<ion-icon name="person-circle-outline" color="medium" slot="start"></ion-icon>
 						</ion-item>
 						<div *ngFor="let error of errorMessages.username">
 							<ng-container *ngIf="username.hasError(error.type) && (username.dirty || username.touched)">
@@ -74,8 +74,8 @@
 							</ng-container>
 						</div>
 						<ion-item>
-							<ion-input [(ngModel)]="lastname" id="lastname" name="lastname" class="input-login" color="primary" placeholder="Apellidos" required="true" formControlName="ulastname" maxlength="25"></ion-input>
-							<ion-icon name="person-circle-outline" color="primary" slot="start"></ion-icon>
+							<ion-input [(ngModel)]="lastname" id="lastname" name="lastname" class="input-login" color="black" placeholder="Apellidos" required="true" formControlName="ulastname" maxlength="25"></ion-input>
+							<ion-icon name="person-circle-outline" color="medium" slot="start"></ion-icon>
 						</ion-item>
 						<div *ngFor="let error of errorMessages.ulastname">
 							<ng-container *ngIf="ulastname.hasError(error.type) && (ulastname.dirty || ulastname.touched)">
@@ -99,6 +99,7 @@
 							<ion-label style="display: none">Seleccionar país</ion-label>
 							<ionic-selectable
 							  item-content
+							  font-family="SolanoGothicMVBStdBd"
 							  formControlName="location"
 							  required="true"
 							  headerColor="primary"
@@ -108,15 +109,15 @@
 							  searchPlaceholder="Ingrese nombre del país"
 							  closeButtonText="Cancelar"
 							  [searchFailText]="'No se han encontrado países.'"
-							  color="primary"
+							  color="black"
 							  [(ngModel)]="countrySelected"
 							  itemTextField="nombre"
 							  itemValueField="phone_code"
 							  [items]="countries"
 							  [canSearch]="true"
-							  (onChange)="selectCountry($event)">
+							  (onChange)="selectCountry($event)" >
 							</ionic-selectable>
-							<ion-icon name="location-outline" color="primary" slot="start"></ion-icon>
+							<ion-icon name="location-outline" color="medium" slot="start"></ion-icon>
 						  </ion-item>
 
 						  <div *ngFor="let error of errorMessages.location">
@@ -126,11 +127,11 @@
 						</div>
 
             			<ion-item>
-							<ion-input id="countryCode" name="countryCode" color="primary" 
+							<ion-input id="countryCode" name="countryCode" color="black" 
 							placeholder="" required="true" maxlength="10" [value]=countryCode disabled></ion-input>
-							<ion-input [(ngModel)]="phoneNumber" id="phoneNumber" name="phoneNumber" class="input-login" color="primary" 
+							<ion-input [(ngModel)]="phoneNumber" id="phoneNumber" name="phoneNumber" class="input-login" color="black" 
 							placeholder="Teléfono" required="true" formControlName="phone" maxlength="10"></ion-input>
-							<ion-icon name="call-outline" color="primary" slot="start"></ion-icon>
+							<ion-icon name="call-outline" color="medium" slot="start"></ion-icon>
 						</ion-item>
 						<div *ngFor="let error of errorMessages.phone">
 							<ng-container *ngIf="phone.hasError(error.type) && (phone.dirty || phone.touched)">
@@ -138,8 +139,8 @@
 							</ng-container>
 						</div>
            				<ion-item>
-							<ion-input [(ngModel)]="emailAddress" id="emailAddress" name="emailAddress" class="input-login" color="primary" placeholder="Correo electrónico" required="true" formControlName="email" maxlength="30"></ion-input>
-							<ion-icon name="mail-outline" color="primary" slot="start"></ion-icon>
+							<ion-input [(ngModel)]="emailAddress" id="emailAddress" name="emailAddress" class="input-login" color="black" placeholder="Correo electrónico" required="true" formControlName="email" maxlength="30"></ion-input>
+							<ion-icon name="mail-outline" color="medium" slot="start"></ion-icon>
 						</ion-item>
 						<div *ngFor="let error of errorMessages.email">
 							<ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
@@ -150,10 +151,10 @@
 
 					<div class="wrap-input100 validate-input">
 						<ion-item class="item">
-							<ion-input [(ngModel)]="userPassword" id="userPassword" name="userPassword" [type]="getPasswordType()" class="input-login" color="primary" placeholder="Contraseña" required="true" formControlName="password" maxlength="20"></ion-input>
-							<ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
-							<ion-icon *ngIf="!showPassword" name="eye-outline" color="primary" (click)="toggleTextPassword()"></ion-icon>
-							<ion-icon *ngIf="showPassword" name="eye-off-outline" color="primary" (click)="toggleTextPassword()"></ion-icon>
+							<ion-input [(ngModel)]="userPassword" id="userPassword" name="userPassword" [type]="getPasswordType()" class="input-login" color="black" placeholder="Contraseña" required="true" formControlName="password" maxlength="20"></ion-input>
+							<ion-icon name="lock-closed-outline" color="medium" slot="start"></ion-icon>
+							<ion-icon *ngIf="!showPassword" name="eye-outline" color="medium" (click)="toggleTextPassword()"></ion-icon>
+							<ion-icon *ngIf="showPassword" name="eye-off-outline" color="medium" (click)="toggleTextPassword()"></ion-icon>
 						</ion-item>
 						<div *ngFor="let error of errorMessages.password">
 							<ng-container *ngIf="password.hasError(error.type) && (password.dirty || password.touched)">
@@ -161,10 +162,10 @@
 							</ng-container>
 						</div>
 						<ion-item>
-							<ion-input [type]="getConfirmPasswordType()" class="input-login" color="primary" placeholder="Confirmar contraseña" required="true" formControlName="confirmPassword" maxlength="20"></ion-input>
-							<ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
-							<ion-icon *ngIf="!showConfirmPassword" name="eye-outline" color="primary" (click)="toggleTextConfirmPassword()"></ion-icon>
-							<ion-icon *ngIf="showConfirmPassword" name="eye-off-outline" color="primary" (click)="toggleTextConfirmPassword()"></ion-icon>
+							<ion-input [type]="getConfirmPasswordType()" class="input-login" color="black" placeholder="Confirmar contraseña" required="true" formControlName="confirmPassword" maxlength="20"></ion-input>
+							<ion-icon name="lock-closed-outline" color="medium" slot="start"></ion-icon>
+							<ion-icon *ngIf="!showConfirmPassword" name="eye-outline" color="medium" (click)="toggleTextConfirmPassword()"></ion-icon>
+							<ion-icon *ngIf="showConfirmPassword" name="eye-off-outline" color="medium" (click)="toggleTextConfirmPassword()"></ion-icon>
 						</ion-item>
 
 						<div *ngFor="let error of errorMessages.confirmPassword">

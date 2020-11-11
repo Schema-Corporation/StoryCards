@@ -2,11 +2,11 @@
   <div class="limiter">
 		<div class="container-login100">
 			<div class="logo-pic" >
-				<img src="../../assets/icon/logo.jpeg" alt="IMG">
+				<img src="../../assets/icon/LOGO.png" class="logo-title" alt="IMG">
 			</div>
 			<div class="wrap-login100" >
 				<div class="login100-pic">
-					<img src="../../assets/cards/initial/inicial_02_im.png" alt="IMG">
+					<img src="../../assets/cards/initial/inicial_02_im.svg" style="width:205px; height: 331px; " alt="IMG">
 				</div>
 
 				<form class="login100-form validate-form">
@@ -16,8 +16,8 @@
           
 					<div class="wrap-input100 validate-input" [formGroup]="loginForm">
 						<ion-item>
-							<ion-input id="username" name="username" formControlName="email" [(ngModel)]="username" class="input-login" color="primary" placeholder="Correo electrónico" required="true" ></ion-input>
-							<ion-icon name="mail-outline" color="primary" slot="start"></ion-icon>
+							<ion-input id="username" name="username" formControlName="email" [(ngModel)]="username" class="input-login" color="black" placeholder="Correo electrónico" required="true" ></ion-input>
+							<ion-icon name="mail-outline" color="medium" slot="start"></ion-icon>
 						</ion-item>
 						<div *ngFor="let error of errorMessages.email">
 							<ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
@@ -28,10 +28,10 @@
 
 					<div class="wrap-input100 validate-input">
 						<ion-item>
-							<ion-input id="password" name="password" [(ngModel)]="password" [type]="getPasswordType()" class="input-login" color="primary" placeholder="Contraseña" required="true"></ion-input>
-							<ion-icon name="lock-closed-outline" color="primary" slot="start"></ion-icon>
-							<ion-icon *ngIf="!showPassword" name="eye-outline" color="primary" (click)="toggleTextPassword()"></ion-icon>
-							<ion-icon *ngIf="showPassword" name="eye-off-outline" color="primary" (click)="toggleTextPassword()"></ion-icon>
+							<ion-input id="password" name="password" [(ngModel)]="password" [type]="getPasswordType()" class="input-login" color="black" placeholder="Contraseña" required="true"></ion-input>
+							<ion-icon name="lock-closed-outline" color="medium" slot="start"></ion-icon>
+							<ion-icon *ngIf="!showPassword" name="eye-outline" color="medium" (click)="toggleTextPassword()"></ion-icon>
+							<ion-icon *ngIf="showPassword" name="eye-off-outline" color="medium" (click)="toggleTextPassword()"></ion-icon>
 						</ion-item>
 					</div>
 					
