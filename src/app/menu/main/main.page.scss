@@ -1,32 +1,71 @@
+@font-face{
+  font-family: 'SolanoGothicMVBStdBd';
+  src: url('../../../assets/fonts/SolanoGothicMVBStdBd.otf');
+}
+*{
+
+  outline: none;
+  font-family: SolanoGothicMVBStdBd;
+}
 .wrap-login100 {
   width: 1200px;
-  background: #fff;
-  background-image: url("../../../assets/cards/background/background_01_im.svg");
   border-radius: 10px;
   overflow: hidden;
-  display: block;
-  padding: 35px 130px 33px 35%;
+  //padding: 35px 110px 33px 30%;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+ 
 }
-
+.item-logo{
+  margin-top: 10%;
+}
 .logo-pic {
   position: absolute;
-  left: 33%;
   top: 100px;
-  width: 33%;
+  width: 70%;
+}
+.logo-title{
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+.title{
+  text-align: center;
+  font-size: 24px;
 }
 
 @media (max-width: 750px) {
   .logo-pic {
-    left: 25%;
     top: 100px;
-    width: 50%;
+    width: 80%;
+  }
+}
+@media (max-width: 750px) and (orientation:landscape) {
+  .item-logo{
+    margin-top: 60%;
   }
 }
 
 .fullheight {
     height: 100%;
+    background-image: url("../../../assets/cards/background/background_01_im.svg");
   }
-  
+  ion-item{
+    --background: transparent;
+    --border-style: transparent;
+  }
+  ion-button{
+    --background: #ff0000;
+  }
+  .menu-button{
+    font-size: 16px;
+    width: 90px;
+    height: 32px;
+    margin-left: auto;
+    margin-right: auto;
+  }
 .xc {
   display: flex;
   align-items: center;
@@ -78,7 +117,12 @@
     
     .menu-button{
       font-size: 25px;
-      width: 300px;
+      height: 40px;
+      width: 200px;
 
     }
+}
+.buttons{
+  padding: 5px;
+  align-items: center;
 }

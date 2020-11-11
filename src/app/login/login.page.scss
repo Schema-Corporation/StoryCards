@@ -1,3 +1,13 @@
+@font-face{
+  font-family: 'SolanoGothicMVBStdBd';
+  src: url('../../../src/assets/fonts/SolanoGothicMVBStdBd.otf');
+}
+*{
+  margin: auto;
+  padding: 0;
+  outline: none;
+  font-family: SolanoGothicMVBStdBd;
+}
 * {
 	margin: 0px; 
 	padding: 0px; 
@@ -53,6 +63,7 @@ textarea {
   border: none;
 }
 
+
 /*---------------------------------------------*/
 button {
 	outline: none !important;
@@ -94,9 +105,15 @@ iframe {
 
 .logo-pic {
   position: absolute;
-  right: 33%;
   top: 50px;
-  width: 33%;
+  width: 70%;
+
+}
+.logo-title{
+  width: 60%;
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
 }
 
 .limiter {
@@ -109,6 +126,7 @@ iframe {
 }
 
 .container-login100 {
+  background-image: url("../../assets/cards/background/background_01_im.svg");
   width: 100%;  
   min-height: 100vh;
   display: flex;
@@ -116,11 +134,7 @@ iframe {
   justify-content: center;
   align-items: center;
   padding: 15px;
-  background: #9053c7;
-  background: -webkit-linear-gradient(-135deg, #fff8e3, #ffe596);
-  background: -o-linear-gradient(-135deg, #fff8e3, #ffe596);
-  background: -moz-linear-gradient(-135deg, #fff8e3, #ffe596);
-  background: linear-gradient(-135deg, #fff8e3, #ffe596);
+
 }
 
 .create-account {
@@ -133,8 +147,7 @@ iframe {
 
 .wrap-login100 {
   width: 960px;
-  background: #fff;
-  background-image: url("../../assets/cards/background/background_01_im.svg");
+  background: transparent;
   border-radius: 10px;
   overflow: hidden;
   margin-top: 12%;
@@ -155,7 +168,8 @@ iframe {
 }
 
 .login100-pic img {
-  max-width: 100%;
+  max-width: 170%;
+
 }
 
 
@@ -166,7 +180,7 @@ iframe {
 }
 
 .login100-form-title {
-  font-size: 24px;
+  font-size: 30px;
   color: #333333;
   line-height: 1.2;
   text-align: center;
@@ -313,6 +327,12 @@ iframe {
     visibility: visible;
     opacity: 1;
   }
+  .logo-title{
+    width: 80%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
 }
 
 @media (max-width: 768px) {
@@ -327,11 +347,23 @@ iframe {
   .login100-form {
     width: 100%;
   }
+  .logo-title{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
+  }
 }
 
 @media (max-width: 576px) {
   .wrap-login100 {
     padding: 100px 15px 33px 15px;
+  }
+  .logo-title{
+    width: 100%;
+    margin-left: auto;
+    margin-right: auto;
+    display: block;
   }
 }
 
