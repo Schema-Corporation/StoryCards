@@ -28,7 +28,7 @@
 ///@at-root customize-alert 
 
 .ionic-selectable-value {
-    color: #80724b;
+
 }
 
 .ionic-selectable-has-placeholder .ionic-selectable-value-item {
@@ -40,17 +40,9 @@
 }
 
 .alert-button.sc-ion-alert-md{
-    color: #80724B;
     font-weight: 800;
 }
 
-.alert-radio-inner.sc-ion-alert-md{
-    background-color:  #80724B;
-}
-
-[aria-checked=true].sc-ion-alert-md .alert-radio-icon.sc-ion-alert-md{
-    border-color: #80724B;
-}
 
 .popover-content.sc-ion-popover-md{
     width: 297px;
