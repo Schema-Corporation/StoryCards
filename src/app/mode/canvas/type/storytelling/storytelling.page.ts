@@ -1,4 +1,19 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, AfterViewInit } from '@angular/core';
+import { AlertController, NavController, ToastController, Platform } from '@ionic/angular';
+
+import { File } from '@ionic-native/file/ngx';
+import { FileOpener } from '@ionic-native/file-opener/ngx';
+
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+import htmlToPdfmake from 'html-to-pdfmake';
+import { OcFileStorageService } from 'src/app/util/OcFileStorageService';
+
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { CanvasService } from 'src/app/services/canvas/canvas.service';
+import { ActivatedRoute } from '@angular/router';
+
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
 @Component({
   selector: 'app-storytelling',
@@ -7,9 +22,533 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StorytellingPage implements OnInit {
 
-  constructor() { }
+  public rows: any;
+  public columns: any;
+  public step: number = 1;
+
+  public maximumCharactersAllowed: number = 200;
+
+  public stage: string = "";
+  public stageCharacters: number = 0;
+
+  public charater: string = "";
+  public charaterCharacters: number = 0;
+
+  public conflict: string = "";
+  public conflictCharacters: number = 0;
+
+  public supported: string = "";
+  public supportedCharacters: number = 0;
+
+  public critical: string = "";
+  public criticalCharacters: number = 0;
+
+  public overcoming : string = "";
+  public overcomingCharacters: number = 0;
+
+  public outcome : string = "";
+  public outcomeCharacters: number = 0;
+
+  public complete : string = "";
+  public completeCharacters: number = 0;
+
+  public canvasBody: any;
+  public canvasData: any;
+
+  public buttons: any;
+
+  private pdfObject = null;
+  private isPrint: boolean = false;
+
+  public isEdit: boolean = false;
+
+  public data: any = null;
+  public name: string = "";
+  public canvasId: string = "";
+
+  constructor(private alertCtrl: AlertController,
+    public toastController: ToastController,
+    public navCtrl: NavController,
+
+    public platform: Platform,
+    public dbService: NgxIndexedDBService,
+    public _canvasService: CanvasService,
+    private ocFileStorageSvc: OcFileStorageService,
+    private route: ActivatedRoute,
+    private file: File,
+    private fileOpener: FileOpener) { }
 
   ngOnInit() {
+    this.startCanvas();
+
+    this.route.queryParams.subscribe(params => {
+      if (params["data"] === undefined) {
+        this.isEdit = false;
+      } else {
+        this.data = JSON.parse(params["data"]);
+        this.fillCanvasData(this.data);
+        this.isEdit = true;
+      }
+    });
+  }
+
+  fillCanvasData(data) {
+
+    let canvasData = JSON.parse(data.data);
+
+    // step 1
+    this.stage = canvasData.body.step1.stage;
+    this.charaterCharacters = this.charater.length;
+
+    // step 2
+    this.conflict = canvasData.body.step2.emotion;
+    this.conflictCharacters = this.conflict.length;
+    this.supported = canvasData.body.step2.supported;
+    this.supportedCharacters = this.supported.length;
+    this.critical = canvasData.body.step2.critical;
+    this.criticalCharacters = this.critical.length;
+
+    // step 3
+    this.overcoming = canvasData.body.step3.overcoming;
+    this.overcomingCharacters = this.overcoming.length;
+    this.outcome = canvasData.body.step3.outcome;
+    this.outcomeCharacters = this.outcome.length;
+
+    // step 4
+    this.complete = canvasData.body.step4.complete;
+    this.completeCharacters = this.complete.length;
+
+    // canvas data
+    this.name = data.name;
+    this.canvasId = data.id;
+  }
+
+  startCanvas() {
+    this.step = 1;
+  }
+
+  addStep() {
+    this.step++
+  }
+
+  writeStage(ev: CustomEvent) {
+    this.stage = ev.detail.value;
+    this.stageCharacters = ev.detail.value.length;
+  }
+
+  writeCharacter(ev: CustomEvent) {
+    this.charater = ev.detail.value;
+    this.charaterCharacters = ev.detail.value.length;
+  }
+
+  writeConflict(ev: CustomEvent) {
+    this.conflict = ev.detail.value;
+    this.conflictCharacters = ev.detail.value.length;
+  }
+
+  writeSupported(ev: CustomEvent) {
+    this.supported = ev.detail.value;
+    this.supportedCharacters = ev.detail.value.length;
+  }
+
+  writeCritical(ev: CustomEvent) {
+    this.critical = ev.detail.value;
+    this.criticalCharacters = ev.detail.value.length;
+  }
+
+  writeOvercoming(ev: CustomEvent) {
+    this.overcoming = ev.detail.value;
+    this.overcomingCharacters = ev.detail.value.length;
+  }
+
+  writeOutcome(ev: CustomEvent) {
+    this.outcome = ev.detail.value;
+    this.outcomeCharacters = ev.detail.value.length;
+  }
+
+  writeComplete(ev: CustomEvent) {
+    this.complete = ev.detail.value;
+    this.completeCharacters = ev.detail.value.length;
+  }
+
+  finishCanvas() {
+    this.showCanvasOption()
+  }
+
+  async showCanvasOption() {
+
+    // iOS and Android alert and options || Web browser options
+
+    if (this.platform.is('ios') || this.platform.is('android')) {
+      const alert = await this.alertCtrl.create({
+        cssClass: 'my-custom-class',
+        header: '¿Qué acción deseas realizar?',
+        message: 'Ahora que el formato está completo puedes descargarlo o guardarlo.',
+        buttons: [
+          {
+            text:'Descargar',
+            handler: () => {
+              this.downloadCanvas();
+            }
+          },
+          {
+            text:'Guardar',
+            handler:() => {
+              alert.dismiss(); //here dismiss this alert
+              this.chooseCanvasName();
+            }
+          }
+        ]
+      });
+      await alert.present();
+
+    } else {
+      const alert = await this.alertCtrl.create({
+        cssClass: 'my-custom-class',
+        header: '¿Qué acción deseas realizar?',
+        message: 'Ahora que el formato está completo puedes descargarlo, guardarlo o imprimirlo.',
+        buttons: [
+          {
+            text:'Descargar',
+            handler: () => {
+              this.downloadCanvas();
+            }
+          },
+          {
+            text:'Guardar',
+            handler:() => {
+              alert.dismiss(); //here dismiss this alert
+              this.chooseCanvasName();
+            }
+          },
+          {
+            text:'Imprimir',
+            handler:() => {
+              this.printCanvas();
+            }
+          }
+        ]
+      });
+      await alert.present();
+    }
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  downloadCanvas() {
+    this.isPrint = false;
+    this.createPDF();
+  }
+
+  getCanvasData() {
+    this.canvasData = {
+      metadata: {
+        numberSteps: 4,
+        currentStep: this.step
+      },
+      body: {
+        step1: {
+          stage: this.stage,
+          charater: this.charater,
+        },
+        step2: { 
+          conflict: this.conflict,
+          supported: this.supported,
+          critical: this.critical, },
+        step3: { 
+          overcoming: this.overcoming,
+          outcome: this.outcome,
+         },
+         step4: { 
+          complete: this.complete,
+         }
+      }
+    }
+    return this.canvasData;
+  }
+
+  getCanvasBody(canvasName) {
+    this.canvasBody = {
+      name: canvasName,
+      type: 1,
+      data: JSON.stringify(this.getCanvasData())
+    };
+
+    return this.canvasBody;
+  }
+
+  async saveCanvas(canvasName) {
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        if (this.isEdit) {
+          this._canvasService.editCanvas(this.canvasId, this.getCanvasBody(canvasName), token.value.token).subscribe(
+            async result => {
+              this.presentToast('¡Su formato ha sido editado con éxito!');
+              await this.sleep(2500);
+              this.navCtrl.navigateForward('canvas/canvas');
+            },
+            error => {
+              console.log('error: ', error);
+            }
+          );
+        } else {
+          this._canvasService.createCanvas(this.getCanvasBody(canvasName), token.value.token).subscribe(
+            async result => {
+              this.presentToast('¡Su formato se ha guardado con éxito!');
+              await this.sleep(2500);
+              this.navCtrl.navigateForward('canvas/canvas');
+            },
+            error => {
+              console.log('error: ', error);
+            }
+          );
+        }
+      },
+      error => {
+          console.log('error: ', error);
+      });
+  }
+
+  async chooseCanvasName() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: '¿Qué nombre llevará su formato?',
+      inputs: [
+        {
+          name: 'canvasName',
+          type: 'text',
+          placeholder: 'Nombre de formato',
+          value: this.name,
+          attributes: {
+            maxlength: 100
+          }
+        }
+      ],
+      buttons: [
+        {
+          text:'Cancelar',
+          handler: () => {
+          }
+        },
+        {
+          text:'Guardar',
+          handler:(data) => {
+            this.saveCanvas(data.canvasName);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
+  }
+
+  printCanvas() {
+
+    this.isPrint = true;
+
+    this.createPDF();
+
+    this.presentToast('Formato abierto para imprimir');
+  }
+
+  createPDF() {
+
+    var docDefinition = {
+      pageSize: {
+        width: 650,
+        height: 'auto'
+      },
+      content: [
+        this.generateHTML()
+      ]
+    };
+
+    this.pdfObject = pdfMake.createPdf(docDefinition);
+
+    if (!this.isPrint){
+      // This method suportted web and device platform
+      this.pdfObject.download('Formato_Storytelling.pdf');
+    } else {
+      this.pdfObject.open();
+    }
+
+    this.presentToast('Formato descargado');
+
+  }
+
+  generateHTML() {
+
+    var html = htmlToPdfmake(`
+   <table border="1" cellspacing="0" cellpadding="0">
+    <tbody>
+        <tr>
+            <td style="width:100px" valign="top">
+                <p style="text-align:center">
+                    <strong>MOMENTOS</strong>
+                </p>
+            </td>
+            <td style="width:250px;" valign="top">
+                <p style="text-align:center; width:800px;">
+                    <strong>PASOS</strong>
+                    <strong></strong>
+                </p>
+            </td>
+            <td style="width:295px;" valign="top">
+                <p style="text-align:center">
+                    <strong>HISTORIA COMPLETA</strong>
+                    <strong></strong>
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="90" rowspan="2" valign="top">
+                <p align="center">
+                    <strong></strong>
+                </p>
+                <p align="center">
+                    <strong></strong>
+                </p>
+                <p align="center">
+                    <strong></strong>
+                </p>
+                <p style="text-align:center">
+                    <strong>INICIO</strong>
+                    <strong></strong>
+                </p>
+            </td>
+            <td width="326" valign="top">
+                <p>
+                    ESCENARIO:
+                </p>
+                <p>
+                    ${this.stage}
+                </p>
+            </td>
+            <td width="208" rowspan="7" valign="top">
+                <p>
+                    ${this.complete}
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="326" valign="top">
+                <p>
+                    PERSONAJE:
+                </p>
+                <p>
+                    ${this.charater}
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="90" rowspan="3" valign="top">
+                <p align="center">
+                    <strong></strong>
+                </p>
+                <p align="center">
+                    <strong></strong>
+                </p>
+                <p align="center">
+                    <strong></strong>
+                </p>
+                <p align="center">
+                    <strong></strong>
+                </p>
+                <p align="center">
+                    <strong></strong>
+                </p>
+                <p style="text-align:center">
+                    <strong>NUDO</strong>
+                    <strong></strong>
+                </p>
+            </td>
+            <td width="326" valign="top">
+                <p>
+                    CONFLICTO:
+                </p>
+                <p>
+                    ${this.conflict}
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="326" valign="top">
+                <p>
+                    PUNTO CRÍTICO:
+                </p>
+                <p>
+                    ${this.critical}
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="326" valign="top">
+                <p>
+                    SOPORTE:
+                </p>
+                <p>
+                    ${this.supported}
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="90" rowspan="2" valign="top">
+                <p align="center">
+                    <strong></strong>
+                </p>
+                <p align="center">
+                    <strong></strong>
+                </p>
+                <p align="center">
+                    <strong></strong>
+                </p>
+                <p align="center">
+                    <strong></strong>
+                </p>
+                <p align="center">
+                    <strong></strong>
+                </p>
+                <p style="text-align:center">
+                    <strong>FIN</strong>
+                    <strong></strong>
+                </p>
+            </td>
+            <td width="326" valign="top">
+                <p>
+                    SUPERACIÓN:
+                </p>
+                <p>
+                    ${this.overcoming}
+                </p>
+            </td>
+        </tr>
+        <tr>
+            <td width="326" valign="top">
+                <p>
+                    DESSENLACE:
+                </p>
+                <p>
+                    ${this.outcome}
+                </p>
+            </td>
+        </tr>
+    </tbody>
+  </table>
+    `, {
+      tableAutoSize:true
+    });
+    return html;
   }
 
 }
