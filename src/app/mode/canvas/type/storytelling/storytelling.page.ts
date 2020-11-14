@@ -27,6 +27,7 @@ export class StorytellingPage implements OnInit {
   public step: number = 1;
 
   public maximumCharactersAllowed: number = 200;
+  public maximumCharactersStoryAllowed: number = 1400;
 
   public stage: string = "";
   public stageCharacters: number = 0;

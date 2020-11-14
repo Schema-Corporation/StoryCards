@@ -145,9 +145,9 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="complete" maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeComplete($event)" placeholder=""></ion-textarea>
+        <ion-textarea [value]="complete" maxlength="{{this.maximumCharactersStoryAllowed}}" (ionChange)="writeComplete($event)" placeholder=""></ion-textarea>
       </ion-item>
-      <ion-label class="count-letters">{{this.completeCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
+      <ion-label class="count-letters">{{this.completeCharacters}} / {{this.maximumCharactersStoryAllowed}}</ion-label>
     </div>
     <ion-button class="back-button" (click)="step=3">Atrás</ion-button>
     <ion-button class="next-button" (click)="finishCanvas()">Finalizar</ion-button>
