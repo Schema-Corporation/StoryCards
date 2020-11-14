@@ -23,10 +23,10 @@ export class MainPage implements OnInit {
   constructor(
     public navCtrl: NavController,
     public popoverController: PopoverController,
-    private dbService: NgxIndexedDBService,
-    private route: ActivatedRoute,
-    private location: Location,
-    private alertCtrl: AlertController
+    public dbService: NgxIndexedDBService,
+    public route: ActivatedRoute,
+    public location: Location,
+    public alertCtrl: AlertController
   ) {
     
    }

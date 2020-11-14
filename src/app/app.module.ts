@@ -19,10 +19,11 @@ import { File } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx'
 
 import { IonicSelectableModule } from 'ionic-selectable';
+import { SettingComponent } from './menu/setting/setting.component';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SettingComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
