@@ -74,10 +74,12 @@
     transition: all 400ms ease;
   }
 
+  /*
   .unrotated:hover {
     box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
     transform: translateY(-3%);
   }
+  */
 
 .imgSize{
     padding-top: 20px;
@@ -101,10 +103,12 @@
   transition: all 400ms ease;
 }
 
+/*
 .ion-imgSize:hover {
   box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
   transform: translateY(-3%);
 }
+*/
 
 .input-login {
   margin-left: 2px;
@@ -397,6 +401,7 @@
   .imgSizeRight{
     width: 70px;
     height: 70px;
+    text-align: right;
   }
 
   .imgSizeLeft{
