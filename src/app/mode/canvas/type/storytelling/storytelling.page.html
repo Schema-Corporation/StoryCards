@@ -68,9 +68,9 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="charater" maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeCharacter($event)" placeholder=""></ion-textarea>
+        <ion-textarea [value]="character" maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeCharacter($event)" placeholder=""></ion-textarea>
       </ion-item>
-      <ion-label class="count-letters">{{this.charaterCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
+      <ion-label class="count-letters">{{this.characterCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
     </div>
     <ion-button class="next-button" (click)="step=2">Siguiente</ion-button>
   </div>
@@ -93,9 +93,9 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="supported" maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeSupported($event)" placeholder=""></ion-textarea>
+        <ion-textarea [value]="support" maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeSupport($event)" placeholder=""></ion-textarea>
       </ion-item>
-      <ion-label class="count-letters">{{this.supportedCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
+      <ion-label class="count-letters">{{this.supportCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
     </div>
     <div class="item">
       <div class="item-header">

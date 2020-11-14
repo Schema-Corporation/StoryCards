@@ -31,14 +31,14 @@ export class StorytellingPage implements OnInit {
   public stage: string = "";
   public stageCharacters: number = 0;
 
-  public charater: string = "";
-  public charaterCharacters: number = 0;
+  public character: string = "";
+  public characterCharacters: number = 0;
 
   public conflict: string = "";
   public conflictCharacters: number = 0;
 
-  public supported: string = "";
-  public supportedCharacters: number = 0;
+  public support: string = "";
+  public supportCharacters: number = 0;
 
   public critical: string = "";
   public criticalCharacters: number = 0;
@@ -94,17 +94,20 @@ export class StorytellingPage implements OnInit {
 
   fillCanvasData(data) {
 
+    console.log('data: ', data);
     let canvasData = JSON.parse(data.data);
 
     // step 1
     this.stage = canvasData.body.step1.stage;
-    this.charaterCharacters = this.charater.length;
+    this.stageCharacters = this.stage.length;
+    this.character = canvasData.body.step1.character;
+    this.characterCharacters = this.character.length;
 
     // step 2
-    this.conflict = canvasData.body.step2.emotion;
+    this.conflict = canvasData.body.step2.conflict;
     this.conflictCharacters = this.conflict.length;
-    this.supported = canvasData.body.step2.supported;
-    this.supportedCharacters = this.supported.length;
+    this.support = canvasData.body.step2.support;
+    this.supportCharacters = this.support.length;
     this.critical = canvasData.body.step2.critical;
     this.criticalCharacters = this.critical.length;
 
@@ -137,8 +140,8 @@ export class StorytellingPage implements OnInit {
   }
 
   writeCharacter(ev: CustomEvent) {
-    this.charater = ev.detail.value;
-    this.charaterCharacters = ev.detail.value.length;
+    this.character = ev.detail.value;
+    this.characterCharacters = ev.detail.value.length;
   }
 
   writeConflict(ev: CustomEvent) {
@@ -146,9 +149,9 @@ export class StorytellingPage implements OnInit {
     this.conflictCharacters = ev.detail.value.length;
   }
 
-  writeSupported(ev: CustomEvent) {
-    this.supported = ev.detail.value;
-    this.supportedCharacters = ev.detail.value.length;
+  writeSupport(ev: CustomEvent) {
+    this.support = ev.detail.value;
+    this.supportCharacters = ev.detail.value.length;
   }
 
   writeCritical(ev: CustomEvent) {
@@ -259,11 +262,11 @@ export class StorytellingPage implements OnInit {
       body: {
         step1: {
           stage: this.stage,
-          charater: this.charater,
+          character: this.character,
         },
         step2: { 
           conflict: this.conflict,
-          supported: this.supported,
+          support: this.support,
           critical: this.critical, },
         step3: { 
           overcoming: this.overcoming,
@@ -280,7 +283,7 @@ export class StorytellingPage implements OnInit {
   getCanvasBody(canvasName) {
     this.canvasBody = {
       name: canvasName,
-      type: 1,
+      type: 4,
       data: JSON.stringify(this.getCanvasData())
     };
 
@@ -447,7 +450,7 @@ export class StorytellingPage implements OnInit {
                     PERSONAJE:
                 </p>
                 <p>
-                    ${this.charater}
+                    ${this.character}
                 </p>
             </td>
         </tr>
@@ -498,7 +501,7 @@ export class StorytellingPage implements OnInit {
                     SOPORTE:
                 </p>
                 <p>
-                    ${this.supported}
+                    ${this.support}
                 </p>
             </td>
         </tr>
