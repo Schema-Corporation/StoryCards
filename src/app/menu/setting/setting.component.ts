@@ -8,7 +8,7 @@ import { PopoverController } from '@ionic/angular';
 })
 export class SettingComponent implements OnInit {
 
-  constructor(private popoverController: PopoverController) { }
+  constructor(public popoverController: PopoverController) { }
 
   ngOnInit() {}
 

@@ -73,10 +73,10 @@ export class StorytellingPage implements OnInit {
     public platform: Platform,
     public dbService: NgxIndexedDBService,
     public _canvasService: CanvasService,
-    private ocFileStorageSvc: OcFileStorageService,
-    private route: ActivatedRoute,
-    private file: File,
-    private fileOpener: FileOpener) { }
+    public ocFileStorageSvc: OcFileStorageService,
+    public route: ActivatedRoute,
+    public file: File,
+    public fileOpener: FileOpener) { }
 
   ngOnInit() {
     this.startCanvas();

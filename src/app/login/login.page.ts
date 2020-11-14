@@ -16,11 +16,11 @@ export class LoginPage implements OnInit {
   EMAILPATTERN = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
 
   constructor(
-    private _loginService: LoginService,
+    public _loginService: LoginService,
     public navCtrl: NavController,
-    private dbService: NgxIndexedDBService,
-    private alertCtrl: AlertController,
-    private formBuilder: FormBuilder) { }
+    public dbService: NgxIndexedDBService,
+    public alertCtrl: AlertController,
+    public formBuilder: FormBuilder) { }
 
 
   loginForm = this.formBuilder.group({
