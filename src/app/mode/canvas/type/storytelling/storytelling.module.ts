@@ -15,6 +15,6 @@ import { StorytellingPage } from './storytelling.page';
     IonicModule,
     StorytellingPageRoutingModule
   ],
-  declarations: []
+  declarations: [StorytellingPage]
 })
 export class StorytellingPageModule {}

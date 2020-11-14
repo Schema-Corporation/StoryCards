@@ -79,15 +79,22 @@ export class MainPage implements OnInit {
   }
 
   goToFreeModePage(){
-    this.navCtrl.navigateForward('free/groups')
+    this.navCtrl.navigateForward('free/groups');
   }
 
   goToCanvasModePage() {
-    this.navCtrl.navigateForward('canvas/canvas')
+    this.navCtrl.navigateForward('canvas/canvas');
   }
 
   goToRolePlayModePage(){
-    this.navCtrl.navigateForward('create-character')
+    this.navCtrl.navigateForward('create-character');
+  }
+
+  goToRoomModePage(){
+    // this.navCtrl.navigateForward('my-rooms');
+    var title = "Página en construcción";
+    var message = "Esta opción aún no está habilitada. Te informaremos cuando puedas utilizarla."
+    this.showAlert(title, message);
   }
 
   async presentPopover(ev: any) {
