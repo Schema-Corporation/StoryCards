@@ -1,12 +1,13 @@
+
 @font-face{
-  font-family: 'Cambriab';
-  src: url('../../../../assets/fonts/cambriab.ttf');
+  font-family: 'SolanoGothicMVBStdBd';
+  src: url('../../../../assets/fonts/SolanoGothicMVBStdBd.otf');
 }
 *{
   margin: 0;
   padding: 0;
   outline: none;
-  font-family: Cambriab;
+  font-family: SolanoGothicMVBStdBd;
 }
 
 .fullheight {
@@ -16,7 +17,7 @@
   }
   
   .principal-title{
-    margin-left: 23%;
+    margin-left: 24%;
   }
   .principal-title.ios{
     margin-left: 0%;
@@ -121,7 +122,7 @@
   }
 
   .principal-title{
-    margin-left: 28%;
+    margin-left: 35%;
     font-size: 21px;
   }
 
@@ -166,7 +167,7 @@
   }
 
   .principal-title{
-    margin-left: 28%;
+    margin-left: 34%;
     font-size: 21px;
   }
 
@@ -432,7 +433,7 @@
 
 @media (min-width: 1260px) {
   .principal-title{
-    margin-left: 42%;
+    margin-left: 45%;
     font-size: 28px;
   }
 }

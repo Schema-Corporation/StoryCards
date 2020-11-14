@@ -1,15 +1,16 @@
+
 @font-face{
-  font-family: 'Cambriab';
-  src: url('../../../../assets/fonts/cambriab.ttf');
+  font-family: 'SolanoGothicMVBStdBd';
+  src: url('../../../../assets/fonts/SolanoGothicMVBStdBd.otf');
 }
 *{
   margin: 0;
   padding: 0;
   outline: none;
-  font-family: Cambriab;
+  font-family: SolanoGothicMVBStdBd;
 }
 .principal-title{
-    margin-left: 30%;
+    margin-left: 33%;
  }
  .principal-title.ios{
     margin-left: 0%;
