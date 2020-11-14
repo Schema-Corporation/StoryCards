@@ -70,6 +70,13 @@
     align-items: center;
     justify-content: center;
     backface-visibility: hidden;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2);
+    transition: all 400ms ease;
+  }
+
+  .unrotated:hover {
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-3%);
   }
 
 .imgSize{
@@ -89,7 +96,16 @@
   margin: auto;
   margin-top: 20px;
   z-index: 1;
+  border-radius: 10px;
+  box-shadow: 0px 1px 10px rgba(0, 0, 0, 0.2);
+  transition: all 400ms ease;
 }
+
+.ion-imgSize:hover {
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+  transform: translateY(-3%);
+}
+
 .input-login {
   margin-left: 2px;
 }

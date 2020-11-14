@@ -26,7 +26,15 @@ ion-item {
 
 .img-arq {
     padding: 2px;
+    border-radius: 6px;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2);
+    transition: all 400ms ease;
   }
+
+.img-arq:hover {
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+  transform: translateY(-3%);
+}
 
 ion-col {
     overflow: hidden;
