@@ -32,6 +32,9 @@ export class RegisterPage implements OnInit {
   public emailAddress: string = "";
   public userPassword: string = "";
 
+  public privacyPolicy: boolean = false;
+  public personalData: boolean = false;
+
   public countries: any = [];
 
   public countrySelected: Country;
@@ -59,7 +62,9 @@ export class RegisterPage implements OnInit {
     email: ['',[Validators.required, Validators.pattern(this.EMAILPATTERN)]],
     phone: ['',[Validators.required, Validators.pattern(this.PHONEPATTERN)]],
     password: ['',[Validators.required]],
-    confirmPassword: ['',[Validators.required]]
+    confirmPassword: ['',[Validators.required]],
+    acceptPrivacyPolicy: [''],
+    acceptPersonalData: ['']
 
   }, {validator: this.matchingPasswords('password', 'confirmPassword')});
 
@@ -88,6 +93,12 @@ export class RegisterPage implements OnInit {
   }
   get confirmPassword() {
     return this.registrationForm.get("confirmPassword");
+  }
+  get acceptPrivacyPolicy() {
+    return this.registrationForm.get("acceptPrivacyPolicy");
+  }
+  get acceptPersonalData() {
+    return this.registrationForm.get("acceptPersonalData");
   }
   get bookCode() {
     return this.validationForm.get("bookCode");
@@ -221,7 +232,8 @@ export class RegisterPage implements OnInit {
       lastName: this.lastname,
       countryName: this.country,
       countryCode: this.countryCode,
-      bookCodeId: this.bookID
+      bookCodeId: this.bookID,
+      personalDataPolicy: this.personalData
     };
 
     this._registerService.registerUser(user).subscribe(user => {
