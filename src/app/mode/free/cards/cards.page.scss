@@ -1,16 +1,16 @@
 
 @font-face{
-  font-family: 'Cambriab';
-  src: url('../../../../assets/fonts/cambriab.ttf');
+  font-family: 'SolanoGothicMVBStdBd';
+  src: url('../../../../assets/fonts/SolanoGothicMVBStdBd.otf');
 }
 *{
   margin: 0;
   padding: 0;
   outline: none;
-  font-family: Cambriab;
+  font-family: SolanoGothicMVBStdBd;
 }
 .principal-title{
-    margin-left: 23%;
+    margin-left: 35%;
 }
 .principal-title.ios{
   margin-left: 0%;
@@ -110,7 +110,7 @@ ion-item {
   
   @media (min-width: 1260px) {
     .principal-title{
-      margin-left: 42%;
+      margin-left: 44%;
       font-size: 28px;
     }
     ion-row{
