@@ -180,7 +180,7 @@
 						<ion-checkbox class="privacy-policy" color="primary" [(ngModel)]="privacyPolicy" id="privacyPolicy" name="privacyPolicy" formControlName="acceptPrivacyPolicy">
 						</ion-checkbox>
 						<span class="read-privacy-policy">
-							He leído y acepto la <a>Política de Privacidad</a>
+							He leído y acepto la <a class="clickable" (click)="openPrivacyPolicy()">Política de Privacidad</a>
 						</span>
 					</div>
 

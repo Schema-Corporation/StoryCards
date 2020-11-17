@@ -173,6 +173,10 @@ export class RegisterPage implements OnInit {
     this.countryCode = "+" + country.phone_code;
   }
 
+  openPrivacyPolicy() {
+    window.open('assets/privacy_policy/Política de Privacidad - Storytelling UPC.pdf', '_blank');
+  }
+
   async showAlert(message) {
     var alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
@@ -257,7 +261,7 @@ export class RegisterPage implements OnInit {
       }
     }, error => {
       var message = "Error en el sistema";
-      if (error.status == 500) {
+      if (error.status == 422) {
         message = "El código ingresado no existe"
       } else {
         if (error.status == 403) {
