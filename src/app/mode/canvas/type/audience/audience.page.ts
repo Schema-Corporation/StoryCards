@@ -388,8 +388,6 @@ export class AudiencePage implements OnInit {
       typeImage = "_ud.png";
     }
 
-    console.log('URL: ', baseURL + numberImage + typeImage);
-
     // Get data from subscriber and pass to image src
     this.ocFileStorageSvc
       .getStoredFile('emociones_0' + numberImage + typeImage, 
