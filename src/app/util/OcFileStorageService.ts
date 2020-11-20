@@ -36,6 +36,14 @@ export class OcFileStorageService {
     }
   }
 
+  public getImageFromURL(urlIfNotExist: string): Observable<string> {
+    return this.downloadDataAsBase64(urlIfNotExist).pipe(
+      map((b64Result: string) => {
+        return b64Result;
+      })
+    );
+  }
+
   //#region Exposed methods
 
   //#region Storage methods

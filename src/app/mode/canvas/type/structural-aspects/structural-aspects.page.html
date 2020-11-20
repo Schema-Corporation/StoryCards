@@ -1,13 +1,70 @@
-<ion-header>
+<ion-header *ngIf="!showDivCards">
   <ion-toolbar>
     <ion-buttons slot="start">
       <ion-back-button defaultHref="/">  
       </ion-back-button>
     </ion-buttons>
-    <ion-title>Formato de Aspectos Estructurales</ion-title>
+    <ion-title class="principal-title">Formato de Aspectos Estructurales</ion-title>
+    <ion-icon slot="end" class="icon-header" name="save-outline"></ion-icon>
+    <ion-icon slot="end" class="icon-header" (click)="downloadCanvas()" name="download-outline"></ion-icon>
+    <ion-icon slot="end" class="icon-header" *ngIf="platform.is('desktop')" name="print-outline"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
+<ion-content *ngIf="!showDivCards">
+ <ion-item>
+   <ion-label class="secondary-title" >Escoge una categoría:</ion-label>
+ </ion-item>
+  <ion-grid>
+    <ion-row >
+      <ion-col>
+        <ion-img class="img-arq" (click)="showCards(this.group1.id, this.group1.cardImgArray, this.group1.title)" src="{{this.group1.imgLocation}}"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img class="img-arq" (click)="showCards(this.group2.id, this.group2.cardImgArray, this.group2.title)" src="{{this.group2.imgLocation}}"></ion-img>
+      </ion-col>
+    </ion-row>
+    <ion-row >
+      <ion-col>
+        <ion-img class="img-arq" (click)="showCards(this.group3.id, this.group3.cardImgArray, this.group3.title)" src="{{this.group3.imgLocation}}"></ion-img>
+      </ion-col>
+      <ion-col>
+        <ion-img class="img-arq" (click)="showCards(this.group4.id, this.group4.cardImgArray, this.group4.title)" src="{{this.group4.imgLocation}}"></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
 
+<ion-header *ngIf="showDivCards">
+  <ion-toolbar>
+      <ion-buttons slot="start">
+        <ion-button (click)="back()">
+          <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+        <ion-title class="principal-title">{{title}}</ion-title>
+        <ion-icon slot="end" class="icon-header" name="save-outline"></ion-icon>
+        <ion-icon slot="end" class="icon-header" (click)="downloadCanvas()" name="download-outline"></ion-icon>
+        <ion-icon slot="end" class="icon-header" *ngIf="platform.is('desktop')" name="print-outline"></ion-icon>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="showDivCards">
+  <ion-item>
+    <ion-label class="secondary-title">Escoge una tarjeta:</ion-label>
+  </ion-item>
+
+  <ion-grid *ngIf="showDivCards">
+    <ion-row *ngFor="let indexRow of rows">
+      <ion-col [ngClass]="{'card-selected': cardSelected == (indexRow)*3 + (indexColumn)}" *ngFor="let indexColumn of columns">
+        <div *ngIf="(this.cards[(indexRow)*3 + (indexColumn)])">
+          <span class="first-border"></span>
+          <span class="second-border"></span>
+          <span class="third-border"></span>
+          <span class="fourth-border"></span>
+          <ion-img class="img-card" (click)="changeCard((indexRow)*3 + (indexColumn))" src="{{this.cards[(indexRow)*3 + (indexColumn)].imgCard}}"></ion-img>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>

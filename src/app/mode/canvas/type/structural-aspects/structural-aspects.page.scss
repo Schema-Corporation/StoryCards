@@ -1,0 +1,295 @@
+@font-face{
+    font-family: 'Cambriab';
+    src: url('../../../../../assets/fonts/cambriab.ttf');
+  }
+  *{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    font-family: Cambriab;
+  }
+  .principal-title{
+      margin-left: 30%;
+   }
+   .principal-title.ios{
+      margin-left: 0%;
+  }
+  .icon-header {
+    width: 15px;
+    height: 15px;
+    padding: 4px;
+}
+  ion-img {
+    cursor: pointer;
+  }
+  ion-img:hover {
+    cursor: pointer;
+  }
+  ion-item {
+      margin-right: 15px;
+    }
+  
+  .img-arq {
+      padding: 2px;
+      border-radius: 6px;
+      box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2);
+      transition: all 400ms ease;
+    }
+  
+  .img-arq:hover {
+    box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+    transform: translateY(-3%);
+  }
+
+  .img-card {
+    padding: 2px;
+    border-radius: 6px;
+    box-shadow: 0px 0px 0px rgba(0, 0, 0, 0.2);
+    transition: all 400ms ease;
+  }
+
+.img-card:hover {
+  box-shadow: 5px 5px 20px rgba(0, 0, 0, 0.4);
+  transform: translateY(-3%);
+}
+  
+  ion-col {
+      overflow: hidden;
+      margin-left: 7px;
+      margin-right: 7px;
+      
+   }
+  @media (min-width: 400px) {
+    .principal-title{
+      margin-left: 35%;
+      font-size: 23px;
+    }
+    .icon-header {
+      width: 24px;
+      height: 17px;
+      padding: 6px;
+  }
+  } 
+  
+  
+   @media (min-width: 600px) {
+    .principal-title{
+      margin-left: 38%;
+      font-size: 24px;
+    }
+    .icon-header {
+      width: 26px;
+      height: 19px;
+      padding: 8px;
+  }
+  } 
+  
+  
+   @media (min-width: 750px) {
+    .principal-title{
+      margin-left: 41%;
+      font-size: 25px;
+    }
+    .secondary-title{
+      font-size: 20px;
+    }
+
+    .icon-header {
+      width: 30px;
+      height: 23px;
+      padding: 9px;
+    }
+  
+    ion-item {
+      margin-right: 10%;
+      margin-left: 10%;;
+    } 
+    ion-row{
+      margin-left: 1%;
+      margin-right: 1%;
+    }
+    ion-col {
+      overflow: hidden;
+      margin-left: 47px;
+      margin-right: 47px;
+      height: 80%;
+    }
+  
+   .img-arq {
+      width: 80%;
+      height: 80%;
+      padding: 0px;
+      margin: auto;
+      padding: 3%;
+   }
+  }
+  
+  
+  
+  @media (min-width: 1000px) {
+    .principal-title{
+      margin-left: 42%;
+      font-size: 28px;
+    }
+    ion-row{
+      margin-left: 10%;
+      margin-right: 10%;
+    }
+    .icon-header {
+      width: 31px;
+      height: 24px;
+      padding: 8px;
+  }
+  }
+  
+  @media (min-width: 1260px) {
+    .principal-title{
+      margin-left: 44%;
+      font-size: 28px;
+    }
+    ion-row{
+      margin-left: 12%;
+      margin-right: 12%;
+    }
+    .icon-header {
+      width: 31px;
+      height: 24px;
+      padding: 8px;
+  }
+  }
+  
+  @media (min-width: 1400px) {
+    .principal-title{
+      margin-left: 44%;
+      font-size: 30px;
+    }
+    ion-row{
+      margin-left: 13%;
+      margin-right: 13%;
+    }
+    .icon-header {
+      width: 32px;
+      height: 25px;
+      padding: 8px;
+  }
+  }
+  
+  @media (min-width: 1640px) {
+    .principal-title{
+      margin-left: 32%;
+      font-size: 30px;
+    }
+    ion-row{
+      margin-left: 15%;
+      margin-right: 15%;
+    }
+    .icon-header {
+      width: 33px;
+      height: 26px;
+      padding: 8px;
+  }
+    .img-arq {
+        width: 50%;
+        height: 50%;
+        padding: 0px;
+        margin: auto;
+        padding: 3%;
+     }
+
+     .img-card {
+        width: 80%;
+        height: 80%;
+        padding: 0px;
+        margin: auto;
+        padding: 3%;
+     }
+  }
+
+  .card-selected {
+
+    .first-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(to right,#0c002b,#80724B);
+      animation: animate1 2s linear infinite;
+    }
+    
+    .second-border {
+      position: absolute;
+      top: 0;
+      right: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to bottom,#0c002b,#80724B);
+      animation: animate2 2s linear infinite;
+      animation-delay: 1s;
+    }
+    
+    .third-border {
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      height: 4px;
+      background: linear-gradient(to left,#0c002b,#80724B);
+      animation: animate3 2s linear infinite;
+    }
+    
+    .fourth-border {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 4px;
+      height: 100%;
+      background: linear-gradient(to top,#0c002b,#80724B);
+      animation: animate4 2s linear infinite;
+      animation-delay: 1s;
+    }
+  }
+    
+  @keyframes animate1  {
+    0%
+    {
+        transform:translateX(-100%);
+    }
+    100%
+    {
+        transform:translateX(100%);
+    }
+  }
+    
+  @keyframes animate2 {
+    0%
+    {
+        transform:translateY(-100%);
+    }
+    100%
+    {
+        transform:translateY(100%);
+    }
+  }
+    
+  @keyframes animate3 {
+    0%
+    {
+        transform:translateX(100%);
+    }
+    100%
+    {
+        transform:translateX(-100%); 
+    }
+  }
+    
+  @keyframes animate4 {
+    0%
+    {
+        transform:translateY(100%);
+    }
+    100%
+    {
+        transform:translateY(-100%);
+    }
+  }
