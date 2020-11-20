@@ -10,12 +10,7 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-
-
-import { AngularFireModule } from '@angular/fire';
-import { AngularFireDatabaseModule } from '@angular/fire/database';
 import { environment } from '../environments/environment';
-import { CharactersService } from './services/firebase/characters.service';
 import { AuthService } from "./util/auth";
 import { APIMiddleware } from "./services/APIMiddleware";
 import { NgxIndexedDBModule } from 'ngx-indexed-db';
@@ -24,10 +19,11 @@ import { File } from '@ionic-native/file/ngx';
 import { FileOpener } from '@ionic-native/file-opener/ngx'
 
 import { IonicSelectableModule } from 'ionic-selectable';
+import { SettingComponent } from './menu/setting/setting.component';
 
 
 @NgModule({
-  declarations: [AppComponent],
+  declarations: [AppComponent, SettingComponent],
   entryComponents: [],
   imports: [
     BrowserModule,
@@ -35,12 +31,9 @@ import { IonicSelectableModule } from 'ionic-selectable';
     IonicModule.forRoot(), 
     AppRoutingModule,
     NgxIndexedDBModule.forRoot(environment.INDEXEDDB_CONFIG),
-    AngularFireModule.initializeApp(environment.FIREBASE_CONFIG),
-    AngularFireDatabaseModule,
     IonicSelectableModule
   ],
   providers: [
-    CharactersService,
     AuthService,
     APIMiddleware,
     StatusBar,

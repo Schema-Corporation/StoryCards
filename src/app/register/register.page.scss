@@ -171,6 +171,16 @@
   // background: linear-gradient(-135deg, #fff8e3, #ffe596);
 }
 
+.read-privacy-policy {
+  font-size: 14px;
+  padding-left: 10px;
+}
+
+.read-personal-data {
+  font-size: 14px;
+  padding-left: 10px;
+}
+
 .ion-text-center{
   margin: auto;
   font-size: 27px;
@@ -186,6 +196,10 @@
 }
 .input-login {
   margin-left: 0px;
+}
+
+.clickable {
+  cursor: pointer;
 }
 
 .wrap-login100 {

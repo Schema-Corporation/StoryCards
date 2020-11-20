@@ -28,7 +28,7 @@
 ///@at-root customize-alert 
 
 .ionic-selectable-value {
-
+    color: black;
 }
 
 .ionic-selectable-has-placeholder .ionic-selectable-value-item {
@@ -36,6 +36,10 @@
 }
 
 .native-input[disabled].sc-ion-input-md {
+    opacity: 1;
+}
+
+.native-input[disabled].sc-ion-input-ios {
     opacity: 1;
 }
 

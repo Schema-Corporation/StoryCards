@@ -52,8 +52,8 @@ export class AudiencePage implements OnInit {
 
   public buttons: any;
 
-  private pdfObject = null;
-  private isPrint: boolean = false;
+  public pdfObject = null;
+  public isPrint: boolean = false;
 
   public isEdit: boolean = false;
 
@@ -63,7 +63,7 @@ export class AudiencePage implements OnInit {
 
   public rotate;
   public rotat;
-  private isRotated: boolean = false;
+  public isRotated: boolean = false;
 
   constructor(private alertCtrl: AlertController,
     public toastController: ToastController,
@@ -72,10 +72,10 @@ export class AudiencePage implements OnInit {
     public platform: Platform,
     public dbService: NgxIndexedDBService,
     public _canvasService: CanvasService,
-    private ocFileStorageSvc: OcFileStorageService,
-    private route: ActivatedRoute,
-    private file: File,
-    private fileOpener: FileOpener) { }
+    public ocFileStorageSvc: OcFileStorageService,
+    public route: ActivatedRoute,
+    public file: File,
+    public fileOpener: FileOpener) { }
 
   ngOnInit() {
     this.startCanvas();
@@ -387,8 +387,6 @@ export class AudiencePage implements OnInit {
       baseURL = '/assets/cards/emotions/emociones_0';
       typeImage = "_ud.png";
     }
-
-    console.log('URL: ', baseURL + numberImage + typeImage);
 
     // Get data from subscriber and pass to image src
     this.ocFileStorageSvc

@@ -20,7 +20,7 @@ export class CanvasPage implements OnInit {
     public platform: Platform,
     public navCtrl: NavController,
     public toastController: ToastController,
-    private router: Router,
+    public router: Router,
     public dbService: NgxIndexedDBService,
     public _canvasService: CanvasService) { }
 

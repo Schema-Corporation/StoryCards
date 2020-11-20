@@ -105,7 +105,7 @@
 							  headerColor="primary"
 							  itemIconSlot="none"
 							  placeholder="País"
-							  [ngStyle]="{ color: red }"
+							  [ngStyle]="{ color: 'red' }"
 							  searchPlaceholder="Ingrese nombre del país"
 							  closeButtonText="X"
 							  closeButtonSlot="end"
@@ -177,13 +177,24 @@
 					</div>
 
 					<div class="terms-conditions">
-						<ion-label>
-							Al registrarse en la aplicación, usted acepta nuestra <a>Política de Privacidad</a>
-						</ion-label>
+						<ion-checkbox class="privacy-policy" color="primary" [(ngModel)]="privacyPolicy" id="privacyPolicy" name="privacyPolicy" formControlName="acceptPrivacyPolicy">
+						</ion-checkbox>
+						<span class="read-privacy-policy">
+							He leído y acepto la <a class="clickable" (click)="openPrivacyPolicy()">Política de Privacidad</a>
+						</span>
+					</div>
+
+					<div class="terms-conditions">
+						<ion-checkbox class="personal-data" color="primary" [(ngModel)]="personalData" id="personalData" name="personalData" formControlName="acceptPersonalData">
+						</ion-checkbox>
+						<span class="read-personal-data">
+							Autorizo el tratamiento de mis datos personales <br> para las
+							finalidades adicionales indicadas en política aludida
+						 </span>
 					</div>
 					
 					<div class="container-login100-form-btn">
-						<ion-button (click)="register()" [disabled]="!registrationForm.valid" expand="block" class="login100-form-btn">
+						<ion-button (click)="register()" [disabled]="!registrationForm.valid || !privacyPolicy" expand="block" class="login100-form-btn">
 							Registrarse
 						</ion-button>
 					</div>
