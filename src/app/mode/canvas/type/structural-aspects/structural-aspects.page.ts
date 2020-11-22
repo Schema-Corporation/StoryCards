@@ -1,14 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import { IGroup } from 'src/common/types/groups';
 import { NavController, ToastController, Platform } from '@ionic/angular';
-import { NavigationExtras } from '@angular/router';
 import { OcFileStorageService } from 'src/app/util/OcFileStorageService';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import htmlToPdfmake from 'html-to-pdfmake';
-import { map } from 'rxjs/operators';
-import { Observable } from 'rxjs';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -157,7 +154,7 @@ export class StructuralAspectsPage implements OnInit {
     public navCtrl: NavController,
     private ocFileStorageSvc: OcFileStorageService,
     public toastController: ToastController,
-    public platform: Platform,) { }
+    public platform: Platform) { }
 
   ngOnInit() {
       

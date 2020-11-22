@@ -47,6 +47,15 @@
     font-weight: 800;
 }
 
+.my-custom-alert .alert-wrapper {
+    min-width: 400px !important;
+    min-height: 700px !important;
+  }
+
+  .alert-message.sc-ion-alert-md {
+    max-height: 700px !important;
+    font-size: 16px;
+}
 
 .popover-content.sc-ion-popover-md{
     width: 297px;
