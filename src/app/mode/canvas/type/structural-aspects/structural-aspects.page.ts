@@ -28,6 +28,7 @@ export class StructuralAspectsPage implements OnInit {
   public myths: number = -1;
   public theme: number = -1;
   private pdfObject = null;
+  public isPrint: boolean = false;
 
   group1: IGroup  = {
     id: 1,
@@ -226,6 +227,8 @@ export class StructuralAspectsPage implements OnInit {
   }
 
   downloadCanvas() {
+    this.isPrint = false;
+
     if (this.plot ==-1 && this.gender ==-1 && this.myths == -1 && this.theme == -1) {
       this.generateHTML('', '', '', '');
     } else {
@@ -235,6 +238,23 @@ export class StructuralAspectsPage implements OnInit {
         this.myths != -1 ? this.cards[this.myths].id: -1,
         this.theme != -1 ? this.cards[this.theme].id: -1);
     }
+  }
+
+  printCanvas() {
+
+    this.isPrint = true;
+
+    if (this.plot ==-1 && this.gender ==-1 && this.myths == -1 && this.theme == -1) {
+      this.generateHTML('', '', '', '');
+    } else {
+      this.createPDF(
+        this.plot != -1 ? this.cards[this.plot].id: -1,
+        this.gender != -1 ? this.cards[this.gender].id: -1,
+        this.myths != -1 ? this.cards[this.myths].id: -1,
+        this.theme != -1 ? this.cards[this.theme].id: -1);
+    }
+
+    this.presentToast('Formato abierto para imprimir');
   }
 
   async createPDF(
@@ -323,9 +343,13 @@ export class StructuralAspectsPage implements OnInit {
 
     this.pdfObject = pdfMake.createPdf(docDefinition);
 
-    this.pdfObject.download('Formato_Aspectos_Estructurales.pdf');
-
-    this.presentToast('Formato descargado');
+    if (!this.isPrint){
+      // This method suportted web and device platform
+      this.pdfObject.download('Formato_Aspectos_Estructurales.pdf');
+      this.presentToast('Formato descargado');
+    } else {
+      this.pdfObject.open();
+    }
 
   }
 
