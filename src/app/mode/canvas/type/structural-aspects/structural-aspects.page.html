@@ -7,7 +7,7 @@
     <ion-title class="principal-title">Formato de Aspectos Estructurales</ion-title>
     <ion-icon slot="end" class="icon-header" name="save-outline"></ion-icon>
     <ion-icon slot="end" class="icon-header" (click)="downloadCanvas()" name="download-outline"></ion-icon>
-    <ion-icon slot="end" class="icon-header" *ngIf="platform.is('desktop')" name="print-outline"></ion-icon>
+    <ion-icon slot="end" class="icon-header" *ngIf="platform.is('desktop')" (click)="printCanvas()" name="print-outline"></ion-icon>
   </ion-toolbar>
 </ion-header>
 
@@ -18,18 +18,22 @@
   <ion-grid>
     <ion-row >
       <ion-col>
-        <ion-img class="img-arq" (click)="showCards(this.group1.id, this.group1.cardImgArray, this.group1.title)" src="{{this.group1.imgLocation}}"></ion-img>
+          <ion-img *ngIf="plot == -1" class="not-selected img-arq" (click)="showCards(this.group1.id, this.group1.cardImgArray, this.group1.title)" src="{{this.group1.imgLocation}}"></ion-img>
+          <ion-img *ngIf="plot != -1" class="img-arq" (click)="showCards(this.group1.id, this.group1.cardImgArray, this.group1.title)" src="{{this.group1.cardImgArray[this.plot].imgCard}}"></ion-img>
       </ion-col>
       <ion-col>
-        <ion-img class="img-arq" (click)="showCards(this.group2.id, this.group2.cardImgArray, this.group2.title)" src="{{this.group2.imgLocation}}"></ion-img>
+        <ion-img *ngIf="gender == -1" class="not-selected img-arq" (click)="showCards(this.group2.id, this.group2.cardImgArray, this.group2.title)" src="{{this.group2.imgLocation}}"></ion-img>
+        <ion-img *ngIf="gender != -1" class="img-arq" (click)="showCards(this.group2.id, this.group2.cardImgArray, this.group2.title)" src="{{this.group2.cardImgArray[this.plot].imgCard}}"></ion-img>
       </ion-col>
     </ion-row>
     <ion-row >
       <ion-col>
-        <ion-img class="img-arq" (click)="showCards(this.group3.id, this.group3.cardImgArray, this.group3.title)" src="{{this.group3.imgLocation}}"></ion-img>
+        <ion-img *ngIf="myths == -1" class="not-selected img-arq" (click)="showCards(this.group3.id, this.group3.cardImgArray, this.group3.title)" src="{{this.group3.imgLocation}}"></ion-img>
+        <ion-img *ngIf="myths != -1" class="img-arq" (click)="showCards(this.group3.id, this.group3.cardImgArray, this.group3.title)" src="{{this.group3.cardImgArray[this.myths].imgCard}}"></ion-img>
       </ion-col>
       <ion-col>
-        <ion-img class="img-arq" (click)="showCards(this.group4.id, this.group4.cardImgArray, this.group4.title)" src="{{this.group4.imgLocation}}"></ion-img>
+        <ion-img *ngIf="theme == -1" class="not-selected img-arq" (click)="showCards(this.group4.id, this.group4.cardImgArray, this.group4.title)" src="{{this.group4.imgLocation}}"></ion-img>
+        <ion-img *ngIf="theme != -1" class="img-arq" (click)="showCards(this.group4.id, this.group4.cardImgArray, this.group4.title)" src="{{this.group4.cardImgArray[this.myths].imgCard}}"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>

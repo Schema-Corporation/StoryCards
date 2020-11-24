@@ -670,7 +670,7 @@ export class CharactersPage implements OnInit {
           <tr>
               <td style="width:655px;" colspan="2" valign="top">
                   <p style="text-align:center">
-                      Principal
+                      Principales
                   </p>
               </td>
           </tr>
