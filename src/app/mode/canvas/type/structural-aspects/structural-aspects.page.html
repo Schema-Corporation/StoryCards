@@ -45,11 +45,8 @@
         <ion-button (click)="back()">
           <ion-icon name="arrow-back"></ion-icon>
         </ion-button>
-        <ion-title class="principal-title">{{title}}</ion-title>
-        <ion-icon slot="end" class="icon-header" name="save-outline"></ion-icon>
-        <ion-icon slot="end" class="icon-header" (click)="downloadCanvas()" name="download-outline"></ion-icon>
-        <ion-icon slot="end" class="icon-header" *ngIf="platform.is('desktop')" name="print-outline"></ion-icon>
       </ion-buttons>
+      <ion-title class="principal-title">{{title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
