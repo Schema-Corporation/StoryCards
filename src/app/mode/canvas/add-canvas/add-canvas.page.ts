@@ -40,7 +40,6 @@ export class AddCanvasPage implements OnInit {
   }
 
   goToCreateFormatPage(value) {
-    console.log('selectedVal: ', this.selectedVal);
     switch(value) {
       case 1: this.navCtrl.navigateForward('canvas/audience'); break;
       case 2: this.navCtrl.navigateForward('canvas/structural-aspects'); break;
@@ -59,7 +58,6 @@ export class AddCanvasPage implements OnInit {
   }
 
   radioGroupChange(event) {
-    console.log("radioGroupChange", event.detail);
     this.selectedVal = event.detail.value;
   }
 

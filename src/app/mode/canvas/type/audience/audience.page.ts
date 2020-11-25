@@ -65,7 +65,7 @@ export class AudiencePage implements OnInit {
   public rotat;
   public isRotated: boolean = false;
 
-  constructor(private alertCtrl: AlertController,
+  constructor(public alertCtrl: AlertController,
     public toastController: ToastController,
     public navCtrl: NavController,
 

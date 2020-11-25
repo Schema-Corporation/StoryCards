@@ -82,7 +82,7 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="conflict" maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeConflict($event)" placeholder="¿Quiénes son?"></ion-textarea>
+        <ion-textarea [value]="conflict" maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeConflict($event)"></ion-textarea>
       </ion-item>
       <ion-label class="count-letters">{{this.conflictCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
     </div>
@@ -104,7 +104,7 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="critical" maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeCritical($event)" placeholder="¿Qué les preocupa? ¿Qué necesitan?"></ion-textarea>
+        <ion-textarea [value]="critical" maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeCritical($event)"></ion-textarea>
       </ion-item>
       <ion-label class="count-letters">{{this.criticalCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
     </div>

@@ -5,7 +5,7 @@
       </ion-back-button>
     </ion-buttons>
     <ion-title class="principal-title">Formato de Aspectos Estructurales</ion-title>
-    <ion-icon slot="end" class="icon-header" name="save-outline"></ion-icon>
+    <ion-icon slot="end" class="icon-header" (click)="chooseCanvasName()" name="save-outline"></ion-icon>
     <ion-icon slot="end" class="icon-header" (click)="downloadCanvas()" name="download-outline"></ion-icon>
     <ion-icon slot="end" class="icon-header" *ngIf="platform.is('desktop')" (click)="printCanvas()" name="print-outline"></ion-icon>
   </ion-toolbar>
@@ -23,7 +23,7 @@
       </ion-col>
       <ion-col>
         <ion-img *ngIf="gender == -1" class="not-selected img-arq" (click)="showCards(this.group2.id, this.group2.cardImgArray, this.group2.title)" src="{{this.group2.imgLocation}}"></ion-img>
-        <ion-img *ngIf="gender != -1" class="img-arq" (click)="showCards(this.group2.id, this.group2.cardImgArray, this.group2.title)" src="{{this.group2.cardImgArray[this.plot].imgCard}}"></ion-img>
+        <ion-img *ngIf="gender != -1" class="img-arq" (click)="showCards(this.group2.id, this.group2.cardImgArray, this.group2.title)" src="{{this.group2.cardImgArray[this.gender].imgCard}}"></ion-img>
       </ion-col>
     </ion-row>
     <ion-row >
@@ -33,7 +33,7 @@
       </ion-col>
       <ion-col>
         <ion-img *ngIf="theme == -1" class="not-selected img-arq" (click)="showCards(this.group4.id, this.group4.cardImgArray, this.group4.title)" src="{{this.group4.imgLocation}}"></ion-img>
-        <ion-img *ngIf="theme != -1" class="img-arq" (click)="showCards(this.group4.id, this.group4.cardImgArray, this.group4.title)" src="{{this.group4.cardImgArray[this.myths].imgCard}}"></ion-img>
+        <ion-img *ngIf="theme != -1" class="img-arq" (click)="showCards(this.group4.id, this.group4.cardImgArray, this.group4.title)" src="{{this.group4.cardImgArray[this.theme].imgCard}}"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -71,4 +71,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
+
+  <ion-button class="next-button" (click)="back()">Escoger</ion-button>
 </ion-content>

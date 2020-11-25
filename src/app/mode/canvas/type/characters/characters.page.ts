@@ -6,6 +6,9 @@ import { OcFileStorageService } from 'src/app/util/OcFileStorageService';
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import htmlToPdfmake from 'html-to-pdfmake';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { CanvasService } from 'src/app/services/canvas/canvas.service';
+import { ActivatedRoute } from '@angular/router';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -27,8 +30,8 @@ export class CharactersPage implements OnInit {
   public cardSelected: number = -1;
   public principalCharacter1: number = -1;
   public principalCharacter2: number = -1;
-  public secundaryCharacter1: number = -1;
-  public secundaryCharacter2: number = -1;
+  public secondaryCharacter1: number = -1;
+  public secondaryCharacter2: number = -1;
   public maximumCharactersAllowed: number = 80;
   public characteristics: string = "";
   public characteristicsCharacters: number = 0;
@@ -36,22 +39,29 @@ export class CharactersPage implements OnInit {
   public principalCharacter1CharacteristicsCharacters: number = 0;
   public principalCharacter2Characteristics: string = "";
   public principalCharacter2CharacteristicsCharacters: number = 0;
-  public secundaryCharacter1Characteristics: string = "";
-  public secundaryCharacter1CharacteristicsCharacters: number = 0;
-  public secundaryCharacter2Characteristics: string = "";
-  public secundaryCharacter2CharacteristicsCharacters: number = 0;
+  public secondaryCharacter1Characteristics: string = "";
+  public secondaryCharacter1CharacteristicsCharacters: number = 0;
+  public secondaryCharacter2Characteristics: string = "";
+  public secondaryCharacter2CharacteristicsCharacters: number = 0;
   public motivation: string = "";
   public motivationCharacters: number = 0;
   public principalCharacter1Motivation: string = "";
   public principalCharacter1MotivationCharacters: number = 0;
   public principalCharacter2Motivation: string = "";
   public principalCharacter2MotivationCharacters: number = 0;
-  public secundaryCharacter1Motivation: string = "";
-  public secundaryCharacter1MotivationCharacters: number = 0;
-  public secundaryCharacter2Motivation: string = "";
-  public secundaryCharacter2MotivationCharacters: number = 0;
-  private pdfObject = null;
+  public secondaryCharacter1Motivation: string = "";
+  public secondaryCharacter1MotivationCharacters: number = 0;
+  public secondaryCharacter2Motivation: string = "";
+  public secondaryCharacter2MotivationCharacters: number = 0;
+  public pdfObject = null;
   public isPrint: boolean = false;
+
+  public isEdit: boolean = false;
+  public canvasBody: any;
+  public canvasData: any;
+  public data: any = null;
+  public name: string = "";
+  public canvasId: string = "";
 
   group1: IGroup = {
     id: 1,
@@ -323,13 +333,64 @@ export class CharactersPage implements OnInit {
   }
 
   constructor(
-    private alertCtrl: AlertController,
+    public alertCtrl: AlertController,
     public navCtrl: NavController,
-    private ocFileStorageSvc: OcFileStorageService,
+    public ocFileStorageSvc: OcFileStorageService,
     public toastController: ToastController,
-    public platform: Platform) { }
+    public platform: Platform,
+    public dbService: NgxIndexedDBService,
+    public _canvasService: CanvasService,
+    public route: ActivatedRoute) { }
 
-  ngOnInit() { }
+  ngOnInit() { 
+    this.route.queryParams.subscribe(params => {
+      if (params["data"] === undefined) {
+        this.isEdit = false;
+      } else {
+        this.data = JSON.parse(params["data"]);
+        this.fillCanvasData(this.data);
+        this.isEdit = true;
+      }
+    });
+  }
+
+  fillCanvasData(data) {
+    let canvasData = JSON.parse(data.data);
+    console.log('canvasData: ', canvasData)
+    let canvasBody = canvasData.body;
+
+    // character 1
+    this.principalCharacter1 = canvasBody.firstPrincipalCharacter.card;
+    this.principalCharacter1Characteristics = canvasBody.firstPrincipalCharacter.characteristics;
+    this.principalCharacter1CharacteristicsCharacters = this.principalCharacter1Characteristics.length;
+    this.principalCharacter1Motivation = canvasBody.firstPrincipalCharacter.motivation;
+    this.principalCharacter1MotivationCharacters = this.principalCharacter1Motivation.length;
+
+    // character 2
+    this.principalCharacter2 = canvasBody.secondPrincipalCharacter.card;
+    this.principalCharacter2Characteristics = canvasBody.secondPrincipalCharacter.characteristics;
+    this.principalCharacter2CharacteristicsCharacters = this.principalCharacter2Characteristics.length;
+    this.principalCharacter2Motivation = canvasBody.secondPrincipalCharacter.motivation;
+    this.principalCharacter2MotivationCharacters = this.principalCharacter2Motivation.length;
+
+    // character 3
+    this.secondaryCharacter1 = canvasBody.firstSecondaryCharacter.card;
+    this.secondaryCharacter1Characteristics = canvasBody.firstSecondaryCharacter.characteristics;
+    this.secondaryCharacter1CharacteristicsCharacters = this.secondaryCharacter1Characteristics.length;
+    this.secondaryCharacter1Motivation = canvasBody.firstSecondaryCharacter.motivation;
+    this.secondaryCharacter1MotivationCharacters = this.secondaryCharacter1Motivation.length;
+
+    // character 4
+    this.secondaryCharacter2 = canvasBody.secondSecondaryCharacter.card;
+    this.secondaryCharacter2Characteristics = canvasBody.secondSecondaryCharacter.characteristics;
+    this.secondaryCharacter2CharacteristicsCharacters = this.secondaryCharacter2Characteristics.length;
+    this.secondaryCharacter2Motivation = canvasBody.secondSecondaryCharacter.motivation;
+    this.secondaryCharacter2MotivationCharacters = this.secondaryCharacter2Motivation.length;
+
+    // canvas data
+    this.name = data.name;
+    this.canvasId = data.id;
+  }
 
   showCards(id, cards, title) {
 
@@ -337,27 +398,140 @@ export class CharactersPage implements OnInit {
 
     var numberOfRows = Math.floor(cards.length / 3);
     var numberOfColumns = 3;
-
     this.rows = [];
     this.columns = [];
-
     this.id = id;
     this.title = title;
-
     this.cards = cards;
-
     for (var i = 0; i < numberOfRows; i++) {
       this.rows.push(i);
     }
-
     for (var i = 0; i < numberOfColumns; i++) {
       this.columns.push(i);
     }
-
     if (cards.length % 3 != 0) this.rows.push(numberOfRows);
-
     this.showDivCards = true;
 
+    switch (this.title) {
+      case 'Personaje principal 1': this.cardSelected = this.principalCharacter1; break;
+      case 'Personaje principal 2': this.cardSelected = this.principalCharacter2; break;
+      case 'Personaje secundario 1': this.cardSelected = this.secondaryCharacter1; break;
+      case 'Personaje secundario 2': this.cardSelected = this.secondaryCharacter2; break;
+      default: break;
+    }
+
+
+  }
+
+  async chooseCanvasName() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: '¿Qué nombre llevará su formato?',
+      inputs: [
+        {
+          name: 'canvasName',
+          type: 'text',
+          placeholder: 'Nombre de formato',
+          value: this.name,
+          attributes: {
+            maxlength: 100
+          }
+        }
+      ],
+      buttons: [
+        {
+          text:'Cancelar',
+          handler: () => {
+          }
+        },
+        {
+          text:'Guardar',
+          handler:(data) => {
+            this.saveCanvas(data.canvasName);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+
+  }
+
+  getCanvasData() {
+    this.canvasData = {
+      metadata: {
+        numberSteps: 0
+      },
+      body: {
+        firstPrincipalCharacter: {
+          card: this.principalCharacter1,
+          characteristics: this.principalCharacter1Characteristics,
+          motivation: this.principalCharacter1Motivation
+        },
+        secondPrincipalCharacter: {
+          card: this.principalCharacter2,
+          characteristics: this.principalCharacter2Characteristics,
+          motivation: this.principalCharacter2Motivation
+        },
+        firstSecondaryCharacter: {
+          card: this.secondaryCharacter1,
+          characteristics: this.secondaryCharacter1Characteristics,
+          motivation: this.secondaryCharacter1Motivation
+        },
+        secondSecondaryCharacter: {
+          card: this.secondaryCharacter2,
+          characteristics: this.secondaryCharacter2Characteristics,
+          motivation: this.secondaryCharacter2Motivation
+        }
+      }
+    }
+    return this.canvasData;
+  }
+
+  getCanvasBody(canvasName) {
+    this.canvasBody = {
+      name: canvasName,
+      type: 3,
+      data: JSON.stringify(this.getCanvasData())
+    };
+
+    return this.canvasBody;
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async saveCanvas(canvasName) {
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        if (this.isEdit) {
+          this._canvasService.editCanvas(this.canvasId, this.getCanvasBody(canvasName), token.value.token).subscribe(
+            async result => {
+              this.presentToast('¡Su formato ha sido editado con éxito!');
+              await this.sleep(2500);
+              this.navCtrl.navigateForward('canvas/canvas');
+            },
+            error => {
+              console.log('error: ', error);
+            }
+          );
+        } else {
+          this._canvasService.createCanvas(this.getCanvasBody(canvasName), token.value.token).subscribe(
+            async result => {
+              this.presentToast('¡Su formato se ha guardado con éxito!');
+              await this.sleep(2500);
+              this.navCtrl.navigateForward('canvas/canvas');
+            },
+            error => {
+              console.log('error: ', error);
+            }
+          );
+        }
+      },
+      error => {
+          console.log('error: ', error);
+      });
   }
 
   changeCard(cardSelected) {
@@ -367,29 +541,38 @@ export class CharactersPage implements OnInit {
     switch (this.title) {
       case 'Personaje principal 1':
         this.principalCharacter1 = this.cardSelected;
-        this.showInfoCards = true;
-        this.showDivCards = false;
-        console.log('card principal character 1 selected: ', this.principalCharacter1);
+        this.characteristics = this.principalCharacter1Characteristics;
+        this.characteristicsCharacters = this.principalCharacter1Characteristics.length;
+        this.motivation = this.principalCharacter1Motivation;
+        this.motivationCharacters = this.principalCharacter1Motivation.length;
         break;
       case 'Personaje principal 2':
         this.principalCharacter2 = this.cardSelected;
-        this.showInfoCards = true;
-        this.showDivCards = false;
-        console.log('card principal character 2 selected: ', this.principalCharacter2);
+        this.characteristics = this.principalCharacter2Characteristics;
+        this.characteristicsCharacters = this.principalCharacter2Characteristics.length;
+        this.motivation = this.principalCharacter2Motivation;
+        this.motivationCharacters = this.principalCharacter2Motivation.length;
         break;
       case 'Personaje secundario 1':
-        this.secundaryCharacter1 = this.cardSelected;
-        this.showInfoCards = true;
-        this.showDivCards = false;
-        console.log('card secundary character 1 selected: ', this.secundaryCharacter1);
+        this.secondaryCharacter1 = this.cardSelected;
+        this.characteristics = this.secondaryCharacter1Characteristics;
+        this.characteristicsCharacters = this.secondaryCharacter1Characteristics.length;
+        this.motivation = this.secondaryCharacter1Motivation;
+        this.motivationCharacters = this.secondaryCharacter1Motivation.length;
         break;
       case 'Personaje secundario 2':
-        this.secundaryCharacter2 = this.cardSelected;
-        this.showInfoCards = true;
-        this.showDivCards = false;
-        console.log('card secundary character 2 selected: ', this.secundaryCharacter2);
+        this.secondaryCharacter2 = this.cardSelected;
+        this.characteristics = this.secondaryCharacter2Characteristics;
+        this.characteristicsCharacters = this.secondaryCharacter2Characteristics.length;
+        this.motivation = this.secondaryCharacter2Motivation;
+        this.motivationCharacters = this.secondaryCharacter2Motivation.length;
         break;
+      default: break;
     }
+    
+    this.showInfoCards = true;
+    this.showDivCards = false;
+    
   }
 
   backGroup() {
@@ -400,6 +583,7 @@ export class CharactersPage implements OnInit {
     this.motivationCharacters = 0;
     this.showGroupCards = true;
     this.showDivCards = false;
+    this.showInfoCards = false;
   }
 
   backCards() {
@@ -415,22 +599,18 @@ export class CharactersPage implements OnInit {
       case 'Personaje principal 1':
         this.principalCharacter1Characteristics = this.characteristics;
         this.principalCharacter1CharacteristicsCharacters = this.characteristicsCharacters;
-        console.log('card principal character 1 selected: ', this.principalCharacter1);
         break;
       case 'Personaje principal 2':
         this.principalCharacter2Characteristics = this.characteristics;
         this.principalCharacter2CharacteristicsCharacters = this.characteristicsCharacters;
-        console.log('card principal character 2 selected: ', this.principalCharacter2);
         break;
       case 'Personaje secundario 1':
-        this.secundaryCharacter1Characteristics = this.characteristics;
-        this.secundaryCharacter1CharacteristicsCharacters = this.characteristicsCharacters;
-        console.log('card secundario character 1 selected: ', this.principalCharacter1);
+        this.secondaryCharacter1Characteristics = this.characteristics;
+        this.secondaryCharacter1CharacteristicsCharacters = this.characteristicsCharacters;
         break;
       case 'Personaje secundario 2':
-        this.secundaryCharacter2Characteristics = this.characteristics;
-        this.secundaryCharacter2CharacteristicsCharacters = this.characteristicsCharacters;
-        console.log('card secundario character 2 selected: ', this.principalCharacter2);
+        this.secondaryCharacter2Characteristics = this.characteristics;
+        this.secondaryCharacter2CharacteristicsCharacters = this.characteristicsCharacters;
         break;
     }
   }
@@ -443,27 +623,23 @@ export class CharactersPage implements OnInit {
       case 'Personaje principal 1':
         this.principalCharacter1Motivation = this.motivation;
         this.principalCharacter1MotivationCharacters = this.motivationCharacters;
-        console.log('card principal character 1 selected: ', this.principalCharacter1CharacteristicsCharacters);
         break;
       case 'Personaje principal 2':
         this.principalCharacter2Motivation = this.motivation;
         this.principalCharacter2MotivationCharacters = this.motivationCharacters;
-        console.log('card principal character 2 selected: ', this.principalCharacter2Motivation);
         break;
       case 'Personaje secundario 1':
-        this.secundaryCharacter1Motivation = this.motivation;
-        this.secundaryCharacter1MotivationCharacters = this.motivationCharacters;
-        console.log('card secundario character 1 selected: ', this.secundaryCharacter1Motivation);
+        this.secondaryCharacter1Motivation = this.motivation;
+        this.secondaryCharacter1MotivationCharacters = this.motivationCharacters;
         break;
       case 'Personaje secundario 2':
-        this.secundaryCharacter2Motivation = this.motivation;
-        this.secundaryCharacter2MotivationCharacters = this.motivationCharacters;
-        console.log('card secundario character 2 selected: ', this.secundaryCharacter2Motivation);
+        this.secondaryCharacter2Motivation = this.motivation;
+        this.secondaryCharacter2MotivationCharacters = this.motivationCharacters;
         break;
     }
   }
 
-  async finish() {
+  async viewDetail() {
     const alert = await this.alertCtrl.create({
       cssClass: 'my-custom-alert',
       header: 'Detalles',
@@ -484,14 +660,14 @@ export class CharactersPage implements OnInit {
   downloadCanvas() {
     this.isPrint = false;
 
-    if (this.principalCharacter1 == -1 && this.principalCharacter2 == -1 && this.secundaryCharacter1 == -1 && this.secundaryCharacter2 == -1) {
+    if (this.principalCharacter1 == -1 && this.principalCharacter2 == -1 && this.secondaryCharacter1 == -1 && this.secondaryCharacter2 == -1) {
       this.generateHTML('', '', '', '');
     } else {
       this.createPDF(
-        this.principalCharacter1 != -1 ? this.cards[this.principalCharacter1].id : -1,
-        this.principalCharacter2 != -1 ? this.cards[this.principalCharacter2].id : -1,
-        this.secundaryCharacter1 != -1 ? this.cards[this.secundaryCharacter1].id : -1,
-        this.secundaryCharacter2 != -1 ? this.cards[this.secundaryCharacter2].id : -1);
+        this.principalCharacter1 != -1 ? this.cards[this.principalCharacter1].id * 2 : -1,
+        this.principalCharacter2 != -1 ? this.cards[this.principalCharacter2].id * 2 : -1,
+        this.secondaryCharacter1 != -1 ? this.cards[this.secondaryCharacter1].id * 2 : -1,
+        this.secondaryCharacter2 != -1 ? this.cards[this.secondaryCharacter2].id * 2: -1);
     }
   }
 
@@ -499,14 +675,14 @@ export class CharactersPage implements OnInit {
 
     this.isPrint = true;
 
-    if (this.principalCharacter1 == -1 && this.principalCharacter2 == -1 && this.secundaryCharacter1 == -1 && this.secundaryCharacter2 == -1) {
+    if (this.principalCharacter1 == -1 && this.principalCharacter2 == -1 && this.secondaryCharacter1 == -1 && this.secondaryCharacter2 == -1) {
       this.generateHTML('', '', '', '');
     } else {
       this.createPDF(
-        this.principalCharacter1 != -1 ? this.cards[this.principalCharacter1].id : -1,
-        this.principalCharacter2 != -1 ? this.cards[this.principalCharacter2].id : -1,
-        this.secundaryCharacter1 != -1 ? this.cards[this.secundaryCharacter1].id : -1,
-        this.secundaryCharacter2 != -1 ? this.cards[this.secundaryCharacter2].id : -1);
+        this.principalCharacter1 != -1 ? this.cards[this.principalCharacter1].id * 2 : -1,
+        this.principalCharacter2 != -1 ? this.cards[this.principalCharacter2].id * 2 : -1,
+        this.secondaryCharacter1 != -1 ? this.cards[this.secondaryCharacter1].id * 2 : -1,
+        this.secondaryCharacter2 != -1 ? this.cards[this.secondaryCharacter2].id * 2: -1);
     }
 
     this.presentToast('Formato abierto para imprimir');
@@ -515,16 +691,16 @@ export class CharactersPage implements OnInit {
   async createPDF(
     numberImagePrincipalCharacter1: number,
     numberImagePrincipalCharacter2: number,
-    numberImageSecundaryCharacter1: number,
-    numberImageSecundaryCharacter2: number): Promise<any> {
+    numberImageSecondaryCharacter1: number,
+    numberImageSecondaryCharacter2: number): Promise<any> {
 
     var baseURL = "";
     var typeImage = "";
 
     var base64DataPrincipalCharacter1 = '';
     var base64DataPrincipalCharacter2 = '';
-    var base64DataSecundaryCharacter1 = '';
-    var base64DataSecundaryCharacter2 = '';
+    var base64DataSecondaryCharacter1 = '';
+    var base64DataSecondaryCharacter2 = '';
 
     if (numberImagePrincipalCharacter1 > 9) {
       baseURL = '/assets/cards/archetypes/arquetipos_';
@@ -545,27 +721,27 @@ export class CharactersPage implements OnInit {
       base64DataPrincipalCharacter2 = await this.getImage(baseURL, numberImagePrincipalCharacter2, typeImage);
     }
 
-    if (numberImageSecundaryCharacter1 > 9) {
+    if (numberImageSecondaryCharacter1 > 9) {
       baseURL = '/assets/cards/archetypes/arquetipos_';
       typeImage = "_im.png";
-      base64DataSecundaryCharacter1 = await this.getImage(baseURL, numberImageSecundaryCharacter1, typeImage);
-    } else if (numberImageSecundaryCharacter1 != -1) {
+      base64DataSecondaryCharacter1 = await this.getImage(baseURL, numberImageSecondaryCharacter1, typeImage);
+    } else if (numberImageSecondaryCharacter1 != -1) {
       baseURL = '/assets/cards/archetypes/arquetipos_0';
       typeImage = "_im.png";
-      base64DataSecundaryCharacter1 = await this.getImage(baseURL, numberImageSecundaryCharacter1, typeImage);
+      base64DataSecondaryCharacter1 = await this.getImage(baseURL, numberImageSecondaryCharacter1, typeImage);
     }
 
-    if (numberImageSecundaryCharacter2 > 9) {
+    if (numberImageSecondaryCharacter2 > 9) {
       baseURL = '/assets/cards/archetypes/arquetipos_';
       typeImage = "_im.png";
-      base64DataSecundaryCharacter2 = await this.getImage(baseURL, numberImageSecundaryCharacter2, typeImage);
-    } else if (numberImageSecundaryCharacter2 != -1) {
+      base64DataSecondaryCharacter2 = await this.getImage(baseURL, numberImageSecondaryCharacter2, typeImage);
+    } else if (numberImageSecondaryCharacter2 != -1) {
       baseURL = '/assets/cards/archetypes/arquetipos_0';
       typeImage = "_im.png";
-      base64DataSecundaryCharacter2 = await this.getImage(baseURL, numberImageSecundaryCharacter2, typeImage);
+      base64DataSecondaryCharacter2 = await this.getImage(baseURL, numberImageSecondaryCharacter2, typeImage);
     }
 
-    this.generateHTML(base64DataPrincipalCharacter1, base64DataPrincipalCharacter2, base64DataSecundaryCharacter1, base64DataSecundaryCharacter2);
+    this.generateHTML(base64DataPrincipalCharacter1, base64DataPrincipalCharacter2, base64DataSecondaryCharacter1, base64DataSecondaryCharacter2);
 
   }
 
@@ -578,8 +754,8 @@ export class CharactersPage implements OnInit {
   generateHTML(
     base64DataPrincipalCharacter1: string,
     base64DataPrincipalCharacter2: string,
-    base64DataSecundaryCharacter1: string,
-    base64DataSecundaryCharacter2: string) {
+    base64DataSecondaryCharacter1: string,
+    base64DataSecondaryCharacter2: string) {
 
     var docDefinition = {
       pageSize: {
@@ -590,8 +766,8 @@ export class CharactersPage implements OnInit {
         this.getHTML(
           base64DataPrincipalCharacter1,
           base64DataPrincipalCharacter2,
-          base64DataSecundaryCharacter1,
-          base64DataSecundaryCharacter2
+          base64DataSecondaryCharacter1,
+          base64DataSecondaryCharacter2
         )
       ]
     };
@@ -611,13 +787,13 @@ export class CharactersPage implements OnInit {
   getHTML(
     base64DataPrincipalCharacter1: string,
     base64DataPrincipalCharacter2: string,
-    base64DataSecundaryCharacter1: string,
-    base64DataSecundaryCharacter2: string) {
+    base64DataSecondaryCharacter1: string,
+    base64DataSecondaryCharacter2: string) {
 
     var imagePrincipalCharacter1 = '';
     var imagePrincipalCharacter2 = '';
-    var imageSecundaryCharacter1 = '';
-    var imageSecundaryCharacter2 = '';
+    var imageSecondaryCharacter1 = '';
+    var imageSecondaryCharacter2 = '';
 
     if (base64DataPrincipalCharacter1 != '') {
       imagePrincipalCharacter1 =
@@ -641,25 +817,25 @@ export class CharactersPage implements OnInit {
        <br>`
     }
 
-    if (base64DataSecundaryCharacter1 != '') {
-      imageSecundaryCharacter1 =
+    if (base64DataSecondaryCharacter1 != '') {
+      imageSecondaryCharacter1 =
         `<br>
-        <img src="${base64DataSecundaryCharacter1}" alt="Emotion" width="250" height="400">
+        <img src="${base64DataSecondaryCharacter1}" alt="Emotion" width="250" height="400">
       <br>`
     } else {
-      imageSecundaryCharacter1 =
+      imageSecondaryCharacter1 =
         `<br>
        <br>`
     }
 
 
-    if (base64DataSecundaryCharacter2 != '') {
-      imageSecundaryCharacter2 =
+    if (base64DataSecondaryCharacter2 != '') {
+      imageSecondaryCharacter2 =
         `<br>
-        <img src="${base64DataSecundaryCharacter2}" alt="Emotion" width="250" height="400">
+        <img src="${base64DataSecondaryCharacter2}" alt="Emotion" width="250" height="400">
       <br>`
     } else {
-      imageSecundaryCharacter2 =
+      imageSecondaryCharacter2 =
         `<br>
        <br>`
     }
@@ -730,11 +906,11 @@ export class CharactersPage implements OnInit {
           <tr>`
       +
       `<td width="323" style="text-align:center" valign="top">
-                ${imageSecundaryCharacter1}
+                ${imageSecondaryCharacter1}
               </td>` +
 
       `<td width="323" style="text-align:center" valign="top">
-              ${imageSecundaryCharacter2}
+              ${imageSecondaryCharacter2}
             </td>` +
       `</tr>
           <tr>
@@ -743,7 +919,7 @@ export class CharactersPage implements OnInit {
                       Características escogidas:
                   </p>
                   <p style="text-align:center">
-                      ${this.secundaryCharacter1Characteristics}
+                      ${this.secondaryCharacter1Characteristics}
                   </p>
               </td>
               <td style="width:364px;" valign="top">
@@ -751,7 +927,7 @@ export class CharactersPage implements OnInit {
                     Características escogidas:
                   </p>
                   <p style="text-align:center">
-                      ${this.secundaryCharacter2Characteristics}
+                      ${this.secondaryCharacter2Characteristics}
                   </p>
               </td>
           </tr>
@@ -761,7 +937,7 @@ export class CharactersPage implements OnInit {
                       Motivaciones:
                   </p>
                   <p style="text-align:center">
-                      ${this.secundaryCharacter1Motivation}
+                      ${this.secondaryCharacter1Motivation}
                   </p>
               </td>
               <td style="width:364px;" valign="top">
@@ -769,7 +945,7 @@ export class CharactersPage implements OnInit {
                     Motivaciones:
                   </p>
                   <p style="text-align:center">
-                      ${this.secundaryCharacter2Motivation}
+                      ${this.secondaryCharacter2Motivation}
                   </p>
               </td>
           </tr>

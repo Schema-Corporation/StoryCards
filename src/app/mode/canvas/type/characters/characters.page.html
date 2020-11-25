@@ -5,7 +5,7 @@
       </ion-back-button>
     </ion-buttons>
     <ion-title class="principal-title">Formato de  Personajes</ion-title>
-    <ion-icon slot="end" class="icon-header" name="save-outline"></ion-icon>
+    <ion-icon slot="end" class="icon-header" (click)="chooseCanvasName()" name="save-outline"></ion-icon>
     <ion-icon slot="end" class="icon-header" (click)="downloadCanvas()" name="download-outline"></ion-icon>
     <ion-icon slot="end" class="icon-header" *ngIf="platform.is('desktop')" (click)="printCanvas()" name="print-outline"></ion-icon>
   </ion-toolbar>
@@ -18,10 +18,12 @@
   <ion-grid>
     <ion-row >
       <ion-col>
-        <ion-img class="img-arq" (click)="showCards(this.group1.id, this.group1.cardImgArray, this.group1.title)" src="{{this.group1.imgLocation}}"></ion-img>
+        <ion-img *ngIf="principalCharacter1 == -1" class="not-selected img-arq" (click)="showCards(this.group1.id, this.group1.cardImgArray, this.group1.title)" src="{{this.group1.imgLocation}}"></ion-img>
+        <ion-img *ngIf="principalCharacter1 != -1" class="img-arq" (click)="showCards(this.group1.id, this.group1.cardImgArray, this.group1.title)" src="{{this.group1.cardImgArray[this.principalCharacter1].imgCard}}"></ion-img>
       </ion-col>
       <ion-col>
-        <ion-img class="img-arq" (click)="showCards(this.group2.id, this.group2.cardImgArray, this.group2.title)" src="{{this.group2.imgLocation}}"></ion-img>
+        <ion-img *ngIf="principalCharacter2 == -1" class="not-selected img-arq" (click)="showCards(this.group2.id, this.group2.cardImgArray, this.group2.title)" src="{{this.group2.imgLocation}}"></ion-img>
+        <ion-img *ngIf="principalCharacter2 != -1" class="img-arq" (click)="showCards(this.group2.id, this.group2.cardImgArray, this.group2.title)" src="{{this.group2.cardImgArray[this.principalCharacter2].imgCard}}"></ion-img>
       </ion-col>
     </ion-row>
   </ion-grid>
@@ -31,10 +33,12 @@
    <ion-grid>
      <ion-row >
        <ion-col>
-         <ion-img class="img-arq" (click)="showCards(this.group3.id, this.group3.cardImgArray, this.group3.title)" src="{{this.group3.imgLocation}}"></ion-img>
+        <ion-img *ngIf="secondaryCharacter1 == -1" class="not-selected img-arq" (click)="showCards(this.group3.id, this.group3.cardImgArray, this.group3.title)" src="{{this.group3.imgLocation}}"></ion-img>
+        <ion-img *ngIf="secondaryCharacter1 != -1" class="img-arq" (click)="showCards(this.group3.id, this.group3.cardImgArray, this.group3.title)" src="{{this.group3.cardImgArray[this.secondaryCharacter1].imgCard}}"></ion-img>
        </ion-col>
        <ion-col>
-         <ion-img class="img-arq" (click)="showCards(this.group4.id, this.group4.cardImgArray, this.group4.title)" src="{{this.group4.imgLocation}}"></ion-img>
+        <ion-img *ngIf="secondaryCharacter2 == -1" class="not-selected img-arq" (click)="showCards(this.group4.id, this.group4.cardImgArray, this.group4.title)" src="{{this.group3.imgLocation}}"></ion-img>
+        <ion-img *ngIf="secondaryCharacter2 != -1" class="img-arq" (click)="showCards(this.group4.id, this.group4.cardImgArray, this.group4.title)" src="{{this.group4.cardImgArray[this.secondaryCharacter2].imgCard}}"></ion-img>
        </ion-col>
      </ion-row>
    </ion-grid>
@@ -83,7 +87,7 @@
 </ion-header>
 
 <ion-content *ngIf="showInfoCards">
-  <div id="infoCard">
+  <div id="infoCard" class="cards-info">
     <div class="item">
       <div class="item-header">
         <div class="ion-text-left">    
@@ -106,6 +110,7 @@
       </ion-item>
       <ion-label class="count-letters">{{this.motivationCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
     </div>
-    <ion-button class="next-button" (click)="finish()">Finalizar</ion-button>
+    <ion-button class="back-button" (click)="viewDetail()">Ver Detalle</ion-button>
+    <ion-button class="next-button" (click)="backGroup()">Completar</ion-button>
   </div>
 </ion-content>

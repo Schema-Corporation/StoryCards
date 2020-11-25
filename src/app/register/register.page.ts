@@ -166,8 +166,6 @@ export class RegisterPage implements OnInit {
 
     let country = event.value;
 
-    //console.log('port:', event.value);
-
     this.country = country.nombre;
     
     this.countryCode = "+" + country.phone_code;

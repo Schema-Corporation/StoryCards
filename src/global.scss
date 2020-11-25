@@ -52,7 +52,12 @@
     min-height: 500px !important;
   }
 
-  .alert-message.sc-ion-alert-md {
+.alert-message.sc-ion-alert-md {
+    max-height: 600px !important;
+    font-size: 16px;
+}
+
+.alert-message.sc-ion-alert-ios {
     max-height: 600px !important;
     font-size: 16px;
 }

@@ -1,11 +1,14 @@
 import { Component, OnInit } from '@angular/core';
 import { IGroup } from 'src/common/types/groups';
-import { NavController, ToastController, Platform } from '@ionic/angular';
+import { NavController, ToastController, Platform, AlertController } from '@ionic/angular';
 import { OcFileStorageService } from 'src/app/util/OcFileStorageService';
 
 import pdfMake from 'pdfmake/build/pdfmake';
 import pdfFonts from 'pdfmake/build/vfs_fonts';
 import htmlToPdfmake from 'html-to-pdfmake';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { CanvasService } from 'src/app/services/canvas/canvas.service';
+import { ActivatedRoute } from '@angular/router';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -29,6 +32,12 @@ export class StructuralAspectsPage implements OnInit {
   public theme: number = -1;
   private pdfObject = null;
   public isPrint: boolean = false;
+  public isEdit: boolean = false;
+  public canvasBody: any;
+  public canvasData: any;
+  public data: any = null;
+  public name: string = "";
+  public canvasId: string = "";
 
   group1: IGroup  = {
     id: 1,
@@ -153,13 +162,98 @@ export class StructuralAspectsPage implements OnInit {
 
   constructor(
     public navCtrl: NavController,
-    private ocFileStorageSvc: OcFileStorageService,
+    public ocFileStorageSvc: OcFileStorageService,
     public toastController: ToastController,
-    public platform: Platform) { }
+    public platform: Platform,
+    public dbService: NgxIndexedDBService,
+    public _canvasService: CanvasService,
+    public alertCtrl: AlertController,
+    public route: ActivatedRoute) { }
 
   ngOnInit() {
-      
+    this.route.queryParams.subscribe(params => {
+      if (params["data"] === undefined) {
+        this.isEdit = false;
+      } else {
+        this.data = JSON.parse(params["data"]);
+        this.fillCanvasData(this.data);
+        this.isEdit = true;
+      }
+    });
+  }
 
+  fillCanvasData(data) {
+    let canvasData = JSON.parse(data.data);
+
+    this.plot = canvasData.body.plot;
+    this.gender = canvasData.body.gender;
+    this.myths = canvasData.body.myths;
+    this.theme = canvasData.body.theme;
+
+    // canvas data
+    this.name = data.name;
+    this.canvasId = data.id;
+  }
+
+  getCanvasData() {
+    this.canvasData = {
+      metadata: {
+        numberSteps: 0
+      },
+      body: {
+        plot: this.plot,
+        gender: this.gender,
+        myths: this.myths,
+        theme: this.theme
+      }
+    }
+    return this.canvasData;
+  }
+
+  getCanvasBody(canvasName) {
+    this.canvasBody = {
+      name: canvasName,
+      type: 2,
+      data: JSON.stringify(this.getCanvasData())
+    };
+
+    return this.canvasBody;
+  }
+
+  sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+  }
+
+  async saveCanvas(canvasName) {
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        if (this.isEdit) {
+          this._canvasService.editCanvas(this.canvasId, this.getCanvasBody(canvasName), token.value.token).subscribe(
+            async result => {
+              this.presentToast('¡Su formato ha sido editado con éxito!');
+              await this.sleep(2500);
+              this.navCtrl.navigateForward('canvas/canvas');
+            },
+            error => {
+              console.log('error: ', error);
+            }
+          );
+        } else {
+          this._canvasService.createCanvas(this.getCanvasBody(canvasName), token.value.token).subscribe(
+            async result => {
+              this.presentToast('¡Su formato se ha guardado con éxito!');
+              await this.sleep(2500);
+              this.navCtrl.navigateForward('canvas/canvas');
+            },
+            error => {
+              console.log('error: ', error);
+            }
+          );
+        }
+      },
+      error => {
+          console.log('error: ', error);
+      });
   }
 
   showCards(id, cards, title) {
@@ -169,23 +263,60 @@ export class StructuralAspectsPage implements OnInit {
 
     this.rows = [];
     this.columns = [];
-
     this.id = id;
     this.title = title;
-
     this.cards = cards;
-
     for (var i = 0; i < numberOfRows; i++) {
       this.rows.push(i);
     }
-
     for (var i = 0; i < numberOfColumns; i++) {
       this.columns.push(i);
     }
-
     if (cards.length % 3 != 0) this.rows.push(numberOfRows);
-
     this.showDivCards = true;
+
+    switch(this.title) {
+      case 'Trama': this.cardSelected = this.plot; break;
+      case 'Género': this.cardSelected = this.gender; break;
+      case 'Mitos': this.cardSelected = this.myths; break;
+      case 'Tema': this.cardSelected = this.theme; break;
+      default: break;
+    }
+
+
+  }
+
+  async chooseCanvasName() {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: '¿Qué nombre llevará su formato?',
+      inputs: [
+        {
+          name: 'canvasName',
+          type: 'text',
+          placeholder: 'Nombre de formato',
+          value: this.name,
+          attributes: {
+            maxlength: 100
+          }
+        }
+      ],
+      buttons: [
+        {
+          text:'Cancelar',
+          handler: () => {
+          }
+        },
+        {
+          text:'Guardar',
+          handler:(data) => {
+            this.saveCanvas(data.canvasName);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
 
   }
   
@@ -196,19 +327,15 @@ export class StructuralAspectsPage implements OnInit {
     switch(this.title) {
       case 'Trama':
         this.plot = this.cardSelected;
-        console.log('card plot selected: ', this.plot);
       break;
       case 'Género':
         this.gender = this.cardSelected;
-        console.log('card gender selected: ', this.gender);
       break;
       case 'Mitos':
         this.myths = this.cardSelected;
-        console.log('card myths selected: ', this.myths);
       break;
       case 'Tema':
         this.theme = this.cardSelected;
-        console.log('card theme selected: ', this.theme);
       break;
     }
   }
