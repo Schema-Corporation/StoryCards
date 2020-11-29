@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="/">  
       </ion-back-button>
     </ion-buttons>
-    <ion-title class="principal-title">Formato de  Personajes</ion-title>
+    <ion-title text-center class="principal-title">Formato de  Personajes</ion-title>
     <ion-icon slot="end" class="icon-header" (click)="chooseCanvasName()" name="save-outline"></ion-icon>
     <ion-icon slot="end" class="icon-header" (click)="downloadCanvas()" name="download-outline"></ion-icon>
     <ion-icon slot="end" class="icon-header" *ngIf="platform.is('desktop')" (click)="printCanvas()" name="print-outline"></ion-icon>
@@ -51,7 +51,7 @@
           <ion-icon name="arrow-back"></ion-icon>
         </ion-button>
       </ion-buttons>
-      <ion-title class="principal-title">{{title}}</ion-title>
+      <ion-title text-center class="principal-title">{{title}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
@@ -95,9 +95,9 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="characteristics" maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeCharacteristics($event)" placeholder="¿Quiénes son?"></ion-textarea>
+        <ion-textarea [value]="characteristics" maxlength="{{this.maximumCharactersAllowed300}}" (ionChange)="writeCharacteristics($event)" placeholder="Coloca las características de la tarjeta del arquetipo elegido que más describen a este personaje"></ion-textarea>
       </ion-item>
-      <ion-label class="count-letters">{{this.characteristicsCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
+      <ion-label class="count-letters">{{this.characteristicsCharacters}} / {{this.maximumCharactersAllowed300}}</ion-label>
     </div>
     <div class="item">
       <div class="item-header">
@@ -106,9 +106,9 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="motivation" maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeMotivation($event)" placeholder="¿Qué hacen aquí? ¿Qué quieren? ¿Qué buscan?"></ion-textarea>
+        <ion-textarea [value]="motivation" maxlength="{{this.maximumCharactersAllowed300}}" (ionChange)="writeMotivation($event)" placeholder="¿Cuál es el objetivo del personaje? ¿Qué busca? ¿Por qué se comporta de esa manera?"></ion-textarea>
       </ion-item>
-      <ion-label class="count-letters">{{this.motivationCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
+      <ion-label class="count-letters">{{this.motivationCharacters}} / {{this.maximumCharactersAllowed300}}</ion-label>
     </div>
     <ion-button class="back-button" (click)="viewDetail()">Ver Detalle</ion-button>
     <ion-button class="next-button" (click)="backGroup()">Completar</ion-button>

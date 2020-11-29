@@ -30,10 +30,10 @@ export class AddCanvasPage implements OnInit {
   getFormatOptions() {
     let options = [];
     options = [
-      {text: 'Formato de Auditorio', value: 1},
-      {text: 'Formato de Aspectos Estructurales', value: 2},
-      {text: 'Formato de Personajes', value: 3},
-      {text: 'Canvas de Storytelling', value: 4},
+      {text: 'Formato de auditorio', value: 1},
+      {text: 'Formato de aspectos estructurales y de contenido', value: 2},
+      {text: 'Formato de personajes', value: 3},
+      {text: 'Canvas de storytelling', value: 4},
     ] 
     return options;
     

@@ -31,6 +31,7 @@ export class AudiencePage implements OnInit {
   public showDivCards: boolean = false;
 
   public maximumCharactersAllowed: number = 200;
+  public maximumCharactersAllowed500: number = 500;
 
   public characteristics: string = "";
   public characteristicsCharacters: number = 0;
@@ -173,6 +174,14 @@ export class AudiencePage implements OnInit {
     this.showCanvasOption()
   }
 
+  closeSession() {
+    this.dbService.clear('variables').subscribe((successDeleted) => {
+      if (successDeleted) {
+        this.navCtrl.navigateForward('login')
+      }
+    });
+  }
+
   async showCanvasOption() {
 
     // iOS and Android alert and options || Web browser options
@@ -243,12 +252,19 @@ export class AudiencePage implements OnInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  downloadCanvas() {
+  getImage(baseURL, numberImage, typeImage): Promise<string> {
+    // Get data from subscriber and pass to image src
+    return this.ocFileStorageSvc
+      .getImageFromURL(baseURL + numberImage + typeImage).toPromise();
+  }
+
+  async downloadCanvas() {
     this.isPrint = false;
+    var base64ImageLogo = await this.getImage('/assets/icon/logo.png', '', '');
     if (this.emotion !=-1) {
-      this.createPDF(this.cards[this.emotion].id);
+      this.createPDF(this.cards[this.emotion].id, base64ImageLogo);
     } else {
-      this.generateHTML('');
+      this.generateHTML('', base64ImageLogo);
     }
   }
 
@@ -301,6 +317,7 @@ export class AudiencePage implements OnInit {
               this.navCtrl.navigateForward('canvas/canvas');
             },
             error => {
+              this.closeSession()
               console.log('error: ', error);
             }
           );
@@ -312,12 +329,14 @@ export class AudiencePage implements OnInit {
               this.navCtrl.navigateForward('canvas/canvas');
             },
             error => {
+              this.closeSession()
               console.log('error: ', error);
             }
           );
         }
       },
       error => {
+        this.closeSession()
           console.log('error: ', error);
       });
   }
@@ -356,48 +375,48 @@ export class AudiencePage implements OnInit {
 
   }
 
-  printCanvas() {
+  async printCanvas() {
 
     this.isPrint = true;
-
+    var base64ImageLogo = await this.getImage('/assets/icon/logo.png', '', '');
     if (this.emotion !=-1) {
-      this.createPDF(this.cards[this.emotion].id);
+      this.createPDF(this.cards[this.emotion].id, base64ImageLogo);
     } else {
-      this.generateHTML('');
+      this.generateHTML('', base64ImageLogo);
     }
 
     this.presentToast('Formato abierto para imprimir');
   }
 
-  createPDF(numberImage: number): any {
+  async createPDF(numberImage: number, base64ImageLogo): Promise<any> {
 
     var baseURL = "";
     var typeImage = "";
 
+    var base64DataEmotion = '';
+
     if (numberImage > 9 && !this.isRotated) {
       baseURL = '/assets/cards/emotions/emociones_';
       typeImage = "_im.png";
+      base64DataEmotion = await this.getImage(baseURL, numberImage, typeImage);
     } else if (!this.isRotated) {
       baseURL = '/assets/cards/emotions/emociones_0';
       typeImage = "_im.png";
+      base64DataEmotion = await this.getImage(baseURL, numberImage, typeImage);
     } else if (numberImage > 9 && this.isRotated) {
       baseURL = '/assets/cards/emotions/emociones_';
       typeImage = "_ud.png";
+      base64DataEmotion = await this.getImage(baseURL, numberImage, typeImage);
     } else {
       baseURL = '/assets/cards/emotions/emociones_0';
       typeImage = "_ud.png";
+      base64DataEmotion = await this.getImage(baseURL, numberImage, typeImage);
     }
 
-    // Get data from subscriber and pass to image src
-    this.ocFileStorageSvc
-      .getStoredFile('emociones_0' + numberImage + typeImage, 
-        baseURL + numberImage + typeImage)
-      .subscribe(async (base64Data: string) => {
-        this.generateHTML(base64Data);
-      });
+    this.generateHTML(base64DataEmotion, base64ImageLogo);
   }
 
-  generateHTML(base64Data: string) {
+  generateHTML(base64Data: string, base64ImageLogo: string) {
 
     var docDefinition = {
       pageSize: {
@@ -405,7 +424,7 @@ export class AudiencePage implements OnInit {
         height: 'auto'
       },
       content: [
-        this.getHTML(base64Data)
+        this.getHTML(base64Data, base64ImageLogo)
       ]
     };
 
@@ -422,7 +441,7 @@ export class AudiencePage implements OnInit {
 
   }
 
-  getHTML(base64Image: string) {
+  getHTML(base64Image: string, base64ImageLogo: string) {
 
     var image = '';
 
@@ -442,6 +461,7 @@ export class AudiencePage implements OnInit {
     }
 
     var html = htmlToPdfmake(`
+    <img src="${base64ImageLogo}" width="250" height="75" style="opacity: 0.4; margin-left: 500px; margin-bottom: 10px;">
     <table border="1" cellspacing="0" cellpadding="0" width="660">
       <tbody>
           <tr>
