@@ -42,11 +42,11 @@
     padding: 10px 0px;
 }
 .principal-title {
-    margin-left: 33%;
+    text-align: center;
     font-size: 18px;
 }
 .principal-title.ios {
-    margin-left: 0%;
+    text-align: center;
 }
 .icon-header {
     width: 15px;
@@ -297,7 +297,7 @@ ion-item {
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(to right,#0c002b,#80724B);
+    background: linear-gradient(to right,#FF0000,#FFFFFF);
     animation: animate1 2s linear infinite;
 }
 
@@ -308,7 +308,7 @@ ion-item {
     right: 0;
     width: 4px;
     height: 100%;
-    background: linear-gradient(to bottom,#0c002b,#80724B);
+    background: linear-gradient(to bottom,#FF0000,#FFFFFF);
     animation: animate2 2s linear infinite;
     animation-delay: 1s;
 }
@@ -320,7 +320,7 @@ ion-item {
     left: 0;
     width: 100%;
     height: 4px;
-    background: linear-gradient(to left,#0c002b,#80724B);
+    background: linear-gradient(to left,#FF0000,#FFFFFF);
     animation: animate3 2s linear infinite;
 }
 
@@ -331,7 +331,7 @@ ion-item {
     left: 0;
     width: 4px;
     height: 100%;
-    background: linear-gradient(to top,#0c002b,#80724B);
+    background: linear-gradient(to top,#FF0000,#FFFFFF);
     animation: animate4 2s linear infinite;
     animation-delay: 1s;
 }
@@ -471,7 +471,7 @@ ion-item {
 @media (min-width: 600px){
 
     .principal-title{
-        margin-left: 40%;
+        text-align: center;
         font-size: 24px;
     }
     .icon-header {
@@ -492,8 +492,7 @@ ion-item {
 @media (min-width: 750px) {
 
     .principal-title {
-        margin-left: 44%;
- 
+        text-align: center;
     }
     .icon-header {
         width: 30px;
@@ -575,7 +574,7 @@ ion-item {
         left: 0;
         width: 100%;
         height: 6px;
-        background: linear-gradient(to right,#80724B,#FFE596);
+        background: linear-gradient(to right,#FF0000,#FFFFFF);
         animation: animate1 2s linear infinite;
         }
         
@@ -586,7 +585,7 @@ ion-item {
         right: 0;
         width: 6px;
         height: 100%;
-        background: linear-gradient(to bottom,#80724B,#FFE596);
+        background: linear-gradient(to bottom,#FF0000,#FFFFFF);
         animation: animate2 2s linear infinite;
         animation-delay: 1s;
         }
@@ -598,7 +597,7 @@ ion-item {
         left: 0;
         width: 100%;
         height: 6px;
-        background: linear-gradient(to left,#80724B,#FFE596);
+        background: linear-gradient(to left,#FF0000,#FFFFFF);
         animation: animate3 2s linear infinite;
         }
         
@@ -609,7 +608,7 @@ ion-item {
             left: 0;
             width: 6px;
             height: 100%;
-            background: linear-gradient(to top,#80724B,#FFE596);
+            background: linear-gradient(to top,#FF0000,#FFFFFF);
             animation: animate4 2s linear infinite;
             animation-delay: 1s;
         }
@@ -735,7 +734,7 @@ ion-item {
 
 @media (min-width: 1000px){
     .principal-title{
-        margin-left: 44%;
+        text-align: center;
         font-size: 28px;
       }
     .icon-header {
@@ -792,9 +791,9 @@ ion-item {
 
 @media (min-width: 1260px){
     .principal-title{
-        margin-left: 44%;
+        text-align: center;
         font-size: 30px;
-        }
+    }
     .icon-header {
         width: 31px;
         height: 24px;

@@ -27,7 +27,9 @@ export class StorytellingPage implements OnInit {
   public step: number = 1;
 
   public maximumCharactersAllowed: number = 200;
-  public maximumCharactersStoryAllowed: number = 1400;
+  public maximumCharactersAllowed500: number = 500;
+  public maximumCharactersAllowed1000: number = 1000;
+  public maximumCharactersAllowed3000: number = 3000;
 
   public stage: string = "";
   public stageCharacters: number = 0;
@@ -249,9 +251,10 @@ export class StorytellingPage implements OnInit {
     return new Promise(resolve => setTimeout(resolve, ms));
   }
 
-  downloadCanvas() {
+  async downloadCanvas() {
     this.isPrint = false;
-    this.createPDF();
+    var base64ImageLogo = await this.getImage('/assets/icon/logo.png', '', '');
+    this.createPDF(base64ImageLogo);
   }
 
   getCanvasData() {
@@ -357,16 +360,23 @@ export class StorytellingPage implements OnInit {
 
   }
 
-  printCanvas() {
+  getImage(baseURL, numberImage, typeImage): Promise<string> {
+    // Get data from subscriber and pass to image src
+    return this.ocFileStorageSvc
+      .getImageFromURL(baseURL + numberImage + typeImage).toPromise();
+  }
+
+  async printCanvas() {
 
     this.isPrint = true;
 
-    this.createPDF();
+    var base64ImageLogo = await this.getImage('/assets/icon/logo.png', '', '');
+    this.createPDF(base64ImageLogo);
 
     this.presentToast('Formato abierto para imprimir');
   }
 
-  createPDF() {
+  createPDF(base64ImageLogo: string) {
 
     var docDefinition = {
       pageSize: {
@@ -374,7 +384,7 @@ export class StorytellingPage implements OnInit {
         height: 'auto'
       },
       content: [
-        this.generateHTML()
+        this.generateHTML(base64ImageLogo)
       ]
     };
 
@@ -391,10 +401,11 @@ export class StorytellingPage implements OnInit {
 
   }
 
-  generateHTML() {
+  generateHTML(base64ImageLogo: string) {
 
     var html = htmlToPdfmake(`
-   <table border="1" cellspacing="0" cellpadding="0">
+    <img src="${base64ImageLogo}" width="250" height="75" style="opacity: 0.4; margin-left: 500px; margin-bottom: 10px;">
+    <table border="1" cellspacing="0" cellpadding="0">
     <tbody>
         <tr>
             <td style="width:100px" valign="top">
@@ -540,7 +551,7 @@ export class StorytellingPage implements OnInit {
         <tr>
             <td width="326" valign="top">
                 <p>
-                    DESSENLACE:
+                    DESENLACE:
                 </p>
                 <p>
                     ${this.outcome}

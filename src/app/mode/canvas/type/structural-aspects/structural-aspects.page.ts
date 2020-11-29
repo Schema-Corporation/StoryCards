@@ -353,32 +353,32 @@ export class StructuralAspectsPage implements OnInit {
     toast.present();
   }
 
-  downloadCanvas() {
+  async downloadCanvas() {
     this.isPrint = false;
 
     if (this.plot ==-1 && this.gender ==-1 && this.myths == -1 && this.theme == -1) {
-      this.generateHTML('', '', '', '');
+      var base64ImageLogo = await this.getImage('/assets/icon/logo.png', '', '');
+      this.generateHTML('', '', '', '', base64ImageLogo);
     } else {
       this.createPDF(
-        this.plot != -1 ? this.cards[this.plot].id: -1,
-        this.gender != -1 ? this.cards[this.gender].id: -1,
-        this.myths != -1 ? this.cards[this.myths].id: -1,
-        this.theme != -1 ? this.cards[this.theme].id: -1);
+        this.plot != -1 ? this.plot: -1,
+        this.gender != -1 ? this.gender: -1,
+        this.myths != -1 ? this.myths: -1,
+        this.theme != -1 ? this.theme: -1);
     }
   }
 
-  printCanvas() {
-
+  async printCanvas() {
     this.isPrint = true;
-
     if (this.plot ==-1 && this.gender ==-1 && this.myths == -1 && this.theme == -1) {
-      this.generateHTML('', '', '', '');
+      var base64ImageLogo = await this.getImage('/assets/icon/logo.png', '', '');
+      this.generateHTML('', '', '', '', base64ImageLogo);
     } else {
       this.createPDF(
-        this.plot != -1 ? this.cards[this.plot].id: -1,
-        this.gender != -1 ? this.cards[this.gender].id: -1,
-        this.myths != -1 ? this.cards[this.myths].id: -1,
-        this.theme != -1 ? this.cards[this.theme].id: -1);
+        this.plot != -1 ? this.plot: -1,
+        this.gender != -1 ? this.gender: -1,
+        this.myths != -1 ? this.myths: -1,
+        this.theme != -1 ? this.theme: -1);
     }
 
     this.presentToast('Formato abierto para imprimir');
@@ -437,7 +437,9 @@ export class StructuralAspectsPage implements OnInit {
       base64DataTheme = await this.getImage(baseURL, numberImageTheme, typeImage);
     }
 
-    this.generateHTML(base64DataPlot, base64DataGender, base64DataMyths, base64DataTheme);
+    var base64ImageLogo = await this.getImage('/assets/icon/logo.png', '', '');
+
+    this.generateHTML(base64DataPlot, base64DataGender, base64DataMyths, base64DataTheme, base64ImageLogo);
 
   }
 
@@ -451,7 +453,8 @@ export class StructuralAspectsPage implements OnInit {
     base64ImagePlot: string,
     base64ImageGender: string,
     base64ImageMyths: string,
-    base64ImageTheme: string) {
+    base64ImageTheme: string,
+    base64ImageLogo: string) {
 
     var docDefinition = {
       pageSize: {
@@ -463,7 +466,8 @@ export class StructuralAspectsPage implements OnInit {
           base64ImagePlot,
           base64ImageGender,
           base64ImageMyths,
-          base64ImageTheme
+          base64ImageTheme,
+          base64ImageLogo
         )
       ]
     };
@@ -484,7 +488,8 @@ export class StructuralAspectsPage implements OnInit {
     base64ImagePlot: string,
     base64ImageGender: string,
     base64ImageMyths: string,
-    base64ImageTheme: string) {
+    base64ImageTheme: string,
+    base64ImageLogo: string) {
 
     var imagePlot = '';
     var imageGender = '';
@@ -537,19 +542,20 @@ export class StructuralAspectsPage implements OnInit {
     }
 
     var html = htmlToPdfmake(`
+    <img src="${base64ImageLogo}" width="250" height="75" style="opacity: 0.4; margin-left: 500px; margin-bottom: 10px;">
     <table border="1" cellspacing="0" cellpadding="0" width="645">
       <tbody>
           <tr>
               <td style="width:655px;" colspan="2" valign="top">
                   <p style="text-align:center">
-                      Aspectos estruturales
+                      Aspectos estructurales
                   </p>
               </td>
           </tr>
           <tr>
               <td style="width:364px;" valign="top">
                   <p style="text-align:center">
-                      Trama (Orden de la historia)
+                      Trama (orden de la historia)
                   </p>
               </td>
               <td style="width:364px;" valign="top">

@@ -33,6 +33,7 @@ export class CharactersPage implements OnInit {
   public secondaryCharacter1: number = -1;
   public secondaryCharacter2: number = -1;
   public maximumCharactersAllowed: number = 80;
+  public maximumCharactersAllowed300: number = 300;
   public characteristics: string = "";
   public characteristicsCharacters: number = 0;
   public principalCharacter1Characteristics: string = "";
@@ -343,6 +344,7 @@ export class CharactersPage implements OnInit {
     public route: ActivatedRoute) { }
 
   ngOnInit() { 
+    this.cards = this.group1.cardImgArray;
     this.route.queryParams.subscribe(params => {
       if (params["data"] === undefined) {
         this.isEdit = false;
@@ -657,32 +659,34 @@ export class CharactersPage implements OnInit {
     toast.present();
   }
 
-  downloadCanvas() {
+  async downloadCanvas() {
     this.isPrint = false;
-
+    var base64ImageLogo = await this.getImage('/assets/icon/logo.png', '', '');
     if (this.principalCharacter1 == -1 && this.principalCharacter2 == -1 && this.secondaryCharacter1 == -1 && this.secondaryCharacter2 == -1) {
-      this.generateHTML('', '', '', '');
+      this.generateHTML('', '', '', '', base64ImageLogo);
     } else {
       this.createPDF(
         this.principalCharacter1 != -1 ? this.cards[this.principalCharacter1].id * 2 : -1,
         this.principalCharacter2 != -1 ? this.cards[this.principalCharacter2].id * 2 : -1,
         this.secondaryCharacter1 != -1 ? this.cards[this.secondaryCharacter1].id * 2 : -1,
-        this.secondaryCharacter2 != -1 ? this.cards[this.secondaryCharacter2].id * 2: -1);
+        this.secondaryCharacter2 != -1 ? this.cards[this.secondaryCharacter2].id * 2: -1,
+        base64ImageLogo);
     }
   }
 
-  printCanvas() {
+  async printCanvas() {
 
     this.isPrint = true;
-
+    var base64ImageLogo = await this.getImage('/assets/icon/logo.png', '', '');
     if (this.principalCharacter1 == -1 && this.principalCharacter2 == -1 && this.secondaryCharacter1 == -1 && this.secondaryCharacter2 == -1) {
-      this.generateHTML('', '', '', '');
+      this.generateHTML('', '', '', '', base64ImageLogo);
     } else {
       this.createPDF(
         this.principalCharacter1 != -1 ? this.cards[this.principalCharacter1].id * 2 : -1,
         this.principalCharacter2 != -1 ? this.cards[this.principalCharacter2].id * 2 : -1,
         this.secondaryCharacter1 != -1 ? this.cards[this.secondaryCharacter1].id * 2 : -1,
-        this.secondaryCharacter2 != -1 ? this.cards[this.secondaryCharacter2].id * 2: -1);
+        this.secondaryCharacter2 != -1 ? this.cards[this.secondaryCharacter2].id * 2: -1,
+        base64ImageLogo);
     }
 
     this.presentToast('Formato abierto para imprimir');
@@ -692,7 +696,8 @@ export class CharactersPage implements OnInit {
     numberImagePrincipalCharacter1: number,
     numberImagePrincipalCharacter2: number,
     numberImageSecondaryCharacter1: number,
-    numberImageSecondaryCharacter2: number): Promise<any> {
+    numberImageSecondaryCharacter2: number,
+    base64ImageLogo: string): Promise<any> {
 
     var baseURL = "";
     var typeImage = "";
@@ -741,7 +746,7 @@ export class CharactersPage implements OnInit {
       base64DataSecondaryCharacter2 = await this.getImage(baseURL, numberImageSecondaryCharacter2, typeImage);
     }
 
-    this.generateHTML(base64DataPrincipalCharacter1, base64DataPrincipalCharacter2, base64DataSecondaryCharacter1, base64DataSecondaryCharacter2);
+    this.generateHTML(base64DataPrincipalCharacter1, base64DataPrincipalCharacter2, base64DataSecondaryCharacter1, base64DataSecondaryCharacter2, base64ImageLogo);
 
   }
 
@@ -755,7 +760,8 @@ export class CharactersPage implements OnInit {
     base64DataPrincipalCharacter1: string,
     base64DataPrincipalCharacter2: string,
     base64DataSecondaryCharacter1: string,
-    base64DataSecondaryCharacter2: string) {
+    base64DataSecondaryCharacter2: string,
+    base64ImageLogo: string) {
 
     var docDefinition = {
       pageSize: {
@@ -767,7 +773,8 @@ export class CharactersPage implements OnInit {
           base64DataPrincipalCharacter1,
           base64DataPrincipalCharacter2,
           base64DataSecondaryCharacter1,
-          base64DataSecondaryCharacter2
+          base64DataSecondaryCharacter2,
+          base64ImageLogo
         )
       ]
     };
@@ -788,7 +795,8 @@ export class CharactersPage implements OnInit {
     base64DataPrincipalCharacter1: string,
     base64DataPrincipalCharacter2: string,
     base64DataSecondaryCharacter1: string,
-    base64DataSecondaryCharacter2: string) {
+    base64DataSecondaryCharacter2: string,
+    base64ImageLogo) {
 
     var imagePrincipalCharacter1 = '';
     var imagePrincipalCharacter2 = '';
@@ -841,12 +849,13 @@ export class CharactersPage implements OnInit {
     }
 
     var html = htmlToPdfmake(`
+    <img src="${base64ImageLogo}" width="250" height="75" style="opacity: 0.4; margin-left: 500px; margin-bottom: 10px;">
     <table border="1" cellspacing="0" cellpadding="0" width="645">
       <tbody>
           <tr>
               <td style="width:655px;" colspan="2" valign="top">
                   <p style="text-align:center">
-                      Principales
+                    Personajes principales
                   </p>
               </td>
           </tr>
@@ -899,7 +908,7 @@ export class CharactersPage implements OnInit {
           <tr>
               <td width="645" colspan="2" valign="top">
                   <p style="text-align:center">
-                      Secundarios
+                    Personajes secundarios
                   </p>
               </td>
           </tr>
