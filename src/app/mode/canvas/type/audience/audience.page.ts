@@ -174,6 +174,14 @@ export class AudiencePage implements OnInit {
     this.showCanvasOption()
   }
 
+  closeSession() {
+    this.dbService.clear('variables').subscribe((successDeleted) => {
+      if (successDeleted) {
+        this.navCtrl.navigateForward('login')
+      }
+    });
+  }
+
   async showCanvasOption() {
 
     // iOS and Android alert and options || Web browser options
@@ -309,6 +317,7 @@ export class AudiencePage implements OnInit {
               this.navCtrl.navigateForward('canvas/canvas');
             },
             error => {
+              this.closeSession()
               console.log('error: ', error);
             }
           );
@@ -320,12 +329,14 @@ export class AudiencePage implements OnInit {
               this.navCtrl.navigateForward('canvas/canvas');
             },
             error => {
+              this.closeSession()
               console.log('error: ', error);
             }
           );
         }
       },
       error => {
+        this.closeSession()
           console.log('error: ', error);
       });
   }

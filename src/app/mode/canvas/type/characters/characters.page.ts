@@ -358,7 +358,6 @@ export class CharactersPage implements OnInit {
 
   fillCanvasData(data) {
     let canvasData = JSON.parse(data.data);
-    console.log('canvasData: ', canvasData)
     let canvasBody = canvasData.body;
 
     // character 1
@@ -515,6 +514,7 @@ export class CharactersPage implements OnInit {
               this.navCtrl.navigateForward('canvas/canvas');
             },
             error => {
+              this.closeSession();
               console.log('error: ', error);
             }
           );
@@ -526,13 +526,15 @@ export class CharactersPage implements OnInit {
               this.navCtrl.navigateForward('canvas/canvas');
             },
             error => {
+              this.closeSession();
               console.log('error: ', error);
             }
           );
         }
       },
       error => {
-          console.log('error: ', error);
+        this.closeSession();
+        console.log('error: ', error);
       });
   }
 
@@ -690,6 +692,14 @@ export class CharactersPage implements OnInit {
     }
 
     this.presentToast('Formato abierto para imprimir');
+  }
+
+  closeSession() {
+    this.dbService.clear('variables').subscribe((successDeleted) => {
+      if (successDeleted) {
+        this.navCtrl.navigateForward('login')
+      }
+    });
   }
 
   async createPDF(

@@ -97,7 +97,6 @@ export class StorytellingPage implements OnInit {
 
   fillCanvasData(data) {
 
-    console.log('data: ', data);
     let canvasData = JSON.parse(data.data);
 
     // step 1
@@ -305,6 +304,7 @@ export class StorytellingPage implements OnInit {
               this.navCtrl.navigateForward('canvas/canvas');
             },
             error => {
+              this.closeSession();
               console.log('error: ', error);
             }
           );
@@ -316,13 +316,15 @@ export class StorytellingPage implements OnInit {
               this.navCtrl.navigateForward('canvas/canvas');
             },
             error => {
+              this.closeSession();
               console.log('error: ', error);
             }
           );
         }
       },
       error => {
-          console.log('error: ', error);
+        this.closeSession();
+        console.log('error: ', error);
       });
   }
 
@@ -399,6 +401,14 @@ export class StorytellingPage implements OnInit {
 
     this.presentToast('Formato descargado');
 
+  }
+
+  closeSession() {
+    this.dbService.clear('variables').subscribe((successDeleted) => {
+      if (successDeleted) {
+        this.navCtrl.navigateForward('login')
+      }
+    });
   }
 
   generateHTML(base64ImageLogo: string) {

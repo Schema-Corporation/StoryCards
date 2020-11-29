@@ -235,6 +235,7 @@ export class StructuralAspectsPage implements OnInit {
               this.navCtrl.navigateForward('canvas/canvas');
             },
             error => {
+              this.closeSession();
               console.log('error: ', error);
             }
           );
@@ -246,13 +247,15 @@ export class StructuralAspectsPage implements OnInit {
               this.navCtrl.navigateForward('canvas/canvas');
             },
             error => {
+              this.closeSession();
               console.log('error: ', error);
             }
           );
         }
       },
       error => {
-          console.log('error: ', error);
+        this.closeSession();
+        console.log('error: ', error);
       });
   }
 
@@ -382,6 +385,14 @@ export class StructuralAspectsPage implements OnInit {
     }
 
     this.presentToast('Formato abierto para imprimir');
+  }
+
+  closeSession() {
+    this.dbService.clear('variables').subscribe((successDeleted) => {
+      if (successDeleted) {
+        this.navCtrl.navigateForward('login')
+      }
+    });
   }
 
   async createPDF(

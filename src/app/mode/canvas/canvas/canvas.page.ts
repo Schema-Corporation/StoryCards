@@ -48,7 +48,8 @@ export class CanvasPage implements OnInit {
         );
       },
       error => {
-          console.log('error: ', error);
+        this.closeSession();
+        console.log('error: ', error);
       });
   }
 
@@ -89,7 +90,8 @@ export class CanvasPage implements OnInit {
         );
       },
       error => {
-          console.log('error: ', error);
+        this.closeSession();
+        console.log('error: ', error);
       });
   }
 
@@ -105,6 +107,14 @@ export class CanvasPage implements OnInit {
     toast.present();
   }
 
+  closeSession() {
+    this.dbService.clear('variables').subscribe((successDeleted) => {
+      if (successDeleted) {
+        this.navCtrl.navigateForward('login')
+      }
+    });
+  }
+
   removeFormat(formatId) {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
@@ -116,7 +126,8 @@ export class CanvasPage implements OnInit {
         );
       },
       error => {
-          console.log('error: ', error);
+        this.closeSession();
+        console.log('error: ', error);
       });
   }
 

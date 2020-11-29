@@ -120,7 +120,6 @@ export class MainPage implements OnInit {
         this.navCtrl.navigateForward('login')
       }
     });
-
   }
 
 }
