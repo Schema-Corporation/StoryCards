@@ -4,7 +4,7 @@
       <ion-back-button defaultHref="/">  
       </ion-back-button>
     </ion-buttons>
-    <ion-title text-center class="principal-title">Canvas de Storytelling</ion-title>
+    <ion-title text-center class="principal-title">Canvas de storytelling</ion-title>
     <ion-icon slot="end" class="icon-header" (click)="chooseCanvasName()" name="save-outline"></ion-icon>
     <ion-icon slot="end" class="icon-header" (click)="downloadCanvas()" name="download-outline"></ion-icon>
     <ion-icon slot="end" class="icon-header" *ngIf="platform.is('desktop')" (click)="printCanvas()" name="print-outline"></ion-icon>
@@ -93,7 +93,7 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="critical" maxlength="{{this.maximumCharactersAllowed1000}}" (ionChange)="writeCritical($event)" placeholder="Detalla qué recursos o habilidades necesita el personaje para superar el conflicto."></ion-textarea>
+        <ion-textarea [value]="critical" maxlength="{{this.maximumCharactersAllowed1000}}" (ionChange)="writeCritical($event)" placeholder="Detalla con precisión cómo se generó el problema, como se presentó y cómo se sintió el personaje."></ion-textarea>
       </ion-item>
       <ion-label class="count-letters">{{this.criticalCharacters}} / {{this.maximumCharactersAllowed1000}}</ion-label>
     </div>
@@ -104,7 +104,7 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="support" maxlength="{{this.maximumCharactersAllowed1000}}" (ionChange)="writeSupport($event)" placeholder="Detalla con precisión cómo se generó el problema, como se presentó y cómo se sintió el personaje."></ion-textarea>
+        <ion-textarea [value]="support" maxlength="{{this.maximumCharactersAllowed1000}}" (ionChange)="writeSupport($event)" placeholder="Detalla qué recursos o habilidades necesita el personaje para superar el conflicto."></ion-textarea>
       </ion-item>
       <ion-label class="count-letters">{{this.supportCharacters}} / {{this.maximumCharactersAllowed1000}}</ion-label>
     </div>
@@ -145,7 +145,7 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="complete" maxlength="{{this.maximumCharactersAllowed3000}}" (ionChange)="writeComplete($event)" placeholder=""></ion-textarea>
+        <ion-textarea [value]="complete" maxlength="{{this.maximumCharactersAllowed3000}}" (ionChange)="writeComplete($event)" placeholder="Integra las siete partes previamente descritas en una historia coherente."></ion-textarea>
       </ion-item>
       <ion-label class="count-letters">{{this.completeCharacters}} / {{this.maximumCharactersAllowed3000}}</ion-label>
     </div>
