@@ -1,12 +1,12 @@
 @font-face{
-  font-family: 'SolanoGothicMVBStdBd';
-  src: url('../../../src/assets/fonts/SolanoGothicMVBStdBd.otf');
+  font-family: 'ZizouSlabLight';
+  src: url('../../../src/assets/fonts/ZizouSlabLight.otf');
 }
 *{
   margin: auto;
   padding: 0;
   outline: none;
-  font-family: SolanoGothicMVBStdBd;
+  font-family: ZizouSlabLight;
 }
 * {
 	margin: 0px; 
@@ -110,7 +110,7 @@ iframe {
 
 }
 .logo-title{
-  width: 60%;
+  width: 40%;
   margin-left: auto;
   margin-right: auto;
   display: block;
@@ -328,7 +328,7 @@ iframe {
     opacity: 1;
   }
   .logo-title{
-    width: 80%;
+    width: 40%;
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -348,7 +348,7 @@ iframe {
     width: 100%;
   }
   .logo-title{
-    width: 100%;
+    width: 40%;
     margin-left: auto;
     margin-right: auto;
     display: block;
@@ -360,7 +360,7 @@ iframe {
     padding: 100px 15px 33px 15px;
   }
   .logo-title{
-    width: 100%;
+    width: 40%;
     margin-left: auto;
     margin-right: auto;
     display: block;

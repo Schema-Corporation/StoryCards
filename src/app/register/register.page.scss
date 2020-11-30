@@ -1,12 +1,12 @@
 @font-face{
-  font-family: 'SolanoGothicMVBStdBd';
-  src: url('../../../src/assets/fonts/SolanoGothicMVBStdBd.otf');
+  font-family: 'ZizouSlabLight';
+  src: url('../../../src/assets/fonts/ZizouSlabLight.otf');
 }
 *{
 
   padding: 0;
   outline: none;
-  font-family: SolanoGothicMVBStdBd;
+  font-family: ZizouSlabLight;
   // margin-left: auto;
   // margin-right: auto;
 }
@@ -188,7 +188,7 @@ ion-checkbox{
 .ion-text-center{
   margin: auto;
   font-size: 27px;
-  font-family: SolanoGothicMVBStdBd;
+  font-family: ZizouSlabLight;
 }
 .login100-pic {
   display: none;
