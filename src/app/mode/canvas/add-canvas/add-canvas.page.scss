@@ -1,18 +1,18 @@
 @font-face{
-    font-family: 'SolanoGothicMVBStdBd';
-    src: url('../../../../assets/fonts/SolanoGothicMVBStdBd.otf');
+    font-family: 'ZizouSlabLight';
+    src: url('../../../../assets/fonts/ZizouSlabLight.otf');
   }
   *{
     margin: 0;
     padding: 0;
     outline: none;
-    font-family: SolanoGothicMVBStdBd;
+    font-family: ZizouSlabLight;
   }
 
 .principal-title {
     margin-left: 27%;
     font-size: 18px;
-    font-family: SolanoGothicMVBStdBd;
+    font-family: ZizouSlabLight;
 }
 .principal-title.ios {
     margin-left: 0%;
