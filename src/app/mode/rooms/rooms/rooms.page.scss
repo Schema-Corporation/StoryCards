@@ -1,0 +1,157 @@
+@font-face{
+    font-family: 'ZizouSlabLight';
+    src: url('../../../../assets/fonts/ZizouSlabLight.otf');
+  }
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    font-family: ZizouSlabLight;
+  }
+
+.ion-icon-white {
+    color: white;
+}
+
+.principal-title {
+    margin-left: 28%;
+    font-size: 18px;
+}
+.principal-title.ios {
+    margin-left: 0%;
+}
+.item-inner{
+    margin-right: 15px;
+}
+.list-md{
+    margin-bottom: 16%;
+}
+
+.no-items{
+    font-size: 17px;
+    text-align: center;
+    margin-top: 3%;
+}
+
+@media (min-width: 400px)  {
+    .principal-title{
+        margin-left: 25%;
+        font-size: 23px;
+    }
+    .list-md {
+        margin-left: 5%;
+        margin-right: 5%;
+        margin-bottom: 14%;
+    }
+    .item{
+        font-size: 17px;
+    }
+
+}   
+  
+@media (min-width: 600px) {
+    .no-items{
+        font-size: 22px;
+
+    }
+    .principal-title{
+        margin-left: 35%;
+        font-size: 24px;
+    }
+    .list-md {
+        margin-left: 14%;
+        margin-right: 14%;
+        margin-bottom: 10%;
+    }
+    .header-md::after{
+        padding-right: 12%;
+        margin-left: 12%;
+        width: 64%;
+    }
+    ion-toolbar.sc-ion-searchbar-md-h, ion-toolbar .sc-ion-searchbar-md-h{
+        padding-left: 13%;
+        padding-right: 13%;
+    }
+    .item{
+        font-size: 20px;
+    }
+    .style-icon{
+        margin-right: 47%;
+    }
+
+} 
+
+@media (min-width: 750px) {
+    .principal-title{
+        margin-left: 38%;
+        font-size: 25px;
+    }
+    .list-md {
+        margin-left: 15%;
+        margin-right: 15%;
+        margin-bottom: 8%;
+    }
+    .style-icon{
+        margin-right: 48%;
+    }
+}
+
+@media (min-width: 1000px) {
+    .principal-title{
+        margin-left: 40%;
+        font-size: 28px;
+    }
+    .list-md {
+        margin-left: 17%;
+        margin-right: 19%;
+        margin-bottom: 8%;
+    }
+    .style-icon{
+        margin-right: 49%;
+    }
+}
+
+@media (min-width: 1260px) {
+    .principal-title{
+        margin-left: 42%;
+        font-size: 28px;
+    }
+    .list-md {
+        margin-left: 18%;
+        margin-right: 18%;
+        margin-bottom: 8%;
+    }
+    .style-icon{
+        margin-right: 48%;
+    }
+}
+
+@media (min-width: 1400px) {
+    .principal-title{
+        margin-left: 43%;
+        font-size: 30px;
+    }
+    .list-md {
+        margin-left: 19%;
+        margin-right: 19%;
+        margin-bottom: 7%;
+    }
+    .style-icon{
+        margin-right: 49%;
+    }
+}
+
+@media (min-width: 1640px) {
+    .principal-title{
+        margin-left: 44%;
+        font-size: 30px;
+    }
+    .list-md {
+        margin-left: 20%;
+        margin-right: 20%;
+        margin-bottom: 6%;
+    }
+    .style-icon{
+        margin-right: 50%;
+    }
+}

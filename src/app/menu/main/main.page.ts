@@ -91,10 +91,7 @@ export class MainPage implements OnInit {
   }
 
   goToRoomModePage(){
-    // this.navCtrl.navigateForward('my-rooms');
-    var title = "Página en construcción";
-    var message = "Esta opción aún no está habilitada. Te informaremos cuando puedas utilizarla."
-    this.showAlert(title, message);
+    this.navCtrl.navigateForward('rooms/my-rooms');
   }
 
   async presentPopover(ev: any) {
