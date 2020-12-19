@@ -4,7 +4,8 @@
 
 export const environment = {
   production: false,
-  apiUrl: "https://pharmaapp-services-be.com",
+  // apiUrl: "https://pharmaapp-services-be.com",
+  apiUrl: "http://localhost:3000",
   INDEXEDDB_CONFIG: {
     name: 'StorycardsDb',
     version: 1,

@@ -81,6 +81,11 @@ const routes: Routes = [
         loadChildren: () => import('./mode/rooms/rooms/rooms.module').then(m => m.RoomsPageModule),
         canActivate: [AuthService]
       },
+      {
+        path: 'detail',
+        loadChildren: () => import('./mode/rooms/detail/detail.module').then(m => m.DetailPageModule),
+        canActivate: [AuthService]
+      }
     ],
   },
   {
@@ -105,7 +110,8 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'login',
     pathMatch: 'full'
-  },
+  }
+
 
 
 ];

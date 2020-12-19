@@ -1,0 +1,14 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-title>detail</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="showRoomDetails">
+    <p> Nombre de la sala: {{room.name}} </p>
+    <p> ID de la sala: {{room.id}} </p>
+    <p> Código de la sala: {{room.roomCode}} </p>
+  </div>
+
+</ion-content>
