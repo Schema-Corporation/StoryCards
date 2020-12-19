@@ -43,6 +43,10 @@ export class RoomsPage implements OnInit {
           rooms => {
             this.listRooms = rooms;
             this.filteredRooms = [...this.listRooms];
+          }, 
+          error => {
+            this.closeSession();
+            console.log('error: ', error);
           }
         );
       },
@@ -64,7 +68,12 @@ export class RoomsPage implements OnInit {
   }
 
   editRoom(roomId) {
-    console.log('TODO - EDIT ROOM SERVICE' + roomId);
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+          roomId: roomId,
+      }
+    }
+    this.navCtrl.navigateForward(['rooms/detail'], navigationExtras);
   }
 
   async presentToast(message) {
@@ -127,6 +136,10 @@ export class RoomsPage implements OnInit {
               }
             }
             this.navCtrl.navigateForward(['rooms/detail'], navigationExtras);
+          }, 
+          error => {
+            this.closeSession();
+            console.log('error: ', error);
           }
         );
       },
@@ -143,6 +156,10 @@ export class RoomsPage implements OnInit {
           result => {
             this.getRooms();
             this.presentToast("La sala ha sido eliminado con éxito");
+          }, 
+          error => {
+            this.closeSession();
+            console.log('error: ', error);
           }
         );
       },

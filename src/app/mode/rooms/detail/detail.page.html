@@ -1,14 +1,29 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>detail</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title class="principal-title">Mi sala</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div *ngIf="showRoomDetails">
-    <p> Nombre de la sala: {{room.name}} </p>
-    <p> ID de la sala: {{room.id}} </p>
-    <p> Código de la sala: {{room.roomCode}} </p>
+  <div *ngIf="showRoomDetails" class="room-details">
+    <p class="small-title">{{room.name}}</p>
+    <p class="small-title">El código de su sala es el siguiente: </p>
+    <p class="small-title boxed">{{room.roomCode}}</p>
+    <p class="small-title">Lista de participantes: </p>
+    <ion-list>
+      <ion-item *ngFor="let participant of participants">
+        <ion-label>{{participant.fullName}}</ion-label>
+        <ion-buttons slot="end">
+          <ion-button icon-only (click)="removeParticipant(participant.id)">
+            <ion-icon name="close-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
   </div>
 
 </ion-content>
