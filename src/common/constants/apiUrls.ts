@@ -15,5 +15,7 @@ export const apiUrls = {
   GET_ROOM: `${BASE_API_URL}/room`,
   GET_ROOM_ID: `${BASE_API_URL}/room/`,
   POST_ROOM: `${BASE_API_URL}/room`,
-  DELETE_ROOM: `${BASE_API_URL}/room/`
+  DELETE_ROOM: `${BASE_API_URL}/room/`,
+  VALIDATE_ROOM_CODE: `${BASE_API_URL}/room/validate-code`,
+  POST_GUEST: `${BASE_API_URL}/room/add-guest`
 };

@@ -93,10 +93,24 @@ iframe {
   margin-left: 10px;
   line-height: 1.5;
   color: #666666;
+  cursor: pointer;
 }
 
 .text-right {
   margin: auto;
+}
+
+.fade-in {
+  animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
 }
 
 
@@ -107,8 +121,14 @@ iframe {
   position: absolute;
   top: 50px;
   width: 70%;
-
 }
+
+.room-button {
+  position: absolute;
+  top: 150px;
+  right: 15%;
+}
+
 .logo-title{
   width: 40%;
   margin-left: auto;
@@ -138,7 +158,7 @@ iframe {
 }
 
 .create-account {
-  display: flex;
+  display: block;
   flex-wrap: wrap;
   justify-content: center;
   align-items: center;
@@ -360,7 +380,7 @@ iframe {
     padding: 100px 15px 33px 15px;
   }
   .logo-title{
-    width: 40%;
+    width: 100%;
     margin-left: auto;
     margin-right: auto;
     display: block;

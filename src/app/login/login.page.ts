@@ -3,6 +3,7 @@ import { AlertController, NavController } from '@ionic/angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LoginService } from '../services/auth/login.service';
 import { FormBuilder, Validators,FormGroup} from '@angular/forms'
+import { RoomService } from '../services/room/room.service';
 @Component({
   selector: 'app-login',
   templateUrl: './login.page.html',
@@ -10,13 +11,20 @@ import { FormBuilder, Validators,FormGroup} from '@angular/forms'
 })
 export class LoginPage implements OnInit {
 
+  public loginMode = 1;
   public showPassword: boolean = false;
   public username: string;
   public password: string;
+
+  public roomCode: string;
+  public roomValidated: boolean = false;
+  public roomToken: string;
+
   EMAILPATTERN = /^[a-z0-9!#$%&'*+\/=?^_`{|}~.-]+@[a-z0-9]([a-z0-9-]*[a-z0-9])?(\.[a-z0-9]([a-z0-9-]*[a-z0-9])?)*$/i;
 
   constructor(
     public _loginService: LoginService,
+    public _roomService: RoomService,
     public navCtrl: NavController,
     public dbService: NgxIndexedDBService,
     public alertCtrl: AlertController,
@@ -96,5 +104,38 @@ export class LoginPage implements OnInit {
       var message = "Su cuenta o contraseña no es correcta"
       this.showAlert(message)
     });
+  }
+
+  loginGuest() {
+    console.log('TO-DO LOGIN GUEST');
+    var guest = {
+
+    }
+    this._roomService.addGuest(guest, this.roomToken).subscribe(
+      guest => {
+        console.log('TOKEN: ', guest);
+      }, 
+      error => {
+        var message = "El código de sala es incorrecto"
+        this.showAlert(message)
+      }
+    );
+  }
+
+  loginRoom() {
+    var room = {
+      roomCode: this.roomCode
+    }
+    this._roomService.validateRoomCode(room).subscribe(
+      token => {
+        this.roomToken = token.token;
+        this.roomValidated = true;
+        console.log('token: ', token);
+      }, 
+      error => {
+        var message = "El código de sala es incorrecto"
+        this.showAlert(message)
+      }
+    );
   }
 }
