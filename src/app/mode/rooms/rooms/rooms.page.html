@@ -21,7 +21,7 @@
   <div class="no-items">
     <ion-list *ngIf="listRooms.length > 0">
       <ion-item class="item-inner" *ngFor="let room of listRooms">
-        <ion-label class="item">{{room.name}}</ion-label>
+        <ion-label class="item">{{room.roomName}}</ion-label>
         <ion-buttons slot="end">
           <ion-button icon-only (click)="editRoom(room.id)">
             <ion-icon name="play-outline"></ion-icon>
