@@ -54,6 +54,7 @@ export class MainPage implements OnInit {
 
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
+        console.log('token: ', token);
         if (token != null && token.value.fullName != "undefined") {
           this.fullName = token.value.fullName;
         }
