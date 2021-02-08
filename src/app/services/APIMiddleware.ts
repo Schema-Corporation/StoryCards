@@ -25,6 +25,15 @@ export class APIMiddleware {
     return this.http.post(url, null, httpOptions);
   }
 
+  validateRole(url: string, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Basic " + token
+      }),
+    };
+    return this.http.get(url, httpOptions);
+  }
+
   getCanvasFromUser(url, token): Observable<any> {
     const httpOptions: any = {
       headers: new HttpHeaders({

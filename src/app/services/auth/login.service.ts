@@ -4,7 +4,8 @@ import { Observable } from "rxjs";
 import { APIMiddleware } from "../APIMiddleware";
 import { apiUrls } from "../../../common/constants";
 
-const URL = apiUrls.AUTH;
+const AUTH = apiUrls.AUTH;
+const VALIDATE_ROLE = apiUrls.VALIDATE_ROLE;
 
 @Injectable({
   providedIn: "root",
@@ -17,6 +18,10 @@ export class LoginService {
   ) {}
 
   loginUser(token: string): Observable<any> {
-    return this.apiMiddleware.doAuthenticate(URL, token);
+    return this.apiMiddleware.doAuthenticate(AUTH, token);
+  }
+
+  validateRole(token: string): Observable<any> {
+    return this.apiMiddleware.validateRole(VALIDATE_ROLE, token);
   }
 }

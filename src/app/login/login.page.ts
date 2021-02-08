@@ -109,7 +109,6 @@ export class LoginPage implements OnInit {
   }
 
   loginGuest() {
-    console.log('TO-DO LOGIN GUEST');
     var guest = {
       roomId: this.roomId,
       identifier: this.guestName

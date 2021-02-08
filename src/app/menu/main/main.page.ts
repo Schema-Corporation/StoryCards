@@ -5,6 +5,7 @@ import { SettingComponent } from '../setting/setting.component';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from "@angular/common";
+import { LoginService } from 'src/app/services/auth/login.service';
 
 @Component({
   selector: 'app-main',
@@ -18,6 +19,7 @@ export class MainPage implements OnInit {
   public isFirst: boolean = false;
 
   public fullName: string = "";
+  public role: number;
 
 
   constructor(
@@ -26,7 +28,8 @@ export class MainPage implements OnInit {
     public dbService: NgxIndexedDBService,
     public route: ActivatedRoute,
     public location: Location,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public _loginService: LoginService
   ) {
     
    }
@@ -56,8 +59,19 @@ export class MainPage implements OnInit {
       token => {
         console.log('token: ', token);
         if (token != null && token.value.fullName != "undefined") {
-          this.fullName = token.value.fullName;
+          // this.fullName = token.value.data.fullName;
         }
+
+        this._loginService.validateRole(token.value.token).subscribe(role => {
+          switch (role.role) {
+            case 'HOST': this.role = 1; break;
+            case 'GUEST': this.role = 2; break;
+            default: this.role = -1; break;
+          }
+        }, error => {
+          console.log('error: ', error);
+        })
+
       },
       error => {
       });
