@@ -59,7 +59,7 @@ export class MainPage implements OnInit {
       token => {
         console.log('token: ', token);
         if (token != null && token.value.fullName != "undefined") {
-          // this.fullName = token.value.data.fullName;
+          this.fullName = token.value.fullName;
         }
 
         this._loginService.validateRole(token.value.token).subscribe(role => {
