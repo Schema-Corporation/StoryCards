@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { IonicModule } from '@ionic/angular';
 
@@ -13,7 +14,8 @@ import { DetailPage } from './detail.page';
     CommonModule,
     FormsModule,
     IonicModule,
-    DetailPageRoutingModule
+    DetailPageRoutingModule,
+    NgbModule
   ],
   declarations: [DetailPage]
 })

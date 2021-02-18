@@ -4,6 +4,7 @@ import { Location } from "@angular/common";
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { RoomService } from 'src/app/services/room/room.service';
 import { AlertController, NavController } from '@ionic/angular';
+import { GuestService } from 'src/app/services/guest/guest.service';
 
 @Component({
   selector: 'app-detail',
@@ -23,25 +24,36 @@ export class DetailPage implements OnInit {
     public location: Location,
     public navCtrl: NavController,
     public dbService: NgxIndexedDBService,
-    public _roomService: RoomService
+    public _roomService: RoomService,
+    public _guestService: GuestService
   ) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.roomId = params["roomId"];
       this.getRoom(this.roomId);
-      this.getParticipants(this.roomId);
     });
     this.location.replaceState('/rooms/detail');
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._guestService.openWebSocket(this.roomId, token.value.token);
+      },
+      error => {
+        this.closeSession();
+        console.log('error: ', error);
+      });
   }
-
-  getParticipants(roomId) {
-    let participants = [{fullName: "Marcelo Ríos"}, {fullName: "Alvaro Toconas"}, {fullName: "Emmanuel Gonzales"}];
-    this.participants = participants;
+  
+  ngOnDestroy() {
+    this._guestService.closeWebSockets();
   }
 
   removeParticipant(guestId) {
     this.showAlertDeleteParticipant(guestId);
+  }
+
+  enoughReadyParticipants() {
+    return this._guestService.guests.filter(x => x.status == "2").length > 0;
   }
 
   removeGuest(guestId) {
@@ -51,8 +63,8 @@ export class DetailPage implements OnInit {
   async showAlertDeleteParticipant(guestId) {
     var alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
-      header: 'Eliminar Formato',
-      message: '¿Está seguro de que desea eliminar este formato?',
+      header: 'Eliminar Participante',
+      message: '¿Está seguro de que desea eliminar a este participante?',
       buttons: [
         {
           text: 'No',

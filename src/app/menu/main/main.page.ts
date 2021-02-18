@@ -6,6 +6,7 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from "@angular/common";
 import { LoginService } from 'src/app/services/auth/login.service';
+import { RolePlayingGuestService } from 'src/app/services/role-playing/role-playing-guest/role-playing-guest.service';
 
 @Component({
   selector: 'app-main',
@@ -29,7 +30,8 @@ export class MainPage implements OnInit {
     public route: ActivatedRoute,
     public location: Location,
     public alertCtrl: AlertController,
-    public _loginService: LoginService
+    public _loginService: LoginService,
+    public _rolePlayingGuestService: RolePlayingGuestService
   ) {
     
    }
@@ -57,7 +59,6 @@ export class MainPage implements OnInit {
 
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
-        console.log('token: ', token);
         if (token != null && token.value.fullName != "undefined") {
           this.fullName = token.value.fullName;
         }
@@ -74,6 +75,7 @@ export class MainPage implements OnInit {
 
       },
       error => {
+        this.closeSession();
       });
   }
 
@@ -101,12 +103,31 @@ export class MainPage implements OnInit {
     this.navCtrl.navigateForward('canvas/canvas');
   }
 
-  goToRolePlayModePage(){
-    this.navCtrl.navigateForward('create-character');
+  goToRolePlayModePage() {
+    if (this.validateGuestsNumber()) {
+      this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._rolePlayingGuestService.enterWaitingRoom(token.value.token).subscribe(role => {
+          console.log('role: ', role);
+          this.navCtrl.navigateForward('waiting-guest');
+        }, error => {
+          console.log('error: ', error);
+          this.closeSession();
+        })
+      },
+      error => {
+        this.closeSession();
+      });
+    }
   }
 
-  goToRoomModePage(){
+  goToRoomModePage() {
     this.navCtrl.navigateForward('rooms/my-rooms');
+  }
+
+  validateGuestsNumber() {
+    console.log('TO-DO VALIDATE GUESTS NUMBER')
+    return true;
   }
 
   async presentPopover(ev: any) {

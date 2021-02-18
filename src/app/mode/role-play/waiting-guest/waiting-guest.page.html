@@ -1,0 +1,34 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button (click)="leaveRoom()" defaultHref="/">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title text-center class="principal-title">Role-Playing Game</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+  <div class="fullheight">
+    <ion-card class="center-card">
+      <ion-card-header>
+        <ion-card-title class="center-text">Entrando a la sala</ion-card-title>
+      </ion-card-header>
+    
+      <ion-card-content>
+        <ion-label class="notify center-text">Te encuentras en la sala de espera ... En unos momentos, el facilitador iniciará la dinámica.</ion-label>
+        <br>
+        <ion-grid>
+          <ion-row>
+            <ion-col></ion-col>
+            <ion-col>
+              <ion-spinner class="spinner-waiting center-text" color="primary"></ion-spinner>
+            </ion-col>
+            <ion-col></ion-col>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+</ion-content>

@@ -89,6 +89,10 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'waiting-guest',
+    loadChildren: () => import('./mode/role-play/waiting-guest/waiting-guest.module').then( m => m.WaitingGuestPageModule)
+  },
+  {
     path: 'create-character',
     loadChildren: () => import('./mode/role-play/create-character/create-character.module').then(m => m.CreateCharacterPageModule),
     canActivate: [AuthService]
@@ -111,6 +115,7 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   }
+
 
 
 

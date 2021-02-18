@@ -132,13 +132,34 @@ export class APIMiddleware {
     return this.http.post(url, body);
   }
 
-  addGuest(url, body, token): Observable<any> {
+  addGuest(url, body): Observable<any> {
+    return this.http.post(url, body);
+  }
+
+  getGuestsByRoomId(url, token): Observable<any> {
     const httpOptions: any = {
       headers: new HttpHeaders({
         Authorization: "Bearer " + token
       })
     };
-    return this.http.post(url, body, httpOptions);
+    return this.http.get(url, httpOptions);
   }
-  
+
+  enterWaitingRoom(url, body, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.put(url, body, httpOptions);
+  }
+
+  leaveWaitingRoom(url, body, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.put(url, body, httpOptions);
+  }
 }

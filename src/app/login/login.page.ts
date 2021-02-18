@@ -113,9 +113,15 @@ export class LoginPage implements OnInit {
       roomId: this.roomId,
       identifier: this.guestName
     }
-    this._roomService.addGuest(guest, this.roomToken).subscribe(
+
+    this._roomService.addGuest(guest).subscribe(
       guest => {
-        this.dbService.add('variables', { name: 'token', value: this.roomToken }).subscribe(
+        var token = {
+          token: guest.token,
+          fullName: guest.guestData.identifier,
+          guestData: guest.guestData
+        }
+        this.dbService.add('variables', { name: 'token', value: token }).subscribe(
           () => {
             this.dbService.getByIndex('variables', 'name', 'token').subscribe(
               token => {

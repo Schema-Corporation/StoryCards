@@ -15,15 +15,22 @@
     <p class="small-title boxed">{{room.roomCode}}</p>
     <p class="small-title">Lista de participantes: </p>
     <ion-list>
-      <ion-item *ngFor="let participant of participants">
-        <ion-label>{{participant.fullName}}</ion-label>
+      <ion-item *ngFor="let participant of _guestService.guests">
+        <ion-label>{{participant.identifier}}</ion-label>
         <ion-buttons slot="end">
+          <ion-button *ngIf="participant.status == 2" icon-only style="color: green;">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </ion-button>
           <ion-button icon-only (click)="removeParticipant(participant.id)">
             <ion-icon name="close-circle-outline"></ion-icon>
           </ion-button>
         </ion-buttons>
       </ion-item>
     </ion-list>
+    <ion-button *ngIf="enoughReadyParticipants()" class="start-game-button">
+      Iniciar dinámica   
+      <ion-icon name="rocket-outline" ></ion-icon>
+    </ion-button>
   </div>
 
 </ion-content>
