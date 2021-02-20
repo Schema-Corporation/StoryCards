@@ -1,0 +1,59 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title text-center class="principal-title">Reto {{challengeNumber + 1}}</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-grid>
+    <ion-row class="info-row">
+      <ion-col>
+        <div class="info">
+          <ion-icon class="icon-info" name="heart-outline"></ion-icon><ion-label class="p-info">{{score}}</ion-label>
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="info">
+          <ion-icon class="icon-info" name="dice-outline"></ion-icon><ion-label class="p-info">{{developmentPoints - useDevelopmentPoints}}</ion-label>        
+        </div>
+      </ion-col>
+      <ion-col>
+        <div class="info">
+          <ion-icon class="icon-info" name="logo-electron"></ion-icon><ion-label class="p-info">{{destinyPoints - useDestinyPoints}}</ion-label>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="fullheight">
+    <p class="small-title">Reto</p>
+    <p class="small-title boxed">{{challenges[challengeNumber]}}</p>
+    <p class="small-title">Competencia</p>
+    <ion-item>
+      <ion-label>Escoge tu competencia</ion-label>
+      <ion-select class="select-m-l">
+        <ion-select-option *ngFor="let competency of competencies" [value]="competency">{{competency.text}} ({{competency.points}})</ion-select-option>
+      </ion-select>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label-m-l">Utilizar punto de desarrollo ({{developmentPoints - useDevelopmentPoints}})</ion-label>
+      <ion-checkbox [disabled]="developmentPoints == 0" [(ngModel)]="useDevelopmentPoints" slot="start"></ion-checkbox>
+    </ion-item>
+    <ion-item>
+      <ion-label class="label-m-l">Utilizar punto de destino ({{destinyPoints - useDestinyPoints}})</ion-label>
+      <ion-checkbox [disabled]="destinyPoints == 0" [(ngModel)]="useDestinyPoints" slot="start"></ion-checkbox>
+    </ion-item>
+    <p class="small-title">¿Cómo solucionarías este problema?</p>
+    <ion-item class="challenge-item">
+      <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeAnswer($event)" placeholder="Escribe cómo resolverías el reto ..."></ion-textarea>
+    </ion-item>
+    <ion-label class="count-letters">{{this.answerCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
+    <ion-button [disabled]="enoughData()" class="start-game-button" (click)="rollDice()">
+      Lanzar dados
+      <ion-icon name="dice-outline" ></ion-icon>
+    </ion-button>
+  </div>
+</ion-content>
