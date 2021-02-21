@@ -34,7 +34,7 @@
     <p class="small-title">Competencia</p>
     <ion-item>
       <ion-label>Escoge tu competencia</ion-label>
-      <ion-select class="select-m-l">
+      <ion-select #projectSelect class="select-m-l" (ionChange)="selectCompetency($event)">
         <ion-select-option *ngFor="let competency of competencies" [value]="competency">{{competency.text}} ({{competency.points}})</ion-select-option>
       </ion-select>
     </ion-item>
@@ -48,12 +48,33 @@
     </ion-item>
     <p class="small-title">¿Cómo solucionarías este problema?</p>
     <ion-item class="challenge-item">
-      <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeAnswer($event)" placeholder="Escribe cómo resolverías el reto ..."></ion-textarea>
+      <ion-textarea [value]="answer" maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeAnswer($event)" placeholder="Escribe cómo resolverías el reto ..."></ion-textarea>
     </ion-item>
     <ion-label class="count-letters">{{this.answerCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
-    <ion-button [disabled]="enoughData()" class="start-game-button" (click)="rollDice()">
+    <ion-button [disabled]="notEnoughData()" class="start-game-button" (click)="useTurn()">
       Lanzar dados
       <ion-icon name="dice-outline" ></ion-icon>
     </ion-button>
+  </div>
+  <div class="modal-guest" *ngIf="showRollDiceModal">
+    <div class="modal-guest-content">
+      <p class="small-title">Resultados del turno: </p>
+      <ion-grid>
+        <ion-row *ngFor="let indexRow of rows">
+          <ion-col *ngFor="let indexColumn of columns">
+            <div *ngIf="(this.dices[(indexRow)*3 + (indexColumn)])">
+              <ion-img class="dice-img" src="/assets/util/dice_{{this.dices[(indexRow)*3 + (indexColumn)]}}.png"></ion-img>
+            </div>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+      <p class="small-title">Valor de los dados: {{dicesSum}}</p>
+      <p class="small-title">Dificultad del reto: {{challengeDifficulty}}</p>
+      <p class="small-title">Puntaje obtenido: {{dicesSum - challengeDifficulty}}</p>
+      <ion-button class="start-game-button" (click)="endTurn()">
+        Finalizar turno
+        <ion-icon name="dice-outline" ></ion-icon>
+      </ion-button>
+    </div>
   </div>
 </ion-content>

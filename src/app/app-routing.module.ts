@@ -120,7 +120,12 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'login',
     pathMatch: 'full'
+  },
+  {
+    path: 'scores',
+    loadChildren: () => import('./mode/role-play/scores/scores.module').then( m => m.ScoresPageModule)
   }
+
 
 
 
