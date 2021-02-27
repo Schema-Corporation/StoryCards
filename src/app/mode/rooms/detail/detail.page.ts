@@ -5,6 +5,7 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { RoomService } from 'src/app/services/room/room.service';
 import { AlertController, NavController } from '@ionic/angular';
 import { GuestService } from 'src/app/services/guest/guest.service';
+import { RolePlayingHostService } from 'src/app/services/role-playing/role-playing-host/role-playing-host.service';
 
 @Component({
   selector: 'app-detail',
@@ -25,7 +26,8 @@ export class DetailPage implements OnInit {
     public navCtrl: NavController,
     public dbService: NgxIndexedDBService,
     public _roomService: RoomService,
-    public _guestService: GuestService
+    public _guestService: GuestService,
+    public _rolePlayingHostService: RolePlayingHostService
   ) { }
 
   ngOnInit() {
@@ -52,8 +54,31 @@ export class DetailPage implements OnInit {
     this.showAlertDeleteParticipant(guestId);
   }
 
+  goToStartGame() {
+    var room = {
+      roomId: this.roomId
+    };
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._rolePlayingHostService.createGame(token.value.token, room).subscribe(
+          game => {
+            this.navCtrl.navigateForward('role-playing/approve-challenges');
+          },
+          error => {
+            this.closeSession();
+            console.log('error: ', error);
+          }
+        );
+      },
+      error => {
+        this.closeSession();
+        console.log('error: ', error);
+      });
+  }
+
   enoughReadyParticipants() {
-    return this._guestService.guests.filter(x => x.status == "2").length > 0;
+    return true;
+    // return this._guestService.guests.filter(x => x.status == "2").length > 0;
   }
 
   removeGuest(guestId) {

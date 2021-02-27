@@ -109,7 +109,7 @@ export class MainPage implements OnInit {
       token => {
         this._rolePlayingGuestService.enterWaitingRoom(token.value.token).subscribe(role => {
           console.log('role: ', role);
-          this.navCtrl.navigateForward('waiting-guest');
+          this.navCtrl.navigateForward('role-playing/waiting-guest');
         }, error => {
           console.log('error: ', error);
           this.closeSession();

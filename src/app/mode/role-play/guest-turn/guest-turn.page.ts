@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IonSelect } from '@ionic/angular';
+import { IonSelect, NavController } from '@ionic/angular';
 
 @Component({
   selector: 'app-guest-turn',
@@ -41,7 +41,7 @@ export class GuestTurnPage implements OnInit {
 
   @ViewChild('projectSelect', { static: false }) projectSelect: IonSelect;
 
-  constructor() { }
+  constructor(public navCtrl: NavController) { }
 
   ngOnInit() {
     this.participantSetUp();
@@ -200,9 +200,6 @@ export class GuestTurnPage implements OnInit {
   }
 
   showGameScores() {
-    console.log('TO-DO: GO TO SCORES PAGE');
+    this.navCtrl.navigateForward(['role-playing/scores']);
   }
-
-
-
 }

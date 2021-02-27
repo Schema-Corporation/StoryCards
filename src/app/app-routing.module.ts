@@ -89,19 +89,33 @@ const routes: Routes = [
     ],
   },
   {
-    path: 'waiting-guest',
-    loadChildren: () => import('./mode/role-play/waiting-guest/waiting-guest.module').then( m => m.WaitingGuestPageModule),
-    canActivate: [AuthService]
-  },
-  {
-    path: 'create-character',
-    loadChildren: () => import('./mode/role-play/create-character/create-character.module').then(m => m.CreateCharacterPageModule),
-    canActivate: [AuthService]
-  },
-  {
-    path: 'guest-turn',
-    loadChildren: () => import('./mode/role-play/guest-turn/guest-turn.module').then( m => m.GuestTurnPageModule),
-    canActivate: [AuthService]
+    path: 'role-playing',
+    children: [
+      {
+        path: 'waiting-guest',
+        loadChildren: () => import('./mode/role-play/waiting-guest/waiting-guest.module').then( m => m.WaitingGuestPageModule),
+        canActivate: [AuthService]
+      },
+      {
+        path: 'create-character',
+        loadChildren: () => import('./mode/role-play/create-character/create-character.module').then(m => m.CreateCharacterPageModule),
+        canActivate: [AuthService]
+      },
+      {
+        path: 'guest-turn',
+        loadChildren: () => import('./mode/role-play/guest-turn/guest-turn.module').then( m => m.GuestTurnPageModule),
+        canActivate: [AuthService]
+      },
+      {
+        path: 'scores',
+        loadChildren: () => import('./mode/role-play/scores/scores.module').then( m => m.ScoresPageModule),
+        canActivate: [AuthService]
+      },
+      {
+        path: 'approve-challenges',
+        loadChildren: () => import('./mode/role-play/approve-challenges/approve-challenges.module').then( m => m.ApproveChallengesPageModule)
+      }
+    ]
   },
   {
     path: 'login',
@@ -120,17 +134,7 @@ const routes: Routes = [
     path: '**',
     redirectTo: 'login',
     pathMatch: 'full'
-  },
-  {
-    path: 'scores',
-    loadChildren: () => import('./mode/role-play/scores/scores.module').then( m => m.ScoresPageModule)
   }
-
-
-
-
-
-
 ];
 @NgModule({
   imports: [

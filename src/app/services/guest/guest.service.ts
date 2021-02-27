@@ -17,7 +17,7 @@ export class GuestService {
   constructor(public apiMiddleware: APIMiddleware) { }
 
   public openWebSocket(roomId, token) {
-    this.webSocket = new WebSocket(WS_GUESTS_URL);
+    this.webSocket = new WebSocket(WS_GUESTS_URL + roomId);
 
     this.guests = []; // reset guests list
     this.getGuests(roomId, token);
