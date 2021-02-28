@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Location } from "@angular/common";
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { RoomService } from 'src/app/services/room/room.service';
@@ -62,7 +62,12 @@ export class DetailPage implements OnInit {
       token => {
         this._rolePlayingHostService.createGame(token.value.token, room).subscribe(
           game => {
-            this.navCtrl.navigateForward('role-playing/approve-challenges');
+            let navigationExtras: NavigationExtras = {
+              queryParams: {
+                gameId: JSON.stringify(game.id)
+              }
+            }
+            this.navCtrl.navigateForward('role-playing/approve-challenges', navigationExtras);
           },
           error => {
             this.closeSession();

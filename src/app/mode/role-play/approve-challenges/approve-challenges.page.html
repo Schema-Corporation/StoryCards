@@ -9,5 +9,26 @@
 </ion-header>
 
 <ion-content>
-
+  <ion-label *ngIf="challenges.length == 0">
+    Los participantes se encuentran enviando sus propuestas de retos ...
+  </ion-label>
+  <ion-card *ngFor="let challenge of challenges" class="center-card">
+    <ion-card-header>
+      <ion-card-title class="center-text">{{challenge.challenge}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label class="notify center-text">{{challenge.participant}}</ion-label>
+      <br>
+      <ion-grid>
+        <ion-row>
+          <ion-col class="centered-col">
+            <ion-button class="white-color" (click)="rejectChallenge(challenge.id)">Rechazar</ion-button>
+          </ion-col>
+          <ion-col class="centered-col">
+            <ion-button class="white-color" (click)="showAlertAcceptChallenge(challenge.id)">Aceptar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
 </ion-content>
