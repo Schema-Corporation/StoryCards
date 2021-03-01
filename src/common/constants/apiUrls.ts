@@ -23,5 +23,8 @@ export const apiUrls = {
   GET_GUEST_FROM_ROOM: `${BASE_API_URL}/room/guests/`,
   WS_GET_GUEST_FROM_ROOM: `${WS_API_URL}/room/guests/ws/`,
   PUT_GUEST_WAITING_ROOM: `${BASE_API_URL}/room/guests/`,
-  POST_GAME: `${BASE_API_URL}/game/`
+  POST_GAME: `${BASE_API_URL}/game/`,
+  REMOVE_GUEST_FROM_ROOM: `${BASE_API_URL}/room/remove-guest/`,
+  DELETE_GUEST_FROM_ROOM: `${BASE_API_URL}/room/remove-guest/`,
+  WS_WAITING_ROOM_URL: `${WS_API_URL}/game/game-waiting-room/ws/`
 };

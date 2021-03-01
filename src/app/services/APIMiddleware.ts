@@ -171,4 +171,22 @@ export class APIMiddleware {
     };
     return this.http.post(url, body, httpOptions);
   }
+
+  leaveRoom(url, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.delete(url, httpOptions);
+  }
+
+  removeGuest(url, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.delete(url, httpOptions);
+  }
 }

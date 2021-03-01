@@ -7,6 +7,7 @@ import { ActivatedRoute } from '@angular/router';
 import { Location } from "@angular/common";
 import { LoginService } from 'src/app/services/auth/login.service';
 import { RolePlayingGuestService } from 'src/app/services/role-playing/role-playing-guest/role-playing-guest.service';
+import { GuestService } from 'src/app/services/guest/guest.service';
 
 @Component({
   selector: 'app-main',
@@ -31,7 +32,8 @@ export class MainPage implements OnInit {
     public location: Location,
     public alertCtrl: AlertController,
     public _loginService: LoginService,
-    public _rolePlayingGuestService: RolePlayingGuestService
+    public _rolePlayingGuestService: RolePlayingGuestService,
+    public _guestService: GuestService
   ) {
     
    }
@@ -140,6 +142,19 @@ export class MainPage implements OnInit {
     popover.onDidDismiss().then((result) => {
       if (result != 'undefined') {
         if (result.data == 'close') {
+          if (this.role == 2) {
+            this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+              token => {
+                this._guestService.leaveRoom(token.value.token).subscribe(guest => {
+                  console.log('guest: ', guest);
+                }, error => {
+                  this.closeSession();
+                })
+              },
+              error => {
+                this.closeSession();
+              });
+          }
           this.closeSession();
         }
       }

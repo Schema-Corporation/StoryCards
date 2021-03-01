@@ -38,7 +38,7 @@ export class DetailPage implements OnInit {
     this.location.replaceState('/rooms/detail');
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
-        this._guestService.openWebSocket(this.roomId, token.value.token);
+        this._guestService.openGuestListWebSocket(this.roomId, token.value.token);
       },
       error => {
         this.closeSession();
@@ -82,12 +82,27 @@ export class DetailPage implements OnInit {
   }
 
   enoughReadyParticipants() {
-    return true;
-    // return this._guestService.guests.filter(x => x.status == "2").length > 0;
+    if (this._guestService.guests.length == 0) return false;
+    return this._guestService.guests.filter(x => x.status == "2").length > 0;
   }
 
   removeGuest(guestId) {
-    console.log('TO-DO REMOVE GUEST');
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._guestService.removeGuest(guestId, this.roomId, token.value.token).subscribe(
+          guest => {
+            console.log('guest removed: ', guest);
+          },
+          error => {
+            this.closeSession();
+            console.log('error: ', error);
+          }
+        );
+      },
+      error => {
+        this.closeSession();
+        console.log('error: ', error);
+      });
   }
 
   async showAlertDeleteParticipant(guestId) {
