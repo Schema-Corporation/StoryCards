@@ -21,6 +21,34 @@ body{
   background: #d43f8d;
 }
 
+.fullheight {
+  position:relative;
+  height: 100%;
+  width: 500px;
+  margin: auto;
+}
+
+.center-card {
+  margin-top: 100px;
+  padding: 30px;
+}
+
+.center-text {
+  text-align: center;
+}
+
+.notify {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
+.spinner-waiting {
+  margin-left: auto;
+  margin-right: auto;
+  display: block;
+}
+
 .container{
   width: 330px;
   background: #fff;

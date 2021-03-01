@@ -8,7 +8,7 @@
       <div class="progress-bar-custom">
         <div class="step">
           
-            <div class="bullet" [ngClass]="{'step-colored': step == 1}" (click)="step == 2 ? step = 1: null;">
+            <div class="bullet" [ngClass]="{'step-colored': step == 1}" (click)="!showWaitingForChallengeApprovalView ? step == 2 ? step = 1: null : null;">
               <span></span>
             </div>
             <div class="check fas fa-check">
@@ -17,7 +17,7 @@
         </div>
         <div class="step">
           
-          <div class="bullet" [ngClass]="{'step-colored': step == 2}" (click)="step == 3 ? step = 2 : null" (click)="character!=-1 ? step =2 : null">
+          <div class="bullet" [ngClass]="{'step-colored': step == 2}" (click)="!showWaitingForChallengeApprovalView ? step == 3 ? step = 2 : null : null;" (click)="!showWaitingForChallengeApprovalView ? character!=-1 ? step =2 : null : null;">
             <span></span>
           </div>
           <div class="check fas fa-check">
@@ -363,7 +363,7 @@
   </ion-grid>
   <ion-button *ngIf="validatePoints()" (click)="addStep()" class="next-button">Siguiente</ion-button>
  </div>
- <div *ngIf="step==3">
+ <div *ngIf="step==3 && !showWaitingForChallengeApprovalView">
   <div class="challenge-header">
     <div class="ion-text-center">    
        Crea un reto
@@ -373,6 +373,27 @@
     <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeChallenge($event)" placeholder="Escribe tu reto ..."></ion-textarea>
   </ion-item>
   <ion-label class="count-letters">{{this.challengeCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
-  <ion-button *ngIf="validateChallenge()" class="next-button" (click)="createCharacter()">Finalizar</ion-button>
+  <ion-button *ngIf="validateChallenge()" class="next-button" (click)="sendChallenge()">Enviar Reto</ion-button>
  </div>
+ <div *ngIf="showWaitingForChallengeApprovalView" class="fullheight">
+  <ion-card class="center-card">
+    <ion-card-header>
+      <ion-card-title class="center-text">Esperando respuesta</ion-card-title>
+    </ion-card-header>
+  
+    <ion-card-content>
+      <ion-label class="notify center-text">El facilitador de la dinámica se encuentra revisando su reto ... Por favor, espere sus indicaciones.</ion-label>
+      <br>
+      <ion-grid>
+        <ion-row>
+          <ion-col></ion-col>
+          <ion-col>
+            <ion-spinner class="spinner-waiting center-text" color="primary"></ion-spinner>
+          </ion-col>
+          <ion-col></ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+</div>
 </ion-content>

@@ -26,5 +26,7 @@ export const apiUrls = {
   POST_GAME: `${BASE_API_URL}/game/`,
   REMOVE_GUEST_FROM_ROOM: `${BASE_API_URL}/room/remove-guest/`,
   DELETE_GUEST_FROM_ROOM: `${BASE_API_URL}/room/remove-guest/`,
-  WS_WAITING_ROOM_URL: `${WS_API_URL}/game/game-waiting-room/ws/`
+  WS_WAITING_ROOM_URL: `${WS_API_URL}/game/game-waiting-room/ws/`,
+  POST_CHALLENGE_APPROVAL: `${BASE_API_URL}/game/challenge-approval/`,
+  WS_CHALLENGE_APPROVAL_URL: `${WS_API_URL}/game/challenges-approval/ws/`
 };

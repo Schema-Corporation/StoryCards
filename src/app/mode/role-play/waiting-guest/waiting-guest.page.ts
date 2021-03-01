@@ -34,7 +34,7 @@ export class WaitingGuestPage implements OnInit {
   goToCreateCharacterPage() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        gameId: JSON.stringify(this._rolePlayingGuestService.gameId)
+        gameId: JSON.stringify(this._rolePlayingGuestService.gameId),
       }
     }
     this.navCtrl.navigateForward('role-playing/create-character', navigationExtras);

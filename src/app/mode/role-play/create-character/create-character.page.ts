@@ -1,5 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, IonApp } from '@ionic/angular';
+import { ActivatedRoute } from '@angular/router';
+import { AlertController, IonApp, NavController } from '@ionic/angular';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { GameService } from 'src/app/services/game/game.service';
 import { IParticipant } from 'src/common/types/participant';
 import { IAbility } from 'src/common/types/participant';
 
@@ -49,9 +52,28 @@ export class CreateCharacterPage implements OnInit {
 
   public participant: IParticipant;
 
-  constructor(private alertCtrl: AlertController) { }
+  public gameId: string;
+
+  public showWaitingForChallengeApprovalView: boolean = false;
+
+  constructor(private alertCtrl: AlertController,
+    public route: ActivatedRoute,
+    public dbService: NgxIndexedDBService,
+    public navCtrl: NavController,
+    public _gameService: GameService) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.gameId = params["gameId"];
+    });
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._gameService.openChallengeApprovalWebSocket(token.value.guestData.id, token.value.token)
+      },
+      error => {
+        this.closeSession();
+        console.log('error: ', error);
+      });
   }
 
   addStep(){
@@ -274,5 +296,43 @@ export class CreateCharacterPage implements OnInit {
 
     var message = "Personaje creado exitosamente";
 
+  }
+
+  sendChallenge() {
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        var challengeObject = {
+          gameId: this.gameId,
+          roomId: token.value.guestData.roomId,
+          guestId: token.value.guestData.id,
+          fullName: token.value.guestData.identifier,
+          challengeBody: this.challenge,
+        };
+        this.showWaitingForChallengeApprovalModal();
+        /*
+        this._gameService.sendChallengeForApproval(challengeObject, token.value.token).subscribe(challenge => {
+          this.showWaitingForChallengeApprovalModal();
+        }, error => {
+          console.log('error: ', error);
+          this.closeSession();
+        });
+        */
+      },
+      error => {
+        this.closeSession();
+        console.log('error: ', error);
+      });
+  }
+
+  showWaitingForChallengeApprovalModal() {
+    this.showWaitingForChallengeApprovalView = true;
+  }
+
+  closeSession() {
+    this.dbService.clear('variables').subscribe((successDeleted) => {
+      if (successDeleted) {
+        this.navCtrl.navigateForward('login')
+      }
+    });
   }
 }
