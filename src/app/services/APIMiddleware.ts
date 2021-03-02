@@ -198,4 +198,13 @@ export class APIMiddleware {
     };
     return this.http.post(url, body, httpOptions);
   }
+
+  getChallengesApproval(url, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.get(url, httpOptions);
+  }
 }

@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from "@angular/common";
-import { AlertController } from '@ionic/angular';
+import { AlertController, NavController } from '@ionic/angular';
+import { ChallengesService } from 'src/app/services/challenges/challenges.service';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
 
 @Component({
   selector: 'app-approve-challenges',
@@ -15,14 +17,25 @@ export class ApproveChallengesPage implements OnInit {
 
   constructor(public route: ActivatedRoute,
     public location: Location,
-    public alertCtrl: AlertController) { }
+    public alertCtrl: AlertController,
+    public navCtrl: NavController,
+    public dbService: NgxIndexedDBService,
+    private _challengesServices: ChallengesService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.gameId = params["gameId"];
       this.getChallenges(this.gameId);
+      this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+        token => {
+          this._challengesServices.openChallengesListWebSocket(this.gameId, token.value.token);
+        },
+        error => {
+          this.closeSession();
+          console.log('error: ', error);
+        });
     });
-    this.location.replaceState('/role-playing/approve-challenges');
+    // this.location.replaceState('/role-playing/approve-challenges');
   }
 
   getChallenges(gameId: any) {
@@ -128,6 +141,14 @@ export class ApproveChallengesPage implements OnInit {
     });
 
     await alert.present();
+  }
+
+  closeSession() {
+    this.dbService.clear('variables').subscribe((successDeleted) => {
+      if (successDeleted) {
+        this.navCtrl.navigateForward('login')
+      }
+    });
   }
 
 }

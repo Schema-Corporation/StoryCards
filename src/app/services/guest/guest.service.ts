@@ -65,10 +65,12 @@ export class GuestService {
     return this.apiMiddleware.getGuestsByRoomId(`${GET_GUEST_FROM_ROOM}${roomId}`, token)
       .subscribe(data => {
         console.log('data: ', data);
-        data.forEach(element => {
-          const guest = element as Guest;
-          this.guests.push(guest);
-        });
+        if (data.length > 0) {
+          data.forEach(element => {
+            const guest = element as Guest;
+            this.guests.push(guest);
+          });
+        }
     });
   }
 
