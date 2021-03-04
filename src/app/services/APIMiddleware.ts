@@ -115,6 +115,24 @@ export class APIMiddleware {
     return this.http.delete(url, httpOptions);
   }
 
+  activateRoom(url, body, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.put(url, body, httpOptions);
+  }
+
+  deactivateRoom(url, body, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.put(url, body, httpOptions);
+  }
+
   doValidateCode(url: string): Observable<any> {
     const httpOptions: any = {
       headers: new HttpHeaders({

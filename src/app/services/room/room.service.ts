@@ -10,6 +10,7 @@ const POST_ROOM = apiUrls.POST_ROOM
 const DELETE_ROOM = apiUrls.DELETE_ROOM;
 const VALIDATE_ROOM_CODE = apiUrls.VALIDATE_ROOM_CODE;
 const POST_GUEST = apiUrls.POST_GUEST;
+const PUT_ROOM = apiUrls.PUT_ROOM;
 
 
 @Injectable({
@@ -34,6 +35,14 @@ export class RoomService {
 
   createRoom(body, token): Observable<any> {
     return this.apiMiddleware.createRoom(POST_ROOM, body, token);
+  }
+
+  activateRoom(id, token): Observable<any> {
+    return this.apiMiddleware.activateRoom(`${PUT_ROOM}${id}`, { enabled: 1 }, token);
+  }
+
+  deactivateRoom(id, token): Observable<any> {
+    return this.apiMiddleware.deactivateRoom(`${PUT_ROOM}${id}`, { enabled: 0 }, token);
   }
 
   validateRoomCode(body): Observable<any> {

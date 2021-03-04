@@ -18,6 +18,7 @@ export class DetailPage implements OnInit {
   public participants: any;
   public room: any;
   public showRoomDetails: boolean = false;
+  public isRoomEnabled: boolean = false;
 
   constructor(
     public alertCtrl: AlertController,
@@ -144,6 +145,7 @@ export class DetailPage implements OnInit {
           room => {
             this.room = room;
             this.showRoomDetails = true;
+            this.isRoomEnabled = room.enabled;
           }, 
           error => {
             this.closeSession();

@@ -26,6 +26,12 @@
           <ion-button icon-only (click)="editRoom(room.id)">
             <ion-icon name="play-outline"></ion-icon>
           </ion-button>
+          <ion-button *ngIf="room.enabled == 1" icon-only (click)="disableRoom(room.id)">
+            <ion-icon name="lock-open-outline"></ion-icon>
+          </ion-button>
+          <ion-button *ngIf="room.enabled == 0" icon-only (click)="enableRoom(room.id)">
+            <ion-icon name="lock-closed-outline"></ion-icon>
+          </ion-button>
           <ion-button icon-only (click)="deleteRoom(room.id)">
             <ion-icon name="close-circle-outline"></ion-icon>
           </ion-button>

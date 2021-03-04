@@ -27,7 +27,7 @@
         </ion-buttons>
       </ion-item>
     </ion-list>
-    <ion-button (click)="goToStartGame()" [disabled]="!enoughReadyParticipants()" class="start-game-button">
+    <ion-button (click)="goToStartGame()" [disabled]="!enoughReadyParticipants() || !isRoomEnabled" class="start-game-button">
       Iniciar dinámica   
       <ion-icon name="rocket-outline" ></ion-icon>
     </ion-button>

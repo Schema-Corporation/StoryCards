@@ -155,7 +155,47 @@ export class RoomsPage implements OnInit {
         this._roomService.removeRoom(roomId, token.value.token).subscribe(
           result => {
             this.getRooms();
-            this.presentToast("La sala ha sido eliminado con éxito");
+            this.presentToast("La sala ha sido eliminada con éxito");
+          }, 
+          error => {
+            this.closeSession();
+            console.log('error: ', error);
+          }
+        );
+      },
+      error => {
+        this.closeSession();
+        console.log('error: ', error);
+      });
+  }
+
+  deactivateRoom(roomId) {
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._roomService.deactivateRoom(roomId, token.value.token).subscribe(
+          result => {
+            this.getRooms();
+            this.presentToast("La sala ha sido deshabilitada con éxito");
+          }, 
+          error => {
+            this.closeSession();
+            console.log('error: ', error);
+          }
+        );
+      },
+      error => {
+        this.closeSession();
+        console.log('error: ', error);
+      });
+  }
+
+  activateRoom(roomId) {
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._roomService.activateRoom(roomId, token.value.token).subscribe(
+          result => {
+            this.getRooms();
+            this.presentToast("La sala ha sido activada con éxito");
           }, 
           error => {
             this.closeSession();
@@ -171,6 +211,62 @@ export class RoomsPage implements OnInit {
 
   deleteRoom(roomId) {
     this.showAlertDelete(roomId);
+  }
+
+  disableRoom(roomId) {
+    this.showAlertDisable(roomId);
+  }
+
+  enableRoom(roomId) {
+    this.showAlertEnable(roomId);
+  }
+
+  async showAlertEnable(roomId) {
+    var alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Habilitar Sala',
+      message: '¿Está seguro de que desea habilitar esta sala?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          }
+        }, {
+          text: 'Sí',
+          handler: () => {
+            this.activateRoom(roomId);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async showAlertDisable(roomId) {
+    var alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Deshabilitar Sala',
+      message: '¿Está seguro de que desea deshabilitar esta sala?',
+      buttons: [
+        {
+          text: 'No',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          }
+        }, {
+          text: 'Sí',
+          handler: () => {
+            this.deactivateRoom(roomId);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
   }
 
   async showAlertDelete(roomId) {
