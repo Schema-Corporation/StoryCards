@@ -14,6 +14,8 @@ export class ApproveChallengesPage implements OnInit {
 
   public challenges: any = [];
   public gameId: any;
+  public numParticipants: number;
+  public numApprovedChallenges: number = 0;
 
   constructor(public route: ActivatedRoute,
     public location: Location,
@@ -25,6 +27,7 @@ export class ApproveChallengesPage implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.gameId = params["gameId"];
+      this.numParticipants = params["numParticipants"];
       this.getChallenges(this.gameId);
       this.dbService.getByIndex('variables', 'name', 'token').subscribe(
         token => {
@@ -73,8 +76,16 @@ export class ApproveChallengesPage implements OnInit {
       case 5: challengePoints = this.getRandomInt(26, 30); break;
       default: break;
     }
+    this.numApprovedChallenges++;
+    if (this.numApprovedChallenges == this.numParticipants) {
+      this.goToWatchGamePage();
+    }
     console.log('TO-DO: ACCEPT CHALLENGE');
 
+  }
+
+  goToWatchGamePage() {
+    console.log('TO-DO: WATCH GAME PAGE');
   }
 
   async showAlertAcceptChallenge(id: any) {

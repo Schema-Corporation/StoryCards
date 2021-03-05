@@ -55,6 +55,10 @@ export class DetailPage implements OnInit {
     this.showAlertDeleteParticipant(guestId);
   }
 
+  getNumberOfParticipants() {
+    return this._guestService.guests.filter(x => x.status == "2").length;
+  }
+
   goToStartGame() {
     var room = {
       roomId: this.roomId
@@ -65,7 +69,8 @@ export class DetailPage implements OnInit {
           game => {
             let navigationExtras: NavigationExtras = {
               queryParams: {
-                gameId: JSON.stringify(game.id)
+                gameId: JSON.stringify(game.id),
+                numParticipants: this.getNumberOfParticipants()
               }
             }
             this.navCtrl.navigateForward('role-playing/approve-challenges', navigationExtras);
@@ -84,7 +89,7 @@ export class DetailPage implements OnInit {
 
   enoughReadyParticipants() {
     if (this._guestService.guests.length == 0) return false;
-    return this._guestService.guests.filter(x => x.status == "2").length > 0;
+    return this.getNumberOfParticipants() > 0;
   }
 
   removeGuest(guestId) {
