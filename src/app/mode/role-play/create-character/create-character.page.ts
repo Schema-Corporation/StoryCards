@@ -70,6 +70,10 @@ export class CreateCharacterPage implements OnInit {
     this.checkIfChallengeApproved();
   }
 
+  ngOnDestroy() {
+    this._gameService.closeWebSockets();
+  }
+
   openChallengeSocket() {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
@@ -84,7 +88,7 @@ export class CreateCharacterPage implements OnInit {
   checkIfChallengeApproved() {
     this._gameService.response.subscribe(response => {
       switch (response) {
-        case 'approved': this.goToGuestTurnPage(); break;
+        case 'approved': this.goToWaitingGamePage(); break;
         case 'rejected': this.tryToSendNewChallenge(); break;
       }
     });
@@ -96,7 +100,7 @@ export class CreateCharacterPage implements OnInit {
     this.challengeCharacters = 0;
   }
 
-  goToGuestTurnPage() {
+  goToWaitingGamePage() {
     this.createCharacter();
     let navigationExtras: NavigationExtras = {
       queryParams: {
@@ -104,7 +108,7 @@ export class CreateCharacterPage implements OnInit {
         character: JSON.stringify(this.participant)
       }
     }
-    this.navCtrl.navigateForward('role-playing/guest-turn', navigationExtras)
+    this.navCtrl.navigateForward('role-playing/waiting-game', navigationExtras)
   }
 
   addStep(){
@@ -335,6 +339,8 @@ export class CreateCharacterPage implements OnInit {
           guestId: token.value.guestData.id,
           fullName: token.value.guestData.identifier,
           challengeBody: this.challenge,
+          status: 0,
+          points: 0,
         };
         this.showWaitingForChallengeApprovalModal();
         this._gameService.sendChallengeForApproval(this.gameId, challengeObject, token.value.token).subscribe(challenge => {

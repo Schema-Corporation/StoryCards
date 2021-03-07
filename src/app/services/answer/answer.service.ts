@@ -42,6 +42,10 @@ export class AnswerService {
     
   }
 
+  public closeWebSockets() {
+    this.webSocket.close();
+  } 
+
   getChallengesApproval(gameId, token) {
     return this.apiMiddleware.getAnswersFromGame(`${HOST_EVALUATE_ANSWERS_URL}${gameId}`, token)
     .subscribe(data => {

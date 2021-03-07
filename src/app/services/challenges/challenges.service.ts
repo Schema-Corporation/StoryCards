@@ -1,11 +1,13 @@
 import { Injectable } from '@angular/core';
 import { apiUrls } from 'src/common/constants';
+import { IChallenge } from 'src/common/types/challenge';
 import { APIMiddleware } from '../APIMiddleware';
 
 const WS_HOST_CHALLENGES_APPROVAL_URL = apiUrls.WS_HOST_CHALLENGES_APPROVAL_URL;
 const GUEST_CHALLENGES_APPROVAL_URL = apiUrls.GUEST_CHALLENGES_APPROVAL_URL;
 const PUT_CHALLENGES_APPROVAL = apiUrls.PUT_CHALLENGES_APPROVAL;
 const DELETE_CHALLENGES_APPROVAL = apiUrls.DELETE_CHALLENGES_APPROVAL;
+const POST_START_GAME = apiUrls.POST_START_GAME;
 
 @Injectable({
   providedIn: 'root'
@@ -44,14 +46,21 @@ export class ChallengesService {
     
   }
 
+  public closeWebSockets() {
+    this.webSocket.close();
+  }
+
   getChallengesApproval(gameId, token) {
+    this.challengesList = [];
     return this.apiMiddleware.getChallengesApproval(`${GUEST_CHALLENGES_APPROVAL_URL}${gameId}`, token)
     .subscribe(data => {
-      console.log('data: ', data);
+      console.log('challenges: ', data);
       if (data.length > 0) {
         data.forEach(element => {
-          const challenge = element;
-          this.challengesList.push(challenge);
+          const challenge = element as IChallenge;
+          if (challenge.status == 0) {
+            this.challengesList.push(challenge);
+          }
         });
       }
     });
@@ -59,5 +68,13 @@ export class ChallengesService {
 
   acceptChallenge(gameId, body, token) {
     return this.apiMiddleware.acceptChallenge(`${PUT_CHALLENGES_APPROVAL}${gameId}`, body, token)
+  }
+
+  rejectChallenge(gameId, guestId, token) {
+    return this.apiMiddleware.rejectChallenge(`${DELETE_CHALLENGES_APPROVAL}${gameId}/guest/${guestId}`, token)
+  }
+
+  goToStartGame(gameId, token) {
+    return this.apiMiddleware.goToStartGame(`${POST_START_GAME}${gameId}`, token)
   }
 }

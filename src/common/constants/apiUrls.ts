@@ -37,4 +37,6 @@ export const apiUrls = {
   WS_HOST_EVALUATE_ANSWERS_URL: `${WS_API_URL}/game/evaluate-answers/ws/`,
   HOST_EVALUATE_ANSWERS_URL: `${BASE_API_URL}/game/evaluate-answers/`,
   POST_ANSWER: `${BASE_API_URL}/game/answer/`,
+  WS_WAITING_GAME_URL: `${WS_API_URL}/game/game-waiting-game/ws/`,
+  POST_START_GAME: `${BASE_API_URL}/game/start-game/`
 };

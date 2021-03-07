@@ -44,10 +44,6 @@ export class WaitingGuestPage implements OnInit {
     this._rolePlayingGuestService.closeWebSockets();
   }
 
-  sleep(ms) {
-    return new Promise(resolve => setTimeout(resolve, ms));
-  }
-
   openWaitingRoomSocket() {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {

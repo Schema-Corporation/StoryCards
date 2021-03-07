@@ -113,11 +113,18 @@ const routes: Routes = [
       },
       {
         path: 'approve-challenges',
-        loadChildren: () => import('./mode/role-play/approve-challenges/approve-challenges.module').then( m => m.ApproveChallengesPageModule)
+        loadChildren: () => import('./mode/role-play/approve-challenges/approve-challenges.module').then( m => m.ApproveChallengesPageModule),
+        canActivate: [AuthService]
       },
       {
         path: 'evaluate-answers',
-        loadChildren: () => import('./mode/role-play/evaluate-answers/evaluate-answers.module').then( m => m.EvaluateAnswersPageModule)
+        loadChildren: () => import('./mode/role-play/evaluate-answers/evaluate-answers.module').then( m => m.EvaluateAnswersPageModule),
+        canActivate: [AuthService]
+      },
+      {
+        path: 'waiting-game',
+        loadChildren: () => import('./mode/role-play/waiting-game/waiting-game.module').then( m => m.WaitingGamePageModule),
+        canActivate: [AuthService]
       }
     ]
   },
@@ -139,6 +146,7 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   }
+
 
 ];
 @NgModule({

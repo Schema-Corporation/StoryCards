@@ -36,6 +36,10 @@ export class EvaluateAnswersPage implements OnInit {
     });
   }
 
+  ngOnDestroy() {
+    this._answerServices.closeWebSockets();
+  }
+
   getAnswers(id: any) {
     console.log('DELETE THIS FUNCTION');
   }

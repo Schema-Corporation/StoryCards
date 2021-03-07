@@ -9,10 +9,10 @@
 </ion-header>
 
 <ion-content>
-  <ion-label *ngIf="_challengesServices.challengesList.length == 0">
+  <ion-label *ngIf="getChallengesListPendingForApproval().length == 0">
     Los participantes se encuentran enviando sus propuestas de retos ...
   </ion-label>
-  <ion-card *ngFor="let challenge of _challengesServices.challengesList" class="center-card">
+  <ion-card *ngFor="let challenge of getChallengesListPendingForApproval()" class="center-card">
     <ion-card-header>
       <ion-card-title class="center-text">{{challenge.challengeBody}}</ion-card-title>
     </ion-card-header>
@@ -31,7 +31,12 @@
       </ion-grid>
     </ion-card-content>
   </ion-card>
-  <p class="approved-number">
+  <p *ngIf="!showGoToStartGameButton" class="approved-number">
     Retos aprobados: {{numApprovedChallenges}} / {{numParticipants}}
   </p>
+
+  <ion-button *ngIf="showGoToStartGameButton" class="start-game-button" (click)="goToWatchGamePage()">
+    Iniciar dinámica
+    <ion-icon name="rocket-outline" ></ion-icon>
+  </ion-button>
 </ion-content>

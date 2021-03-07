@@ -16,6 +16,7 @@ export class ApproveChallengesPage implements OnInit {
   public gameId: any;
   public numParticipants: number;
   public numApprovedChallenges: number = 0;
+  public showGoToStartGameButton: boolean = false;
 
   constructor(public route: ActivatedRoute,
     public location: Location,
@@ -28,7 +29,6 @@ export class ApproveChallengesPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.gameId = params["gameId"];
       this.numParticipants = params["numParticipants"];
-      this.getChallenges(this.gameId);
       this.dbService.getByIndex('variables', 'name', 'token').subscribe(
         token => {
           this._challengesServices.openChallengesListWebSocket(this.gameId, token.value.token);
@@ -41,28 +41,28 @@ export class ApproveChallengesPage implements OnInit {
     // this.location.replaceState('/role-playing/approve-challenges');
   }
 
-  getChallenges(gameId: any) {
-    console.log('gameId: ', gameId);
-    this.challenges = [
-      {
-        id: '1',
-        challenge: 'Mi jefe no me trata bien en el trabajo',
-        participant: 'Marcelo Ríos'
+  rejectChallenge(challenge: any) {
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._challengesServices.rejectChallenge(this.gameId, challenge.guestId, token.value.token).subscribe(challenge => {
+          this._challengesServices.getChallengesApproval(this.gameId, token.value.token);
+        }, error => {
+          this.closeSession();
+          console.log('error: ', error);
+        })
       },
-      {
-        id: '2',
-        challenge: 'El día de ayer hubo un simulacro de sismos y ninguno de mis compañeros realizó el protocolo',
-        participant: 'Juan Pérez'
-      }
-    ]
-  }
-
-  rejectChallenge(id: any) {
-    console.log('TO-DO: REJECT CHALLENGE');
+      error => {
+        this.closeSession();
+        console.log('error: ', error);
+      });
   }
 
   getRandomInt(min: number, max: number) {
     return Math.floor(Math.random() * (min - max) + max);
+  }
+
+  getChallengesListPendingForApproval() {
+    return this._challengesServices.challengesList.filter(x => x.status == 0);
   }
 
   acceptChallenge(challenge: any, level: any) {
@@ -87,9 +87,10 @@ export class ApproveChallengesPage implements OnInit {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
         this._challengesServices.acceptChallenge(this.gameId, challengeBody, token.value.token).subscribe(challenge => {
+          this._challengesServices.getChallengesApproval(this.gameId, token.value.token);
           this.numApprovedChallenges++;
           if (this.numApprovedChallenges == this.numParticipants) {
-            this.goToWatchGamePage();
+            this.showGoToGameButton();
           }
         }, error => {
           this.closeSession();
@@ -102,14 +103,30 @@ export class ApproveChallengesPage implements OnInit {
       });
   }
 
+  showGoToGameButton() {
+    this.showGoToStartGameButton = true;
+  }
+
   goToWatchGamePage() {
-    let navigationExtras: NavigationExtras = {
-      queryParams: {
-        gameId: this.gameId,
-        numParticipants: this.numParticipants
-      }
-    }
-    this.navCtrl.navigateForward('role-playing/evaluate-answers', navigationExtras);
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._challengesServices.goToStartGame(this.gameId, token.value.token).subscribe(game => {
+          let navigationExtras: NavigationExtras = {
+            queryParams: {
+              gameId: this.gameId,
+              numParticipants: this.numParticipants
+            }
+          }
+          this.navCtrl.navigateForward('role-playing/evaluate-answers', navigationExtras);
+        }, error => {
+          this.closeSession();
+          console.log('error: ', error);
+        })
+      },
+      error => {
+        this.closeSession();
+        console.log('error: ', error);
+      });
   }
 
   async showAlertAcceptChallenge(challenge: any) {

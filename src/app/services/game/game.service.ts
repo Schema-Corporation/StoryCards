@@ -38,6 +38,10 @@ export class GameService {
     
   }
 
+  public closeWebSockets() {
+    this.webSocket.close();
+  }
+
   constructor(public apiMiddleware: APIMiddleware) { }
 
   sendChallengeForApproval(gameId, body, token): Observable<any> {
