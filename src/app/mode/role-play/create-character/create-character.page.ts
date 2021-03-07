@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { AlertController, IonApp, NavController } from '@ionic/angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { GameService } from 'src/app/services/game/game.service';
@@ -66,6 +66,11 @@ export class CreateCharacterPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.gameId = params["gameId"];
     });
+    this.openChallengeSocket();
+    this.checkIfChallengeApproved();
+  }
+
+  openChallengeSocket() {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
         this._gameService.openChallengeApprovalWebSocket(token.value.guestData.id, token.value.token)
@@ -74,6 +79,32 @@ export class CreateCharacterPage implements OnInit {
         this.closeSession();
         console.log('error: ', error);
       });
+  }
+
+  checkIfChallengeApproved() {
+    this._gameService.response.subscribe(response => {
+      switch (response) {
+        case 'approved': this.goToGuestTurnPage(); break;
+        case 'rejected': this.tryToSendNewChallenge(); break;
+      }
+    });
+  }
+
+  tryToSendNewChallenge() {
+    this.hideWaitingForChallengeApprovalModal();
+    this.challenge = '';
+    this.challengeCharacters = 0;
+  }
+
+  goToGuestTurnPage() {
+    this.createCharacter();
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        gameId: this.gameId,
+        character: JSON.stringify(this.participant)
+      }
+    }
+    this.navCtrl.navigateForward('role-playing/guest-turn', navigationExtras)
   }
 
   addStep(){
@@ -293,9 +324,6 @@ export class CreateCharacterPage implements OnInit {
       abilites: this.getAbilities(),
       challenge: this.challenge
     };
-
-    var message = "Personaje creado exitosamente";
-
   }
 
   sendChallenge() {
@@ -309,19 +337,21 @@ export class CreateCharacterPage implements OnInit {
           challengeBody: this.challenge,
         };
         this.showWaitingForChallengeApprovalModal();
-        /*
-        this._gameService.sendChallengeForApproval(challengeObject, token.value.token).subscribe(challenge => {
+        this._gameService.sendChallengeForApproval(this.gameId, challengeObject, token.value.token).subscribe(challenge => {
           this.showWaitingForChallengeApprovalModal();
         }, error => {
           console.log('error: ', error);
           this.closeSession();
         });
-        */
       },
       error => {
         this.closeSession();
         console.log('error: ', error);
       });
+  }
+
+  hideWaitingForChallengeApprovalModal() {
+    this.showWaitingForChallengeApprovalView = false;
   }
 
   showWaitingForChallengeApprovalModal() {

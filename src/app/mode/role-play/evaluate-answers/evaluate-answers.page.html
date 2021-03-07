@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title text-center class="principal-title">Evaluar respuestas</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-label *ngIf="answers.length == 0">
+    Los participantes se encuentran enviando sus respuestas ...
+  </ion-label>
+  <ion-card *ngFor="let answer of challenges" class="center-card">
+    <ion-card-header>
+      <ion-card-title class="center-text">Texto</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label class="notify center-text">Texto del reto</ion-label>
+      <br>
+      <ion-grid>
+        <ion-row>
+          <ion-col class="centered-col">
+            <ion-button class="white-color">Bajar puntos</ion-button>
+          </ion-col>
+          <ion-col class="centered-col">
+            <ion-button class="white-color">Aumentar Puntos</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <p class="approved-number">
+    Retos aprobados: {{numApprovedChallenges}} / {{numParticipants}}
+  </p>
+</ion-content>

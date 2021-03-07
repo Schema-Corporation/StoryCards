@@ -225,4 +225,31 @@ export class APIMiddleware {
     };
     return this.http.get(url, httpOptions);
   }
+
+  getAnswersFromGame(url, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.get(url, httpOptions);
+  }
+
+  postAnswer(url, body, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.post(url, body, httpOptions);
+  }
+
+  acceptChallenge(url, body, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.put(url, body, httpOptions);
+  }
 }

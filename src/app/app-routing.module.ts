@@ -114,6 +114,10 @@ const routes: Routes = [
       {
         path: 'approve-challenges',
         loadChildren: () => import('./mode/role-play/approve-challenges/approve-challenges.module').then( m => m.ApproveChallengesPageModule)
+      },
+      {
+        path: 'evaluate-answers',
+        loadChildren: () => import('./mode/role-play/evaluate-answers/evaluate-answers.module').then( m => m.EvaluateAnswersPageModule)
       }
     ]
   },
@@ -135,6 +139,7 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   }
+
 ];
 @NgModule({
   imports: [

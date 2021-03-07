@@ -1,5 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { IonSelect, NavController } from '@ionic/angular';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { GuestTurnService } from 'src/app/services/guest-turn/guest-turn.service';
 
 @Component({
   selector: 'app-guest-turn',
@@ -39,11 +42,19 @@ export class GuestTurnPage implements OnInit {
   public dicesSum = 0;
   public challengeDifficulty = 0;
 
+  public gameId: any;
+
   @ViewChild('projectSelect', { static: false }) projectSelect: IonSelect;
 
-  constructor(public navCtrl: NavController) { }
+  constructor(public navCtrl: NavController,
+    public dbService: NgxIndexedDBService,
+    public _guestTurnService: GuestTurnService,
+    public route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.gameId = params["gameId"];
+    });
     this.participantSetUp();
     this.challengesSetUp();
     this.competenciesSetUp();
@@ -156,6 +167,23 @@ export class GuestTurnPage implements OnInit {
   }
 
   registerAnswer() {
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        var answerBody = {
+          answer: this.answer,
+          guestFullName: token.value.guestData.fullName
+        }
+        this._guestTurnService.postAnswer(this.gameId, answerBody, token.value.token).subscribe(answer => {
+          console.log('answer: ', answer);
+        }, error => {
+          this.closeSession();
+          console.log('error: ', error);
+        })
+      },
+      error => {
+        this.closeSession();
+        console.log('error: ', error);
+      });
     console.log('TO-DO: REGISTER ANSWER IN REDIS');
   }
 
@@ -201,5 +229,13 @@ export class GuestTurnPage implements OnInit {
 
   showGameScores() {
     this.navCtrl.navigateForward(['role-playing/scores']);
+  }
+
+  closeSession() {
+    this.dbService.clear('variables').subscribe((successDeleted) => {
+      if (successDeleted) {
+        this.navCtrl.navigateForward('login')
+      }
+    });
   }
 }

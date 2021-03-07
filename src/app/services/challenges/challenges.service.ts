@@ -4,6 +4,8 @@ import { APIMiddleware } from '../APIMiddleware';
 
 const WS_HOST_CHALLENGES_APPROVAL_URL = apiUrls.WS_HOST_CHALLENGES_APPROVAL_URL;
 const GUEST_CHALLENGES_APPROVAL_URL = apiUrls.GUEST_CHALLENGES_APPROVAL_URL;
+const PUT_CHALLENGES_APPROVAL = apiUrls.PUT_CHALLENGES_APPROVAL;
+const DELETE_CHALLENGES_APPROVAL = apiUrls.DELETE_CHALLENGES_APPROVAL;
 
 @Injectable({
   providedIn: 'root'
@@ -30,7 +32,7 @@ export class ChallengesService {
       console.log('event: ', event);
       const eventData = JSON.parse(event.data);
       switch (eventData.operation) {
-        case 'challenge-received': this.challengesList.push(eventData.guest); break;
+        case 'challenge-received': this.challengesList.push(eventData.challenge); break;
         default: break;
       }
     };
@@ -53,5 +55,9 @@ export class ChallengesService {
         });
       }
     });
+  }
+
+  acceptChallenge(gameId, body, token) {
+    return this.apiMiddleware.acceptChallenge(`${PUT_CHALLENGES_APPROVAL}${gameId}`, body, token)
   }
 }

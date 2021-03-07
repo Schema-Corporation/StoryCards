@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { Location } from "@angular/common";
 import { AlertController, NavController } from '@ionic/angular';
 import { ChallengesService } from 'src/app/services/challenges/challenges.service';
@@ -22,7 +22,7 @@ export class ApproveChallengesPage implements OnInit {
     public alertCtrl: AlertController,
     public navCtrl: NavController,
     public dbService: NgxIndexedDBService,
-    private _challengesServices: ChallengesService) { }
+    public _challengesServices: ChallengesService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -65,7 +65,7 @@ export class ApproveChallengesPage implements OnInit {
     return Math.floor(Math.random() * (min - max) + max);
   }
 
-  acceptChallenge(id: any, level: any) {
+  acceptChallenge(challenge: any, level: any) {
     var challengePoints = 0;
     switch (level) {
       case 0: challengePoints = this.getRandomInt(5, 5); break;
@@ -76,19 +76,43 @@ export class ApproveChallengesPage implements OnInit {
       case 5: challengePoints = this.getRandomInt(26, 30); break;
       default: break;
     }
-    this.numApprovedChallenges++;
-    if (this.numApprovedChallenges == this.numParticipants) {
-      this.goToWatchGamePage();
-    }
-    console.log('TO-DO: ACCEPT CHALLENGE');
 
+    var challengeBody = {
+      guestId: challenge.guestId,
+      fullName: challenge.fullName,
+      status: 1,
+      points: challengePoints
+    }
+
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._challengesServices.acceptChallenge(this.gameId, challengeBody, token.value.token).subscribe(challenge => {
+          this.numApprovedChallenges++;
+          if (this.numApprovedChallenges == this.numParticipants) {
+            this.goToWatchGamePage();
+          }
+        }, error => {
+          this.closeSession();
+          console.log('error: ', error);
+        })
+      },
+      error => {
+        this.closeSession();
+        console.log('error: ', error);
+      });
   }
 
   goToWatchGamePage() {
-    console.log('TO-DO: WATCH GAME PAGE');
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        gameId: this.gameId,
+        numParticipants: this.numParticipants
+      }
+    }
+    this.navCtrl.navigateForward('role-playing/evaluate-answers', navigationExtras);
   }
 
-  async showAlertAcceptChallenge(id: any) {
+  async showAlertAcceptChallenge(challenge: any) {
     var alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'Aceptar Reto',
@@ -145,7 +169,7 @@ export class ApproveChallengesPage implements OnInit {
         }, {
           text: 'Aceptar',
           handler: (data) => {
-            this.acceptChallenge(id, data);
+            this.acceptChallenge(challenge, data);
           }
         }
       ]
