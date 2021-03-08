@@ -36,7 +36,7 @@ export class DetailPage implements OnInit {
       this.roomId = params["roomId"];
       this.getRoom(this.roomId);
     });
-    this.location.replaceState('/rooms/detail');
+    // this.location.replaceState('/rooms/detail');
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
         this._guestService.openGuestListWebSocket(this.roomId, token.value.token);

@@ -325,7 +325,7 @@ export class CreateCharacterPage implements OnInit {
   createCharacter() {
     this.participant = {
       character: this.character,
-      abilites: this.getAbilities(),
+      abilities: this.getAbilities(),
       challenge: this.challenge
     };
   }

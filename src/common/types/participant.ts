@@ -1,6 +1,6 @@
 export interface IParticipant {
     character: number;
-    abilites: IAbility[];
+    abilities: IAbility[];
     challenge: string;
 }
 

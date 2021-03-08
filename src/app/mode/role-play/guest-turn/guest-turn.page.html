@@ -28,9 +28,9 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div class="fullheight">
-    <p class="small-title">Reto</p>
-    <p class="small-title boxed">{{challenges[challengeNumber]}}</p>
+  <div class="fullheight" *ngIf = "showChallenges">
+    <p class="small-title">Reto de difucultad: {{challenges[challengeNumber].points}}</p>
+    <p class="small-title boxed">{{challenges[challengeNumber].challengeBody}}</p>
     <p class="small-title">Competencia</p>
     <ion-item>
       <ion-label>Escoge tu competencia</ion-label>
@@ -69,8 +69,8 @@
         </ion-row>
       </ion-grid>
       <p class="small-title">Valor de los dados: {{dicesSum}}</p>
-      <p class="small-title">Dificultad del reto: {{challengeDifficulty}}</p>
-      <p class="small-title">Puntaje obtenido: {{dicesSum - challengeDifficulty}}</p>
+      <p class="small-title">Dificultad del reto: {{challenges[challengeNumber].points}}</p>
+      <p class="small-title">Puntaje obtenido: {{dicesSum - challenges[challengeNumber].points}}</p>
       <ion-button class="start-game-button" (click)="endTurn()">
         Finalizar turno
         <ion-icon name="dice-outline" ></ion-icon>

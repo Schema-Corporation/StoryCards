@@ -45,6 +45,7 @@ export class WaitingGamePage implements OnInit {
   goToGuestTurnPage() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
+        gameId: this.gameId,
         character: JSON.stringify(this.character)
       }
     }
