@@ -14,7 +14,7 @@ export class WaitingGamePage implements OnInit {
   public isGameStartedObservable;
 
   public gameId: any;
-  public participant: any;
+  public character: any;
 
   constructor(public navCtrl: NavController,
     public dbService: NgxIndexedDBService,
@@ -24,7 +24,7 @@ export class WaitingGamePage implements OnInit {
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
       this.gameId = params["gameId"];
-      this.participant = JSON.parse(params["participant"])
+      this.character = JSON.parse(JSON.stringify(params["character"]))
     });
     this.openWaitingGameSocket();
     this.checkIfGameStarted();
@@ -45,7 +45,7 @@ export class WaitingGamePage implements OnInit {
   goToGuestTurnPage() {
     let navigationExtras: NavigationExtras = {
       queryParams: {
-        participant: JSON.stringify(this.participant)
+        character: JSON.stringify(this.character)
       }
     }
     this.navCtrl.navigateForward('role-playing/guest-turn', navigationExtras)

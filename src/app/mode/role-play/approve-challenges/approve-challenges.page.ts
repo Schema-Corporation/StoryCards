@@ -32,6 +32,7 @@ export class ApproveChallengesPage implements OnInit {
       this.dbService.getByIndex('variables', 'name', 'token').subscribe(
         token => {
           this._challengesServices.openChallengesListWebSocket(this.gameId, token.value.token);
+          this.numApprovedChallenges = this._challengesServices.challengesList.filter(x => x.status == 1).length;
         },
         error => {
           this.closeSession();
