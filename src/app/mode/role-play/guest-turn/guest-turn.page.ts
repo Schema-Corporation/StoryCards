@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { IonSelect, NavController } from '@ionic/angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { GuestTurnService } from 'src/app/services/guest-turn/guest-turn.service';
@@ -150,15 +150,21 @@ export class GuestTurnPage implements OnInit {
     this.updateScore();
     this.cleanFields();
     if (!this.gameIsFinished()) this.goToNextChallenge()
-    else this.showGameScores();
+    else this.showWaitingScoresPage();
   }
 
   registerAnswer() {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
         var answerBody = {
-          answer: this.answer,
-          guestFullName: token.value.guestData.fullName
+          challengeId: this.challenges[this.challengeNumber].challengeId,
+          guestId: token.value.guestData.id,
+          fullName: token.value.guestData.fullName,
+          answerText: this.answer,
+          competency: this.competency,
+          scoreObtained: this.dicesSum,
+          challengeDifficulty: this.challenges[this.challengeNumber].points,
+          extraPoints: 0
         }
         this._guestTurnService.postAnswer(this.gameId, answerBody, token.value.token).subscribe(answer => {
           console.log('answer: ', answer);
@@ -214,8 +220,13 @@ export class GuestTurnPage implements OnInit {
     return this.challenges.length == this.challengeNumber + 1;
   }
 
-  showGameScores() {
-    this.navCtrl.navigateForward(['role-playing/scores']);
+  showWaitingScoresPage() {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        gameId: this.gameId,
+      }
+    }
+    this.navCtrl.navigateForward(['role-playing/waiting-scores'], navigationExtras);
   }
 
   closeSession() {

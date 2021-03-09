@@ -8,27 +8,64 @@
   </ion-toolbar>
 </ion-header>
 
-<ion-content>
-  <ion-label *ngIf="_answerServices.answersList.length == 0">
-    Los participantes se encuentran enviando sus respuestas ...
-  </ion-label>
-  <ion-card *ngFor="let answer of _answerServices.answersList" class="center-card">
-    <ion-card-header>
-      <ion-card-title class="center-text">Texto</ion-card-title>
-    </ion-card-header>
-    <ion-card-content>
-      <ion-label class="notify center-text">Texto del reto</ion-label>
-      <br>
-      <ion-grid>
-        <ion-row>
-          <ion-col class="centered-col">
-            <ion-button class="white-color">Bajar puntos</ion-button>
-          </ion-col>
-          <ion-col class="centered-col">
-            <ion-button class="white-color">Aumentar Puntos</ion-button>
-          </ion-col>
-        </ion-row>
-      </ion-grid>
-    </ion-card-content>
-  </ion-card>
+<ion-content *ngIf="showChallenges">
+  <ion-grid class="m-t-40">
+    <ion-row>
+      <ion-col class="centered-col">
+        <ion-icon *ngIf="challengeNumber > 0" (click)="challengeNumber = challengeNumber - 1" name="arrow-back-circle-outline"></ion-icon>
+      </ion-col>
+      <ion-col class="centered-col">
+        <ion-label>
+          Reto {{challengeNumber + 1}}
+        </ion-label>
+      </ion-col>
+      <ion-col class="centered-col">
+        <ion-icon *ngIf="challenges.length > challengeNumber + 1" (click)="challengeNumber = challengeNumber + 1" name="arrow-forward-circle-outline"></ion-icon>
+      </ion-col>
+    </ion-row>
+    <ion-row class="m-t-20">
+      <ion-col class="centered-col">
+        <p class="small-title boxed m-l-r-40">{{challenges[challengeNumber].challengeBody}}</p>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <div class="m-t-40 m-l-r-40">
+    <ion-label *ngIf="answerListForChallenge(challenges[challengeNumber].challengeId).length == 0">
+      Los participantes se encuentran enviando sus respuestas ...
+    </ion-label>
+    <ion-card *ngFor="let answer of answerListForChallenge(challenges[challengeNumber].challengeId)" class="center-card">
+      <ion-card-header>
+        <ion-card-title class="center-text">Texto</ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <ion-label class="notify center-text">Texto del reto</ion-label>
+        <br>
+        <ion-grid>
+          <ion-row>
+            <ion-label>Puntos extras</ion-label>
+          </ion-row>
+          <ion-row>
+            <ion-col class="centered-col">
+              <ion-icon (click)="diminishExtraPoints(answer.answerId)" name="remove-circle-outline"></ion-icon>
+            </ion-col>
+            <ion-col>
+              {{answer.extraPoints}}
+            </ion-col>
+            <ion-col class="centered-col">
+              <ion-icon (click)="increaseExtraPoints(answer.answerId)" name="remove-circle-outline"></ion-icon>
+            </ion-col>
+          </ion-row>
+          <ion-row>
+            <ion-button>
+              Calificar respuesta
+            </ion-button>
+          </ion-row>
+        </ion-grid>
+      </ion-card-content>
+    </ion-card>
+  </div>
+  <ion-button class="m-t-20 start-game-button" (click)="endGame()">
+    Finalizar dinámica
+    <ion-icon name="log-out-outline" ></ion-icon>
+  </ion-button>
 </ion-content>

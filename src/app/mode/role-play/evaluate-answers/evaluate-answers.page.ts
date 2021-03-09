@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { AnswerService } from 'src/app/services/answer/answer.service';
@@ -14,6 +14,9 @@ export class EvaluateAnswersPage implements OnInit {
   public gameId: any;
   public numParticipants: number;
   public answers: any;
+  public challenges: any;
+  public challengeNumber: number = 0;
+  public showChallenges: boolean = false;
 
   constructor(public route: ActivatedRoute,
     public dbService: NgxIndexedDBService,
@@ -24,15 +27,46 @@ export class EvaluateAnswersPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.gameId = params["gameId"];
       this.numParticipants = params["numParticipants"];
-      this.getAnswers(this.gameId);
       this.dbService.getByIndex('variables', 'name', 'token').subscribe(
         token => {
           this._answerServices.openAnswersListWebSocket(this.gameId, token.value.token);
+          this.getChallenges(this.gameId, token.value.token);
         },
         error => {
           this.closeSession();
           console.log('error: ', error);
-        });
+      });
+    });
+  }
+
+  diminishExtraPoints(answerId) {
+    var answer = this._answerServices.answersList.filter(x => x.answerId == answerId)[0];
+    if (answer.extraPoints > -20) {
+      answer.extraPoints = answer.extraPoints - 5;
+    }
+  }
+
+  increaseExtraPoints(answerId) {
+    var answer = this._answerServices.answersList.filter(x => x.answerId == answerId)[0];
+    if (answer.extraPoints > -20) {
+      answer.extraPoints = answer.extraPoints + 5;
+    }
+  }
+
+  answerListForChallenge(challengeId) {
+    return this._answerServices.answersList.filter(x => x.challengeId == challengeId)
+  }
+
+  getChallenges(gameId, token) {
+    this._answerServices.getChallenges(gameId, token).subscribe(
+      challenges => {
+        console.log('challenges: ', challenges);
+        this.challenges = challenges;
+        this.showChallenges = true;
+      },
+      error => {
+        this.closeSession();
+        console.log('error: ', error);
     });
   }
 
@@ -40,8 +74,26 @@ export class EvaluateAnswersPage implements OnInit {
     this._answerServices.closeWebSockets();
   }
 
-  getAnswers(id: any) {
-    console.log('DELETE THIS FUNCTION');
+  endGame() {
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._answerServices.finishGame(this.gameId, token.value.token).subscribe(finish => {
+          this.goToScoresPage(this.gameId);
+        });
+      },
+      error => {
+        this.closeSession();
+        console.log('error: ', error);
+    });
+  }
+
+  goToScoresPage(gameId: any) {
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        gameId: gameId
+      }
+    }
+    this.navCtrl.navigateForward('role-playing/scores', navigationExtras);
   }
 
   closeSession() {

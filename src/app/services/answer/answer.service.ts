@@ -1,9 +1,12 @@
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
 import { apiUrls } from 'src/common/constants';
 import { APIMiddleware } from '../APIMiddleware';
 
 const WS_HOST_EVALUATE_ANSWERS_URL = apiUrls.WS_HOST_EVALUATE_ANSWERS_URL;
 const HOST_EVALUATE_ANSWERS_URL = apiUrls.HOST_EVALUATE_ANSWERS_URL;
+const GET_CHALLENGES = apiUrls.GET_CHALLENGES;
+const FINISH_GAME = apiUrls.FINISH_GAME;
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +23,7 @@ export class AnswerService {
     this.webSocket = new WebSocket(WS_HOST_EVALUATE_ANSWERS_URL + gameId);
 
     this.answersList = []; // reset guests list
-    this.getChallengesApproval(gameId, token);
+    this.getAnswers(gameId, token);
 
     this.webSocket.onopen = (event) => {
       console.log('open: ', event);
@@ -46,7 +49,7 @@ export class AnswerService {
     this.webSocket.close();
   } 
 
-  getChallengesApproval(gameId, token) {
+  getAnswers(gameId, token) {
     return this.apiMiddleware.getAnswersFromGame(`${HOST_EVALUATE_ANSWERS_URL}${gameId}`, token)
     .subscribe(data => {
       console.log('data: ', data);
@@ -57,6 +60,14 @@ export class AnswerService {
         });
       }
     });
+  }
+
+  getChallenges(gameId, token): Observable<any> {
+    return this.apiMiddleware.getChallengesApproval(`${GET_CHALLENGES}${gameId}`, token);
+  }
+
+  finishGame(gameId, token): Observable<any> {
+    return this.apiMiddleware.finishGame(`${FINISH_GAME}${gameId}`, token);
   }
 
 }

@@ -125,6 +125,11 @@ const routes: Routes = [
         path: 'waiting-game',
         loadChildren: () => import('./mode/role-play/waiting-game/waiting-game.module').then( m => m.WaitingGamePageModule),
         canActivate: [AuthService]
+      },
+      {
+        path: 'waiting-scores',
+        loadChildren: () => import('./mode/role-play/waiting-scores/waiting-scores.module').then( m => m.WaitingScoresPageModule),
+        canActivate: [AuthService]
       }
     ]
   },
@@ -146,7 +151,6 @@ const routes: Routes = [
     redirectTo: 'login',
     pathMatch: 'full'
   }
-
 
 ];
 @NgModule({
