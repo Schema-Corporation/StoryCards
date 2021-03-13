@@ -35,28 +35,28 @@
     </ion-label>
     <ion-card *ngFor="let answer of answerListForChallenge(challenges[challengeNumber].challengeId)" class="center-card">
       <ion-card-header>
-        <ion-card-title class="center-text">Texto</ion-card-title>
+        <ion-card-title class="center-text">{{answer.answerText}}</ion-card-title>
       </ion-card-header>
       <ion-card-content>
-        <ion-label class="notify center-text">Texto del reto</ion-label>
+        <ion-label class="notify center-text">{{answer.fullName}}</ion-label>
         <br>
         <ion-grid>
           <ion-row>
-            <ion-label>Puntos extras</ion-label>
+            <ion-label class="centered-col">Puntos extras</ion-label>
           </ion-row>
           <ion-row>
             <ion-col class="centered-col">
-              <ion-icon (click)="diminishExtraPoints(answer.answerId)" name="remove-circle-outline"></ion-icon>
+              <ion-icon class="clickable" (click)="diminishExtraPoints(answer.answerId)" name="remove-circle-outline"></ion-icon>
             </ion-col>
-            <ion-col>
+            <ion-col class="centered-col">
               {{answer.extraPoints}}
             </ion-col>
             <ion-col class="centered-col">
-              <ion-icon (click)="increaseExtraPoints(answer.answerId)" name="remove-circle-outline"></ion-icon>
+              <ion-icon class="clickable" (click)="increaseExtraPoints(answer.answerId)" name="add-circle-outline"></ion-icon>
             </ion-col>
           </ion-row>
-          <ion-row>
-            <ion-button>
+          <ion-row class="m-t-20">
+            <ion-button class="centered-col start-game-button" (click)="doEvaluateAnswer(answer.answerId, answer.extraPoints)">
               Calificar respuesta
             </ion-button>
           </ion-row>

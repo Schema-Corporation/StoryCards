@@ -148,7 +148,6 @@ export class GuestTurnPage implements OnInit {
     this.showRollDiceModal = false;
     this.registerAnswer();
     this.updateScore();
-    this.cleanFields();
     if (!this.gameIsFinished()) this.goToNextChallenge()
     else this.showWaitingScoresPage();
   }
@@ -159,15 +158,18 @@ export class GuestTurnPage implements OnInit {
         var answerBody = {
           challengeId: this.challenges[this.challengeNumber].challengeId,
           guestId: token.value.guestData.id,
-          fullName: token.value.guestData.fullName,
+          fullName: token.value.guestData.identifier,
           answerText: this.answer,
           competency: this.competency,
           scoreObtained: this.dicesSum,
           challengeDifficulty: this.challenges[this.challengeNumber].points,
           extraPoints: 0
         }
+        console.log('answerBody: ', answerBody)
         this._guestTurnService.postAnswer(this.gameId, answerBody, token.value.token).subscribe(answer => {
           console.log('answer: ', answer);
+          this.updateScore();
+          this.clearFields();
         }, error => {
           this.closeSession();
           console.log('error: ', error);
@@ -206,7 +208,7 @@ export class GuestTurnPage implements OnInit {
     this.competency = null;
   }
 
-  cleanFields() {
+  clearFields() {
     this.useDevelopmentPoints = 0;
     this.useDestinyPoints = 0;
     this.removeUsedCompetency();

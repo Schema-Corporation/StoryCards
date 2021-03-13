@@ -42,4 +42,5 @@ export const apiUrls = {
   GET_CHALLENGES: `${BASE_API_URL}/game/challenges/`,
   WS_WAITING_SCORES_URL: `${WS_API_URL}/game/game-waiting-scores/ws/`,
   FINISH_GAME: `${BASE_API_URL}/game/finish-game/`,
+  MODIFY_ANSWER: `${BASE_API_URL}/game/modify-answers/`,
 };

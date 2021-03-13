@@ -46,7 +46,8 @@ export class ApproveChallengesPage implements OnInit {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
         this._challengesServices.rejectChallenge(this.gameId, challenge.guestId, token.value.token).subscribe(challenge => {
-          this._challengesServices.getChallengesApproval(this.gameId, token.value.token);
+          // this._challengesServices.getChallengesApproval(this.gameId, token.value.token);
+          this.removeChallengeFromList(challenge.challengeId);
         }, error => {
           this.closeSession();
           console.log('error: ', error);
@@ -56,6 +57,10 @@ export class ApproveChallengesPage implements OnInit {
         this.closeSession();
         console.log('error: ', error);
       });
+  }
+
+  removeChallengeFromList(challengeId) {
+    this._challengesServices.challengesList = this._challengesServices.challengesList.filter(x => x.challengeId != challengeId);
   }
 
   getRandomInt(min: number, max: number) {

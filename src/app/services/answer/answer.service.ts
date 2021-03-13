@@ -7,6 +7,7 @@ const WS_HOST_EVALUATE_ANSWERS_URL = apiUrls.WS_HOST_EVALUATE_ANSWERS_URL;
 const HOST_EVALUATE_ANSWERS_URL = apiUrls.HOST_EVALUATE_ANSWERS_URL;
 const GET_CHALLENGES = apiUrls.GET_CHALLENGES;
 const FINISH_GAME = apiUrls.FINISH_GAME;
+const MODIFY_ANSWER = apiUrls.MODIFY_ANSWER;
 
 @Injectable({
   providedIn: 'root'
@@ -50,13 +51,14 @@ export class AnswerService {
   } 
 
   getAnswers(gameId, token) {
+    this.answersList = [];
     return this.apiMiddleware.getAnswersFromGame(`${HOST_EVALUATE_ANSWERS_URL}${gameId}`, token)
     .subscribe(data => {
       console.log('data: ', data);
       if (data.length > 0) {
         data.forEach(element => {
           const answer = element;
-          this.answersList.push(answer);
+          if (!answer.evaluated) this.answersList.push(answer);
         });
       }
     });
@@ -68,6 +70,10 @@ export class AnswerService {
 
   finishGame(gameId, token): Observable<any> {
     return this.apiMiddleware.finishGame(`${FINISH_GAME}${gameId}`, token);
+  }
+
+  giveExtraPoints(challengeId, answerId, body, token): Observable<any> {
+    return this.apiMiddleware.giveExtraPoints(`${MODIFY_ANSWER}${challengeId}/answer/${answerId}`, body, token);
   }
 
 }

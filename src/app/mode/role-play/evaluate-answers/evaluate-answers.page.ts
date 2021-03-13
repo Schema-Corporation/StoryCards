@@ -48,13 +48,43 @@ export class EvaluateAnswersPage implements OnInit {
 
   increaseExtraPoints(answerId) {
     var answer = this._answerServices.answersList.filter(x => x.answerId == answerId)[0];
-    if (answer.extraPoints > -20) {
+    if (answer.extraPoints < 20) {
       answer.extraPoints = answer.extraPoints + 5;
     }
   }
 
   answerListForChallenge(challengeId) {
     return this._answerServices.answersList.filter(x => x.challengeId == challengeId)
+  }
+
+  getChallengeId() {
+    return this.challenges[this.challengeNumber].challengeId;
+  }
+
+  doEvaluateAnswer(answerId, answerExtraPoints) {
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        const evaluateBody = {
+          extraPoints: answerExtraPoints,
+          evaluated: true
+        }
+        this._answerServices.giveExtraPoints(this.getChallengeId(), answerId, evaluateBody, token.value.token).subscribe(
+          answerEvaluated => {
+            this.updateAnswerInList(answerId);
+          }, error => {
+            this.closeSession();
+            console.log('error: ', error);
+          }
+        );
+      },
+      error => {
+        this.closeSession();
+        console.log('error: ', error);
+    });
+  }
+
+  updateAnswerInList(answerId) {
+    this._answerServices.answersList = this._answerServices.answersList.filter(x => x.answerId != answerId)
   }
 
   getChallenges(gameId, token) {
