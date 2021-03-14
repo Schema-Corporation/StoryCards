@@ -49,7 +49,7 @@ export class RoomService {
     return this.apiMiddleware.validateRoomCode(VALIDATE_ROOM_CODE, body);
   }
 
-  addGuest(body,): Observable<any> {
+  addGuest(body): Observable<any> {
     return this.apiMiddleware.addGuest(POST_GUEST, body);
   }
 }

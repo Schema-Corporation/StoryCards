@@ -288,4 +288,22 @@ export class APIMiddleware {
     };
     return this.http.put(url, body, httpOptions);
   }
+
+  getScores(url, token) : Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.get(url, httpOptions);
+  }
+
+  endGame(url, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.post(url, httpOptions);
+  }
 }
