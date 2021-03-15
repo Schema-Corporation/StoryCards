@@ -364,6 +364,8 @@ ion-item {
 .next-button {
   float: right;
   margin: 18px;
+  color: white;
+  margin-bottom: 20px;
 }
 
 .abilities-statistics {
@@ -398,6 +400,7 @@ ion-item {
   width: 60px;
   height: 84px;
   margin: auto;
+  cursor: pointer;
 }
 
 .challenge-header {

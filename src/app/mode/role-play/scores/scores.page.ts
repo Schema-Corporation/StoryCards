@@ -92,6 +92,7 @@ export class ScoresPage implements OnInit {
   finishGame() {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
+        console.log('token: ', token.value.token);
         this._scoresService.endGame(this.gameId, token.value.token).subscribe(gameEnded => {
           this.goToMainPage();
         }, error => {
@@ -114,7 +115,6 @@ export class ScoresPage implements OnInit {
         });
       },
       error => {
-        this.closeSession();
         console.log('error: ', error);
       });
   }

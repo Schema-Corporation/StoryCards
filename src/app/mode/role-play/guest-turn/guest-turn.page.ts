@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { ActivatedRoute, NavigationExtras } from '@angular/router';
 import { IonSelect, NavController } from '@ionic/angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
+import * as uuid from 'uuid';
 import { GuestTurnService } from 'src/app/services/guest-turn/guest-turn.service';
 
 @Component({
@@ -147,15 +148,13 @@ export class GuestTurnPage implements OnInit {
   endTurn() {
     this.showRollDiceModal = false;
     this.registerAnswer();
-    this.updateScore();
-    if (!this.gameIsFinished()) this.goToNextChallenge()
-    else this.showWaitingScoresPage();
   }
 
   registerAnswer() {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
         var answerBody = {
+          answerId: uuid.v4(),
           challengeId: this.challenges[this.challengeNumber].challengeId,
           guestId: token.value.guestData.id,
           fullName: token.value.guestData.identifier,
@@ -167,9 +166,10 @@ export class GuestTurnPage implements OnInit {
         }
         console.log('answerBody: ', answerBody)
         this._guestTurnService.postAnswer(this.gameId, answerBody, token.value.token).subscribe(answer => {
-          console.log('answer: ', answer);
           this.updateScore();
           this.clearFields();
+          if (!this.gameIsFinished()) this.goToNextChallenge()
+          else this.showWaitingScoresPage();
         }, error => {
           this.closeSession();
           console.log('error: ', error);

@@ -31,7 +31,7 @@ export class AnswerService {
     };
 
     this.webSocket.onmessage = (event) => {
-      console.log('event: ', event);
+      console.log('respuesta recibida de answer: ', event);
       const eventData = JSON.parse(event.data);
       switch (eventData.operation) {
         case 'answer-received': this.answersList.push(eventData.answer); break;
@@ -54,7 +54,6 @@ export class AnswerService {
     this.answersList = [];
     return this.apiMiddleware.getAnswersFromGame(`${HOST_EVALUATE_ANSWERS_URL}${gameId}`, token)
     .subscribe(data => {
-      console.log('data: ', data);
       if (data.length > 0) {
         data.forEach(element => {
           const answer = element;
