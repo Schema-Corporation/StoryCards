@@ -181,6 +181,15 @@ export class APIMiddleware {
     return this.http.put(url, body, httpOptions);
   }
 
+  validateWaitingRoom(url, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.post(url, null, httpOptions);
+  }
+
   createGame(url, body, token): Observable<any> {
     const httpOptions: any = {
       headers: new HttpHeaders({

@@ -3,6 +3,7 @@ import { ActivatedRoute } from '@angular/router';
 import { NavController } from '@ionic/angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LoginService } from 'src/app/services/auth/login.service';
+import { RolePlayingGuestService } from 'src/app/services/role-playing/role-playing-guest/role-playing-guest.service';
 import { ScoreService } from 'src/app/services/score/score.service';
 
 @Component({
@@ -22,6 +23,7 @@ export class ScoresPage implements OnInit {
     public dbService: NgxIndexedDBService,
     public _scoresService: ScoreService,
     public _loginService: LoginService,
+    public _rolePlayingGuestService: RolePlayingGuestService,
     public route: ActivatedRoute) { }
 
   ngOnInit() {
@@ -29,8 +31,6 @@ export class ScoresPage implements OnInit {
       this.gameId = params["gameId"];
       this.getParticipantScores(this.gameId);
       this.getRole();
-      this.openFinishGameSocket();
-      this.checkIfGameFinished();
     });
   }
 
@@ -80,7 +80,17 @@ export class ScoresPage implements OnInit {
   checkIfGameFinished() {
     this._scoresService.isGameEndedChange.subscribe(isGameEnded => {
       if (isGameEnded) {
-        this.goToMainPage();
+        this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+          token => {
+            this._rolePlayingGuestService.leaveWaitingRoom(token.value.token).subscribe(role => {
+              this.goToMainPage();
+            }, error => {
+              this.closeSession();
+            })
+          },
+          error => {
+            this.closeSession();
+          });
       }
     });
   }

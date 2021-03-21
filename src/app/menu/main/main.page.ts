@@ -106,30 +106,31 @@ export class MainPage implements OnInit {
   }
 
   goToRolePlayModePage() {
-    if (this.validateGuestsNumber()) {
-      this.dbService.getByIndex('variables', 'name', 'token').subscribe(
-      token => {
-        this._rolePlayingGuestService.enterWaitingRoom(token.value.token).subscribe(role => {
-          console.log('role: ', role);
-          this.navCtrl.navigateForward('role-playing/waiting-guest');
-        }, error => {
-          console.log('error: ', error);
-          this.closeSession();
-        })
-      },
-      error => {
-        this.closeSession();
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+    token => {
+      this._rolePlayingGuestService.validateWaitingRoom(token.value.token).subscribe(allowParticipant => {
+        if (allowParticipant) {
+          this._rolePlayingGuestService.enterWaitingRoom(token.value.token).subscribe(role => {
+            console.log('role: ', role);
+            this.navCtrl.navigateForward('role-playing/waiting-guest');
+          }, error => {
+            console.log('error: ', error);
+            this.closeSession();
+          })
+        } else {
+          var title = "¡Lo sentimos!";
+          var message = "La sala de espera del juego ya cuenta con el número máximo de participantes. Inténtelo más tarde.";
+          this.showAlert(title, message);
+        }
       });
-    }
+    },
+    error => {
+      this.closeSession();
+    });
   }
 
   goToRoomModePage() {
     this.navCtrl.navigateForward('rooms/my-rooms');
-  }
-
-  validateGuestsNumber() {
-    console.log('TO-DO VALIDATE GUESTS NUMBER')
-    return true;
   }
 
   async presentPopover(ev: any) {

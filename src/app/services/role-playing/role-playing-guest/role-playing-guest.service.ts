@@ -4,6 +4,7 @@ import { apiUrls } from 'src/common/constants';
 import { APIMiddleware } from '../../APIMiddleware';
 
 const PUT_GUEST_WAITING_ROOM = apiUrls.PUT_GUEST_WAITING_ROOM;
+const VALIDATE_GUEST_WAITING_ROOM= apiUrls.VALIDATE_GUEST_WAITING_ROOM;
 const WS_WAITING_ROOM_URL = apiUrls.WS_WAITING_ROOM_URL;
 
 @Injectable({
@@ -50,6 +51,10 @@ export class RolePlayingGuestService {
 
   leaveWaitingRoom(token): Observable<any> {
     return this.apiMiddleware.leaveWaitingRoom(`${PUT_GUEST_WAITING_ROOM}`, { status: 1 }, token);
+  }
+
+  validateWaitingRoom(token): Observable<any> {
+    return this.apiMiddleware.validateWaitingRoom(`${VALIDATE_GUEST_WAITING_ROOM}`, token);
   }
 
 }
