@@ -102,7 +102,11 @@ export class MainPage implements OnInit {
   }
 
   goToCanvasModePage() {
-    this.navCtrl.navigateForward('canvas/canvas');
+    switch (this.role) {
+      case 1: this.navCtrl.navigateForward('canvas/canvas'); break;
+      case 2: this.navCtrl.navigateForward('canvas/add-canvas'); break;
+      default: this.navCtrl.navigateForward('canvas/add-canvas'); break;
+    }
   }
 
   goToRolePlayModePage() {

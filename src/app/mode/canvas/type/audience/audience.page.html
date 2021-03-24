@@ -5,7 +5,7 @@
       </ion-back-button>
     </ion-buttons>
     <ion-title text-center class="principal-title">Formato de Auditorio</ion-title>
-    <ion-icon slot="end" class="icon-header" (click)="chooseCanvasName()" name="save-outline"></ion-icon>
+    <ion-icon slot="end" class="icon-header" *ngIf="showSaveOption" (click)="chooseCanvasName()" name="save-outline"></ion-icon>
     <ion-icon slot="end" class="icon-header" (click)="downloadCanvas()" name="download-outline"></ion-icon>
     <ion-icon slot="end" class="icon-header" *ngIf="platform.is('desktop')" (click)="printCanvas()" name="print-outline"></ion-icon>
   </ion-toolbar>
