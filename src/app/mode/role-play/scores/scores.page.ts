@@ -118,8 +118,10 @@ export class ScoresPage implements OnInit {
   getParticipantScores(gameId) {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
-        this._scoresService.getScores(gameId, token.value.token).subscribe(scores => {
-          this.participantScores = scores;
+        this._scoresService.getScores(gameId, token.value.token).subscribe(answers => {
+          console.log('scores: ', answers);
+          const participants = {};
+          this.getScoresFromAnswers(answers);
         }, error => {
           console.log('error: ', error);
         });
@@ -127,6 +129,37 @@ export class ScoresPage implements OnInit {
       error => {
         console.log('error: ', error);
       });
+  }
+
+  getScoresFromAnswers(answers) {
+    var participants = [];
+    var names = {};
+    var participantScores = [];
+    answers.forEach(answer => {
+      if (participants.indexOf(answer.guestId) == -1) {
+        participants.push(answer.guestId);
+        names[answer.guestId] = answer.fullName
+      }
+    });
+    participants.forEach(participant => {
+      var scoreOfParticipant = 0;
+      var extraPointsOfParticipant = 0;
+      answers.filter(x => x.guestId == participant).forEach(answer => {
+          scoreOfParticipant = scoreOfParticipant + answer.scoreObtained;
+          extraPointsOfParticipant = extraPointsOfParticipant + answer.extraPoints;
+      });
+      participantScores.push({
+        guestId: participant,
+        name: names[participant],
+        score: scoreOfParticipant,
+        extraPoints: extraPointsOfParticipant,
+        finalScore: scoreOfParticipant + extraPointsOfParticipant
+      });
+    });
+    participantScores.sort((a, b) => {
+      return b.finalScore - a.finalScore;
+    });
+    this.participantScores = participantScores;
   }
 
   closeSession() {
