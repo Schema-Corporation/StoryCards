@@ -89,15 +89,20 @@ export class CreateCharacterPage implements OnInit {
     this._gameService.response.subscribe(response => {
       switch (response) {
         case 'approved': this.goToWaitingGamePage(); break;
-        case 'rejected': this.tryToSendNewChallenge(); break;
+        case 'rejected': this.notifyRejectReason(); break;
       }
     });
   }
 
-  tryToSendNewChallenge() {
+  notifyRejectReason() {
     this.hideWaitingForChallengeApprovalModal();
     this.challenge = '';
     this.challengeCharacters = 0;
+    this.showRejectReason();
+  }
+
+  showRejectReason() {
+    this.showRejectChallengeAlert(this._gameService.reason);
   }
 
   goToWaitingGamePage() {
@@ -261,6 +266,24 @@ export class CreateCharacterPage implements OnInit {
           text: 'Ok',
           handler: (data: string) => {
             this.createAbility(data, number);
+          }
+        }
+      ]});
+
+    await alert.present();
+  }
+
+  async showRejectChallengeAlert(reason) {
+    var alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Reto rechazado',
+      message: 'Tu reto ha sido rechazado por la siguiente razón: ' + '<strong>' + reason + '</strong>',
+      buttons: [
+        {
+          text: 'Entendido',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
           }
         }
       ]});

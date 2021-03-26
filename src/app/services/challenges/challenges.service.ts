@@ -70,8 +70,8 @@ export class ChallengesService {
     return this.apiMiddleware.acceptChallenge(`${PUT_CHALLENGES_APPROVAL}${gameId}`, body, token)
   }
 
-  rejectChallenge(gameId, guestId, token) {
-    return this.apiMiddleware.rejectChallenge(`${DELETE_CHALLENGES_APPROVAL}${gameId}/guest/${guestId}`, token)
+  rejectChallenge(gameId, reason, guestId, token) {
+    return this.apiMiddleware.rejectChallenge(`${DELETE_CHALLENGES_APPROVAL}${gameId}/guest/${guestId}`, { reason: reason }, token)
   }
 
   goToStartGame(gameId, token) {

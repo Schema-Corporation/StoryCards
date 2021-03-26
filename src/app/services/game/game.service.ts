@@ -15,6 +15,8 @@ export class GameService {
 
   public response: Subject<string> = new Subject<string>();
 
+  public reason: string = "";
+
   public openChallengeApprovalWebSocket(guestId, token) {
     this.webSocket = new WebSocket(WS_CHALLENGE_APPROVAL_URL + guestId);
 
@@ -26,7 +28,7 @@ export class GameService {
       console.log('event: ', event);
       const eventData = JSON.parse(event.data);
       switch (eventData.operation) {
-        case 'challenge-rejected': this.response.next('rejected'); break;
+        case 'challenge-rejected': this.reason = eventData.reason; this.response.next('rejected'); break;
         case 'challenge-approved': this.response.next('approved'); break;
         default: break;
       }

@@ -42,10 +42,47 @@ export class ApproveChallengesPage implements OnInit {
     // this.location.replaceState('/role-playing/approve-challenges');
   }
 
-  rejectChallenge(challenge: any) {
+  askForRejectChallengeReason(challenge: any) {
+    this.showRejectChallengeAlert(challenge);
+  }
+
+  async showRejectChallengeAlert(challenge: any) {
+    const alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Explique la razón del rechazo',
+      inputs: [
+        {
+          name: 'reason',
+          type: 'text',
+          placeholder: 'Razón',
+          value: '',
+          attributes: {
+            maxlength: 100
+          }
+        }
+      ],
+      buttons: [
+        {
+          text:'Cancelar',
+          handler: () => {
+          }
+        },
+        {
+          text:'Enviar',
+          handler:(data) => {
+            this.rejectChallenge(challenge, data.reason);
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  rejectChallenge(challenge: any, reason: string) {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
-        this._challengesServices.rejectChallenge(this.gameId, challenge.guestId, token.value.token).subscribe(challenge => {
+        this._challengesServices.rejectChallenge(this.gameId, reason, challenge.guestId, token.value.token).subscribe(challenge => {
           // this._challengesServices.getChallengesApproval(this.gameId, token.value.token);
           this.removeChallengeFromList(challenge.challengeId);
         }, error => {

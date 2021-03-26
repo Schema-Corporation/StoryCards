@@ -34,7 +34,7 @@ export const apiUrls = {
   WS_HOST_CHALLENGES_APPROVAL_URL: `${WS_API_URL}/game/challenges-host-approval/ws/`,
   GUEST_CHALLENGES_APPROVAL_URL: `${BASE_API_URL}/game/challenges/`,
   PUT_CHALLENGES_APPROVAL: `${BASE_API_URL}/game/challenges/`,
-  DELETE_CHALLENGES_APPROVAL: `${BASE_API_URL}/game/challenges/`,
+  DELETE_CHALLENGES_APPROVAL: `${BASE_API_URL}/game/challenges-reject/`,
   WS_HOST_EVALUATE_ANSWERS_URL: `${WS_API_URL}/game/evaluate-answers/ws/`,
   HOST_EVALUATE_ANSWERS_URL: `${BASE_API_URL}/game/evaluate-answers/`,
   POST_ANSWER: `${BASE_API_URL}/game/answer/`,
