@@ -27,7 +27,7 @@ export class ApproveChallengesPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.gameId = params["gameId"];
+      this.gameId = (params["gameId"]).replace(/"/g, '');
       this.numParticipants = params["numParticipants"];
       this.dbService.getByIndex('variables', 'name', 'token').subscribe(
         token => {
@@ -97,7 +97,14 @@ export class ApproveChallengesPage implements OnInit {
   }
 
   removeChallengeFromList(challengeId) {
-    this._challengesServices.challengesList = this._challengesServices.challengesList.filter(x => x.challengeId != challengeId);
+    var index = -1;
+    for (var i = 0; i < this._challengesServices.challengesList.length; i++) {
+      if (this._challengesServices.challengesList[i].challengeId == challengeId) {
+        index = i;
+      }
+    }
+    this._challengesServices.challengesList.splice(index, 1);
+    // this._challengesServices.challengesList = this._challengesServices.challengesList.filter(x => x.challengeId != challengeId);
   }
 
   getRandomInt(min: number, max: number) {

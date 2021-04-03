@@ -57,7 +57,7 @@ export class GuestTurnPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.gameId = params["gameId"];
+      this.gameId = (params["gameId"]).replace(/"/g, '');
       this.character = JSON.parse(JSON.parse(params["character"]));
     });
     this.participantSetUp();

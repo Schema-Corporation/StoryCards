@@ -25,7 +25,7 @@ export class EvaluateAnswersPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.gameId = params["gameId"];
+      this.gameId = (params["gameId"]).replace(/"/g, '');
       this.numParticipants = params["numParticipants"];
       this.dbService.getByIndex('variables', 'name', 'token').subscribe(
         token => {
