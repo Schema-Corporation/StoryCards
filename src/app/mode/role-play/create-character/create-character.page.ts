@@ -5,6 +5,7 @@ import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { GameService } from 'src/app/services/game/game.service';
 import { IParticipant } from 'src/common/types/participant';
 import { IAbility } from 'src/common/types/participant';
+import * as uuid from 'uuid';
 
 
 @Component({
@@ -357,6 +358,7 @@ export class CreateCharacterPage implements OnInit {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
         var challengeObject = {
+          challengeId: uuid.v4(),
           gameId: this.gameId,
           roomId: token.value.guestData.roomId,
           guestId: token.value.guestData.id,

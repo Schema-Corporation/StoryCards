@@ -82,7 +82,13 @@ export class ApproveChallengesPage implements OnInit {
   rejectChallenge(challenge: any, reason: string) {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
-        this._challengesServices.rejectChallenge(this.gameId, reason, challenge.guestId, token.value.token).subscribe(challenge => {
+        var body = {
+          challengeId: challenge.challengeId,
+          reason: reason,
+          status: 2,
+          points: 0
+        }
+        this._challengesServices.rejectChallenge(this.gameId, challenge.guestId, body, token.value.token).subscribe(challengeRejected => {
           // this._challengesServices.getChallengesApproval(this.gameId, token.value.token);
           this.removeChallengeFromList(challenge.challengeId);
         }, error => {
@@ -100,10 +106,11 @@ export class ApproveChallengesPage implements OnInit {
     var index = -1;
     for (var i = 0; i < this._challengesServices.challengesList.length; i++) {
       if (this._challengesServices.challengesList[i].challengeId == challengeId) {
-        index = i;
+        this._challengesServices.challengesList[i].status = 2;
       }
     }
-    this._challengesServices.challengesList.splice(index, 1);
+    this._challengesServices.challengesList = this._challengesServices.challengesList.filter(x => x.status == 0);
+    // this._challengesServices.challengesList.splice(index, 1);
     // this._challengesServices.challengesList = this._challengesServices.challengesList.filter(x => x.challengeId != challengeId);
   }
 
@@ -128,6 +135,7 @@ export class ApproveChallengesPage implements OnInit {
     }
 
     var challengeBody = {
+      challengeId: challenge.challengeId,
       guestId: challenge.guestId,
       fullName: challenge.fullName,
       status: 1,

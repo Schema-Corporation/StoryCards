@@ -93,7 +93,7 @@ export class EvaluateAnswersPage implements OnInit {
     this._answerServices.getChallenges(gameId, token).subscribe(
       challenges => {
         console.log('challenges: ', challenges);
-        this.challenges = challenges;
+        this.challenges = challenges.filter(x => x.status == 1);
         this.showChallenges = true;
       },
       error => {
