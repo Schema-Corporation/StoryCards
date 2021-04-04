@@ -1,4 +1,5 @@
 export interface IChallenge {
+    challengeId: string;
     gameId: string;
     roomId: string;
     guestId: string;
