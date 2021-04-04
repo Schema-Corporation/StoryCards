@@ -7,6 +7,7 @@ export const environment = {
   // apiUrl: "https://pharmaapp-services-be.com",
   apiUrl: "http://localhost:3000",
   wsServer: "ws://localhost:3000",
+  // wsServer: "ws://story-cards-be-dev.us-west-2.elasticbeanstalk.com",
   INDEXEDDB_CONFIG: {
     name: 'StorycardsDb',
     version: 1,

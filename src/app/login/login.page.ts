@@ -108,6 +108,10 @@ export class LoginPage implements OnInit {
     });
   }
 
+  goToRegisterPage() {
+    this.navCtrl.navigateForward('register');
+  }
+
   loginGuest() {
     var guest = {
       roomId: this.roomId,

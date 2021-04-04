@@ -23,7 +23,7 @@ export class WaitingGamePage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.gameId = params["gameId"];
+      this.gameId = (params["gameId"]).replace(/"/g, '');
       this.character = JSON.parse(JSON.stringify(params["character"]));
       this.openWaitingGameSocket();
       this.checkIfGameStarted();

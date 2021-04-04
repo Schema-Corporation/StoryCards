@@ -57,7 +57,7 @@ export class GuestTurnPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.gameId = params["gameId"];
+      this.gameId = (params["gameId"]).replace(/"/g, '');
       this.character = JSON.parse(JSON.parse(params["character"]));
     });
     this.participantSetUp();
@@ -76,7 +76,7 @@ export class GuestTurnPage implements OnInit {
       token => {
         this._guestTurnService.getChallenges(this.gameId, token.value.token).subscribe(challenges => {
           console.log('challenges: ', challenges);
-          this.challenges = challenges;
+          this.challenges = challenges.filter(x => x.status == 1);
           this.showChallenges = true;
         }, error => {
           this.closeSession();

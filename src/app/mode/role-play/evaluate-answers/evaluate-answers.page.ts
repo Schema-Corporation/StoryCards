@@ -25,7 +25,7 @@ export class EvaluateAnswersPage implements OnInit {
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
-      this.gameId = params["gameId"];
+      this.gameId = (params["gameId"]).replace(/"/g, '');
       this.numParticipants = params["numParticipants"];
       this.dbService.getByIndex('variables', 'name', 'token').subscribe(
         token => {
@@ -93,7 +93,7 @@ export class EvaluateAnswersPage implements OnInit {
     this._answerServices.getChallenges(gameId, token).subscribe(
       challenges => {
         console.log('challenges: ', challenges);
-        this.challenges = challenges;
+        this.challenges = challenges.filter(x => x.status == 1);
         this.showChallenges = true;
       },
       error => {
