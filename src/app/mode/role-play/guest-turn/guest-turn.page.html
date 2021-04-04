@@ -63,7 +63,26 @@
         <ion-row *ngFor="let indexRow of rows">
           <ion-col *ngFor="let indexColumn of columns">
             <div *ngIf="(this.dices[(indexRow)*3 + (indexColumn)])">
-              <ion-img class="dice-img" src="/assets/util/dice_{{this.dices[(indexRow)*3 + (indexColumn)]}}.png"></ion-img>
+              <div class="dice">
+                <div class="face">
+                  <ion-img class="dice-img" src="/assets/util/dice_{{this.dices[(indexRow )*3+ (indexColumn)]}}.png"></ion-img>
+                </div>
+                <div class="face">
+                  <ion-img class="dice-img" src="/assets/util/dice_1.png"></ion-img>
+                </div>
+                <div class="face">
+                  <ion-img class="dice-img" src="/assets/util/dice_2.png"></ion-img>
+                </div>
+                <div class="face">
+                  <ion-img class="dice-img" src="/assets/util/dice_3.png"></ion-img>
+                </div>
+                <div class="face">
+                  <ion-img class="dice-img" src="/assets/util/dice_4.png"></ion-img>
+                </div>
+                <div class="face">
+                  <ion-img class="dice-img" src="/assets/util/dice_5.png"></ion-img>
+                </div>
+              </div>
             </div>
           </ion-col>
         </ion-row>
