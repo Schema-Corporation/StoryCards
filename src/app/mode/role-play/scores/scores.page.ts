@@ -34,10 +34,6 @@ export class ScoresPage implements OnInit {
     });
   }
 
-  ngOnDestroy() {
-    this._scoresService.closeWebSockets();
-  }
-
   getRole() {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
