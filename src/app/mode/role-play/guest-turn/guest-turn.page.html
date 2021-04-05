@@ -13,49 +13,66 @@
     <ion-row class="info-row">
       <ion-col>
         <div class="info">
-          <ion-icon class="icon-info" name="heart-outline"></ion-icon><ion-label class="p-info">{{score}}</ion-label>
+          <ion-icon class="icon-info" name="heart-outline"></ion-icon>
+          <ion-label class="p-info">{{score}}</ion-label>
         </div>
       </ion-col>
       <ion-col>
         <div class="info">
-          <ion-icon class="icon-info" name="dice-outline"></ion-icon><ion-label class="p-info">{{developmentPoints - useDevelopmentPoints}}</ion-label>        
+          <ion-icon class="icon-info" name="dice-outline"></ion-icon>
+          <ion-label class="p-info">{{developmentPoints - useDevelopmentPoints}}</ion-label>
         </div>
       </ion-col>
       <ion-col>
         <div class="info">
-          <ion-icon class="icon-info" name="logo-electron"></ion-icon><ion-label class="p-info">{{destinyPoints - useDestinyPoints}}</ion-label>
+          <ion-icon class="icon-info" name="logo-electron"></ion-icon>
+          <ion-label class="p-info">{{destinyPoints - useDestinyPoints}}</ion-label>
         </div>
       </ion-col>
     </ion-row>
   </ion-grid>
-  <div class="fullheight" *ngIf = "showChallenges">
-    <p class="small-title">Reto de difucultad: {{challenges[challengeNumber].points}}</p>
-    <p class="small-title boxed">{{challenges[challengeNumber].challengeBody}}</p>
-    <p class="small-title">Competencia</p>
-    <ion-item>
-      <ion-label>Escoge tu competencia</ion-label>
-      <ion-select #projectSelect class="select-m-l" (ionChange)="selectCompetency($event)">
-        <ion-select-option *ngFor="let competency of competencies" [value]="competency">{{competency.text}} ({{competency.points}})</ion-select-option>
-      </ion-select>
-    </ion-item>
-    <ion-item>
-      <ion-label class="label-m-l">Utilizar punto de desarrollo ({{developmentPoints - useDevelopmentPoints}})</ion-label>
-      <ion-checkbox [disabled]="developmentPoints == 0" [(ngModel)]="useDevelopmentPoints" slot="start"></ion-checkbox>
-    </ion-item>
-    <ion-item>
-      <ion-label class="label-m-l">Utilizar punto de destino ({{destinyPoints - useDestinyPoints}})</ion-label>
-      <ion-checkbox [disabled]="destinyPoints == 0" [(ngModel)]="useDestinyPoints" slot="start"></ion-checkbox>
-    </ion-item>
-    <p class="small-title">¿Cómo solucionarías este problema?</p>
-    <ion-item class="challenge-item">
-      <ion-textarea [value]="answer" maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeAnswer($event)" placeholder="Escribe cómo resolverías el reto ..."></ion-textarea>
-    </ion-item>
-    <ion-label class="count-letters">{{this.answerCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
-    <ion-button [disabled]="notEnoughData()" class="start-game-button" (click)="useTurn()">
-      Lanzar dados
-      <ion-icon name="dice-outline" ></ion-icon>
-    </ion-button>
-  </div>
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col *ngIf="avatar != -1" size="12" size-md="3">
+        <ion-img  class="img-avatar" [src]="avatarPath"></ion-img>
+      </ion-col>
+      <ion-col size="12" [sizeMd]="avatar != -1 ? '7' : '9'">
+        <div class="fullheight" *ngIf="showChallenges">
+          <p class="small-title">Reto de dificultad: {{challenges[challengeNumber].points}}</p>
+          <p class="small-title boxed">{{challenges[challengeNumber].challengeBody}}</p>
+          <p class="small-title">Competencia</p>
+          <ion-item>
+            <ion-label>Escoge tu competencia</ion-label>
+            <ion-select #projectSelect class="select-m-l" (ionChange)="selectCompetency($event)">
+              <ion-select-option *ngFor="let competency of competencies" [value]="competency">{{competency.text}}
+                ({{competency.points}})</ion-select-option>
+            </ion-select>
+          </ion-item>
+          <ion-item>
+            <ion-label class="label-m-l">Utilizar punto de desarrollo ({{developmentPoints - useDevelopmentPoints}})
+            </ion-label>
+            <ion-checkbox [disabled]="developmentPoints == 0" [(ngModel)]="useDevelopmentPoints" slot="start">
+            </ion-checkbox>
+          </ion-item>
+          <ion-item>
+            <ion-label class="label-m-l">Utilizar punto de destino ({{destinyPoints - useDestinyPoints}})</ion-label>
+            <ion-checkbox [disabled]="destinyPoints == 0" [(ngModel)]="useDestinyPoints" slot="start"></ion-checkbox>
+          </ion-item>
+          <p class="small-title">¿Cómo solucionarías este problema?</p>
+          <ion-item class="challenge-item">
+            <ion-textarea [value]="answer" maxlength="{{this.maximumCharactersAllowed}}"
+              (ionChange)="writeAnswer($event)" placeholder="Escribe cómo resolverías el reto ..."></ion-textarea>
+          </ion-item>
+          <ion-label class="count-letters">{{this.answerCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
+          <ion-button [disabled]="notEnoughData()" class="start-game-button" (click)="useTurn()">
+            Lanzar dados
+            <ion-icon name="dice-outline"></ion-icon>
+          </ion-button>
+        </div>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
   <div class="modal-guest" *ngIf="showRollDiceModal">
     <div class="modal-guest-content">
       <p class="small-title">Resultados del turno: </p>
@@ -92,7 +109,7 @@
       <p class="small-title">Puntaje obtenido: {{dicesSum - challenges[challengeNumber].points}}</p>
       <ion-button class="start-game-button" (click)="endTurn()">
         Finalizar turno
-        <ion-icon name="dice-outline" ></ion-icon>
+        <ion-icon name="dice-outline"></ion-icon>
       </ion-button>
     </div>
   </div>

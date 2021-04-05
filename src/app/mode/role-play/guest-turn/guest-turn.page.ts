@@ -45,6 +45,8 @@ export class GuestTurnPage implements OnInit {
 
   public gameId: any;
   public character: any;
+  public avatar: any = -1;
+  public avatarPath: string;
 
   public showChallenges: boolean;
 
@@ -59,6 +61,8 @@ export class GuestTurnPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.gameId = (params["gameId"]).replace(/"/g, '');
       this.character = JSON.parse(JSON.parse(params["character"]));
+      this.avatar = this.character.avatar;
+      this.avatarPath = `/assets/cards/avatars/avatars_${this.avatar}_im.svg`;
     });
     this.participantSetUp();
     this.challengesSetUp();

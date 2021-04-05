@@ -290,6 +290,14 @@ ion-checkbox{
       height: 40px;
       //z-index: 2;
     }
+
+    .img-avatar {
+      width: 256px;
+      height: 256px;
+      padding: 0px;
+      margin: auto;
+      padding: 4%;
+    }
   
     .ion-imgSize{
       width: 250px;
@@ -488,8 +496,7 @@ ion-checkbox{
     }
   
     .fullheight {
-      margin: auto;
-      width: 800px;
+      width: 100%;
     }
       
     .principal-title{
@@ -530,9 +537,17 @@ ion-checkbox{
     }
   
     .fullheight{
-      margin: auto;
-      width: 800px;
+      width: 100%;
     }
+
+    .img-avatar {
+      width: 84%;
+      height: 84%;
+      padding: 0px;
+      margin: auto;
+      padding: 4%;
+    }
+
     .principal-title{
       font-size: 28px;
     }

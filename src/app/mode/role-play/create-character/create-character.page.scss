@@ -368,6 +368,13 @@ ion-item {
   margin-bottom: 20px;
 }
 
+.next-button-flex {
+  margin-left: auto;
+  margin-bottom: 20px;
+  color: white;
+  font-size: 20px;
+}
+
 .abilities-statistics {
   font-size: 13px;
 }
@@ -618,6 +625,7 @@ ion-item {
     margin-top: 5%;
     font-size: 20px;
   }
+
   .challenge-item {
     margin-right: 10%;
     margin-left: 10%;
