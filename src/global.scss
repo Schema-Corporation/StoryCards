@@ -75,3 +75,9 @@
 .ionic-selectable-value {
     padding-left: 0px !important;
 }
+
+// Aquí se reemplazan las variables para dispositivos IOS
+.ios {
+    --background-activated: #ff0000;
+  }
+
