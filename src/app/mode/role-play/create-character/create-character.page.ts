@@ -46,7 +46,7 @@ export class CreateCharacterPage implements OnInit {
   public sixthReady: boolean = false;
   public seventhReady: boolean = false;
 
-  public maximumCharactersAllowed: number = 200;
+  public maximumCharactersAllowed: number = 600;
   public challengeCharacters: number = 0;
 
   public challenge: string;
@@ -69,6 +69,7 @@ export class CreateCharacterPage implements OnInit {
     });
     this.openChallengeSocket();
     this.checkIfChallengeApproved();
+    this.showFirstMessage();
   }
 
   ngOnDestroy() {
@@ -118,23 +119,29 @@ export class CreateCharacterPage implements OnInit {
   }
 
   addStep(){
-    this.step++
+    this.step++;
+    switch (this.step) {
+      case 1: this.showFirstMessage(); break;
+      case 2: this.showSecondMessage(); break;
+      case 3: this.showThirdMessage(); break;
+      default: break;
+    }
   }
 
   setAbility(character) {
     switch (character) {
-      case 1: this.firstAbility = "Buen trato"; this.secondAbility = "Idealista"; this.thirdAbility = "Abierto al cambio"; break;
+      case 1: this.firstAbility = "Buen trato"; this.secondAbility = "Idealista"; this.thirdAbility = "Orientación al cambio"; break;
       case 2: this.firstAbility = "Autonomía"; this.secondAbility = "Aprendizaje"; this.thirdAbility = "Emprendimiento"; break;
-      case 3: this.firstAbility = "Valentía"; this.secondAbility = "Perseverancia"; this.thirdAbility = "Habilidad"; break;
-      case 4: this.firstAbility = "Análisis"; this.secondAbility = "Independencia"; this.thirdAbility = "Curiosidad"; break;
-      case 5: this.firstAbility = "Perspectiva"; this.secondAbility = "Persuasión"; this.thirdAbility = "Carisma"; break;
+      case 3: this.firstAbility = "Valentía"; this.secondAbility = "Perseverancia"; this.thirdAbility = "Habilidad profesional"; break;
+      case 4: this.firstAbility = "Capacidad de análisis"; this.secondAbility = "Independencia"; this.thirdAbility = "Curiosidad"; break;
+      case 5: this.firstAbility = "Aporta nuevas perspectivas"; this.secondAbility = "Persuasión"; this.thirdAbility = "Carisma"; break;
       case 6: this.firstAbility = "Genera cambios"; this.secondAbility = "Motivador"; this.thirdAbility = "Inspirador"; break;
       case 7: this.firstAbility = "Compromiso"; this.secondAbility = "Lealtad"; this.thirdAbility = "Diplomacía"; break;
       case 8: this.firstAbility = "Colaborativo"; this.secondAbility = "Honestidad"; this.thirdAbility = "Practicidad"; break;
       case 9: this.firstAbility = "Optimismo"; this.secondAbility = "Dinamismo"; this.thirdAbility = "Flexibilidad"; break;
       case 10: this.firstAbility = "Empatía"; this.secondAbility = "Solidaridad"; this.thirdAbility = "Responsabilidad social"; break;
       case 11: this.firstAbility = "Visionario"; this.secondAbility = "Creatividad"; this.thirdAbility = "Iniciativa"; break;
-      case 12: this.firstAbility = "Liderazgo"; this.secondAbility = "Responsable"; this.thirdAbility = "Comunicación"; break;
+      case 12: this.firstAbility = "Liderazgo"; this.secondAbility = "Responsable"; this.thirdAbility = "Comunicación eficaz"; break;
       default: break;
     }
   }
@@ -200,10 +207,14 @@ export class CreateCharacterPage implements OnInit {
 
   generateList(character) {
     var result = [];
-    var abilities = ['Buen trato', 'Idealista', 'Abierto al cambio', 'Autonomía', 'Aprendizaje', 'Emprendimiento', 'Valentía', 'Perseverancia',
-      'Habilidad', 'Análisis', 'Independencia', 'Curiosidad', 'Perspectiva', 'Persuasión', 'Carisma', 'Genera cambios', 'Motivador', 'Inspirador',
+    var abilities = ['Buen trato', 'Idealista', 'Orientación al cambio', 'Autonomía', 'Aprendizaje', 'Emprendimiento', 'Valentía', 'Perseverancia',
+      'Habilidad profesional', 'Capacidad de análisis', 'Independencia', 'Curiosidad', 'Aporta nuevas perspectivas', 'Persuasión', 'Carisma', 'Genera cambios', 'Motivador', 'Inspirador',
       'Compromiso', 'Lealtad', 'Diplomacía', 'Colaborativo', 'Honestidad', 'Practicidad', 'Optimismo', 'Dinamismo', 'Flexibilidad', 'Empatía',
-      'Solidaridad', 'Responsabilidad social', 'Visionario', 'Creatividad', 'Iniciativa', 'Liderazgo', 'Responsable', 'Comunicación'];
+      'Solidaridad', 'Responsabilidad social', 'Visionario', 'Creatividad', 'Iniciativa', 'Liderazgo', 'Responsable', 'Comunicación eficaz',
+      // abilities that do not belong to any specific character
+      'Trabajo en equipo', 'Capacidad para resolver problemas', 'Proactividad', 'Autocontrol', 'Capacidad para afrontar la presión', 'Relaciones sociales',
+      'Planificación y organización', 'Valores', 'Emprendimiento', 'Capacidad de aprendizaje', 'Orientación al logro'
+    ];
     // remove predefined abilities from the list
     abilities.splice((character - 1) * 3, 3);
     // remove ability already chosen from the list
@@ -248,6 +259,57 @@ export class CreateCharacterPage implements OnInit {
       result.push(inputElement);
     });
     return result;
+  }
+
+  async showFirstMessage() {
+    var alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Sistema D6',
+      message: 'Bienvenidos sean todos a la plataforma del role-playing game "Retos", hoy podrán generar soluciones a los problemas que tienen, a través del uso de un juego interactivo. Para ello deben crear un personaje que los representará durante toda la actividad. Revisen cada uno de los doce personajes y elijan aquel que más se asemeje a ustedes en relación a sus competencias.',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            // console.log('Confirm OK');
+          }
+        }
+      ]});
+
+    await alert.present();
+  }
+
+  async showSecondMessage() {
+    var alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Sistema D6',
+      message: 'Ahora elige ahora 4 competencias adicionales de listado, que tú también poseas y que te ayudarán a superar los retos. Así mismo, deberás distribuir 15 puntos entre las 7 competencias, dependiendo de cuan importantes sean para la superación de los retos.',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            // console.log('Confirm OK');
+          }
+        }
+      ]});
+
+    await alert.present();
+  }
+
+  async showThirdMessage() {
+    var alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Sistema D6',
+      message: 'Ahora describe un problema que tengan como equipo y que desees resolver, procura detallar cómo se manifiesta para ayudar a los demás a darle solución.',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            // console.log('Confirm OK');
+          }
+        }
+      ]});
+
+    await alert.present();
   }
 
   async showAlert(number) {

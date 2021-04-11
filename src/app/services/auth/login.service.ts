@@ -6,6 +6,7 @@ import { apiUrls } from "../../../common/constants";
 
 const AUTH = apiUrls.AUTH;
 const VALIDATE_ROLE = apiUrls.VALIDATE_ROLE;
+const VALIDATE_USER_ACTIVITY = apiUrls.VALIDATE_USER_ACTIVITY;
 
 @Injectable({
   providedIn: "root",
@@ -23,5 +24,9 @@ export class LoginService {
 
   validateRole(token: string): Observable<any> {
     return this.apiMiddleware.validateRole(VALIDATE_ROLE, token);
+  }
+
+  checkUserActivity(token): Observable<any> {
+    return this.apiMiddleware.checkUserActivity(VALIDATE_USER_ACTIVITY, token);
   }
 }

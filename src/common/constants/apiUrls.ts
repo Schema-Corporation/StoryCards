@@ -47,4 +47,5 @@ export const apiUrls = {
   GET_SCORES: `${BASE_API_URL}/game/scores/`,
   WS_FINISH_GAME: `${WS_API_URL}/game/notify-finish-game/ws/`,
   POST_END_GAME: `${BASE_API_URL}/game/end-game/`,
+  VALIDATE_USER_ACTIVITY : `${BASE_API_URL}/check-user-activity/`,
 };

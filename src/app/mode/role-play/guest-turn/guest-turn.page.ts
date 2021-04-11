@@ -19,7 +19,7 @@ export class GuestTurnPage implements OnInit {
   public challengeNumber: number = 0;
   public score: number = 0;
   public developmentPoints: number = 0;
-  public maximumCharactersAllowed: number = 200;
+  public maximumCharactersAllowed: number = 600;
   public destinyPoints: number = 0;
   public useDevelopmentPoints: number = 0;
   public useDestinyPoints: number = 0;
