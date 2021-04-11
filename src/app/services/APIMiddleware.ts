@@ -142,6 +142,15 @@ export class APIMiddleware {
     return this.http.post(url, null, httpOptions);
   }
 
+  checkUserActivity(url: string, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.get(url, httpOptions);
+  }
+
   doRegister(url: string, user: any): Observable<any> {
     return this.http.post(url, user);
   }

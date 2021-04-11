@@ -59,6 +59,10 @@ export class MainPage implements OnInit {
       }
     });
 
+    this.validateRole();
+  }
+
+  validateRole() {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
         if (token != null && token.value.fullName != "undefined") {
@@ -73,6 +77,7 @@ export class MainPage implements OnInit {
           }
         }, error => {
           console.log('error: ', error);
+          this.closeSession();
         })
 
       },
@@ -97,19 +102,41 @@ export class MainPage implements OnInit {
     await alert.present();
   }
 
+  validateUserActivity() {
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._loginService.checkUserActivity(token.value.token).subscribe(userActivity => {
+          if (userActivity) {
+            // do nothing
+          } else {
+            console.log('user disabled');
+            this.closeSession();
+          }
+        }, error => {
+          console.log('error: ', error);
+          this.closeSession();
+        })
+      },
+      error => {
+        this.closeSession();
+      });
+  }
+
   goToFreeModePage(){
+    if (this.role == 2) this.validateUserActivity();
     this.navCtrl.navigateForward('free/groups');
   }
 
   goToCanvasModePage() {
     switch (this.role) {
       case 1: this.navCtrl.navigateForward('canvas/canvas'); break;
-      case 2: this.navCtrl.navigateForward('canvas/add-canvas'); break;
+      case 2: this.validateUserActivity(); this.navCtrl.navigateForward('canvas/add-canvas'); break;
       default: this.navCtrl.navigateForward('canvas/add-canvas'); break;
     }
   }
 
   goToRolePlayModePage() {
+    this.validateUserActivity();
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
     token => {
       this._rolePlayingGuestService.validateWaitingRoom(token.value.token).subscribe(allowParticipant => {
