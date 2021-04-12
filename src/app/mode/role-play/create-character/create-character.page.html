@@ -51,21 +51,45 @@
         <span class="second-border"></span>
         <span class="third-border"></span>
         <span class="fourth-border"></span>
-        <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_02_im.svg" (click)="character = 1; setAbility(character);"></ion-img>
+        <ion-img *ngIf="character == 1" class="icon-size" (click)="showInfo(1)" src="/assets/detail/information.png"></ion-img>
+        <div class="thecard" name="flip1">
+          <div class="front" *ngIf="!flipped[1]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_02_im.svg" (click)="chooseCharacter(1);"></ion-img>
+          </div>
+          <div class="back" *ngIf="flipped[1]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_01_im.svg"></ion-img>
+          </div> 
+        </div>
       </ion-col>
       <ion-col [ngClass]="{'character-selected': character == 2}">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
         <span class="fourth-border"></span>
-        <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_04_im.svg" (click)="character = 2; setAbility(character);"></ion-img>
+        <ion-img *ngIf="character == 2" class="icon-size" (click)="showInfo(2)" src="/assets/detail/information.png"></ion-img>
+        <div class="thecard" name="flip2">
+          <div class="front" *ngIf="!flipped[2]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_04_im.svg" (click)="chooseCharacter(2);"></ion-img>
+          </div>
+          <div class="back" *ngIf="flipped[2]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_03_im.svg"></ion-img>
+          </div> 
+        </div>
       </ion-col>
       <ion-col [ngClass]="{'character-selected': character == 3}">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
         <span class="fourth-border"></span>
-        <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_06_im.svg" (click)="character = 3; setAbility(character);"></ion-img>
+        <ion-img *ngIf="character == 3" class="icon-size" (click)="showInfo(3)" src="/assets/detail/information.png"></ion-img>
+        <div class="thecard" name="flip3">
+          <div class="front" *ngIf="!flipped[3]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_06_im.svg" (click)="chooseCharacter(3);"></ion-img>
+          </div>
+          <div class="back" *ngIf="flipped[3]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_05_im.svg"></ion-img>
+          </div> 
+        </div>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -74,21 +98,45 @@
         <span class="second-border"></span>
         <span class="third-border"></span>
         <span class="fourth-border"></span>
-        <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_08_im.svg" (click)="character = 4; setAbility(character);"></ion-img>
+        <ion-img *ngIf="character == 4" class="icon-size" (click)="showInfo(4)" src="/assets/detail/information.png"></ion-img>
+        <div class="thecard" name="flip4">
+          <div class="front" *ngIf="!flipped[4]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_08_im.svg" (click)="chooseCharacter(4);"></ion-img>
+          </div>
+          <div class="back" *ngIf="flipped[4]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_07_im.svg"></ion-img>
+          </div> 
+        </div>
       </ion-col>
       <ion-col [ngClass]="{'character-selected': character == 5}">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
         <span class="fourth-border"></span>
-        <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_10_im.svg" (click)="character = 5; setAbility(character);"></ion-img>
+        <ion-img *ngIf="character == 5" class="icon-size" (click)="showInfo(5)" src="/assets/detail/information.png"></ion-img>
+        <div class="thecard" name="flip5">
+          <div class="front" *ngIf="!flipped[5]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_10_im.svg" (click)="chooseCharacter(5);"></ion-img>
+          </div>
+          <div class="back" *ngIf="flipped[5]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_09_im.svg"></ion-img>
+          </div> 
+        </div>
       </ion-col>
       <ion-col [ngClass]="{'character-selected': character == 6}">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
         <span class="fourth-border"></span>
-        <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_12_im.svg" (click)="character = 6; setAbility(character);"></ion-img>
+        <ion-img *ngIf="character == 6" class="icon-size" (click)="showInfo(6)" src="/assets/detail/information.png"></ion-img>
+        <div class="thecard" name="flip6">
+          <div class="front" *ngIf="!flipped[6]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_12_im.svg" (click)="chooseCharacter(6);"></ion-img>
+          </div>
+          <div class="back" *ngIf="flipped[6]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_11_im.svg"></ion-img>
+          </div> 
+        </div>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -97,21 +145,45 @@
         <span class="second-border"></span>
         <span class="third-border"></span>
         <span class="fourth-border"></span>
-        <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_14_im.svg" (click)="character = 7; setAbility(character);"></ion-img>
+        <ion-img *ngIf="character == 7" class="icon-size" (click)="showInfo(7)" src="/assets/detail/information.png"></ion-img>
+        <div class="thecard" name="flip7">
+          <div class="front" *ngIf="!flipped[7]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_14_im.svg" (click)="chooseCharacter(7);"></ion-img>
+          </div>
+          <div class="back" *ngIf="flipped[7]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_13_im.svg"></ion-img>
+          </div> 
+        </div>
       </ion-col>
       <ion-col [ngClass]="{'character-selected': character == 8}">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
         <span class="fourth-border"></span>
-        <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_16_im.svg" (click)="character = 8; setAbility(character);"></ion-img>
+        <ion-img *ngIf="character == 8" class="icon-size" (click)="showInfo(8)" src="/assets/detail/information.png"></ion-img>
+        <div class="thecard" name="flip8">
+          <div class="front" *ngIf="!flipped[8]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_16_im.svg" (click)="chooseCharacter(8);"></ion-img>
+          </div>
+          <div class="back" *ngIf="flipped[8]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_15_im.svg"></ion-img>
+          </div> 
+        </div>
       </ion-col>
       <ion-col [ngClass]="{'character-selected': character == 9}">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
         <span class="fourth-border"></span>
-        <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_18_im.svg" (click)="character = 9; setAbility(character);"></ion-img>
+        <ion-img *ngIf="character == 9" class="icon-size" (click)="showInfo(9)" src="/assets/detail/information.png"></ion-img>
+        <div class="thecard" name="flip9">
+          <div class="front" *ngIf="!flipped[9]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_18_im.svg" (click)="chooseCharacter(9);"></ion-img>
+          </div>
+          <div class="back" *ngIf="flipped[9]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_17_im.svg"></ion-img>
+          </div> 
+        </div>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -120,21 +192,45 @@
         <span class="second-border"></span>
         <span class="third-border"></span>
         <span class="fourth-border"></span>
-        <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_20_im.svg" (click)="character = 10; setAbility(character);"></ion-img>
+        <ion-img *ngIf="character == 10" class="icon-size" (click)="showInfo(10)" src="/assets/detail/information.png"></ion-img>
+        <div class="thecard" name="flip10">
+          <div class="front" *ngIf="!flipped[10]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_20_im.svg" (click)="chooseCharacter(10);"></ion-img>
+          </div>
+          <div class="back" *ngIf="flipped[10]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_19_im.svg"></ion-img>
+          </div> 
+        </div>
       </ion-col>
       <ion-col [ngClass]="{'character-selected': character == 11}">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
         <span class="fourth-border"></span>
-        <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_22_im.svg" (click)="character = 11; setAbility(character);"></ion-img>
+        <ion-img *ngIf="character == 11" class="icon-size" (click)="showInfo(11)" src="/assets/detail/information.png"></ion-img>
+        <div class="thecard" name="flip11">
+          <div class="front" *ngIf="!flipped[11]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_22_im.svg" (click)="chooseCharacter(11);"></ion-img>
+          </div>
+          <div class="back" *ngIf="flipped[11]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_21_im.svg"></ion-img>
+          </div> 
+        </div>
       </ion-col>
       <ion-col [ngClass]="{'character-selected': character == 12}">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
         <span class="fourth-border"></span>
-        <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_24_im.svg" (click)="character = 12; setAbility(character);"></ion-img>
+        <ion-img *ngIf="character == 12" class="icon-size" (click)="showInfo(12)" src="/assets/detail/information.png"></ion-img>
+        <div class="thecard" name="flip12">
+          <div class="front" *ngIf="!flipped[12]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_24_im.svg" (click)="chooseCharacter(12);"></ion-img>
+          </div>
+          <div class="back" *ngIf="flipped[12]">
+            <ion-img class="img-arq" src="/assets/cards/archetypes/arquetipos_23_im.svg"></ion-img>
+          </div> 
+        </div>
       </ion-col>
     </ion-row>
   </ion-grid>
