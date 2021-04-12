@@ -54,8 +54,20 @@
       </ion-grid>
     </ion-item>
   </ion-list>
-  <ion-button *ngIf="showFinishGameButton" class="m-t-20 start-game-button" (click)="finishGame()">
-    Concluir dinámica
-    <ion-icon name="log-out-outline" ></ion-icon>
-  </ion-button>
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <ion-button class="m-t-20 start-game-button" (click)="downloadAnalysis()">
+          Descargar reporte
+          <ion-icon name="cloud-download-outline" ></ion-icon>
+        </ion-button>
+      </ion-col>
+      <ion-col *ngIf="showFinishGameButton">
+        <ion-button class="m-t-20 start-game-button" (click)="finishGame()">
+          Concluir dinámica
+          <ion-icon name="log-out-outline" ></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
