@@ -57,6 +57,9 @@ export class CreateCharacterPage implements OnInit {
 
   public showWaitingForChallengeApprovalView: boolean = false;
 
+  public flip;
+  public flipped = [];
+
   constructor(private alertCtrl: AlertController,
     public route: ActivatedRoute,
     public dbService: NgxIndexedDBService,
@@ -70,10 +73,17 @@ export class CreateCharacterPage implements OnInit {
     this.openChallengeSocket();
     this.checkIfChallengeApproved();
     this.showFirstMessage();
+    this.initiateFlipArray();
   }
 
   ngOnDestroy() {
     this._gameService.closeWebSockets();
+  }
+
+  initiateFlipArray() {
+    for (var i = 0; i <= 12; i++) {
+      this.flipped[i] = false;
+    }
   }
 
   openChallengeSocket() {
@@ -118,7 +128,21 @@ export class CreateCharacterPage implements OnInit {
     this.navCtrl.navigateForward('role-playing/waiting-game', navigationExtras)
   }
 
+  showInfo(character){
+    this.flip = document.querySelector("[name='flip" + character + "']");
+    this.flip.classList.toggle("flipped")
+    this.flipped[character] = !this.flipped[character];
+    console.log('this.flipped: ', this.flipped);
+  }
+
+  chooseCharacter(characterNumber) {
+    if(this.flipped[this.character]) this.showInfo(this.character);
+    this.character = characterNumber;
+    this.setAbility(this.character);
+  }
+
   addStep(){
+    if (this.step == 1 && this.flipped[this.character]) this.showInfo(this.character);
     this.step++;
     switch (this.step) {
       case 1: this.showFirstMessage(); break;
