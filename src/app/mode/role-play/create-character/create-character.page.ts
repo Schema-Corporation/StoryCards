@@ -17,7 +17,6 @@ export class CreateCharacterPage implements OnInit {
 
   public step:number = 1;
   public character:number = -1;
-  public avatar: number = -1;
 
   public firstAbility: string = "";
   public secondAbility: string = "";
@@ -410,12 +409,10 @@ export class CreateCharacterPage implements OnInit {
   }
 
   createCharacter() {
-    const avatarId = this.avatar.toString();
     this.participant = {
       character: this.character,
       abilities: this.getAbilities(),
-      challenge: this.challenge,
-      avatar: avatarId
+      challenge: this.challenge
     };
   }
 

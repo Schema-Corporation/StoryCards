@@ -33,8 +33,8 @@
   </ion-grid>
   <ion-grid>
     <ion-row class="ion-justify-content-center">
-      <ion-col *ngIf="avatar != -1" size="12" size-md="3">
-        <ion-img  class="img-avatar" [src]="avatarPath"></ion-img>
+      <ion-col style="text-align: center" *ngIf="avatar != -1" size="12" size-md="3">
+        <img  class="img-avatar" [src]="avatarPath" />
       </ion-col>
       <ion-col size="12" [sizeMd]="avatar != -1 ? '7' : '9'">
         <div class="fullheight" *ngIf="showChallenges">
