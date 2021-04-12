@@ -46,7 +46,7 @@
 
   <ion-grid>
     <ion-row>
-      <ion-col [ngClass]="{'character-selected': character == 1}">
+      <ion-col [ngClass]="{'character-selected': character == 1}" sizeLg="4" sizeMd="4" sizeXs="6">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
@@ -61,7 +61,7 @@
           </div> 
         </div>
       </ion-col>
-      <ion-col [ngClass]="{'character-selected': character == 2}">
+      <ion-col [ngClass]="{'character-selected': character == 2}" sizeLg="4" sizeMd="4" sizeXs="6">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
@@ -76,7 +76,7 @@
           </div> 
         </div>
       </ion-col>
-      <ion-col [ngClass]="{'character-selected': character == 3}">
+      <ion-col [ngClass]="{'character-selected': character == 3}" sizeLg="4" sizeMd="4" sizeXs="6">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
@@ -91,9 +91,7 @@
           </div> 
         </div>
       </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col [ngClass]="{'character-selected': character == 4}">
+      <ion-col [ngClass]="{'character-selected': character == 4}" sizeLg="4" sizeMd="4" sizeXs="6">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
@@ -108,7 +106,7 @@
           </div> 
         </div>
       </ion-col>
-      <ion-col [ngClass]="{'character-selected': character == 5}">
+      <ion-col [ngClass]="{'character-selected': character == 5}" sizeLg="4" sizeMd="4" sizeXs="6">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
@@ -123,7 +121,7 @@
           </div> 
         </div>
       </ion-col>
-      <ion-col [ngClass]="{'character-selected': character == 6}">
+      <ion-col [ngClass]="{'character-selected': character == 6}" sizeLg="4" sizeMd="4" sizeXs="6">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
@@ -138,9 +136,7 @@
           </div> 
         </div>
       </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col [ngClass]="{'character-selected': character == 7}">
+      <ion-col [ngClass]="{'character-selected': character == 7}" sizeLg="4" sizeMd="4" sizeXs="6">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
@@ -155,7 +151,7 @@
           </div> 
         </div>
       </ion-col>
-      <ion-col [ngClass]="{'character-selected': character == 8}">
+      <ion-col [ngClass]="{'character-selected': character == 8}" sizeLg="4" sizeMd="4" sizeXs="6">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
@@ -170,7 +166,7 @@
           </div> 
         </div>
       </ion-col>
-      <ion-col [ngClass]="{'character-selected': character == 9}">
+      <ion-col [ngClass]="{'character-selected': character == 9}" sizeLg="4" sizeMd="4" sizeXs="6">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
@@ -185,9 +181,7 @@
           </div> 
         </div>
       </ion-col>
-    </ion-row>
-    <ion-row>
-      <ion-col [ngClass]="{'character-selected': character == 10}">
+      <ion-col [ngClass]="{'character-selected': character == 10}" sizeLg="4" sizeMd="4" sizeXs="6">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
@@ -202,7 +196,7 @@
           </div> 
         </div>
       </ion-col>
-      <ion-col [ngClass]="{'character-selected': character == 11}">
+      <ion-col [ngClass]="{'character-selected': character == 11}" sizeLg="4" sizeMd="4" sizeXs="6">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
@@ -217,7 +211,7 @@
           </div> 
         </div>
       </ion-col>
-      <ion-col [ngClass]="{'character-selected': character == 12}">
+      <ion-col [ngClass]="{'character-selected': character == 12}" sizeLg="4" sizeMd="4" sizeXs="6">
         <span class="first-border"></span>
         <span class="second-border"></span>
         <span class="third-border"></span>
@@ -469,7 +463,7 @@
     <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeChallenge($event)" placeholder="Escribe tu reto ..."></ion-textarea>
   </ion-item>
   <ion-label class="count-letters">{{this.challengeCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
-  <ion-button *ngIf="validateChallenge()" class="next-button" (click)="sendChallenge()">Enviar Reto</ion-button>
+  <ion-button class="next-button" size="medium" *ngIf="validateChallenge()" (click)="sendChallenge()">Enviar Reto</ion-button>
  </div>
  <div *ngIf="showWaitingForChallengeApprovalView" class="fullheight">
   <ion-card class="center-card">
