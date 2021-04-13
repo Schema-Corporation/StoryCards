@@ -289,7 +289,7 @@ export class CreateCharacterPage implements OnInit {
     var alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'Sistema D6',
-      message: 'Bienvenidos sean todos a la plataforma del role-playing game "Retos", hoy podrán generar soluciones a los problemas que tienen, a través del uso de un juego interactivo. Para ello deben crear un personaje que los representará durante toda la actividad. Revisen cada uno de los doce personajes y elijan aquel que más se asemeje a ustedes en relación a sus competencias.',
+      message: 'Bienvenidos a la plataforma del <i>roleplaying game</i> Retos. Hoy podrán generar soluciones a sus problemas a través de este juego interactivo. Para ello, deben crear un personaje que los representará durante toda la actividad. Revisen cada uno de los doce personajes y elijan el que más se asemeje a ustedes en relación a sus competencias.',
       buttons: [
         {
           text: 'Ok',
@@ -306,7 +306,7 @@ export class CreateCharacterPage implements OnInit {
     var alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'Sistema D6',
-      message: 'Ahora elige ahora 4 competencias adicionales de listado, que tú también poseas y que te ayudarán a superar los retos. Así mismo, deberás distribuir 15 puntos entre las 7 competencias, dependiendo de cuan importantes sean para la superación de los retos.',
+      message: 'Ahora elige 4 competencias adicionales del listado que tú también poseas y que te ayudarán a superar los retos. Asimismo, deberás distribuir 15 puntos entre las 7 competencias, dependiendo de cuán importantes sean para la superación de los retos.',
       buttons: [
         {
           text: 'Ok',
@@ -323,7 +323,7 @@ export class CreateCharacterPage implements OnInit {
     var alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
       header: 'Sistema D6',
-      message: 'Ahora describe un problema que tengan como equipo y que desees resolver, procura detallar cómo se manifiesta para ayudar a los demás a darle solución.',
+      message: 'Mensaje: Ahora describe un problema que tengan como equipo y que desees resolver, procura detallar cómo se manifiesta para ayudar a los demás a darle solución.',
       buttons: [
         {
           text: 'Ok',
