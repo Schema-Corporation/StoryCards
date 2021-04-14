@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { NavController } from '@ionic/angular';
+import { NavController, ToastController } from '@ionic/angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { AnswerService } from 'src/app/services/answer/answer.service';
 import { LoginService } from 'src/app/services/auth/login.service';
 import { RolePlayingGuestService } from 'src/app/services/role-playing/role-playing-guest/role-playing-guest.service';
 import { ScoreService } from 'src/app/services/score/score.service';
 import { ExcelService } from 'src/app/util/ExcelService';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+import htmlToPdfmake from 'html-to-pdfmake';
+import { OcFileStorageService } from 'src/app/util/OcFileStorageService';
 
 @Component({
   selector: 'app-scores',
@@ -24,14 +28,18 @@ export class ScoresPage implements OnInit {
   public allAnswers = [];
   public allChallenges = [];
 
+  public pdfObject = null;
+
   constructor(public navCtrl: NavController,
+    public toastController: ToastController,
     public dbService: NgxIndexedDBService,
     public _scoresService: ScoreService,
     public _answerServices: AnswerService,
     public _loginService: LoginService,
     public _rolePlayingGuestService: RolePlayingGuestService,
     public _excelService: ExcelService,
-    public route: ActivatedRoute) { }
+    public route: ActivatedRoute,
+    public ocFileStorageSvc: OcFileStorageService) { }
 
   ngOnInit() {
     this.route.queryParams.subscribe(params => {
@@ -213,10 +221,140 @@ export class ScoresPage implements OnInit {
       }
       aoaData.push(['', '']);
     }
-    console.log('allAnswers: ', this.allAnswers);
-    console.log('allChallenges: ', this.allChallenges);
     
     this._excelService.exportAsExcelFile(aoaData, 'SistemaD6');
+  }
+
+  getImage(baseURL, numberImage, typeImage): Promise<string> {
+    // Get data from subscriber and pass to image src
+    return this.ocFileStorageSvc
+      .getImageFromURL(baseURL + numberImage + typeImage).toPromise();
+  }
+
+  async downloadReport() {
+    var base64ImageLogo = await this.getImage('/assets/icon/logo.png', '', '');
+    this.generateHTML(base64ImageLogo);
+  }
+
+  async presentToast(message) {
+    const toast = await this.toastController.create({
+      message: message,
+      duration: 2000
+    });
+    toast.present();
+  }
+
+  generateHTML(base64ImageLogo: string) {
+
+    var docDefinition = {
+      pageSize: {
+        width: 650,
+        height: 'auto'
+      },
+      content: [
+        this.getHTML(base64ImageLogo)
+      ]
+    };
+
+    this.pdfObject = pdfMake.createPdf(docDefinition);
+
+    this.pdfObject.download('SistemaD6.pdf');
+
+    this.presentToast('Formato descargado');
+
+  }
+
+  getHTML(base64ImageLogo: string) {
+
+    var challengesText = '';
+    for (var i = 0; i < this.allChallenges.length; i++) {
+      var answersText = '';
+      challengesText = challengesText + `
+      <tr style="border: none">
+        <td width="330" height="25" valign="top">
+        </td>
+        <td width="330" height="25" valign="top">
+        </td>
+      </tr>
+      <tr style="border: 1px solid">
+        <td style="background-color: #FF0000" width="330" valign="top">
+            <p style="text-align:center">
+                <strong>
+                  Reto ${i+1}
+                </strong>
+            </p>
+        </td>
+        <td width="330" valign="top">
+            <p style="text-align:center">
+                <strong>
+                  ${this.allChallenges[i].challengeBody}
+                </strong>
+            </p>
+        </td>
+      </tr>
+      `;
+      const answersToChallenge = this.allAnswers.filter(x => x.challengeId == this.allChallenges[i].challengeId).sort((a, b) => {
+        if (a.fullName > b.fullName) {
+          return 1;
+        }
+        else {
+          return -1;
+        }
+      });
+      for (var j = 0; j < answersToChallenge.length; j++) {
+        answersText = answersText + `
+        <tr style="border: none">
+          <td width="330" height="25" valign="top">
+          </td>
+          <td width="330" height="25" valign="top">
+          </td>
+        </tr>
+        <tr style="border: 1px solid">
+          <td width="330" valign="top">
+              <p style="text-align:center">
+                  <strong>
+                    Participante ${j+1}
+                  </strong>
+              </p>
+          </td>
+          <td width="330" valign="top">
+              <p style="text-align:center">
+                  <strong>
+                    ${answersToChallenge[j].fullName}
+                  </strong>
+              </p>
+          </td>
+        </tr>
+        <tr style="border: 1px solid">
+          <td width="330" valign="top">
+              <p style="text-align:center">
+                  <strong>
+                    
+                  </strong>
+              </p>
+          </td>
+          <td width="330" valign="top">
+              <p style="text-align:center">
+                  <strong>
+                    ${answersToChallenge[j].answerText}
+                  </strong>
+              </p>
+          </td>
+        </tr>`
+      };
+      challengesText = challengesText + answersText;
+    }
+
+    var htmlText = `
+    <img src="${base64ImageLogo}" width="250" height="75" style="opacity: 0.4; margin-left: 500px; margin-bottom: 10px;">
+    <table cellspacing="0" cellpadding="0" width="660">
+      <tbody>` + challengesText +
+      `</tbody>
+    </table>
+    `
+
+    var html = htmlToPdfmake(htmlText);
+    return html;
   }
 
   closeSession() {
