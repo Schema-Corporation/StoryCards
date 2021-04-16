@@ -61,9 +61,9 @@ export class GuestTurnPage implements OnInit {
     this.route.queryParams.subscribe(params => {
       this.gameId = (params["gameId"]).replace(/"/g, '');
       this.character = JSON.parse(JSON.parse(params["character"]));
-      this.avatar = this.character.character * 2;
-      const avatarId = this.avatar.toString().padStart(2, '0');
-      this.avatarPath = `/assets/cards/archetypes/arquetipos_${avatarId}_im.png`;
+      this.avatar = this.character.avatar;
+      const avatarId = this.avatar.toString();
+      this.avatarPath = `/assets/cards/avatars/avatar_${avatarId}_im.svg`;
     });
     this.participantSetUp();
     this.challengesSetUp();

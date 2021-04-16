@@ -43,7 +43,9 @@
   <ion-item>
     <ion-label class="ion-text-center">Arquetipos</ion-label>
   </ion-item>
-
+  <div style="display: flex;">
+    <ion-button *ngIf="character != -1" (click)="addStep()" class="next-button-flex" size="medium">Siguiente</ion-button>
+  </div>
   <ion-grid>
     <ion-row>
       <ion-col [ngClass]="{'character-selected': character == 1}" sizeLg="4" sizeMd="4" sizeXs="6">
@@ -228,7 +230,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-button *ngIf="character != -1" (click)="addStep()" class="next-button" >Siguiente</ion-button>
  </div>
  <div *ngIf="step==2 && character != -1">
   <div>
@@ -236,6 +237,9 @@
       <ion-label class="ion-text-right">Puntos por asignar: {{this.pointsAvailable}} <br> 
         Habilidades escogidas: {{this.abilitiesChosen}}/7</ion-label>
     </ion-item>
+  </div>
+  <div style="display: flex;">
+    <ion-button *ngIf="validatePoints()" (click)="addStep()" class="next-button-flex" size="medium">Siguiente</ion-button>
   </div>
   <ion-grid>
     <ion-row>
@@ -451,7 +455,6 @@
       </ion-col>
     </ion-row>
   </ion-grid>
-  <ion-button *ngIf="validatePoints()" (click)="addStep()" class="next-button">Siguiente</ion-button>
  </div>
  <div *ngIf="step==3 && !showWaitingForChallengeApprovalView">
   <div class="challenge-header">
@@ -463,7 +466,100 @@
     <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeChallenge($event)" placeholder="Escribe tu reto ..."></ion-textarea>
   </ion-item>
   <ion-label class="count-letters">{{this.challengeCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
-  <ion-button class="next-button" size="medium" *ngIf="validateChallenge()" (click)="sendChallenge()">Enviar Reto</ion-button>
+  <div style="display: flex;">
+    <ion-button class="next-button-flex" size="medium" *ngIf="validateChallenge()" (click)="sendChallenge()">Enviar Reto</ion-button>
+  </div>
+  <ion-item>
+    <ion-label class="ion-text-center">Seleccione un avatar:</ion-label>
+  </ion-item>
+  <ion-grid>
+    <ion-row>
+      <ion-col [ngClass]="{'character-selected': avatar == 1}" sizeLg="4" sizeMd="4" sizeXs="6">
+        <span class="first-border"></span>
+        <span class="second-border"></span>
+        <span class="third-border"></span>
+        <span class="fourth-border"></span>
+        <ion-img class="img-arq" src="/assets/cards/avatars/avatar_1_im.svg" (click)="avatar = 1; "></ion-img>
+      </ion-col>
+      <ion-col [ngClass]="{'character-selected': avatar == 2}" sizeLg="4" sizeMd="4" sizeXs="6">
+        <span class="first-border"></span>
+        <span class="second-border"></span>
+        <span class="third-border"></span>
+        <span class="fourth-border"></span>
+        <ion-img class="img-arq" src="/assets/cards/avatars/avatar_2_im.svg" (click)="avatar = 2; "></ion-img>
+      </ion-col>
+      <ion-col [ngClass]="{'character-selected': avatar == 3}" sizeLg="4" sizeMd="4" sizeXs="6">
+        <span class="first-border"></span>
+        <span class="second-border"></span>
+        <span class="third-border"></span>
+        <span class="fourth-border"></span>
+        <ion-img class="img-arq" src="/assets/cards/avatars/avatar_3_im.svg" (click)="avatar = 3; "></ion-img>
+      </ion-col>
+      <ion-col [ngClass]="{'character-selected': avatar == 4}" sizeLg="4" sizeMd="4" sizeXs="6">
+        <span class="first-border"></span>
+        <span class="second-border"></span>
+        <span class="third-border"></span>
+        <span class="fourth-border"></span>
+        <ion-img class="img-arq" src="/assets/cards/avatars/avatar_4_im.svg" (click)="avatar = 4; "></ion-img>
+      </ion-col>
+      <ion-col [ngClass]="{'character-selected': avatar == 5}" sizeLg="4" sizeMd="4" sizeXs="6">
+        <span class="first-border"></span>
+        <span class="second-border"></span>
+        <span class="third-border"></span>
+        <span class="fourth-border"></span>
+        <ion-img class="img-arq" src="/assets/cards/avatars/avatar_5_im.svg" (click)="avatar = 5; "></ion-img>
+      </ion-col>
+      <ion-col [ngClass]="{'character-selected': avatar == 6}" sizeLg="4" sizeMd="4" sizeXs="6">
+        <span class="first-border"></span>
+        <span class="second-border"></span>
+        <span class="third-border"></span>
+        <span class="fourth-border"></span>
+        <ion-img class="img-arq" src="/assets/cards/avatars/avatar_6_im.svg" (click)="avatar = 6; "></ion-img>
+      </ion-col>
+      <ion-col [ngClass]="{'character-selected': avatar == 7}" sizeLg="4" sizeMd="4" sizeXs="6">
+        <span class="first-border"></span>
+        <span class="second-border"></span>
+        <span class="third-border"></span>
+        <span class="fourth-border"></span>
+        <ion-img class="img-arq" src="/assets/cards/avatars/avatar_7_im.svg" (click)="avatar = 7; "></ion-img>
+      </ion-col>
+      <ion-col [ngClass]="{'character-selected': avatar == 8}" sizeLg="4" sizeMd="4" sizeXs="6">
+        <span class="first-border"></span>
+        <span class="second-border"></span>
+        <span class="third-border"></span>
+        <span class="fourth-border"></span>
+        <ion-img class="img-arq" src="/assets/cards/avatars/avatar_8_im.svg" (click)="avatar = 8; "></ion-img>
+      </ion-col>
+      <ion-col [ngClass]="{'character-selected': avatar == 9}" sizeLg="4" sizeMd="4" sizeXs="6">
+        <span class="first-border"></span>
+        <span class="second-border"></span>
+        <span class="third-border"></span>
+        <span class="fourth-border"></span>
+        <ion-img class="img-arq" src="/assets/cards/avatars/avatar_9_im.svg" (click)="avatar = 9; "></ion-img>
+      </ion-col>
+      <ion-col [ngClass]="{'character-selected': avatar == 10}" sizeLg="4" sizeMd="4" sizeXs="6">
+        <span class="first-border"></span>
+        <span class="second-border"></span>
+        <span class="third-border"></span>
+        <span class="fourth-border"></span>
+        <ion-img class="img-arq" src="/assets/cards/avatars/avatar_10_im.svg" (click)="avatar = 10; "></ion-img>
+      </ion-col>
+      <ion-col [ngClass]="{'character-selected': avatar == 11}" sizeLg="4" sizeMd="4" sizeXs="6">
+        <span class="first-border"></span>
+        <span class="second-border"></span>
+        <span class="third-border"></span>
+        <span class="fourth-border"></span>
+        <ion-img class="img-arq" src="/assets/cards/avatars/avatar_11_im.svg" (click)="avatar = 11; "></ion-img>
+      </ion-col>
+      <ion-col [ngClass]="{'character-selected': avatar == 12}" sizeLg="4" sizeMd="4" sizeXs="6">
+        <span class="first-border"></span>
+        <span class="second-border"></span>
+        <span class="third-border"></span>
+        <span class="fourth-border"></span>
+        <ion-img class="img-arq" src="/assets/cards/avatars/avatar_12_im.svg" (click)="avatar = 12; "></ion-img>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
  </div>
  <div *ngIf="showWaitingForChallengeApprovalView" class="fullheight">
   <ion-card class="center-card">

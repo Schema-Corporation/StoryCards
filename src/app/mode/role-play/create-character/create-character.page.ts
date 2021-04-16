@@ -15,8 +15,9 @@ import * as uuid from 'uuid';
 })
 export class CreateCharacterPage implements OnInit {
 
-  public step:number = 1;
-  public character:number = -1;
+  public step: number = 1;
+  public character: number = -1;
+  public avatar: number = -1;
 
   public firstAbility: string = "";
   public secondAbility: string = "";
@@ -26,16 +27,16 @@ export class CreateCharacterPage implements OnInit {
   public sixthAbility: string = "";
   public seventhAbility: string = "";
 
-  public firstAbilityPoints:number = 1;
-  public secondAbilityPoints:number = 1;
-  public thirdAbilityPoints:number = 1;
+  public firstAbilityPoints: number = 1;
+  public secondAbilityPoints: number = 1;
+  public thirdAbilityPoints: number = 1;
 
-  public fourthAbilityPoints:number = 0;
-  public fifthAbilityPoints:number = 0;
-  public sixthAbilityPoints:number = 0;
-  public seventhAbilityPoints:number = 0;
+  public fourthAbilityPoints: number = 0;
+  public fifthAbilityPoints: number = 0;
+  public sixthAbilityPoints: number = 0;
+  public seventhAbilityPoints: number = 0;
 
-  public pointsAvailable:number = 15;
+  public pointsAvailable: number = 15;
   public abilitiesChosen: number = 3;
 
   public isNext: number = 4;
@@ -128,7 +129,7 @@ export class CreateCharacterPage implements OnInit {
     this.navCtrl.navigateForward('role-playing/waiting-game', navigationExtras)
   }
 
-  showInfo(character){
+  showInfo(character) {
     this.flip = document.querySelector("[name='flip" + character + "']");
     this.flip.classList.toggle("flipped")
     this.flipped[character] = !this.flipped[character];
@@ -136,12 +137,12 @@ export class CreateCharacterPage implements OnInit {
   }
 
   chooseCharacter(characterNumber) {
-    if(this.flipped[this.character]) this.showInfo(this.character);
+    if (this.flipped[this.character]) this.showInfo(this.character);
     this.character = characterNumber;
     this.setAbility(this.character);
   }
 
-  addStep(){
+  addStep() {
     if (this.step == 1 && this.flipped[this.character]) this.showInfo(this.character);
     this.step++;
     switch (this.step) {
@@ -255,7 +256,7 @@ export class CreateCharacterPage implements OnInit {
     if (fifthAbilityIndex != undefined) indexes.push(fifthAbilityIndex);
     if (sixthAbilityIndex != undefined) indexes.push(sixthAbilityIndex);
     // sort indexes
-    indexes.sort(function(a,b){ return a-b; });
+    indexes.sort(function (a, b) { return a - b; });
 
     // remove selected abilities
     while (indexes.length) {
@@ -297,7 +298,8 @@ export class CreateCharacterPage implements OnInit {
             // console.log('Confirm OK');
           }
         }
-      ]});
+      ]
+    });
 
     await alert.present();
   }
@@ -314,7 +316,8 @@ export class CreateCharacterPage implements OnInit {
             // console.log('Confirm OK');
           }
         }
-      ]});
+      ]
+    });
 
     await alert.present();
   }
@@ -331,7 +334,8 @@ export class CreateCharacterPage implements OnInit {
             // console.log('Confirm OK');
           }
         }
-      ]});
+      ]
+    });
 
     await alert.present();
   }
@@ -355,7 +359,8 @@ export class CreateCharacterPage implements OnInit {
             this.createAbility(data, number);
           }
         }
-      ]});
+      ]
+    });
 
     await alert.present();
   }
@@ -373,7 +378,8 @@ export class CreateCharacterPage implements OnInit {
           handler: () => {
           }
         }
-      ]});
+      ]
+    });
 
     await alert.present();
   }
@@ -436,7 +442,8 @@ export class CreateCharacterPage implements OnInit {
     this.participant = {
       character: this.character,
       abilities: this.getAbilities(),
-      challenge: this.challenge
+      challenge: this.challenge,
+      avatar: this.avatar
     };
   }
 
