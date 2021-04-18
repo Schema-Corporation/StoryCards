@@ -43,6 +43,18 @@ ion-col {
     margin-left: 15px;
     margin-right: 15px;
 }
+
+ion-item {
+  --padding-start: 0;
+}
+
+@media (max-width: 1375px) {
+  ion-textarea{
+    // --padding-top: 20px;
+    --padding-bottom: 30px;
+  }
+}
+
 *{
 margin: 0;
 padding: 0;
@@ -52,7 +64,7 @@ font-family: ZizouSlabLight;
 
 .item-header {
     font-size: 16px;
-    padding-left: 10px;
+    // padding-left: 10px;
     margin-left: 15px;
     align-items: left;
 }
@@ -133,7 +145,6 @@ font-family: ZizouSlabLight;
       padding: 8px;
   }
   } 
-  
   
    @media (min-width: 750px) {
     .principal-title{

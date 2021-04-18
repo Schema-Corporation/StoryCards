@@ -90,7 +90,7 @@
   <div id="infoCard" class="cards-info">
     <ion-grid>
       <ion-row>
-        <ion-col size="8">
+        <ion-col sizeLg="8">
           <div class="item">
             <div class="item-header">
               <div class="ion-text-left">    
@@ -114,14 +114,14 @@
             <ion-label class="count-letters">{{this.motivationCharacters}} / {{this.maximumCharactersAllowed300}}</ion-label>
           </div>
         </ion-col>
-        <ion-col>
+        <ion-col *ngIf="!platform.is('android') && !platform.is('ios')">
           <img src={{this.cards[this.cardSelected].imgDescription}} class="card-alert">
         </ion-col>
       </ion-row>
     </ion-grid>
-    <!--
-    <ion-button class="back-button" (click)="viewDetail()">Ver Detalle</ion-button>
-    -->
+    
+    <ion-button *ngIf="platform.is('android') || platform.is('ios')" class="back-button" (click)="viewDetail()">Ver Detalle</ion-button>
+   
     <ion-button class="next-button" (click)="backGroup()">Completar</ion-button>
   </div>
 </ion-content>
