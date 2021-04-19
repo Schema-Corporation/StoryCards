@@ -386,10 +386,10 @@ export class StructuralAspectsPage implements OnInit {
       this.generateHTML('', '', '', '', base64ImageLogo);
     } else {
       this.createPDF(
-        this.plot != -1 ? this.plot: -1,
-        this.gender != -1 ? this.gender: -1,
-        this.myths != -1 ? this.myths: -1,
-        this.theme != -1 ? this.theme: -1);
+        this.plot != -1 ? this.plot + 1: -1,
+        this.gender != -1 ? this.gender + 1: -1,
+        this.myths != -1 ? this.myths + 1: -1,
+        this.theme != -1 ? this.theme + 1: -1);
     }
   }
 
@@ -400,10 +400,10 @@ export class StructuralAspectsPage implements OnInit {
       this.generateHTML('', '', '', '', base64ImageLogo);
     } else {
       this.createPDF(
-        this.plot != -1 ? this.plot: -1,
-        this.gender != -1 ? this.gender: -1,
-        this.myths != -1 ? this.myths: -1,
-        this.theme != -1 ? this.theme: -1);
+        this.plot != -1 ? this.plot + 1: -1,
+        this.gender != -1 ? this.gender + 1: -1,
+        this.myths != -1 ? this.myths + 1: -1,
+        this.theme != -1 ? this.theme + 1: -1);
     }
 
     this.presentToast('Formato abierto para imprimir');
