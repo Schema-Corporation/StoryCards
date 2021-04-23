@@ -496,7 +496,7 @@
       </div>
     </div>
     <ion-item class="challenge-item">
-      <ion-textarea maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeChallenge($event)"
+      <ion-textarea value="{{challenge}}" maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeChallenge($event)"
         placeholder="Escribe tu reto ..."></ion-textarea>
     </ion-item>
     <ion-label class="count-letters">{{this.challengeCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
@@ -504,6 +504,7 @@
       <ion-button class="next-button-flex" size="medium" *ngIf="validateChallenge()" (click)="sendChallenge()">Enviar
         Reto</ion-button>
     </div>
+    <!--
     <ion-item>
       <ion-label class="ion-text-center">Seleccione un avatar:</ion-label>
     </ion-item>
@@ -595,6 +596,7 @@
         </ion-col>
       </ion-row>
     </ion-grid>
+    -->
   </div>
   <div *ngIf="showWaitingForChallengeApprovalView" class="fullheight">
     <ion-card class="center-card">
@@ -603,7 +605,7 @@
       </ion-card-header>
 
       <ion-card-content>
-        <ion-label class="notify center-text">El facilitador de la dinámica se encuentra revisando su reto ... Por
+        <ion-label class="notify center-text">El facilitador de la dinámica se encuentra revisando su reto... <br>Por
           favor, espere sus indicaciones.</ion-label>
         <br>
         <ion-grid>

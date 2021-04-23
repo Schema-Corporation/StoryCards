@@ -11,7 +11,7 @@
 <ion-content>
   <ion-label *ngIf="getChallengesListPendingForApproval().length == 0 && !showGoToStartGameButton">
     Los participantes se encuentran enviando sus propuestas de retos ...
-  </ion-label>
+  </ion-label>s
   <ion-card *ngFor="let challenge of getChallengesListPendingForApproval()" class="center-card">
     <ion-card-header>
       <ion-card-title class="center-text">{{challenge.challengeBody}}</ion-card-title>

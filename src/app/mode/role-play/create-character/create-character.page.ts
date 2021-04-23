@@ -109,8 +109,8 @@ export class CreateCharacterPage implements OnInit {
 
   notifyRejectReason() {
     this.hideWaitingForChallengeApprovalModal();
-    this.challenge = '';
-    this.challengeCharacters = 0;
+    // this.challenge = '';
+    // this.challengeCharacters = 0;
     this.showRejectReason();
   }
 
@@ -137,8 +137,10 @@ export class CreateCharacterPage implements OnInit {
   }
 
   chooseCharacter(characterNumber) {
+    this.showInfo(characterNumber);
     if (this.flipped[this.character]) this.showInfo(this.character);
     this.character = characterNumber;
+    this.avatar = characterNumber;
     this.setAbility(this.character);
   }
 

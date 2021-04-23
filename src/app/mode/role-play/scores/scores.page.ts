@@ -309,7 +309,7 @@ export class ScoresPage implements OnInit {
           <td width="330" height="25" valign="top">
           </td>
         </tr>
-        <tr style="border: 1px solid">
+        <tr style="border: none">
           <td width="330" valign="top">
               <p style="text-align:center">
                   <strong>
@@ -317,7 +317,7 @@ export class ScoresPage implements OnInit {
                   </strong>
               </p>
           </td>
-          <td width="330" valign="top">
+          <td style="border: 1px solid" width="330" valign="top">
               <p style="text-align:center">
                   <strong>
                     ${answersToChallenge[j].fullName}
@@ -325,7 +325,7 @@ export class ScoresPage implements OnInit {
               </p>
           </td>
         </tr>
-        <tr style="border: 1px solid">
+        <tr style="border: none">
           <td width="330" valign="top">
               <p style="text-align:center">
                   <strong>
@@ -333,7 +333,7 @@ export class ScoresPage implements OnInit {
                   </strong>
               </p>
           </td>
-          <td width="330" valign="top">
+          <td style="border: 1px solid" width="330" valign="top">
               <p style="text-align:center">
                   <strong>
                     ${answersToChallenge[j].answerText}

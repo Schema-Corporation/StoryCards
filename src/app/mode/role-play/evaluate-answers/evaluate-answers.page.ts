@@ -41,15 +41,15 @@ export class EvaluateAnswersPage implements OnInit {
 
   diminishExtraPoints(answerId) {
     var answer = this._answerServices.answersList.filter(x => x.answerId == answerId)[0];
-    if (answer.extraPoints > -20) {
-      answer.extraPoints = answer.extraPoints - 5;
+    if (answer.extraPoints > -6) {
+      answer.extraPoints = answer.extraPoints - 1;
     }
   }
 
   increaseExtraPoints(answerId) {
     var answer = this._answerServices.answersList.filter(x => x.answerId == answerId)[0];
-    if (answer.extraPoints < 20) {
-      answer.extraPoints = answer.extraPoints + 5;
+    if (answer.extraPoints < 6) {
+      answer.extraPoints = answer.extraPoints + 1;
     }
   }
 
