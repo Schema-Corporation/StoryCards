@@ -48,4 +48,8 @@ export const apiUrls = {
   WS_FINISH_GAME: `${WS_API_URL}/game/notify-finish-game/ws/`,
   POST_END_GAME: `${BASE_API_URL}/game/end-game/`,
   VALIDATE_USER_ACTIVITY : `${BASE_API_URL}/check-user-activity/`,
+  VALIDATE_EMAIL: `${BASE_API_URL}/validate-email`,
+  SEND_CODE: `${BASE_API_URL}/send-code`,
+  VALIDATE_OTP: `${BASE_API_URL}/validate-otp`,
+  RESET_PASSWORD: `${BASE_API_URL}/reset-password`,
 };

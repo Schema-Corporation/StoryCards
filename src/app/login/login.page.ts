@@ -112,6 +112,10 @@ export class LoginPage implements OnInit {
     this.navCtrl.navigateForward('register');
   }
 
+  goToForgotPassword() {
+    this.navCtrl.navigateForward('forgot-password');
+  }
+
   loginGuest() {
     var guest = {
       roomId: this.roomId,

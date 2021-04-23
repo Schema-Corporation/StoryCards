@@ -155,6 +155,22 @@ export class APIMiddleware {
     return this.http.post(url, user);
   }
 
+  doValidateEmail(url: string, body: any): Observable<any> {
+    return this.http.post(url, body);
+  }
+
+  sendCode(url: string, body: any): Observable<any> {
+    return this.http.post(url, body);
+  }
+
+  validateOTP(url: string, body: any): Observable<any> {
+    return this.http.post(url, body);
+  }
+
+  resetPassword(url: string, body: any): Observable<any> {
+    return this.http.post(url, body);
+  }
+
   validateRoomCode(url, body): Observable<any> {
     return this.http.post(url, body);
   }
