@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, NavController } from '@ionic/angular';
+import { AlertController, NavController, Platform } from '@ionic/angular';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { LoginService } from '../services/auth/login.service';
 import { FormBuilder, Validators, FormGroup } from '@angular/forms'
@@ -30,6 +30,7 @@ export class LoginPage implements OnInit {
     public navCtrl: NavController,
     public dbService: NgxIndexedDBService,
     public alertCtrl: AlertController,
+    public platform: Platform,
     public formBuilder: FormBuilder) { }
 
 
