@@ -34,6 +34,15 @@ export class APIMiddleware {
     return this.http.get(url, httpOptions);
   }
 
+  getUsers(url, token): Observable<any> {
+    const httpOptions: any = {
+      headers: new HttpHeaders({
+        Authorization: "Bearer " + token
+      })
+    };
+    return this.http.get(url, httpOptions);
+  }
+
   getCanvasFromUser(url, token): Observable<any> {
     const httpOptions: any = {
       headers: new HttpHeaders({

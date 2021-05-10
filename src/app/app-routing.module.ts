@@ -89,6 +89,16 @@ const routes: Routes = [
     ],
   },
   {
+    path: 'reports',
+    children: [
+      {
+        path: 'reports',
+        loadChildren: () => import('./mode/reports/reports/reports.module').then(m => m.ReportsPageModule),
+        canActivate: [AuthService]
+      }
+    ]
+  },
+  {
     path: 'role-playing',
     children: [
       {

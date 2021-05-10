@@ -21,6 +21,7 @@ export class MainPage implements OnInit {
   public isFirst: boolean = false;
 
   public fullName: string = "";
+  public isAdmin: number;
   public role: number;
 
 
@@ -67,6 +68,7 @@ export class MainPage implements OnInit {
       token => {
         if (token != null && token.value.fullName != "undefined") {
           this.fullName = token.value.fullName;
+          this.isAdmin = token.value.isAdmin;
         }
 
         this._loginService.validateRole(token.value.token).subscribe(role => {
@@ -192,6 +194,10 @@ export class MainPage implements OnInit {
       }
     })
     return await popover.present();
+  }
+
+  goToReportModePage() {
+    this.navCtrl.navigateForward('reports/reports');
   }
 
   closeSession() {

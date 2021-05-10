@@ -34,6 +34,11 @@
             <ion-button class="menu-button" expand="block" fill="solid" (click)="goToRolePlayModePage()">Role-play game</ion-button>
           </ion-col>
         </ion-row>
+        <ion-row *ngIf="isAdmin == true && role == 1" class="buttons">
+          <ion-col size="12" class="ion-text-center">
+            <ion-button class="menu-button" expand="block" fill="solid" (click)="goToReportModePage()">Reportes</ion-button>
+          </ion-col>
+        </ion-row>
     </ion-grid>
     </ion-item>
   </div>
