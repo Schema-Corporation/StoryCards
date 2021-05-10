@@ -169,9 +169,11 @@ export class RegisterPage implements OnInit {
     this.countryCode = "+" + country.phone_code;
   }
 
+  /*
   openPrivacyPolicy() {
     window.open('assets/privacy_policy/Política de Privacidad - Storytelling UPC.pdf', '_blank');
   }
+  */
 
   async showAlert(message) {
     var alert = await this.alertCtrl.create({
