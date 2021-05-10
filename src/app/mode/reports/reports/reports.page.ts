@@ -37,20 +37,12 @@ export class ReportsPage implements OnInit {
         }
       });
   }
-
+  
   getReports() {
     this.reports = [
       {
         id: 1,
         description: 'Reporte de afiliados'
-      },
-      {
-        id: 2,
-        description: 'Reporte de prueba'
-      },
-      {
-        id: 3,
-        description: 'Resultados Sistema D6'
       }
     ];
   }
@@ -62,6 +54,7 @@ export class ReportsPage implements OnInit {
           this._loginService.getAffiliateUsers(token.value.token).subscribe(users => {
             const filename = 'Afiliados';
             this._excelService.exportAffiliateUsers(users, filename);
+            this.presentToast('Reporte descargado');
           }, error => {
             this.closeSession();
             console.log('error: ', error);
