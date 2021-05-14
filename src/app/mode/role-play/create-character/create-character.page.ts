@@ -240,7 +240,7 @@ export class CreateCharacterPage implements OnInit {
       'Solidaridad', 'Responsabilidad social', 'Visionario', 'Creatividad', 'Iniciativa', 'Liderazgo', 'Responsable', 'Comunicación eficaz',
       // abilities that do not belong to any specific character
       'Trabajo en equipo', 'Capacidad para resolver problemas', 'Proactividad', 'Autocontrol', 'Capacidad para afrontar la presión', 'Relaciones sociales',
-      'Planificación y organización', 'Valores', 'Emprendimiento', 'Capacidad de aprendizaje', 'Orientación al logro'
+      'Planificación y organización', 'Valores', 'Capacidad de aprendizaje', 'Orientación al logro'
     ];
     // remove predefined abilities from the list
     abilities.splice((character - 1) * 3, 3);

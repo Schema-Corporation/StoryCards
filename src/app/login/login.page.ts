@@ -31,7 +31,9 @@ export class LoginPage implements OnInit {
     public dbService: NgxIndexedDBService,
     public alertCtrl: AlertController,
     public platform: Platform,
-    public formBuilder: FormBuilder) { }
+    public formBuilder: FormBuilder) { 
+      
+    }
 
 
   loginForm = this.formBuilder.group({
@@ -40,6 +42,15 @@ export class LoginPage implements OnInit {
   ngOnInit() {
     this.checkAccess();
   }
+
+  ionViewWillEnter() {
+    this.loginMode = 1;
+    this.showPassword = false;
+    this.roomValidated = false;
+    this.roomCode = null;
+    this.guestName = null;
+  }
+
   get email() {
     return this.loginForm.get("email");
   }

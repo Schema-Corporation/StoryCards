@@ -203,7 +203,7 @@ export class MainPage implements OnInit {
   closeSession() {
     this.dbService.clear('variables').subscribe((successDeleted) => {
       if (successDeleted) {
-        this.navCtrl.navigateForward('login')
+        this.navCtrl.navigateForward('login');
       }
     });
   }
