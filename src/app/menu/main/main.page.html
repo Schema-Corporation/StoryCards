@@ -1,7 +1,7 @@
 <ion-content>
   <div  class="fullheight xc">
     <ion-label class="padding-header">Bienvenido(a), {{fullName}}</ion-label>
-    <ion-icon class="icon-right" name="power" (click)="presentPopover($event)"></ion-icon>
+    <ion-icon class="icon-right cursor-pointer" name="power" (click)="presentPopover($event)"></ion-icon>
 
     <div class="logo-pic" >
       <img src="../../assets/icon/logo.png" class="logo-title" alt="IMG">
@@ -24,9 +24,19 @@
             <ion-button class="menu-button" expand="block" fill="solid" (click)="goToCanvasModePage()">Canvas</ion-button>
           </ion-col>
         </ion-row>
-        <ion-row class="buttons">
+        <ion-row *ngIf="role == 1" class="buttons">
           <ion-col size="12" class="ion-text-center">
             <ion-button class="menu-button" expand="block" fill="solid" (click)="goToRoomModePage()">Mis salas</ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="role == 2" class="buttons">
+          <ion-col size="12" class="ion-text-center">
+            <ion-button class="menu-button" expand="block" fill="solid" (click)="goToRolePlayModePage()">Role-play game</ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row *ngIf="isAdmin == true && role == 1" class="buttons">
+          <ion-col size="12" class="ion-text-center">
+            <ion-button class="menu-button" expand="block" fill="solid" (click)="goToReportModePage()">Reportes</ion-button>
           </ion-col>
         </ion-row>
     </ion-grid>

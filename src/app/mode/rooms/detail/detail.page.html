@@ -1,0 +1,36 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title class="principal-title">Mi sala</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <div *ngIf="showRoomDetails" class="room-details">
+    <p class="small-title">{{room.name}}</p>
+    <p class="small-title">El código de su sala es el siguiente: </p>
+    <p class="small-title boxed">{{room.roomCode}}</p>
+    <p class="small-title">Lista de participantes: </p>
+    <ion-list>
+      <ion-item *ngFor="let participant of _guestService.guests">
+        <ion-label>{{participant.identifier}}</ion-label>
+        <ion-buttons slot="end">
+          <ion-button *ngIf="participant.status == 2" icon-only style="color: green;">
+            <ion-icon name="checkmark-circle-outline"></ion-icon>
+          </ion-button>
+          <ion-button icon-only (click)="removeParticipant(participant.id)">
+            <ion-icon name="close-circle-outline"></ion-icon>
+          </ion-button>
+        </ion-buttons>
+      </ion-item>
+    </ion-list>
+    <ion-button (click)="goToStartGame()" [disabled]="!enoughReadyParticipants() || !isRoomEnabled" class="start-game-button">
+      Iniciar dinámica   
+      <ion-icon name="rocket-outline" ></ion-icon>
+    </ion-button>
+  </div>
+
+</ion-content>

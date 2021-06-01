@@ -7,6 +7,9 @@
   outline: none;
   font-family: ZizouSlabLight;
 }
+.cursor-pointer {
+  cursor: pointer;
+}
 .wrap-login100 {
   width: 1200px;
   border-radius: 10px;
@@ -117,7 +120,7 @@
     }
     
     .menu-button{
-      font-size: 25px;
+      font-size: 22px;
       height: 40px;
       width: 200px;
 

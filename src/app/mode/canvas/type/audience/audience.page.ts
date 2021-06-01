@@ -12,6 +12,7 @@ import { OcFileStorageService } from 'src/app/util/OcFileStorageService';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { CanvasService } from 'src/app/services/canvas/canvas.service';
 import { ActivatedRoute } from '@angular/router';
+import { LoginService } from 'src/app/services/auth/login.service';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -65,6 +66,9 @@ export class AudiencePage implements OnInit {
   public rotate;
   public rotat;
   public isRotated: boolean = false;
+  public role: number;
+  
+  public showSaveOption: boolean;
 
   constructor(public alertCtrl: AlertController,
     public toastController: ToastController,
@@ -73,6 +77,7 @@ export class AudiencePage implements OnInit {
     public platform: Platform,
     public dbService: NgxIndexedDBService,
     public _canvasService: CanvasService,
+    public _loginService: LoginService,
     public ocFileStorageSvc: OcFileStorageService,
     public route: ActivatedRoute,
     public file: File,
@@ -93,6 +98,23 @@ export class AudiencePage implements OnInit {
       }
     });
     this.rotate = true;
+
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._loginService.validateRole(token.value.token).subscribe(role => {
+          switch (role.role) {
+            case 'HOST': this.role = 1; this.showSaveOption = true; break;
+            case 'GUEST': this.role = 2; break;
+            default: this.role = -1; break;
+          }
+        }, error => {
+          console.log('error: ', error);
+        })
+
+      },
+      error => {
+        this.closeSession();
+      });
   }
 
 
@@ -102,8 +124,6 @@ export class AudiencePage implements OnInit {
   }
   
   showRotate() {
-    //this.rotat = document.querySelector("[name='rotat']");
-    //this.rotat.classList.toggle("rotated");
     this.isRotated = !this.isRotated;
   }
 
@@ -187,56 +207,95 @@ export class AudiencePage implements OnInit {
     // iOS and Android alert and options || Web browser options
 
     if (this.platform.is('ios') || this.platform.is('android')) {
-      const alert = await this.alertCtrl.create({
-        cssClass: 'my-custom-class',
-        header: '¿Qué acción deseas realizar?',
-        message: 'Ahora que el formato está completo puedes descargarlo o guardarlo.',
-        buttons: [
-          {
-            text:'Descargar',
-            handler: () => {
-              this.downloadCanvas();
+      if (this.showSaveOption) {
+        const alert = await this.alertCtrl.create({
+          cssClass: 'my-custom-class',
+          header: '¿Qué acción deseas realizar?',
+          message: 'Ahora que el formato está completo puedes descargarlo o guardarlo.',
+          buttons: [
+            {
+              text:'Descargar',
+              handler: () => {
+                this.downloadCanvas();
+              }
+            },
+            {
+              text:'Guardar',
+              handler:() => {
+                alert.dismiss(); //here dismiss this alert
+                this.chooseCanvasName();
+              }
             }
-          },
-          {
-            text:'Guardar',
-            handler:() => {
-              alert.dismiss(); //here dismiss this alert
-              this.chooseCanvasName();
+          ]
+        });
+        await alert.present();
+      } else {
+        const alert = await this.alertCtrl.create({
+          cssClass: 'my-custom-class',
+          header: '¿Qué acción deseas realizar?',
+          message: 'Ahora que el formato está completo puedes descargarlo o guardarlo.',
+          buttons: [
+            {
+              text:'Descargar',
+              handler: () => {
+                this.downloadCanvas();
+              }
             }
-          }
-        ]
-      });
-      await alert.present();
-
+          ]
+        });
+        await alert.present();
+      }
     } else {
-      const alert = await this.alertCtrl.create({
-        cssClass: 'my-custom-class',
-        header: '¿Qué acción deseas realizar?',
-        message: 'Ahora que el formato está completo puedes descargarlo, guardarlo o imprimirlo.',
-        buttons: [
-          {
-            text:'Descargar',
-            handler: () => {
-              this.downloadCanvas();
+      if (this.showSaveOption) {
+        const alert = await this.alertCtrl.create({
+          cssClass: 'my-custom-class',
+          header: '¿Qué acción deseas realizar?',
+          message: 'Ahora que el formato está completo puedes descargarlo, guardarlo o imprimirlo.',
+          buttons: [
+            {
+              text:'Descargar',
+              handler: () => {
+                this.downloadCanvas();
+              }
+            },
+            {
+              text:'Guardar',
+              handler:() => {
+                alert.dismiss(); //here dismiss this alert
+                this.chooseCanvasName();
+              }
+            },
+            {
+              text:'Imprimir',
+              handler:() => {
+                this.printCanvas();
+              }
             }
-          },
-          {
-            text:'Guardar',
-            handler:() => {
-              alert.dismiss(); //here dismiss this alert
-              this.chooseCanvasName();
+          ]
+        });
+        await alert.present();
+      } else {
+        const alert = await this.alertCtrl.create({
+          cssClass: 'my-custom-class',
+          header: '¿Qué acción deseas realizar?',
+          message: 'Ahora que el formato está completo puedes descargarlo, guardarlo o imprimirlo.',
+          buttons: [
+            {
+              text:'Descargar',
+              handler: () => {
+                this.downloadCanvas();
+              }
+            },
+            {
+              text:'Imprimir',
+              handler:() => {
+                this.printCanvas();
+              }
             }
-          },
-          {
-            text:'Imprimir',
-            handler:() => {
-              this.printCanvas();
-            }
-          }
-        ]
-      });
-      await alert.present();
+          ]
+        });
+        await alert.present();
+      }
     }
   }
 

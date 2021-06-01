@@ -5,7 +5,7 @@
       </ion-back-button>
     </ion-buttons>
     <ion-title text-center class="principal-title">Formato de  Personajes</ion-title>
-    <ion-icon slot="end" class="icon-header" (click)="chooseCanvasName()" name="save-outline"></ion-icon>
+    <ion-icon slot="end" class="icon-header" *ngIf="showSaveOption" (click)="chooseCanvasName()" name="save-outline"></ion-icon>
     <ion-icon slot="end" class="icon-header" (click)="downloadCanvas()" name="download-outline"></ion-icon>
     <ion-icon slot="end" class="icon-header" *ngIf="platform.is('desktop')" (click)="printCanvas()" name="print-outline"></ion-icon>
   </ion-toolbar>
@@ -88,29 +88,40 @@
 
 <ion-content *ngIf="showInfoCards">
   <div id="infoCard" class="cards-info">
-    <div class="item">
-      <div class="item-header">
-        <div class="ion-text-left">    
-          Características
-        </div>
-      </div>
-      <ion-item class="item-item">
-        <ion-textarea [value]="characteristics" maxlength="{{this.maximumCharactersAllowed300}}" (ionChange)="writeCharacteristics($event)" placeholder="Coloca las características de la tarjeta del arquetipo elegido que más describen a este personaje"></ion-textarea>
-      </ion-item>
-      <ion-label class="count-letters">{{this.characteristicsCharacters}} / {{this.maximumCharactersAllowed300}}</ion-label>
-    </div>
-    <div class="item">
-      <div class="item-header">
-        <div class="ion-text-left">    
-          Motivación
-        </div>
-      </div>
-      <ion-item class="item-item">
-        <ion-textarea [value]="motivation" maxlength="{{this.maximumCharactersAllowed300}}" (ionChange)="writeMotivation($event)" placeholder="¿Cuál es el objetivo del personaje? ¿Qué busca? ¿Por qué se comporta de esa manera?"></ion-textarea>
-      </ion-item>
-      <ion-label class="count-letters">{{this.motivationCharacters}} / {{this.maximumCharactersAllowed300}}</ion-label>
-    </div>
-    <ion-button class="back-button" (click)="viewDetail()">Ver Detalle</ion-button>
+    <ion-grid>
+      <ion-row>
+        <ion-col sizeLg="8">
+          <div class="item">
+            <div class="item-header">
+              <div class="ion-text-left">    
+                Características
+              </div>
+            </div>
+            <ion-item class="item-item">
+              <ion-textarea [value]="characteristics" maxlength="{{this.maximumCharactersAllowed300}}" (ionChange)="writeCharacteristics($event)" placeholder="Coloca las características de la tarjeta del arquetipo elegido que más describen a este personaje"></ion-textarea>
+            </ion-item>
+            <ion-label class="count-letters">{{this.characteristicsCharacters}} / {{this.maximumCharactersAllowed300}}</ion-label>
+          </div>
+          <div class="item">
+            <div class="item-header">
+              <div class="ion-text-left">    
+                Motivación
+              </div>
+            </div>
+            <ion-item class="item-item">
+              <ion-textarea [value]="motivation" maxlength="{{this.maximumCharactersAllowed300}}" (ionChange)="writeMotivation($event)" placeholder="¿Cuál es el objetivo del personaje? ¿Qué busca? ¿Por qué se comporta de esa manera?"></ion-textarea>
+            </ion-item>
+            <ion-label class="count-letters">{{this.motivationCharacters}} / {{this.maximumCharactersAllowed300}}</ion-label>
+          </div>
+        </ion-col>
+        <ion-col *ngIf="!platform.is('android') && !platform.is('ios')">
+          <img src={{this.cards[this.cardSelected].imgDescription}} class="card-alert">
+        </ion-col>
+      </ion-row>
+    </ion-grid>
+    
+    <ion-button *ngIf="platform.is('android') || platform.is('ios')" class="back-button" (click)="viewDetail()">Ver Detalle</ion-button>
+   
     <ion-button class="next-button" (click)="backGroup()">Completar</ion-button>
   </div>
 </ion-content>

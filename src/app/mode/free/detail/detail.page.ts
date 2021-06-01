@@ -17,7 +17,7 @@ export class DetailPage implements OnInit, AfterViewInit {
   public cardToggle
   public flip
   public rotate;
-  private shouldBeRotate: number;
+  public shouldBeRotate: number;
   public rotat;
   public process;
 
@@ -25,8 +25,8 @@ export class DetailPage implements OnInit, AfterViewInit {
   public showLeft: boolean = false;
 
   constructor(
-    private route: ActivatedRoute,
-    private location: Location
+    public route: ActivatedRoute,
+    public location: Location
   ) { }
 
   showInfo(){

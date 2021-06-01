@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import { AlertController, IonApp } from '@ionic/angular';
+import { ActivatedRoute, NavigationExtras } from '@angular/router';
+import { AlertController, IonApp, NavController } from '@ionic/angular';
+import { NgxIndexedDBService } from 'ngx-indexed-db';
+import { GameService } from 'src/app/services/game/game.service';
 import { IParticipant } from 'src/common/types/participant';
 import { IAbility } from 'src/common/types/participant';
+import * as uuid from 'uuid';
 
 
 @Component({
@@ -11,8 +15,9 @@ import { IAbility } from 'src/common/types/participant';
 })
 export class CreateCharacterPage implements OnInit {
 
-  public step:number = 1;
-  public character:number = -1;
+  public step: number = 1;
+  public character: number = -1;
+  public avatar: number = -1;
 
   public firstAbility: string = "";
   public secondAbility: string = "";
@@ -22,16 +27,16 @@ export class CreateCharacterPage implements OnInit {
   public sixthAbility: string = "";
   public seventhAbility: string = "";
 
-  public firstAbilityPoints:number = 1;
-  public secondAbilityPoints:number = 1;
-  public thirdAbilityPoints:number = 1;
+  public firstAbilityPoints: number = 1;
+  public secondAbilityPoints: number = 1;
+  public thirdAbilityPoints: number = 1;
 
-  public fourthAbilityPoints:number = 0;
-  public fifthAbilityPoints:number = 0;
-  public sixthAbilityPoints:number = 0;
-  public seventhAbilityPoints:number = 0;
+  public fourthAbilityPoints: number = 0;
+  public fifthAbilityPoints: number = 0;
+  public sixthAbilityPoints: number = 0;
+  public seventhAbilityPoints: number = 0;
 
-  public pointsAvailable:number = 15;
+  public pointsAvailable: number = 15;
   public abilitiesChosen: number = 3;
 
   public isNext: number = 4;
@@ -42,36 +47,128 @@ export class CreateCharacterPage implements OnInit {
   public sixthReady: boolean = false;
   public seventhReady: boolean = false;
 
-  public maximumCharactersAllowed: number = 200;
+  public maximumCharactersAllowed: number = 600;
   public challengeCharacters: number = 0;
 
   public challenge: string;
 
   public participant: IParticipant;
 
-  constructor(private alertCtrl: AlertController) { }
+  public gameId: string;
+
+  public showWaitingForChallengeApprovalView: boolean = false;
+
+  public flip;
+  public flipped = [];
+
+  constructor(private alertCtrl: AlertController,
+    public route: ActivatedRoute,
+    public dbService: NgxIndexedDBService,
+    public navCtrl: NavController,
+    public _gameService: GameService) { }
 
   ngOnInit() {
+    this.route.queryParams.subscribe(params => {
+      this.gameId = (params["gameId"]).replace(/"/g, '');
+    });
+    this.openChallengeSocket();
+    this.checkIfChallengeApproved();
+    this.showFirstMessage();
+    this.initiateFlipArray();
   }
 
-  addStep(){
-    this.step++
+  ngOnDestroy() {
+    this._gameService.closeWebSockets();
+  }
+
+  initiateFlipArray() {
+    for (var i = 0; i <= 12; i++) {
+      this.flipped[i] = false;
+    }
+  }
+
+  openChallengeSocket() {
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._gameService.openChallengeApprovalWebSocket(token.value.guestData.id, token.value.token)
+      },
+      error => {
+        this.closeSession();
+        console.log('error: ', error);
+      });
+  }
+
+  checkIfChallengeApproved() {
+    this._gameService.response.subscribe(response => {
+      switch (response) {
+        case 'approved': this.goToWaitingGamePage(); break;
+        case 'rejected': this.notifyRejectReason(); break;
+      }
+    });
+  }
+
+  notifyRejectReason() {
+    this.hideWaitingForChallengeApprovalModal();
+    // this.challenge = '';
+    // this.challengeCharacters = 0;
+    this.showRejectReason();
+  }
+
+  showRejectReason() {
+    this.showRejectChallengeAlert(this._gameService.reason);
+  }
+
+  goToWaitingGamePage() {
+    this.createCharacter();
+    let navigationExtras: NavigationExtras = {
+      queryParams: {
+        gameId: this.gameId,
+        character: JSON.stringify(this.participant)
+      }
+    }
+    this.navCtrl.navigateForward('role-playing/waiting-game', navigationExtras)
+  }
+
+  showInfo(character) {
+    this.flip = document.querySelector("[name='flip" + character + "']");
+    this.flip.classList.toggle("flipped")
+    this.flipped[character] = !this.flipped[character];
+    console.log('this.flipped: ', this.flipped);
+  }
+
+  chooseCharacter(characterNumber) {
+    this.showInfo(characterNumber);
+    if (this.flipped[this.character]) this.showInfo(this.character);
+    this.character = characterNumber;
+    this.avatar = characterNumber;
+    this.setAbility(this.character);
+  }
+
+  addStep() {
+    if (this.step == 1 && this.flipped[this.character]) this.showInfo(this.character);
+    this.step++;
+    switch (this.step) {
+      case 1: this.showFirstMessage(); break;
+      case 2: this.showSecondMessage(); break;
+      case 3: this.showThirdMessage(); break;
+      default: break;
+    }
   }
 
   setAbility(character) {
     switch (character) {
-      case 1: this.firstAbility = "Buen trato"; this.secondAbility = "Idealista"; this.thirdAbility = "Abierto al cambio"; break;
+      case 1: this.firstAbility = "Buen trato"; this.secondAbility = "Idealista"; this.thirdAbility = "Orientación al cambio"; break;
       case 2: this.firstAbility = "Autonomía"; this.secondAbility = "Aprendizaje"; this.thirdAbility = "Emprendimiento"; break;
-      case 3: this.firstAbility = "Valentía"; this.secondAbility = "Perseverancia"; this.thirdAbility = "Habilidad"; break;
-      case 4: this.firstAbility = "Análisis"; this.secondAbility = "Independencia"; this.thirdAbility = "Curiosidad"; break;
-      case 5: this.firstAbility = "Perspectiva"; this.secondAbility = "Persuasión"; this.thirdAbility = "Carisma"; break;
+      case 3: this.firstAbility = "Valentía"; this.secondAbility = "Perseverancia"; this.thirdAbility = "Habilidad profesional"; break;
+      case 4: this.firstAbility = "Capacidad de análisis"; this.secondAbility = "Independencia"; this.thirdAbility = "Curiosidad"; break;
+      case 5: this.firstAbility = "Aporta nuevas perspectivas"; this.secondAbility = "Persuasión"; this.thirdAbility = "Carisma"; break;
       case 6: this.firstAbility = "Genera cambios"; this.secondAbility = "Motivador"; this.thirdAbility = "Inspirador"; break;
       case 7: this.firstAbility = "Compromiso"; this.secondAbility = "Lealtad"; this.thirdAbility = "Diplomacía"; break;
       case 8: this.firstAbility = "Colaborativo"; this.secondAbility = "Honestidad"; this.thirdAbility = "Practicidad"; break;
       case 9: this.firstAbility = "Optimismo"; this.secondAbility = "Dinamismo"; this.thirdAbility = "Flexibilidad"; break;
       case 10: this.firstAbility = "Empatía"; this.secondAbility = "Solidaridad"; this.thirdAbility = "Responsabilidad social"; break;
       case 11: this.firstAbility = "Visionario"; this.secondAbility = "Creatividad"; this.thirdAbility = "Iniciativa"; break;
-      case 12: this.firstAbility = "Liderazgo"; this.secondAbility = "Responsable"; this.thirdAbility = "Comunicación"; break;
+      case 12: this.firstAbility = "Liderazgo"; this.secondAbility = "Responsable"; this.thirdAbility = "Comunicación eficaz"; break;
       default: break;
     }
   }
@@ -137,10 +234,14 @@ export class CreateCharacterPage implements OnInit {
 
   generateList(character) {
     var result = [];
-    var abilities = ['Buen trato', 'Idealista', 'Abierto al cambio', 'Autonomía', 'Aprendizaje', 'Emprendimiento', 'Valentía', 'Perseverancia',
-      'Habilidad', 'Análisis', 'Independencia', 'Curiosidad', 'Perspectiva', 'Persuasión', 'Carisma', 'Genera cambios', 'Motivador', 'Inspirador',
+    var abilities = ['Buen trato', 'Idealista', 'Orientación al cambio', 'Autonomía', 'Aprendizaje', 'Emprendimiento', 'Valentía', 'Perseverancia',
+      'Habilidad profesional', 'Capacidad de análisis', 'Independencia', 'Curiosidad', 'Aporta nuevas perspectivas', 'Persuasión', 'Carisma', 'Genera cambios', 'Motivador', 'Inspirador',
       'Compromiso', 'Lealtad', 'Diplomacía', 'Colaborativo', 'Honestidad', 'Practicidad', 'Optimismo', 'Dinamismo', 'Flexibilidad', 'Empatía',
-      'Solidaridad', 'Responsabilidad social', 'Visionario', 'Creatividad', 'Iniciativa', 'Liderazgo', 'Responsable', 'Comunicación'];
+      'Solidaridad', 'Responsabilidad social', 'Visionario', 'Creatividad', 'Iniciativa', 'Liderazgo', 'Responsable', 'Comunicación eficaz',
+      // abilities that do not belong to any specific character
+      'Trabajo en equipo', 'Capacidad para resolver problemas', 'Proactividad', 'Autocontrol', 'Capacidad para afrontar la presión', 'Relaciones sociales',
+      'Planificación y organización', 'Valores', 'Capacidad de aprendizaje', 'Orientación al logro'
+    ];
     // remove predefined abilities from the list
     abilities.splice((character - 1) * 3, 3);
     // remove ability already chosen from the list
@@ -157,7 +258,7 @@ export class CreateCharacterPage implements OnInit {
     if (fifthAbilityIndex != undefined) indexes.push(fifthAbilityIndex);
     if (sixthAbilityIndex != undefined) indexes.push(sixthAbilityIndex);
     // sort indexes
-    indexes.sort(function(a,b){ return a-b; });
+    indexes.sort(function (a, b) { return a - b; });
 
     // remove selected abilities
     while (indexes.length) {
@@ -187,6 +288,60 @@ export class CreateCharacterPage implements OnInit {
     return result;
   }
 
+  async showFirstMessage() {
+    var alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Sistema D6',
+      message: 'Bienvenidos a la plataforma del <i>roleplaying game</i> Retos. Hoy podrán generar soluciones a sus problemas a través de este juego interactivo. Para ello, deben crear un personaje que los representará durante toda la actividad. Revisen cada uno de los doce personajes y elijan el que más se asemeje a ustedes en relación a sus competencias.',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            // console.log('Confirm OK');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async showSecondMessage() {
+    var alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Sistema D6',
+      message: 'Ahora elige 4 competencias adicionales del listado que tú también poseas y que te ayudarán a superar los retos. Asimismo, deberás distribuir 15 puntos entre las 7 competencias, dependiendo de cuán importantes sean para la superación de los retos.',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            // console.log('Confirm OK');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async showThirdMessage() {
+    var alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Sistema D6',
+      message: 'Mensaje: Ahora describe un problema que tengan como equipo y que desees resolver, procura detallar cómo se manifiesta para ayudar a los demás a darle solución.',
+      buttons: [
+        {
+          text: 'Ok',
+          handler: () => {
+            // console.log('Confirm OK');
+          }
+        }
+      ]
+    });
+
+    await alert.present();
+  }
+
   async showAlert(number) {
     var alert = await this.alertCtrl.create({
       cssClass: 'my-custom-class',
@@ -206,7 +361,27 @@ export class CreateCharacterPage implements OnInit {
             this.createAbility(data, number);
           }
         }
-      ]});
+      ]
+    });
+
+    await alert.present();
+  }
+
+  async showRejectChallengeAlert(reason) {
+    var alert = await this.alertCtrl.create({
+      cssClass: 'my-custom-class',
+      header: 'Reto rechazado',
+      message: 'Tu reto ha sido rechazado por la siguiente razón: ' + '<strong>' + reason + '</strong>',
+      buttons: [
+        {
+          text: 'Entendido',
+          role: 'cancel',
+          cssClass: 'secondary',
+          handler: () => {
+          }
+        }
+      ]
+    });
 
     await alert.present();
   }
@@ -268,11 +443,52 @@ export class CreateCharacterPage implements OnInit {
   createCharacter() {
     this.participant = {
       character: this.character,
-      abilites: this.getAbilities(),
-      challenge: this.challenge
+      abilities: this.getAbilities(),
+      challenge: this.challenge,
+      avatar: this.avatar
     };
+  }
 
-    var message = "Personaje creado exitosamente";
+  sendChallenge() {
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        var challengeObject = {
+          challengeId: uuid.v4(),
+          gameId: this.gameId,
+          roomId: token.value.guestData.roomId,
+          guestId: token.value.guestData.id,
+          fullName: token.value.guestData.identifier,
+          challengeBody: this.challenge,
+          status: 0,
+          points: 0,
+        };
+        this.showWaitingForChallengeApprovalModal();
+        this._gameService.sendChallengeForApproval(this.gameId, challengeObject, token.value.token).subscribe(challenge => {
+          this.showWaitingForChallengeApprovalModal();
+        }, error => {
+          console.log('error: ', error);
+          this.closeSession();
+        });
+      },
+      error => {
+        this.closeSession();
+        console.log('error: ', error);
+      });
+  }
 
+  hideWaitingForChallengeApprovalModal() {
+    this.showWaitingForChallengeApprovalView = false;
+  }
+
+  showWaitingForChallengeApprovalModal() {
+    this.showWaitingForChallengeApprovalView = true;
+  }
+
+  closeSession() {
+    this.dbService.clear('variables').subscribe((successDeleted) => {
+      if (successDeleted) {
+        this.navCtrl.navigateForward('login')
+      }
+    });
   }
 }

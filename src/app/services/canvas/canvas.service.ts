@@ -1,4 +1,3 @@
-import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { apiUrls } from "../../../common/constants";
@@ -15,8 +14,7 @@ const DELETE_CANVAS = apiUrls.DELETE_CANVAS;
 })
 export class CanvasService {
 
-  constructor(public http: HttpClient,
-    public apiMiddleware: APIMiddleware) { }
+  constructor(public apiMiddleware: APIMiddleware) { }
 
   getCanvasFromUser(token): Observable<any> {
     return this.apiMiddleware.getCanvasFromUser(GET_CANVAS, token);

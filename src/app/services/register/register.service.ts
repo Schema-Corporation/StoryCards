@@ -24,4 +24,6 @@ export class RegisterService {
   registerUser(user): Observable<any> {
       return this.apiMiddleware.doRegister(REGISTER_URL, user);
   }
+
+  
 }

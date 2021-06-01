@@ -6,8 +6,6 @@
   }
 ion-col {
   overflow: hidden;
-  margin-left: 47px;
-  margin-right: 47px;
   // width: 60%;
   height: 80%;
   padding: 1%;
@@ -45,6 +43,18 @@ ion-col {
     margin-left: 15px;
     margin-right: 15px;
 }
+
+ion-item {
+  --padding-start: 0;
+}
+
+@media (max-width: 1375px) {
+  ion-textarea{
+    // --padding-top: 20px;
+    --padding-bottom: 30px;
+  }
+}
+
 *{
 margin: 0;
 padding: 0;
@@ -54,7 +64,7 @@ font-family: ZizouSlabLight;
 
 .item-header {
     font-size: 16px;
-    padding-left: 10px;
+    // padding-left: 10px;
     margin-left: 15px;
     align-items: left;
 }
@@ -136,7 +146,6 @@ font-family: ZizouSlabLight;
   }
   } 
   
-  
    @media (min-width: 750px) {
     .principal-title{
       font-size: 25px;
@@ -188,9 +197,6 @@ font-family: ZizouSlabLight;
     }
     ion-col {
       overflow: hidden;
-      margin-left: 47px;
-      margin-right: 47px;
-      height: 80%;
     }
   
    .img-arq {

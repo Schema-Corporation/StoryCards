@@ -5,6 +5,9 @@ import { SettingComponent } from '../setting/setting.component';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { ActivatedRoute } from '@angular/router';
 import { Location } from "@angular/common";
+import { LoginService } from 'src/app/services/auth/login.service';
+import { RolePlayingGuestService } from 'src/app/services/role-playing/role-playing-guest/role-playing-guest.service';
+import { GuestService } from 'src/app/services/guest/guest.service';
 
 @Component({
   selector: 'app-main',
@@ -18,6 +21,8 @@ export class MainPage implements OnInit {
   public isFirst: boolean = false;
 
   public fullName: string = "";
+  public isAdmin: number;
+  public role: number;
 
 
   constructor(
@@ -26,7 +31,10 @@ export class MainPage implements OnInit {
     public dbService: NgxIndexedDBService,
     public route: ActivatedRoute,
     public location: Location,
-    public alertCtrl: AlertController
+    public alertCtrl: AlertController,
+    public _loginService: LoginService,
+    public _rolePlayingGuestService: RolePlayingGuestService,
+    public _guestService: GuestService
   ) {
     
    }
@@ -52,13 +60,31 @@ export class MainPage implements OnInit {
       }
     });
 
+    this.validateRole();
+  }
+
+  validateRole() {
     this.dbService.getByIndex('variables', 'name', 'token').subscribe(
       token => {
         if (token != null && token.value.fullName != "undefined") {
           this.fullName = token.value.fullName;
+          this.isAdmin = token.value.isAdmin;
         }
+
+        this._loginService.validateRole(token.value.token).subscribe(role => {
+          switch (role.role) {
+            case 'HOST': this.role = 1; break;
+            case 'GUEST': this.role = 2; break;
+            default: this.role = -1; break;
+          }
+        }, error => {
+          console.log('error: ', error);
+          this.closeSession();
+        })
+
       },
       error => {
+        this.closeSession();
       });
   }
 
@@ -78,23 +104,66 @@ export class MainPage implements OnInit {
     await alert.present();
   }
 
+  validateUserActivity() {
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._loginService.checkUserActivity(token.value.token).subscribe(userActivity => {
+          if (userActivity) {
+            // do nothing
+          } else {
+            console.log('user disabled');
+            this.closeSession();
+          }
+        }, error => {
+          console.log('error: ', error);
+          this.closeSession();
+        })
+      },
+      error => {
+        this.closeSession();
+      });
+  }
+
   goToFreeModePage(){
+    if (this.role == 2) this.validateUserActivity();
     this.navCtrl.navigateForward('free/groups');
   }
 
   goToCanvasModePage() {
-    this.navCtrl.navigateForward('canvas/canvas');
+    switch (this.role) {
+      case 1: this.navCtrl.navigateForward('canvas/canvas'); break;
+      case 2: this.validateUserActivity(); this.navCtrl.navigateForward('canvas/add-canvas'); break;
+      default: this.navCtrl.navigateForward('canvas/add-canvas'); break;
+    }
   }
 
-  goToRolePlayModePage(){
-    this.navCtrl.navigateForward('create-character');
+  goToRolePlayModePage() {
+    this.validateUserActivity();
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+    token => {
+      this._rolePlayingGuestService.validateWaitingRoom(token.value.token).subscribe(allowParticipant => {
+        if (allowParticipant) {
+          this._rolePlayingGuestService.enterWaitingRoom(token.value.token).subscribe(role => {
+            console.log('role: ', role);
+            this.navCtrl.navigateForward('role-playing/waiting-guest');
+          }, error => {
+            console.log('error: ', error);
+            this.closeSession();
+          })
+        } else {
+          var title = "¡Lo sentimos!";
+          var message = "La sala de espera del juego ya cuenta con el número máximo de participantes. Inténtelo más tarde.";
+          this.showAlert(title, message);
+        }
+      });
+    },
+    error => {
+      this.closeSession();
+    });
   }
 
-  goToRoomModePage(){
-    // this.navCtrl.navigateForward('my-rooms');
-    var title = "Página en construcción";
-    var message = "Esta opción aún no está habilitada. Te informaremos cuando puedas utilizarla."
-    this.showAlert(title, message);
+  goToRoomModePage() {
+    this.navCtrl.navigateForward('rooms/my-rooms');
   }
 
   async presentPopover(ev: any) {
@@ -107,6 +176,19 @@ export class MainPage implements OnInit {
     popover.onDidDismiss().then((result) => {
       if (result != 'undefined') {
         if (result.data == 'close') {
+          if (this.role == 2) {
+            this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+              token => {
+                this._guestService.leaveRoom(token.value.token).subscribe(guest => {
+                  console.log('guest: ', guest);
+                }, error => {
+                  this.closeSession();
+                })
+              },
+              error => {
+                this.closeSession();
+              });
+          }
           this.closeSession();
         }
       }
@@ -114,10 +196,14 @@ export class MainPage implements OnInit {
     return await popover.present();
   }
 
+  goToReportModePage() {
+    this.navCtrl.navigateForward('reports/reports');
+  }
+
   closeSession() {
     this.dbService.clear('variables').subscribe((successDeleted) => {
       if (successDeleted) {
-        this.navCtrl.navigateForward('login')
+        this.navCtrl.navigateForward('login');
       }
     });
   }

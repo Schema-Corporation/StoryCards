@@ -9,6 +9,7 @@ import htmlToPdfmake from 'html-to-pdfmake';
 import { NgxIndexedDBService } from 'ngx-indexed-db';
 import { CanvasService } from 'src/app/services/canvas/canvas.service';
 import { ActivatedRoute } from '@angular/router';
+import { LoginService } from 'src/app/services/auth/login.service';
 
 pdfMake.vfs = pdfFonts.pdfMake.vfs;
 
@@ -38,6 +39,9 @@ export class StructuralAspectsPage implements OnInit {
   public data: any = null;
   public name: string = "";
   public canvasId: string = "";
+
+  public role: number;
+  public showSaveOption: boolean;
 
   group1: IGroup  = {
     id: 1,
@@ -167,6 +171,7 @@ export class StructuralAspectsPage implements OnInit {
     public platform: Platform,
     public dbService: NgxIndexedDBService,
     public _canvasService: CanvasService,
+    public _loginService: LoginService,
     public alertCtrl: AlertController,
     public route: ActivatedRoute) { }
 
@@ -180,6 +185,23 @@ export class StructuralAspectsPage implements OnInit {
         this.isEdit = true;
       }
     });
+
+    this.dbService.getByIndex('variables', 'name', 'token').subscribe(
+      token => {
+        this._loginService.validateRole(token.value.token).subscribe(role => {
+          switch (role.role) {
+            case 'HOST': this.role = 1; this.showSaveOption = true; break;
+            case 'GUEST': this.role = 2; break;
+            default: this.role = -1; break;
+          }
+        }, error => {
+          console.log('error: ', error);
+        })
+
+      },
+      error => {
+        this.closeSession();
+      });
   }
 
   fillCanvasData(data) {
@@ -364,10 +386,10 @@ export class StructuralAspectsPage implements OnInit {
       this.generateHTML('', '', '', '', base64ImageLogo);
     } else {
       this.createPDF(
-        this.plot != -1 ? this.plot: -1,
-        this.gender != -1 ? this.gender: -1,
-        this.myths != -1 ? this.myths: -1,
-        this.theme != -1 ? this.theme: -1);
+        this.plot != -1 ? this.plot + 1: -1,
+        this.gender != -1 ? this.gender + 1: -1,
+        this.myths != -1 ? this.myths + 1: -1,
+        this.theme != -1 ? this.theme + 1: -1);
     }
   }
 
@@ -378,10 +400,10 @@ export class StructuralAspectsPage implements OnInit {
       this.generateHTML('', '', '', '', base64ImageLogo);
     } else {
       this.createPDF(
-        this.plot != -1 ? this.plot: -1,
-        this.gender != -1 ? this.gender: -1,
-        this.myths != -1 ? this.myths: -1,
-        this.theme != -1 ? this.theme: -1);
+        this.plot != -1 ? this.plot + 1: -1,
+        this.gender != -1 ? this.gender + 1: -1,
+        this.myths != -1 ? this.myths + 1: -1,
+        this.theme != -1 ? this.theme + 1: -1);
     }
 
     this.presentToast('Formato abierto para imprimir');

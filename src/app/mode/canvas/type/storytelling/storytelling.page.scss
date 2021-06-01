@@ -162,23 +162,34 @@ form .page .btns button.prev{
 form .page .btns button.next{
     margin-left: 3px;
 }
-.container .progress-bar{
+.container .progress-bar-custom{
     display: flex;
-    margin: 15px 0 10px 0;
+    width: 100%;
+    margin: 16px 0 16px 0;
     user-select: none;
 }
-.container .progress-bar .step{
+.container .progress-bar-custom .step{
     text-align: center;
     width: 100%;
     position: relative;
 }
-.container .progress-bar .step p{
+.container .progress-bar-custom .step p{
     font-weight: 500;
     font-size: 12px;
     color: rgb(85, 84, 84);
     margin-bottom: 8px;
 }
-.progress-bar .step .bullet{
+
+.progress-bar-custom .step .step-progress {
+    position: absolute;
+    width: 100%;
+    height: 2px;
+    background: rgb(85, 84, 84);
+    left: 50%;
+    bottom: 75%;
+}
+
+.progress-bar-custom .step .bullet{
     height: 30px;
     width: 30px;
     border: 1px solid rgb(85, 84, 84);
@@ -191,29 +202,18 @@ form .page .btns button.next{
     line-height: 25px;
 
 }
-.progress-bar .step .bullet.active{
-    border-color: #d43f8d;
-    background: #d43f8d;
+.progress-bar-custom .step .bullet.step-colored{
+    background: #FF0000;
 }
-.progress-bar .step .bullet span{
+.progress-bar-custom .step .bullet span{
     position: absolute;
     left: 50%;
     transform: translateX(-50%);
 }
-.progress-bar .step .bullet.active span{
+.progress-bar-custom .step .bullet.step-colored span{
     display: none;
 }
-.progress-bar .step .bullet:before,
-.progress-bar .step .bullet:after{
-    position: absolute;
-    content: '';
-    bottom: 13px;
-    right: -46px;
-    height: 2px;
-    width: 44px;
-    background: #262626;
-}
-.progress-bar .step .bullet.active:after{
+.progress-bar-custom .step .step-progress.done{
     background: #ccc6b6;
     transform: scaleX(0);
     transform-origin: left;
@@ -224,28 +224,30 @@ form .page .btns button.next{
     transform: scaleX(1);
 }
 }
-.progress-bar .step:last-child .bullet:before,
-.progress-bar .step:last-child .bullet:after{
-    display: none;
-}
-.progress-bar .step p.active{
+.progress-bar-custom .step p.active{
     color: #d43f8d;
     transition: 0.2s linear;
 }
-.progress-bar .step .check{
+.progress-bar-custom .step .check{
     position: absolute;
     left: 50%;
-    top: 70%;
-    font-size: 15px;
+    top: 50%;
+    font-size: 20px;
+    font-style: bold;
     transform: translate(-50%, -50%);
     display: none;
 }
-.progress-bar .step .check.active{
+.progress-bar-custom .step .check.active{
     display: block;
-    color: #fff;
+    color: #FFFFFF;
 }
-.step-colored {
-    background-color: #FF0000;
+
+.bullet.step-colored {
+    background-color: #FF0000 !important;
+}
+
+.bullet:not(.step-colored) {
+    background-color: #FFFFFF;
 }
 
 .fullSizeCard{
@@ -447,7 +449,7 @@ ion-item {
     margin-top: 4px;
     padding-bottom: 10px;
 }
-.progress-bar .step .bullet{
+.progress-bar-custom .step .bullet{
     height: 30px;
     width: 30px;
     border: 2px solid rgb(85, 84, 84);
@@ -479,15 +481,6 @@ ion-item {
         height: 19px;
         padding: 8px;
     }
-    .progress-bar .step .bullet:after{
-        position: absolute;
-        content: '';
-        bottom: 13px;
-        right: -46px;
-        height: 2px;
-        width: 44px;
-        background: #262626;
-    }
 }
 @media (min-width: 750px) {
 
@@ -510,7 +503,7 @@ ion-item {
         //margin-right: 40px;
     }
 
-    .progress-bar .step .bullet{
+    .progress-bar-custom .step .bullet{
         height: 30px;
         width: 30px;
         border: 2px solid rgb(85, 84, 84);
@@ -524,22 +517,19 @@ ion-item {
         
     }
 
-    .container .progress-bar .step p{
+    .container .progress-bar-custom .step p{
         font-weight: 500;
         font-size: 18px;
         color: rgb(85, 84, 84);
         margin-bottom: 8px;
     }
-
-    .progress-bar .step .bullet:before,
-    .progress-bar .step .bullet:after{
+    .progress-bar-custom .step .step-progress {
         position: absolute;
-        content: '';
-        bottom: 50%;
-        left: 100%;
+        width: 100%;
         height: 2px;
-        width: 150px;
         background: rgb(85, 84, 84);
+        left: 50%;
+        bottom: 75%;
     }
 
     ion-item {
@@ -757,24 +747,23 @@ ion-item {
         //margin-right: 40px;
     }
 
-    .container .progress-bar .step p{
+    .container .progress-bar-custom .step p{
         font-weight: 500;
         font-size: 18px;
         color: rgb(85, 84, 84);
         margin-bottom: 8px;
     }
-    .progress-bar .step .bullet:before,
-    .progress-bar .step .bullet:after{
+
+    .progress-bar-custom .step .step-progress {
         position: absolute;
-        content: '';
-        bottom: 50%;
-        left: 100%;
+        width: 100%;
         height: 2px;
-        width: 195px;
         background: rgb(85, 84, 84);
+        left: 50%;
+        bottom: 75%;
     }
 
-    .progress-bar .step .bullet{
+    .progress-bar-custom .step .bullet{
         height: 50px;
         width: 50px;
         border: 3px solid rgb(85, 84, 84);
@@ -814,24 +803,23 @@ ion-item {
         //margin-right: 40px;
     }
 
-    .container .progress-bar .step p{
+    .container .progress-bar-custom .step p{
         font-weight: 500;
         font-size: 18px;
         color: rgb(85, 84, 84);
         margin-bottom: 8px;
     }
-    .progress-bar .step .bullet:before,
-    .progress-bar .step .bullet:after{
+
+    .progress-bar-custom .step .step-progress {
         position: absolute;
-        content: '';
-        bottom: 50%;
-        left: 100%;
+        width: 100%;
         height: 2px;
-        width: 246px;
         background: rgb(85, 84, 84);
+        left: 50%;
+        bottom: 75%;
     }
 
-    .progress-bar .step .bullet{
+    .progress-bar-custom .step .bullet{
         height: 50px;
         width: 50px;
         border: 3px solid rgb(85, 84, 84);
@@ -868,24 +856,22 @@ ion-row{
     //margin-right: 40px;
 }
 
-.container .progress-bar .step p{
+.container .progress-bar-custom .step p{
     font-weight: 500;
     font-size: 18px;
     color: rgb(85, 84, 84);
     margin-bottom: 8px;
 }
-.progress-bar .step .bullet:before,
-.progress-bar .step .bullet:after{
+.progress-bar-custom .step .step-progress {
     position: absolute;
-    content: '';
-    bottom: 50%;
-    left: 100%;
+    width: 100%;
     height: 2px;
-    width: 295px;
     background: rgb(85, 84, 84);
+    left: 50%;
+    bottom: 75%;
 }
 
-.progress-bar .step .bullet{
+.progress-bar-custom .step .bullet{
     height: 50px;
     width: 50px;
     border: 3px solid rgb(85, 84, 84);
@@ -921,24 +907,23 @@ ion-row{
     //margin-right: 40px;
 }
 
-.container .progress-bar .step p{
+.container .progress-bar-custom .step p{
     font-weight: 500;
     font-size: 18px;
     color: rgb(85, 84, 84);
     margin-bottom: 8px;
 }
-.progress-bar .step .bullet:before,
-.progress-bar .step .bullet:after{
+
+.progress-bar-custom .step .step-progress {
     position: absolute;
-    content: '';
-    bottom: 50%;
-    left: 100%;
+    width: 100%;
     height: 2px;
-    width: 345px;
-    background: #262626;
+    background: rgb(85, 84, 84);
+    left: 50%;
+    bottom: 75%;
 }
 
-.progress-bar .step .bullet{
+.progress-bar-custom .step .bullet{
     height: 50px;
     width: 50px;
     border: 3px solid rgb(85, 84, 84);

@@ -1,0 +1,42 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="/">
+      </ion-back-button>
+    </ion-buttons>
+    <ion-title text-center class="principal-title">Retos de los participantes</ion-title>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-label *ngIf="getChallengesListPendingForApproval().length == 0 && !showGoToStartGameButton">
+    Los participantes se encuentran enviando sus propuestas de retos ...
+  </ion-label>
+  <ion-card *ngFor="let challenge of getChallengesListPendingForApproval()" class="center-card">
+    <ion-card-header>
+      <ion-card-title class="center-text">{{challenge.challengeBody}}</ion-card-title>
+    </ion-card-header>
+    <ion-card-content>
+      <ion-label class="notify center-text">{{challenge.fullName}}</ion-label>
+      <br>
+      <ion-grid>
+        <ion-row>
+          <ion-col class="centered-col">
+            <ion-button class="white-color" (click)="askForRejectChallengeReason(challenge)">Rechazar</ion-button>
+          </ion-col>
+          <ion-col class="centered-col">
+            <ion-button class="white-color" (click)="showAlertAcceptChallenge(challenge)">Aceptar</ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-grid>
+    </ion-card-content>
+  </ion-card>
+  <p *ngIf="!showGoToStartGameButton" class="approved-number">
+    Retos aprobados: {{numApprovedChallenges}} / {{numParticipants}}
+  </p>
+
+  <ion-button *ngIf="showGoToStartGameButton" class="start-game-button" (click)="goToWatchGamePage()">
+    Iniciar dinámica
+    <ion-icon name="rocket-outline" ></ion-icon>
+  </ion-button>
+</ion-content>

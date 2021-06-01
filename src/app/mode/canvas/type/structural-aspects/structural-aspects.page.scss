@@ -4,6 +4,12 @@
     outline: none;
   }
 
+  //Sobreescribe el padding 0 general para el titulo principal en dispositivos iOS
+  .principal-title.ios {
+    padding-left: 90px;
+    padding-right: 90px;
+  }
+
 ion-col {
   overflow: hidden;
   margin-left: 47px;

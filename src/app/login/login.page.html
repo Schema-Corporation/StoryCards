@@ -4,6 +4,21 @@
 			<div class="logo-pic" >
 				<img src="../../assets/icon/logo.png" class="logo-title" alt="IMG">
 			</div>
+
+			<ng-template #goGuestLogin>Iniciar sesión como invitado</ng-template>
+			<button class="room-button" *ngIf="loginMode == 1;" [ngbTooltip]="goGuestLogin" (click)="loginMode = 2;">
+				<ion-fab-button>
+					<ion-icon color="light" name="school"></ion-icon>
+				</ion-fab-button>
+			</button>
+
+			<ng-template #goFacilitatorLogin>Iniciar sesión como facilitador</ng-template>
+			<button class="room-button" *ngIf="loginMode == 2" [ngbTooltip]="goFacilitatorLogin" (click)="loginMode = 1;">
+				<ion-fab-button>
+					<ion-icon color="light" name="ribbon"></ion-icon>
+				</ion-fab-button>
+			</button>
+			
 			<div class="wrap-login100" >
 				<div class="login100-pic">
 					<img src="../../assets/cards/initial/inicial_02_im.svg" style="width:205px; height: 331px; " alt="IMG">
@@ -13,43 +28,101 @@
 					<span class="login100-form-title">
 						Iniciar sesión
 					</span>
-          
-					<div class="wrap-input100 validate-input" [formGroup]="loginForm">
-						<ion-item>
-							<ion-input id="username" name="username" formControlName="email" [(ngModel)]="username" class="input-login" color="black" placeholder="Correo electrónico" required="true" ></ion-input>
-							<ion-icon name="mail-outline" color="medium" slot="start"></ion-icon>
-						</ion-item>
-						<div *ngFor="let error of errorMessages.email">
-							<ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
-								<small class="error-message">{{error.message}}</small>
-							</ng-container>
+					<div class="fade-in" *ngIf="loginMode == 1">
+						<div class="wrap-input100 validate-input" [formGroup]="loginForm">
+							<ion-item>
+								<ion-input id="username" name="username" formControlName="email" [(ngModel)]="username" class="input-login" color="black" placeholder="Correo electrónico" required="true" ></ion-input>
+								<ion-icon name="mail-outline" color="medium" slot="start"></ion-icon>
+							</ion-item>
+							<div *ngFor="let error of errorMessages.email">
+								<ng-container *ngIf="email.hasError(error.type) && (email.dirty || email.touched)">
+									<small class="error-message">{{error.message}}</small>
+								</ng-container>
+							</div>
+						</div>
+
+						<div class="wrap-input100 validate-input">
+							<ion-item>
+								<ion-input id="password" name="password" [(ngModel)]="password" [type]="getPasswordType()" class="input-login" color="black" placeholder="Contraseña" required="true"></ion-input>
+								<ion-icon name="lock-closed-outline" color="medium" slot="start"></ion-icon>
+								<ion-icon *ngIf="!showPassword" name="eye-outline" color="medium" (click)="toggleTextPassword()"></ion-icon>
+								<ion-icon *ngIf="showPassword" name="eye-off-outline" color="medium" (click)="toggleTextPassword()"></ion-icon>
+							</ion-item>
+							<a class="txt2" href="/forgot-password" *ngIf="!platform.is('android') && !platform.is('ios')">
+								¿Olvidó su contraseña?
+							</a>
+						</div>
+						
+						<div class="container-login100-form-btn">
+							<ion-button class="login100-form-btn" (click)="login()">
+								Iniciar Sesión
+							</ion-button>
+						</div>
+
+						<div class="text-center p-t-12 create-account">
+							<span class="txt1">
+								¿No tiene una cuenta? 
+							</span>
+							<a class="txt2" (click)="goToRegisterPage()">
+								Cree una
+							</a>
+							<br>
+							<span class="txt1">
+								o
+							</span>
+							<a class="txt2" (click)="loginMode = 2;">
+								inicie sesión como invitado
+							</a>
 						</div>
 					</div>
 
-					<div class="wrap-input100 validate-input">
-						<ion-item>
-							<ion-input id="password" name="password" [(ngModel)]="password" [type]="getPasswordType()" class="input-login" color="black" placeholder="Contraseña" required="true"></ion-input>
-							<ion-icon name="lock-closed-outline" color="medium" slot="start"></ion-icon>
-							<ion-icon *ngIf="!showPassword" name="eye-outline" color="medium" (click)="toggleTextPassword()"></ion-icon>
-							<ion-icon *ngIf="showPassword" name="eye-off-outline" color="medium" (click)="toggleTextPassword()"></ion-icon>
-						</ion-item>
-					</div>
-					
-					<div class="container-login100-form-btn">
-						<ion-button class="login100-form-btn" (click)="login()">
-							Iniciar Sesión
-						</ion-button>
-					</div>
+					<div class="fade-in" *ngIf="loginMode == 2">
+						<div class="wrap-input100 validate-input">
+							<ion-item>
+								<ion-input [disabled]="roomValidated" id="roomCode" name="roomCode" [(ngModel)]="roomCode" class="input-login" color="black" placeholder="Código de sala" required="true" ></ion-input>
+								<ion-icon name="book-outline" color="medium" slot="start"></ion-icon>
+							</ion-item>
+						</div>
 
-					<div class="text-center p-t-12 create-account">
-						<span class="txt1">
-							¿No tiene una cuenta? 
-						</span>
-						<a class="txt2" href="/register">
-							Cree una
-						</a>
+						<div *ngIf="roomValidated" class="fade-in wrap-input100 validate-input">
+							<ion-item>
+								<ion-input id="guestName" name="guestName" [(ngModel)]="guestName" class="input-login" color="black" placeholder="Nombre o nick" required="true" ></ion-input>
+								<ion-icon name="person-add-outline" color="medium" slot="start"></ion-icon>
+							</ion-item>
+						</div>
+
+						<div *ngIf="!roomValidated" class="container-login100-form-btn">
+							<ion-button class="login100-form-btn" (click)="loginRoom()">
+								Ingresar a sala
+							</ion-button>
+						</div>
+
+						<div *ngIf="roomValidated" class="container-login100-form-btn">
+							<ion-button class="login100-form-btn" (click)="loginGuest()">
+								Ingresar
+							</ion-button>
+						</div>
+
+						<div class="text-center p-t-12 create-account">
+							<span class="txt1">
+								¿Cuenta con un código de libro? 
+							</span>
+							<a class="txt2" (click)="goToRegisterPage()">
+								Regístrese
+							</a>
+							<br>
+							<span class="txt1">
+								o
+							</span>
+							<a class="txt2" (click)="loginMode = 1;">
+								inicie sesión como facilitador
+							</a>
+						</div>
 					</div>
 				</form>
+			</div>
+			<div class="application-compatibility" *ngIf="!platform.is('android') && !platform.is('ios')">
+				* Aplicación web compatible con Mozilla Firefox 60.7.2esr+, Google Chrome 85.0.4183.121+, Safari 14+ 
 			</div>
     	</div>
   	</div>

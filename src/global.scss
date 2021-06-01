@@ -55,6 +55,7 @@
 .alert-message.sc-ion-alert-md {
     max-height: 600px !important;
     font-size: 16px;
+    text-align: justify;
 }
 
 .alert-message.sc-ion-alert-ios {
@@ -66,6 +67,10 @@
     width: 297px;
 }
 
+.alert-radio-label.sc-ion-alert-md {
+    white-space: normal !important;
+}
+
 @media (min-width: 600px){
     .popover-content.sc-ion-popover-md{
         width: 340px;
@@ -75,3 +80,13 @@
 .ionic-selectable-value {
     padding-left: 0px !important;
 }
+
+.ionic-selectable-modal ion-header ion-toolbar:first-of-type {
+    color: white;
+}
+
+// Aquí se reemplazan las variables para dispositivos iOS
+.ios {
+    --background-activated: #ff0000;
+  }
+

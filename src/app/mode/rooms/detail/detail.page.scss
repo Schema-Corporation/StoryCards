@@ -1,0 +1,157 @@
+.room-details {
+    margin-left: 10%;
+    margin-right: 10%;
+    margin-top: 20px;
+
+    .small-title {
+        padding: 16px;
+    }
+    .boxed {
+        border: red solid 2px;
+        margin-left: 30%;
+        margin-right: 30%;
+        text-align: center;
+    }
+}
+
+.start-game-button {
+    margin-left: auto;
+    margin-right: auto;
+    color: white;
+    width: 250px;
+    display: block;
+}
+
+@font-face{
+    font-family: 'ZizouSlabLight';
+    src: url('../../../../assets/fonts/ZizouSlabLight.otf');
+  }
+*{
+    margin: 0;
+    padding: 0;
+    outline: none;
+    font-family: ZizouSlabLight;
+  }
+
+.ion-icon-white {
+    color: white;
+}
+
+.principal-title {
+    text-align: center;
+    font-size: 18px;
+}
+.principal-title.ios {
+    text-align: center;
+}
+.item-inner{
+    margin-right: 15px;
+}
+.list-md{
+    margin-bottom: 16%;
+}
+
+.no-items{
+    font-size: 17px;
+    text-align: center;
+    margin-top: 3%;
+}
+
+@media (min-width: 400px)  {
+    .principal-title{
+        font-size: 23px;
+    }
+    .list-md {
+        margin-bottom: 14%;
+    }
+    .item{
+        font-size: 17px;
+    }
+    .room-details {
+        font-size: 17px;
+    }
+}   
+  
+@media (min-width: 600px) {
+    .no-items{
+        font-size: 22px;
+
+    }
+    .principal-title{
+        font-size: 24px;
+    }
+    .list-md {
+        margin-bottom: 10%;
+    }
+    .item{
+        font-size: 20px;
+    }
+    .room-details {
+        font-size: 20px;
+    }
+    .style-icon{
+        margin-right: 47%;
+    }
+
+} 
+
+@media (min-width: 750px) {
+    .principal-title{
+        font-size: 25px;
+    }
+    .list-md {
+        margin-bottom: 8%;
+    }
+    .style-icon{
+        margin-right: 48%;
+    }
+}
+
+@media (min-width: 1000px) {
+    .principal-title{
+        font-size: 28px;
+    }
+    .list-md {
+        margin-bottom: 8%;
+    }
+    .style-icon{
+        margin-right: 49%;
+    }
+}
+
+@media (min-width: 1260px) {
+    .principal-title{
+        font-size: 28px;
+    }
+    .list-md {
+        margin-bottom: 8%;
+    }
+    .style-icon{
+        margin-right: 48%;
+    }
+}
+
+@media (min-width: 1400px) {
+    .principal-title{
+        font-size: 30px;
+    }
+    .list-md {
+        margin-bottom: 7%;
+    }
+    .style-icon{
+        margin-right: 49%;
+    }
+}
+
+@media (min-width: 1640px) {
+    .principal-title{
+        font-size: 30px;
+    }
+    .list-md {
+        margin-bottom: 6%;
+    }
+    .style-icon{
+        margin-right: 50%;
+    }
+}
+

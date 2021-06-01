@@ -4,7 +4,10 @@ import { Observable } from "rxjs";
 import { APIMiddleware } from "../APIMiddleware";
 import { apiUrls } from "../../../common/constants";
 
-const URL = apiUrls.AUTH;
+const AUTH = apiUrls.AUTH;
+const VALIDATE_ROLE = apiUrls.VALIDATE_ROLE;
+const VALIDATE_USER_ACTIVITY = apiUrls.VALIDATE_USER_ACTIVITY;
+const GET_AFFILIATE_USERS = apiUrls.GET_AFFILIATE_USERS;
 
 @Injectable({
   providedIn: "root",
@@ -17,6 +20,18 @@ export class LoginService {
   ) {}
 
   loginUser(token: string): Observable<any> {
-    return this.apiMiddleware.doAuthenticate(URL, token);
+    return this.apiMiddleware.doAuthenticate(AUTH, token);
+  }
+
+  validateRole(token: string): Observable<any> {
+    return this.apiMiddleware.validateRole(VALIDATE_ROLE, token);
+  }
+
+  checkUserActivity(token): Observable<any> {
+    return this.apiMiddleware.checkUserActivity(VALIDATE_USER_ACTIVITY, token);
+  }
+
+  getAffiliateUsers(token: string): Observable<any> {
+    return this.apiMiddleware.checkUserActivity(GET_AFFILIATE_USERS, token);
   }
 }

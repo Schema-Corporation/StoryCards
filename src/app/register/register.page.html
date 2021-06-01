@@ -5,22 +5,6 @@
       <ion-item>
         <ion-label class="ion-text-center">Registro</ion-label>
       </ion-item>
-      <!-- <div class="progress-bar">
-        <div class="step">
-            <div class="bullet-line" [ngClass]="{'step-colored': step == 1}"  (click)="step=1">
-              <span></span>
-            </div>
-            <div class="check fas fa-check">
-            </div>
-        </div>
-        <div class="step">
-          <div class="bullet" [ngClass]="{'step-colored': step == 2}" (click)="step=2">
-            <span></span>
-          </div>
-          <div class="check fas fa-check">
-          </div>
-        </div>
-      </div>  -->
     </div>
 
     <div *ngIf="step==1">
@@ -96,7 +80,7 @@
 						</div>-->
 						
 						<ion-item>
-							<ion-label style="display: none">Seleccionar país</ion-label>
+							<ion-label style="display: none; color: white;">Seleccionar país</ion-label>
 							<ionic-selectable
 							  item-content
 							  font-family="ZizouSlabLight"
@@ -110,7 +94,7 @@
 							  closeButtonText="X"
 							  closeButtonSlot="end"
 							  [searchFailText]="'No se han encontrado países.'"
-							  color="black"
+							  color="white"
 							  [(ngModel)]="countrySelected"
 							  itemTextField="nombre"
 							  itemValueField="phone_code"
@@ -180,7 +164,7 @@
 						<ion-checkbox class="privacy-policy" color="primary" [(ngModel)]="privacyPolicy" id="privacyPolicy" name="privacyPolicy" formControlName="acceptPrivacyPolicy">
 						</ion-checkbox>
 						<span class="read-privacy-policy">
-							He leído y acepto la <a class="clickable" (click)="openPrivacyPolicy()">Política de Privacidad</a>
+							He leído y acepto la <a class="clickable" href="assets/privacy_policy/Política de Privacidad - Storytelling UPC.pdf" target="_blank">Política de Privacidad</a>
 						</span>
 					</div>
 

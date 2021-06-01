@@ -16,7 +16,7 @@ export class CanvasPage implements OnInit {
   public formats: any;
   public listFormats: any = [];
 
-  constructor(private alertCtrl: AlertController,
+  constructor(public alertCtrl: AlertController,
     public platform: Platform,
     public navCtrl: NavController,
     public toastController: ToastController,
@@ -44,6 +44,10 @@ export class CanvasPage implements OnInit {
         this._canvasService.getCanvasFromUser(token.value.token).subscribe(
           canvas => {
             this.listFormats = canvas;
+          }, 
+          error => {
+            this.closeSession();
+            console.log('error: ', error);
           }
         );
       },
@@ -86,6 +90,10 @@ export class CanvasPage implements OnInit {
         this._canvasService.getCanvasById(formatId, token.value.token).subscribe(
           canvas => {
             this.goToEditFormatPage(canvas.type, canvas);
+          },
+          error => {
+            this.closeSession();
+            console.log('error: ', error);
           }
         );
       },
@@ -122,6 +130,10 @@ export class CanvasPage implements OnInit {
           result => {
             this.getFormats();
             this.presentToast("El formato ha sido eliminado con éxito");
+          }, 
+          error => {
+            this.closeSession();
+            console.log('error: ', error);
           }
         );
       },

@@ -20,6 +20,7 @@ import { FileOpener } from '@ionic-native/file-opener/ngx'
 
 import { IonicSelectableModule } from 'ionic-selectable';
 import { SettingComponent } from './menu/setting/setting.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 
 @NgModule({
@@ -31,7 +32,8 @@ import { SettingComponent } from './menu/setting/setting.component';
     IonicModule.forRoot(), 
     AppRoutingModule,
     NgxIndexedDBModule.forRoot(environment.INDEXEDDB_CONFIG),
-    IonicSelectableModule
+    IonicSelectableModule,
+    NgbModule
   ],
   providers: [
     AuthService,
