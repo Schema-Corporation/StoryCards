@@ -12,7 +12,7 @@
   <div *ngIf="showRoomDetails" class="room-details">
     <p class="small-title">{{room.name}}</p>
     <p class="small-title">El código de su sala es el siguiente: </p>
-    <p class="small-title boxed">{{room.roomCode}}</p>
+    <p class="small-title boxed" id="room-code">{{room.roomCode}}</p>
     <p class="small-title">Lista de participantes: </p>
     <ion-list>
       <ion-item *ngFor="let participant of _guestService.guests">

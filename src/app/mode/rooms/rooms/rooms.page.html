@@ -42,7 +42,7 @@
       Aún no cuenta con ninguna sala creada
     </ion-label>
   </div>
-  <ion-fab class="style-icon" *ngIf="!platform.is('ios')" (click)="chooseRoomName()" vertical="bottom" horizontal="end" slot="fixed">
+  <ion-fab id="button-add" class="style-icon" *ngIf="!platform.is('ios')" (click)="chooseRoomName()" vertical="bottom" horizontal="end" slot="fixed">
     <ion-fab-button>
       <ion-icon class="ion-icon-white" name="add"></ion-icon>
     </ion-fab-button>
