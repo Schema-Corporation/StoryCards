@@ -27,11 +27,11 @@
 
       <ion-item *ngFor="let item of getFormatOptions()">
         <ion-label class="text-option">{{item.text}}</ion-label>
-        <ion-radio slot="end" name="{{item.name}}" value="{{item.value}}"></ion-radio>
+        <ion-radio id="btn-formato-{{item.value}}" slot="end" name="{{item.name}}" value="{{item.value}}"></ion-radio>
       </ion-item>
 
     </ion-radio-group>
   </ion-list>
 
-  <ion-button  class="format-button" size="large" (click)="showCanvasPage()" disabled="{{this.selectedVal == 0 || this.selectedVal == null}}">Generar formato</ion-button>
+  <ion-button id="btn-add-formato" class="format-button" size="large" (click)="showCanvasPage()" disabled="{{this.selectedVal == 0 || this.selectedVal == null}}">Generar formato</ion-button>
 </ion-content>

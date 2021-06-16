@@ -400,6 +400,7 @@ export class StorytellingPage implements OnInit {
           placeholder: 'Nombre de formato',
           value: this.name,
           attributes: {
+            id: 'txt-canvasName',
             maxlength: 100
           }
         }

@@ -56,7 +56,7 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="stage" maxlength="{{this.maximumCharactersAllowed500}}" (ionChange)="writeStage($event)" placeholder="Describe el ambiente y el momento en que se desenvuelve el personaje y se desarrolla la historia."></ion-textarea>
+        <ion-textarea id="txt-stage" [value]="stage" maxlength="{{this.maximumCharactersAllowed500}}" (ionChange)="writeStage($event)" placeholder="Describe el ambiente y el momento en que se desenvuelve el personaje y se desarrolla la historia."></ion-textarea>
       </ion-item>
       <ion-label class="count-letters">{{this.stageCharacters}} / {{this.maximumCharactersAllowed500}}</ion-label>
     </div>
@@ -67,11 +67,11 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="character" maxlength="{{this.maximumCharactersAllowed500}}" (ionChange)="writeCharacter($event)" placeholder="Describe el personaje con detalle (aspectos sociales, físicos o psicológicos). También algunos antecedentes relevantes."></ion-textarea>
+        <ion-textarea id="txt-character" [value]="character" maxlength="{{this.maximumCharactersAllowed500}}" (ionChange)="writeCharacter($event)" placeholder="Describe el personaje con detalle (aspectos sociales, físicos o psicológicos). También algunos antecedentes relevantes."></ion-textarea>
       </ion-item>
       <ion-label class="count-letters">{{this.characterCharacters}} / {{this.maximumCharactersAllowed500}}</ion-label>
     </div>
-    <ion-button class="next-button" (click)="step=2">Siguiente</ion-button>
+    <ion-button id="btn-next-1" class="next-button" (click)="step=2">Siguiente</ion-button>
   </div>
   <div id="step2" *ngIf="step==2">
     <div class="item">
@@ -81,7 +81,7 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="conflict" maxlength="{{this.maximumCharactersAllowed1000}}" (ionChange)="writeConflict($event)" placeholder="Describe los desafíos o problemas que enfrentarán los personajes."></ion-textarea>
+        <ion-textarea id="txt-conflict" [value]="conflict" maxlength="{{this.maximumCharactersAllowed1000}}" (ionChange)="writeConflict($event)" placeholder="Describe los desafíos o problemas que enfrentarán los personajes."></ion-textarea>
       </ion-item>
       <ion-label class="count-letters">{{this.conflictCharacters}} / {{this.maximumCharactersAllowed1000}}</ion-label>
     </div>
@@ -92,7 +92,7 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="critical" maxlength="{{this.maximumCharactersAllowed1000}}" (ionChange)="writeCritical($event)" placeholder="Detalla con precisión cómo se generó el problema, como se presentó y cómo se sintió el personaje."></ion-textarea>
+        <ion-textarea id="txt-critical" [value]="critical" maxlength="{{this.maximumCharactersAllowed1000}}" (ionChange)="writeCritical($event)" placeholder="Detalla con precisión cómo se generó el problema, como se presentó y cómo se sintió el personaje."></ion-textarea>
       </ion-item>
       <ion-label class="count-letters">{{this.criticalCharacters}} / {{this.maximumCharactersAllowed1000}}</ion-label>
     </div>
@@ -103,12 +103,12 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="support" maxlength="{{this.maximumCharactersAllowed1000}}" (ionChange)="writeSupport($event)" placeholder="Detalla qué recursos o habilidades necesita el personaje para superar el conflicto."></ion-textarea>
+        <ion-textarea id="txt-support" [value]="support" maxlength="{{this.maximumCharactersAllowed1000}}" (ionChange)="writeSupport($event)" placeholder="Detalla qué recursos o habilidades necesita el personaje para superar el conflicto."></ion-textarea>
       </ion-item>
       <ion-label class="count-letters">{{this.supportCharacters}} / {{this.maximumCharactersAllowed1000}}</ion-label>
     </div>
     <ion-button class="back-button" (click)="step=1">Atrás</ion-button>
-    <ion-button class="next-button" (click)="step=3">Siguiente</ion-button>
+    <ion-button id="btn-next-2" class="next-button" (click)="step=3">Siguiente</ion-button>
   </div>
   <div id="step3" *ngIf="step==3">
     <div class="item">
@@ -118,7 +118,7 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="overcoming" maxlength="{{this.maximumCharactersAllowed1000}}" (ionChange)="writeOvercoming($event)" placeholder="Describe la manera en que el personaje usó sus fortalezas o características para superar el problema."></ion-textarea>
+        <ion-textarea id="txt-overcoming" [value]="overcoming" maxlength="{{this.maximumCharactersAllowed1000}}" (ionChange)="writeOvercoming($event)" placeholder="Describe la manera en que el personaje usó sus fortalezas o características para superar el problema."></ion-textarea>
       </ion-item>
       <ion-label class="count-letters">{{this.overcomingCharacters}} / {{this.maximumCharactersAllowed1000}}</ion-label>
     </div>
@@ -129,12 +129,12 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="outcome" maxlength="{{this.maximumCharactersAllowed1000}}" (ionChange)="writeOutcome($event)" placeholder="Describe qué aprendió el héroe de esta experiencia y cuál es la moraleja de la historia."></ion-textarea>
+        <ion-textarea id="txt-outcome" [value]="outcome" maxlength="{{this.maximumCharactersAllowed1000}}" (ionChange)="writeOutcome($event)" placeholder="Describe qué aprendió el héroe de esta experiencia y cuál es la moraleja de la historia."></ion-textarea>
       </ion-item>
       <ion-label class="count-letters">{{this.outcomeCharacters}} / {{this.maximumCharactersAllowed1000}}</ion-label>
     </div>
     <ion-button class="back-button" (click)="step=2">Atrás</ion-button>
-    <ion-button class="next-button" (click)="step=4">Siguiente</ion-button>
+    <ion-button id="btn-next-3" class="next-button" (click)="step=4">Siguiente</ion-button>
   </div>
   <div id="step4" *ngIf="step==4">
     <div class="item">
@@ -144,11 +144,11 @@
         </div>
       </div>
       <ion-item class="item-item">
-        <ion-textarea [value]="complete" maxlength="{{this.maximumCharactersAllowed3000}}" (ionChange)="writeComplete($event)" placeholder="Integra las siete partes previamente descritas en una historia coherente."></ion-textarea>
+        <ion-textarea id="txt-complete" [value]="complete" maxlength="{{this.maximumCharactersAllowed3000}}" (ionChange)="writeComplete($event)" placeholder="Integra las siete partes previamente descritas en una historia coherente."></ion-textarea>
       </ion-item>
       <ion-label class="count-letters">{{this.completeCharacters}} / {{this.maximumCharactersAllowed3000}}</ion-label>
     </div>
     <ion-button class="back-button" (click)="step=3">Atrás</ion-button>
-    <ion-button class="next-button" (click)="finishCanvas()">Finalizar</ion-button>
+    <ion-button id="btn-finish" class="next-button" (click)="finishCanvas()">Finalizar</ion-button>
   </div>
 </ion-content>
