@@ -30,7 +30,7 @@
 						</div>
 				</div>
 					<div class="container-login100-form-btn">
-						<ion-button [disabled]="!validationForm.valid" expand="block" class="login100-form-btn" (click)="verify()">
+						<ion-button id="btn-verify-book" [disabled]="!validationForm.valid" expand="block" class="login100-form-btn" (click)="verify()">
 							Validar
 						</ion-button>
 					</div>
@@ -82,6 +82,7 @@
 						<ion-item>
 							<ion-label style="display: none; color: white;">Seleccionar país</ion-label>
 							<ionic-selectable
+							  id="btn-select-country"
 							  item-content
 							  font-family="ZizouSlabLight"
 							  formControlName="location"
@@ -164,7 +165,7 @@
 						<ion-checkbox class="privacy-policy" color="primary" [(ngModel)]="privacyPolicy" id="privacyPolicy" name="privacyPolicy" formControlName="acceptPrivacyPolicy">
 						</ion-checkbox>
 						<span class="read-privacy-policy">
-							He leído y acepto la <a class="clickable" href="assets/privacy_policy/Política de Privacidad - Storytelling UPC.pdf" target="_blank">Política de Privacidad</a>
+							He leído y acepto la <a class="clickable" href="https://libreriaeditorial.upc.edu.pe/legals/privacy-policy" target="_blank">Política de Privacidad</a>
 						</span>
 					</div>
 
@@ -178,7 +179,7 @@
 					</div>
 					
 					<div class="container-login100-form-btn">
-						<ion-button (click)="register()" [disabled]="!registrationForm.valid || !privacyPolicy" expand="block" class="login100-form-btn">
+						<ion-button id="btn-confirm-register" (click)="register()" [disabled]="!registrationForm.valid || !privacyPolicy" expand="block" class="login100-form-btn">
 							Registrarse
 						</ion-button>
 					</div>

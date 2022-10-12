@@ -44,12 +44,12 @@
       <ion-label class="ion-text-center">Arquetipos</ion-label>
     </ion-item>
     <div style="display: flex;">
-      <ion-button *ngIf="character != -1" (click)="addStep()" class="next-button-flex" size="medium">Siguiente
+      <ion-button id="btn-next-1" *ngIf="character != -1" (click)="addStep()" class="next-button-flex" size="medium">Siguiente
       </ion-button>
     </div>
     <ion-grid>
       <ion-row>
-        <ion-col [ngClass]="{'character-selected': character == 1}" sizeLg="4" sizeMd="4" sizeXs="6">
+        <ion-col id="card-character-1" [ngClass]="{'character-selected': character == 1}" sizeLg="4" sizeMd="4" sizeXs="6">
           <span class="first-border"></span>
           <span class="second-border"></span>
           <span class="third-border"></span>
@@ -66,7 +66,7 @@
             </div>
           </div>
         </ion-col>
-        <ion-col [ngClass]="{'character-selected': character == 2}" sizeLg="4" sizeMd="4" sizeXs="6">
+        <ion-col id="card-character-2" [ngClass]="{'character-selected': character == 2}" sizeLg="4" sizeMd="4" sizeXs="6">
           <span class="first-border"></span>
           <span class="second-border"></span>
           <span class="third-border"></span>
@@ -83,7 +83,7 @@
             </div>
           </div>
         </ion-col>
-        <ion-col [ngClass]="{'character-selected': character == 3}" sizeLg="4" sizeMd="4" sizeXs="6">
+        <ion-col id="card-character-3" [ngClass]="{'character-selected': character == 3}" sizeLg="4" sizeMd="4" sizeXs="6">
           <span class="first-border"></span>
           <span class="second-border"></span>
           <span class="third-border"></span>
@@ -100,7 +100,7 @@
             </div>
           </div>
         </ion-col>
-        <ion-col [ngClass]="{'character-selected': character == 4}" sizeLg="4" sizeMd="4" sizeXs="6">
+        <ion-col id="card-character-4" [ngClass]="{'character-selected': character == 4}" sizeLg="4" sizeMd="4" sizeXs="6">
           <span class="first-border"></span>
           <span class="second-border"></span>
           <span class="third-border"></span>
@@ -264,7 +264,7 @@
       </ion-item>
     </div>
     <div style="display: flex;">
-      <ion-button *ngIf="validatePoints()" (click)="addStep()" class="next-button-flex" size="medium">Siguiente
+      <ion-button id="btn-next-2" *ngIf="validatePoints()" (click)="addStep()" class="next-button-flex" size="medium">Siguiente
       </ion-button>
     </div>
     <ion-grid>
@@ -290,7 +290,7 @@
                 </button>
               </ion-col>
               <ion-col class="icon-col">
-                <button ion-button class="buttonSizeRight">
+                <button ion-button class="buttonSizeRight" id="btn-first-ability">
                   <ion-icon name="add-circle-outline" class="icon-plus" (click)="updatePoints(1, 'plus')"></ion-icon>
                 </button>
               </ion-col>
@@ -318,7 +318,7 @@
                 </button>
               </ion-col>
               <ion-col class="icon-col">
-                <button ion-button class="buttonSizeRight">
+                <button ion-button class="buttonSizeRight" id="btn-second-ability">
                   <ion-icon name="add-circle-outline" class="icon-plus" (click)="updatePoints(2, 'plus')"></ion-icon>
                 </button>
               </ion-col>
@@ -348,7 +348,7 @@
                 </button>
               </ion-col>
               <ion-col class="icon-col">
-                <button ion-button class="buttonSizeRight">
+                <button ion-button class="buttonSizeRight" id="btn-third-ability">
                   <ion-icon name="add-circle-outline" class="icon-plus" (click)="updatePoints(3, 'plus')"></ion-icon>
                 </button>
               </ion-col>
@@ -376,14 +376,14 @@
                 </button>
               </ion-col>
               <ion-col class="icon-col">
-                <button ion-button class="buttonSizeRight">
+                <button ion-button class="buttonSizeRight" id="btn-fourth-ability">
                   <ion-icon name="add-circle-outline" class="icon-plus" (click)="updatePoints(4, 'plus')"></ion-icon>
                 </button>
               </ion-col>
             </ion-row>
           </ion-card>
           <ion-card class="fullSizeCard" *ngIf="isNext == 4">
-            <ion-img class="add-competency" src="/assets/util/add_competency.png" (click)="showAlert(4)"></ion-img>
+            <ion-img id="btn-add-competency-4" class="add-competency" src="/assets/util/add_competency.png" (click)="showAlert(4)"></ion-img>
           </ion-card>
         </ion-col>
       </ion-row>
@@ -409,14 +409,14 @@
                 </button>
               </ion-col>
               <ion-col class="icon-col">
-                <button ion-button class="buttonSizeRight">
+                <button ion-button class="buttonSizeRight" id="btn-fifth-ability">
                   <ion-icon name="add-circle-outline" class="icon-plus" (click)="updatePoints(5, 'plus')"></ion-icon>
                 </button>
               </ion-col>
             </ion-row>
           </ion-card>
           <ion-card class="fullSizeCard" *ngIf="isNext == 5">
-            <ion-img class="add-competency" src="/assets/util/add_competency.png" (click)="showAlert(5)"></ion-img>
+            <ion-img id="btn-add-competency-5" class="add-competency" src="/assets/util/add_competency.png" (click)="showAlert(5)"></ion-img>
           </ion-card>
         </ion-col>
         <ion-col>
@@ -440,14 +440,14 @@
                 </button>
               </ion-col>
               <ion-col class="icon-col">
-                <button ion-button class="buttonSizeRight">
+                <button ion-button class="buttonSizeRight" id="btn-sixth-ability">
                   <ion-icon name="add-circle-outline" class="icon-plus" (click)="updatePoints(6, 'plus')"></ion-icon>
                 </button>
               </ion-col>
             </ion-row>
           </ion-card>
           <ion-card class="fullSizeCard" *ngIf="isNext == 6">
-            <ion-img class="add-competency" src="/assets/util/add_competency.png" (click)="showAlert(6)"></ion-img>
+            <ion-img id="btn-add-competency-6" class="add-competency" src="/assets/util/add_competency.png" (click)="showAlert(6)"></ion-img>
           </ion-card>
         </ion-col>
       </ion-row>
@@ -473,14 +473,14 @@
                 </button>
               </ion-col>
               <ion-col class="icon-col">
-                <button ion-button class="buttonSizeRight">
+                <button ion-button class="buttonSizeRight" id="btn-seventh-ability">
                   <ion-icon name="add-circle-outline" class="icon-plus" (click)="updatePoints(7, 'plus')"></ion-icon>
                 </button>
               </ion-col>
             </ion-row>
           </ion-card>
           <ion-card class="fullSizeCard" *ngIf="isNext == 7">
-            <ion-img class="add-competency" src="/assets/util/add_competency.png" (click)="showAlert(7)"></ion-img>
+            <ion-img id="btn-add-competency-7" class="add-competency" src="/assets/util/add_competency.png" (click)="showAlert(7)"></ion-img>
           </ion-card>
         </ion-col>
         <ion-col>
@@ -496,12 +496,12 @@
       </div>
     </div>
     <ion-item class="challenge-item">
-      <ion-textarea value="{{challenge}}" maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeChallenge($event)"
+      <ion-textarea id="txt-challenge" value="{{challenge}}" maxlength="{{this.maximumCharactersAllowed}}" (ionChange)="writeChallenge($event)"
         placeholder="Escribe tu reto ..."></ion-textarea>
     </ion-item>
     <ion-label class="count-letters">{{this.challengeCharacters}} / {{this.maximumCharactersAllowed}}</ion-label>
     <div style="display: flex;">
-      <ion-button class="next-button-flex" size="medium" *ngIf="validateChallenge()" (click)="sendChallenge()">Enviar
+      <ion-button id="btn-send-challenge" class="next-button-flex" size="medium" *ngIf="validateChallenge()" (click)="sendChallenge()">Enviar
         Reto</ion-button>
     </div>
     <!--
